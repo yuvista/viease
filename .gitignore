@@ -3,6 +3,6 @@ _Store
 *storage/
 .DS_Store
 public/.htaccess
-/node_modules
+*/node_modules
 vendor/
 .env

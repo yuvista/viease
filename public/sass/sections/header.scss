@@ -1,0 +1,50 @@
+.console-header {
+    height: $header-height;
+    width: 100%;
+    position:fixed;
+    z-index:99999;
+    background: #fff;
+    top:0;
+    left:0;
+    width: 100%;
+    border-bottom: 1px solid $light-border-color;
+    border-top: 4px solid $brand-success;
+
+    .left {
+        width: $sidebar-width;
+        height:100%;
+        overflow:hidden;
+
+        .logo {
+            height:100%;
+            font-size: 22px;
+            line-height: 50px;
+            padding-top:20px;
+            padding-left:20px;
+            border-right: $light-border-color;
+
+            i {
+                padding:0 10px;
+            }
+        }
+    }
+
+    .right {
+        height:100%;
+        overflow:hidden;
+        .top-nav {
+            position:absolute;
+            bottom:-1px;
+            left: $sidebar-width - 1;
+            width:100%;
+
+            .navbar {
+                li.active a {
+                    color: #fff;
+                    background: $brand-success;
+                }
+            }
+        }
+    }
+}
+

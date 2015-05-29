@@ -1,0 +1,78 @@
+// Core variables and mixins
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "utils";
+@import "override.scss";
+@import "config.scss";
+@import "sections/header.scss";
+@import "sections/sidebar.scss";
+@import "sections/page-header.scss";
+@import "sections/tab-nav.scss";
+
+// common
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    padding-top: $header-height;
+}
+
+a {
+    color: #666;
+    &:hover {
+        color: #333;
+        text-decoration:none;
+    }
+}
+
+.table-box {
+    display: table;
+    .table-cell {
+        display: table-cell;
+        overflow: hidden;
+        vertical-align: top;
+    }
+}
+
+// layout
+.console-wrapper {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    overflow: auto;
+    height: 100%;
+    position: relative;
+}
+.console-container {
+    display: table-row;
+    height:100%;
+}
+
+.console-sidebar-wrapper {
+    width: $sidebar-width;
+    display: table-cell;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.console-content-wrapper {
+    display: table-cell;
+    position: relative;
+    vertical-align: top;
+
+    .console-content {
+
+    }
+
+    .console-content-footer {
+        background: #ebeef0;
+        color: #a2acb3;
+        padding: 5px 20px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
