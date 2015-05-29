@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+_Store
+.phpintel/
+*storage/
+.DS_Store
+public/.htaccess
+/node_modules
+vendor/
+=======
+/vendor
+/node_modules
+>>>>>>> 6575cb74f844afe9b0b1797ce8feca6970a05766
+.env
