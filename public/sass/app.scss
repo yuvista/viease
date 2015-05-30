@@ -23,6 +23,9 @@ a {
     color: #666;
     &:hover {
         color: #333;
+    }
+    &:focus, &:hover, &:hover {
+        outline: none;
         text-decoration:none;
     }
 }
