@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
-    showMenu('public');
-
     // 顶部菜单点击切换左侧菜单
-    $(document).on('click', '#top-nav > ul > li > a', function (e) {
+    $(document).on('click', '.top-nav > ul.navbar-main > li > a', function (e) {
         var $this = $(e.target);
         var $group = $this.data('group');
         $this.parent().addClass('active').siblings().removeClass('active');
         showMenu($group);
     });
+
+    $('.top-nav > ul > li > a:first').trigger('click');
 
     // 左侧菜单点击
     $(document).on('click', '#sidebar-nav a', function (e) {

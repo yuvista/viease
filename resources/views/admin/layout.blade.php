@@ -40,24 +40,37 @@
     </div>
     <div class="right table-cell">
       <div class="top-nav">
-        <div class="navbar">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div id="top-nav">
-            <ul class="nav navbar-nav">
-              @foreach($menus as $group)
-              <li>
-                <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
-              </li>
-              @endforeach
-            </ul>
-          </div>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
+        <ul class="nav navbar-nav navbar-main">
+          @foreach($menus as $group)
+          <li>
+            <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
+          </li>
+          @endforeach
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    Admin
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#dropdown1" data-toggle="tab">账号设置</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#dropdown2" data-toggle="tab">注销</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
       </div>
     </div>
   </header>
