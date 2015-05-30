@@ -4,5 +4,6 @@ _Store
 .DS_Store
 public/.htaccess
 */node_modules
+public/.sass-cache/
 vendor/
 .env

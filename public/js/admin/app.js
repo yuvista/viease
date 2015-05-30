@@ -1,31 +1,41 @@
 $(document).ready(function () {
 
     showMenu('public');
-    $('.navbar-nav li').click(function (e) {
-        $('.navbar-nav li').removeClass('active');
-        $(this).addClass('active');
-        showMenu($(this).find('a').attr("data-module"));
+
+    // 顶部菜单点击切换左侧菜单
+    $(document).on('click', '#top-nav > ul > li > a', function (e) {
+        var $this = $(e.target);
+        var $group = $this.data('group');
+        $this.parent().addClass('active').siblings().removeClass('active');
+        showMenu($group);
     });
-    /**
-     * 左菜单开启样式
-     */
-    $('.second-nav').prev('a').click(function () {
-        if ($(this).hasClass('on')) {
-            $(this).parent().find('.second-nav').slideUp(100);
-            $(this).parent().find('.on').removeClass('on');
-        }else{
-            $('.ListNav').find('.on').removeClass('on');
-            $(this).parent().find('.second-nav').slideDown(100);
-            $(this).addClass('on');
+
+    // 左侧菜单点击
+    $(document).on('click', '#sidebar-nav a', function (e) {
+        var $this = $(e.target), $active;
+        $this.is('a') || ($this = $this.closest('a'));
+
+        // 折叠同伴
+        // $active = $this.parent().siblings(".active");
+        // $active && $active.toggleClass('active').find('> ul:visible').slideUp(200);
+
+        if ($this.parent().hasClass('active')) {
+            $this.next().slideUp(200);
+            $this.find('span i').addClass('ion-ios-arrow-right').removeClass('ion-ios-arrow-down');
+        } else {
+            $this.next().slideDown(200);
+            $this.find('span i').addClass('ion-ios-arrow-down').removeClass('ion-ios-arrow-right');
         }
+        $this.parent().toggleClass('active');
+
+        $this.next().is('ul') && e.preventDefault();
     });
 });
 
 /**
  * 展示左菜单
  */
-function showMenu(module) {
-    $("#sidebar-nav").find('.list-nav').hide();
-    $(".list-nav-" + module).show();
-    //$(".list-nav-" + module).find('.second-nav').hide();
+function showMenu(group) {
+    $("#sidebar-nav > ul").hide();
+    $(".nav-group-" + group).show();
 }

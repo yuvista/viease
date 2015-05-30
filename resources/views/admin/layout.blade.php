@@ -48,11 +48,11 @@
               <span class="icon-bar"></span>
             </button>
           </div>
-          <div>
+          <div id="top-nav">
             <ul class="nav navbar-nav">
               @foreach($menus as $group)
               <li>
-                <a href="javascript:;" data-module="{{$group['group']}}">{{$group['label']}}</a>
+                <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
               </li>
               @endforeach
             </ul>
@@ -64,7 +64,7 @@
   <div class="console-wrapper">
     <section class="console-container">
       <aside class="console-sidebar-wrapper">
-      @include('admin.partials.menu');
+      @include('admin.partials.sidebar');
       </aside>
       <section class="console-content-wrapper">
         @yield('content')
