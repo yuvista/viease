@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+ * Admin
+ */
+$admin = [
+            'prefix'     => 'admin',
+            'namespace'  => 'Admin'
+         ];
+
+Route::group($admin, function(){
+    Route::get('/', 'PageController@index');
+});
