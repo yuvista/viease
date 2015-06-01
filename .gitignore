@@ -1,6 +1,7 @@
 _Store
 .phpintel/
 *storage/
+composer.lock
 .DS_Store
 public/.htaccess
 */node_modules
