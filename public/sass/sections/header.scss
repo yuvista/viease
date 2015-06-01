@@ -21,9 +21,9 @@
         overflow:hidden;
 
         .logo {
-            height:100%;
+            height:$header-height;
             font-size: 22px;
-            line-height: 50px;
+            line-height: $header-height;
             //padding-top:10px;
             padding-left:20px;
             border-right: $light-border-color;
