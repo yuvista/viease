@@ -26,6 +26,9 @@
             height:100%;
             font-size: 22px;
             padding-top:10px;
+            line-height: 50px;
+            //padding-top:10px;
+            padding-left:20px;
             border-right: $light-border-color;
 
             i {
@@ -36,19 +39,26 @@
 
     .right {
         height:100%;
-        overflow:hidden;
+        &.table-cell {
+            overflow:visible;
+        }
         .top-nav {
             position:absolute;
             bottom:-1px;
             width:100%;
 
-            .navbar {
-                li.active a {
+            > ul > li {
+                > a {
+                    height: $header-height;
+                    line-height: $header-height;
+                    padding:0 15px;
+                }
+                &.active a {
                     color: #fff;
                     background: $brand-success;
                 }
             }
-        }
+    }
     }
 }
 

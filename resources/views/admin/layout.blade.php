@@ -60,13 +60,37 @@
             </div>
           </div>
         </div>
+        <ul class="nav navbar-nav navbar-main">
+          @foreach($menus as $group)
+          <li>
+            <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
+          </li>
+          @endforeach
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    Admin
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#dropdown1" data-toggle="tab">账号设置</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#dropdown2" data-toggle="tab">注销</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
       </div>
     </div>
   </header>
   <div class="console-wrapper">
     <section class="console-container">
       <aside class="console-sidebar-wrapper">
-      @include('admin.partials.menu')
+      @include('admin.partials.sidebar');
       </aside>
       <section class="console-content-wrapper">
         @yield('content')

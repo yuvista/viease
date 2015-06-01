@@ -1,31 +1,44 @@
-showMenu('account');
-$('#top-navbar li').click(function(e) {
-    $('#top-navbar li').removeClass('active');
-    $(this).addClass('active');
-    showMenu($(this).find('a').attr("data-module"));
-});
-/**
-     * 左菜单开启样式
-     */
-$('.second-nav').prev('a').click(function() {
-    if ($(this).parent().find('.second-nav').is(':hidden')) {
-        $(this).parent().find('.second-nav').show(100);
-        $(this).parent().find('.on').removeClass('on');
-    } else {
-        $(this).parent().find('.second-nav').hide(100);
-        $(this).addClass('on');
-    }
+
+$(document).ready(function () {
+
+    // 顶部菜单点击切换左侧菜单
+    $(document).on('click', '.top-nav > ul.navbar-main > li > a', function (e) {
+        var $this = $(e.target);
+        var $group = $this.data('group');
+        $this.parent().addClass('active').siblings().removeClass('active');
+        showMenu($group);
+    });
+
+    $('.top-nav > ul > li > a:first').trigger('click');
+
+    // 左侧菜单点击
+    $(document).on('click', '#sidebar-nav a', function (e) {
+        var $this = $(e.target), $active;
+        $this.is('a') || ($this = $this.closest('a'));
+
+        // 折叠同伴
+        // $active = $this.parent().siblings(".active");
+        // $active && $active.toggleClass('active').find('> ul:visible').slideUp(200);
+
+        if ($this.parent().hasClass('active')) {
+            $this.next().slideUp(200);
+            $this.find('span i').addClass('ion-ios-arrow-right').removeClass('ion-ios-arrow-down');
+        } else {
+            $this.next().slideDown(200);
+            $this.find('span i').addClass('ion-ios-arrow-down').removeClass('ion-ios-arrow-right');
+        }
+        $this.parent().toggleClass('active');
+
+        $this.next().is('ul') && e.preventDefault();
+    });
 });
 
 /**
  * 展示左菜单
  */
-function showMenu(module) {
-    $("#sidebar-nav").find('.list-nav').hide();
-    $(".list-nav-" + module).show();
-    $('#top-navbar li').each(function() {
-        if ($(this).find('a').attr('data-module') == module) {
-            $(this).addClass('active');
-        }
-    });
+
+function showMenu(group) {
+    $("#sidebar-nav > ul").hide();
+    $(".nav-group-" + group).show();
+
 }
