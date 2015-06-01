@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="form-wrapper">
-    <form class="form col-md-4" action="{{ admin_url('auth/login') }}" method="post">
+    <form class="form" action="{{ admin_url('auth/login') }}" method="post">
         <div class="page-header">
           <h2 class="text-center">用户登录</h2>
         </div>
