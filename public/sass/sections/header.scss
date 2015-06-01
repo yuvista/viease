@@ -1,5 +1,5 @@
 .console-header {
-    height: $header-height;
+    height: $header-height + 4;
     width: 100%;
     position:fixed;
     z-index:99999;
@@ -12,9 +12,7 @@
 
     .header-inner
     {
-        width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
+        display:table;
     }
 
     .left {
@@ -25,7 +23,6 @@
         .logo {
             height:100%;
             font-size: 22px;
-            padding-top:10px;
             line-height: 50px;
             //padding-top:10px;
             padding-left:20px;
@@ -43,8 +40,6 @@
             overflow:visible;
         }
         .top-nav {
-            position:absolute;
-            bottom:-1px;
             width:100%;
 
             > ul > li {
