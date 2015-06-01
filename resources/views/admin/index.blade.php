@@ -91,6 +91,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="select" class="col-lg-2 control-label">提示消息</label>
+                    <div class="col-lg-10">
+                        <a href="javascript:alert('好帅！');" class="btn btn-info">alert('好帅！');</a>
+                        <a href="javascript:success('成功！');" class="btn btn-success">success('成功！');</a>
+                        <a href="javascript:error('失败！');" class="btn btn-danger">error('失败！');</a>
+                        <a href="javascript:warning('请安全操作');" class="btn btn-warning">warning('请安全操作');</a>
+                        <a href="javascript:confirm('确认删除么？');" class="btn btn-default">confirm('确认删除么？');</a>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button class="btn btn-default">取消</button>
                         <button type="submit" class="btn btn-primary">提交</button>
