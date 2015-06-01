@@ -62,11 +62,11 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#dropdown1" data-toggle="tab">账号设置</a>
+                        <a href="#dropdown1">账号设置</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#dropdown2" data-toggle="tab">注销</a>
+                        <a href="#dropdown2">注销</a>
                     </li>
                 </ul>
             </li>
