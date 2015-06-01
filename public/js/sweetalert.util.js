@@ -1,5 +1,5 @@
 var defaultTimer = 500000;
- 
+
 /**
  * 成功消息
  *
@@ -18,7 +18,7 @@ function success(title, message, timer) {
             timer: timer || defaultTimer
         });
 }
- 
+
 /**
  * 普通消息
  *
@@ -37,7 +37,7 @@ function info(title, message, timer) {
             timer: timer || defaultTimer
         });
 }
- 
+
 /**
  * 失败消息
  *
@@ -56,7 +56,7 @@ function error(title, message, timer) {
             timer: timer || defaultTimer
         });
 }
- 
+
 /**
  * 警告消息
  *
@@ -81,7 +81,7 @@ function warning(title, message, callback, confirmButtonText, closeOnConfirm, sh
         html: true
     }, callback);
 }
- 
+
 /**
  * 自动关闭
  *
@@ -94,20 +94,23 @@ function warning(title, message, callback, confirmButtonText, closeOnConfirm, sh
 function flush(title, message, timer) {
     return swal({   title: title,   text: message,   timer: timer || 2000 });
 }
- 
+
 window.alert = function(string){
     swal('' + string);
 };
- 
+
 window.confirm = function(title){
-    var btn = $(window.event.toElement);
     sweetAlert({
         title: title,
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: '确认',
+        cancelButtonText: '取消'
     }, function() {
-        window.location.href=btn.attr('href');
+        if (window.event && window.event.toElement) {
+            var btn = $(window.event.toElement);
+            window.location.href=btn.attr('href');
+        };
     });
- 
+
     return false;
 };

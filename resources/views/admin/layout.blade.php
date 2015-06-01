@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/ionicons.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/js/plugins/switchery/dist/switchery.min.css') }}" media="screen">
+  <link rel="stylesheet" href="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
