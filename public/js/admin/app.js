@@ -40,5 +40,5 @@ $(document).ready(function () {
 function showMenu(group) {
     $("#sidebar-nav > ul").hide();
     $(".nav-group-" + group).show();
-
+    
 }
