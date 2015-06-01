@@ -1,4 +1,40 @@
 .page-header {
-    padding:10px;
+    padding:0px;
     margin:0;
+    h2{
+      font-size: 16px;
+      padding:0 30px;
+      line-height:75px;
+      margin-top:0;
+      margin-bottom:0;
+    }
+    .navbar-nav
+    {
+        line-height:40px;
+        .active
+        {
+            background: #fff;
+            border-bottom: 3px solid #44b549;
+        }
+        li{
+            margin-bottom: -1px;
+        }
+        li:hover
+        {
+            background: #fff;
+            border-bottom: 3px solid #a0a3b0;
+        }
+        a:hover,a:focus
+        {
+            background:0;
+        }
+        a{
+            padding: 0 22px;
+            display: block;
+            text-decoration: none;
+            color: #222;
+            outline: 0;
+            line-height: 40px;
+        }
+    }
 }

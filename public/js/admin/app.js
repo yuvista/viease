@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     // 顶部菜单点击切换左侧菜单
@@ -35,7 +36,9 @@ $(document).ready(function () {
 /**
  * 展示左菜单
  */
+
 function showMenu(group) {
     $("#sidebar-nav > ul").hide();
     $(".nav-group-" + group).show();
+
 }

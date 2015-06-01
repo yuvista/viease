@@ -7,3 +7,4 @@ public/.htaccess
 public/.sass-cache/
 vendor/
 .env
+*/.sass-cache
