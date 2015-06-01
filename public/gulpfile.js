@@ -35,6 +35,7 @@ var clean = function(path, cb) {
 
 var cssFiles = [
     'sass/app.scss',
+    'sass/login.scss',
     'sass/bootstrap.scss',
     'sass/ie.scss',
     'sass/ionicons.scss'

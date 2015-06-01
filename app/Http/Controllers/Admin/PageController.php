@@ -16,7 +16,7 @@ class PageController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function getIndex()
     {
         return view('admin.index');
     }

@@ -24,5 +24,6 @@ $admin = [
          ];
 
 Route::group($admin, function(){
-    Route::get('/', 'PageController@index');
+    Route::controller('auth', 'AuthController');
+    Route::controller('/', 'PageController');
 });
