@@ -12,7 +12,7 @@
 
     .header-inner
     {
-        display:table;
+        width:100%;
     }
 
     .left {
@@ -24,8 +24,6 @@
             height:$header-height;
             font-size: 22px;
             line-height: $header-height;
-            //padding-top:10px;
-            padding-left:20px;
             border-right: $light-border-color;
 
             i {
