@@ -46,6 +46,7 @@ a {
     display: table;
     overflow: auto;
     height: 100%;
+    width:100%;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -73,14 +74,27 @@ a {
     .console-content {
 
     }
+}
 
-    .console-content-footer {
-        background: #ebeef0;
-        color: #a2acb3;
-        padding: 5px 20px;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
+.console-footer {
+    background: #ebeef0;
+    color: #a2acb3;
+    padding: 10px 20px;
+
+    .back-to-top {
+        position:fixed;
+        right:10px;
+        bottom:10px;
+        padding:4px 15px;
+        border:none;
+        background:rgba(0,0,0,.6);
+        color: #eee;
+        font-size:20px;
+        outline:none;
+
+        &:hover {
+            background:rgba(0,0,0,.8);
+            color: #fff;
+        }
     }
 }

@@ -76,24 +76,26 @@
       </div>
     </div>
   </header>
-  <div class="console-wrapper container">
-    <section class="console-container">
-      <aside class="console-sidebar-wrapper">
-      @include('admin.partials.sidebar');
-      </aside>
-      <section class="console-content-wrapper">
-        @yield('content')
-        <div class="console-content-footer">
-          <div class="clearfix">
-            <ul class="list-unstyled list-inline pull-left">
-              <li>overtrue © 2015</li>
-            </ul>
-            <button class="pull-right btn btn-default btn-sm hidden-print" back-to-top="" style="padding: 1px 10px;"> <i class="fa fa-angle-up"></i>
-            </button>
-          </div>
-        </div>
+  <div class="container">
+    <div class="console-wrapper">
+      <section class="console-container">
+        <aside class="console-sidebar-wrapper">
+        @include('admin.partials.sidebar');
+        </aside>
+        <section class="console-content-wrapper">
+          @yield('content')
+        </section>
       </section>
-    </section>
+    </div>
+    <div class="console-footer">
+      <div class="clearfix text-center">
+        <ul class="list-unstyled list-inline">
+          <li>overtrue © 2015</li>
+        </ul>
+        <button class="pull-right hidden-print  back-to-top" onclick="window.scrollTo(0,0)"> <i class="ion-android-arrow-dropup"></i>
+        </button>
+      </div>
+    </div>
   </div>
   <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
