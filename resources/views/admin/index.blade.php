@@ -54,6 +54,23 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-lg-2 control-label">switchery</label>
+                    <div class="col-lg-10">
+                        <div class="checkbox">
+                            <input type="checkbox" name="optionsRadios" id="optionsRadios1" value="option1" checked=""  class="js-switch"> 选项一
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2"  class="js-switch" checked> 选项二
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2"  class="js-switch" data-size="small" checked> 小号的
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2"  class="js-switch" data-size="large" checked> 大号的
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="select" class="col-lg-2 control-label">下拉选择</label>
                     <div class="col-lg-10">
                         <select class="form-control" id="select">

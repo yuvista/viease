@@ -24,6 +24,7 @@
   <meta name="description" content="a bootstrap theme made by overtrue." />
   <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/ionicons.css') }}" media="screen">
+  <link rel="stylesheet" href="{{ asset('/js/plugins/switchery/dist/switchery.min.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -99,6 +100,9 @@
   </div>
   <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
+  <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
+  <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
   <script src="{{ asset('/js/admin/app.js') }}"></script>
 </body>
 </html>
