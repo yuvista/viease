@@ -33,29 +33,31 @@
 </head>
 <body>
   <header class="console-header table-box">
-    <div class="left table-cell">
-      <div class="logo"> <i class="ion-load-b"></i>
-        小牛发大财
+    <div class="header-inner">
+      <div class="left table-cell">
+        <div class="logo"> <i class="ion-load-b"></i>
+          小牛发大财
+        </div>
       </div>
-    </div>
-    <div class="right table-cell">
-      <div class="top-nav">
-        <div class="navbar">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div>
-            <ul class="nav navbar-nav">
-              @foreach($menus as $group)
-              <li>
-                <a href="javascript:;" data-module="{{$group['group']}}">{{$group['label']}}</a>
-              </li>
-              @endforeach
-            </ul>
+      <div class="right table-cell">
+        <div class="top-nav">
+          <div class="navbar">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div>
+              <ul id="top-navbar"class="nav navbar-nav">
+                @foreach($menus as $group)
+                <li>
+                  <a href="javascript:;" data-module="{{$group['group']}}">{{$group['label']}}</a>
+                </li>
+                @endforeach
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -64,7 +66,7 @@
   <div class="console-wrapper">
     <section class="console-container">
       <aside class="console-sidebar-wrapper">
-      @include('admin.partials.menu');
+      @include('admin.partials.menu')
       </aside>
       <section class="console-content-wrapper">
         @yield('content')

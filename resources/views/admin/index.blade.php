@@ -2,7 +2,7 @@
 @section('content')
 <div class="console-content">
     <div class="page-header">
-        <h1 id="nav">导航 Navs</h1>
+        <h2 id="nav">公众账号管理</h2>
         <div class="navbar nav-tab">
             <ul class="nav navbar-nav">
                 <li class="active">
@@ -11,51 +11,9 @@
                 <li class="">
                     <a href="#profile" data-toggle="tab" aria-expanded="false">账户</a>
                 </li>
-                <li class="disabled">
-                    <a>禁用的</a>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        下拉
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#dropdown1" data-toggle="tab">链接1</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#dropdown2" data-toggle="tab">链接2</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#profile" data-toggle="tab" aria-expanded="false">账户</a>
-                </li>
-                <li class="disabled">
-                    <a>禁用的</a>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        下拉
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#dropdown1" data-toggle="tab">链接1</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#dropdown2" data-toggle="tab">链接2</a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </div>
     </div>
-
     <div class="well bs-component">
         <form class="form-horizontal">
             <fieldset>

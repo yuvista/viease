@@ -3,31 +3,27 @@
 return [
     
     [
-        'group' => 'public',
+        'group' => 'account',
         'label' => '公众号',
         'collection' => [
             [
-                'label' => '订单管理',
-                'uri'   => 'orders',
-                'icon'  => 'ion-ios-crop-strong',
+                'label' => '公众号',
+                'uri'   => 'account',
+                'icon'  => 'ion-social-whatsapp',
                 'submenus' => [
                     [
-                        'label' => '商品订单',
-                        'uri'   => 'goods',
-                    ],
-                    [
-                        'label' => '票务订单',
-                        'uri'   => 'tickets',
+                        'label' => '添加公众号',
+                        'uri'   => 'add',
                     ],
                 ],
             ],
             [
-                'label' => '订单管理',
-                'uri'   => 'orders',
-                'icon'  => 'ion-ios-crop-strong',
+                'label' => '用户设置',
+                'uri'   => 'user',
+                'icon'  => 'ion-android-people',
                 'submenus' => [
                     [
-                        'label' => '商品订单',
+                        'label' => '密码修改',
                         'uri'   => 'goods',
                     ],
                     [
@@ -39,8 +35,8 @@ return [
         ],
     ],
     [
-        'group' => 'setting',
-        'label' => '设置',
+        'group' => 'center',
+        'label' => '应用中心',
         'collection' => [
             [
                 'label' => '系统设置',

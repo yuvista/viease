@@ -5,7 +5,7 @@
 
     > ul > li {
         border-top:1px solid $light-border-color;
-        padding-bottom: 10px;
+        padding:5px 0;
     }
 
     ul {
@@ -24,7 +24,7 @@
             }
 
             a {
-                color: #666;
+                color: #222;
                 text-transform: uppercase;
                 display: block;
                 padding: 5px 20px 5px 18px;

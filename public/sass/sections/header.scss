@@ -7,8 +7,15 @@
     top:0;
     left:0;
     width: 100%;
-    border-bottom: 1px solid $light-border-color;
+    border-bottom: 1px solid #d9dadc;
     border-top: 4px solid $brand-success;
+
+    .header-inner
+    {
+        width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
     .left {
         width: $sidebar-width;
@@ -18,9 +25,7 @@
         .logo {
             height:100%;
             font-size: 22px;
-            line-height: 50px;
-            padding-top:20px;
-            padding-left:20px;
+            padding-top:10px;
             border-right: $light-border-color;
 
             i {
@@ -35,7 +40,6 @@
         .top-nav {
             position:absolute;
             bottom:-1px;
-            left: $sidebar-width - 1;
             width:100%;
 
             .navbar {
