@@ -31,6 +31,13 @@ $(document).ready(function () {
 
         $this.next().is('ul') && e.preventDefault();
     });
+
+    // switchery
+    var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+    elems.forEach(function(html) {
+      var switchery = new Switchery(html, { size: html.getAttribute('data-size') || 'default' });
+    });
 });
 
 /**
