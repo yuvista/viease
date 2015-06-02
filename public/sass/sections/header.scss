@@ -23,12 +23,14 @@
 
         .logo {
             height:$header-height;
-            font-size: 22px;
             line-height: $header-height;
             border-right: $light-border-color;
 
-            i {
-                padding:0 10px;
+            a {
+                img {
+                    height:50%;
+                    margin-left: 25px;
+                }
             }
         }
     }

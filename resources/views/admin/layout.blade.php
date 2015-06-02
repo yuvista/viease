@@ -41,7 +41,7 @@
         <div class="table-row">
           <div class="left table-cell">
             <div class="logo">
-              <a href="{{ admin_url('/') }}"><i class="ion-load-b"></i>小牛发大财</a>
+              <a href="{{ admin_url('/') }}"><img src="{{asset('img/logo.svg')}}" alt=""></a>
             </div>
           </div>
           <div class="right table-cell">
