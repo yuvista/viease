@@ -8,6 +8,8 @@
 @import "sections/sidebar.scss";
 @import "sections/page-header.scss";
 @import "sections/tab-nav.scss";
+@import "sections/table-box.scss";
+@import "sections/border.scss";
 
 // common
 body, html {
@@ -32,18 +34,8 @@ a {
     }
 }
 
-.table-box {
-    display: table;
-    .table-cell {
-        display: table-cell;
-        overflow: hidden;
-        vertical-align: top;
-    }
-}
-
 // layout
 .console-wrapper {
-    display: table;
     overflow: auto;
     height: 100%;
     width:100%;
@@ -54,8 +46,6 @@ a {
 }
 .console-container {
     border: 1px solid #d9dadc;
-    display: table-row;
-    height:100%;
     background:#fff;
 }
 

@@ -20,4 +20,9 @@ class PageController extends Controller
     {
         return view('admin.index');
     }
+
+    public function getDivTable()
+    {
+        return view('admin.div-table');
+    }
 }

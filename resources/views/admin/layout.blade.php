@@ -37,56 +37,58 @@
   <header class="console-header">
     <div class="container">
       <div class="header-inner table-box">
-        <div class="left table-cell">
-          <div class="logo">
-            <a href="{{ admin_url('/') }}"><i class="ion-load-b"></i>小牛发大财</a>
-          </div>
-        </div>
-        <div class="right table-cell">
-          <div class="top-nav">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+        <div class="table-row">
+          <div class="left table-cell">
+            <div class="logo">
+              <a href="{{ admin_url('/') }}"><i class="ion-load-b"></i>小牛发大财</a>
             </div>
-            <ul class="nav navbar-nav navbar-main">
-              @foreach($menus as $group)
-              <li>
-                <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
-              </li>
-              @endforeach
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        Admin
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#dropdown1">账号设置</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#dropdown2">注销</a>
-                        </li>
-                    </ul>
+          </div>
+          <div class="right table-cell">
+            <div class="top-nav">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+              </div>
+              <ul class="nav navbar-nav navbar-main">
+                @foreach($menus as $group)
+                <li>
+                  <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
                 </li>
-            </ul>
+                @endforeach
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                          Admin
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <a href="#dropdown1">账号设置</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                              <a href="#dropdown2">注销</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
   <div class="container">
-    <div class="console-wrapper">
-      <section class="console-container">
-        <aside class="console-sidebar-wrapper">
-        @include('admin.partials.sidebar');
+    <div class="console-wrapper table-box">
+      <section class="console-container table-row">
+        <aside class="console-sidebar-wrapper table-cell">
+        @include('admin.partials.sidebar')
         </aside>
-        <section class="console-content-wrapper">
+        <section class="console-content-wrapper table-cell">
           @yield('content')
         </section>
       </section>
