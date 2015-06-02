@@ -38,7 +38,7 @@
   <div id="background">
     <div class="img img1"></div>
   </div>
-  <div class="container">
+  <div class="container full-height">
     @yield('content')
   </div>
   <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
