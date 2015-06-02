@@ -7,24 +7,29 @@ return [
     |--------------------------------------------------------------------------
     */
     'extends' => [
-        '/@form(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo form$1; ?>',
-        '/@endform/s'                              => '<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"></form>',
-        '/@btn_link(\(((?>[^()]+)|(?1))*\))?/x'    => '<?php echo btn_link$1; ?>',
-        '/@batch_delete/s'                         => '<?php echo batch_delete(); ?>',
-        '/@search_box(\(((?>[^()]+)|(?1))*\))?/x'  => '<?php echo search_box$1; ?>',
-        '/@pager(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo pager$1; ?>',
-        '/@edit_link(\(((?>[^()]+)|(?1))*\))?/x'   => '<?php echo edit_link$1; ?>',
-        '/@delete_link(\(((?>[^()]+)|(?1))*\))?/x' => '<?php echo delete_link$1; ?>',
-        '/@tds(\(((?>[^()]+)|(?1))*\))?/x'         => '<?php echo tds$1; ?>',
-        '/@title(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo title$1; ?>',
-        '/@input(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo inputbox$1; ?>',
-        '/@text(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo input_text$1; ?>',
-        '/@label(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo label$1; ?>',
-        '/@btn(\(((?>[^()]+)|(?1))*\))?/x'         => '<?php echo btn$1; ?>',
-        '/@id_chkbox_col(\(((?>[^()]+)|(?1))*\))?/x' => '<?php echo id_chkbox_col$1; ?>',
-        '/@select(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo select$1; ?>',
-        '/@distpicker(\(((?>[^()]+)|(?1))*\))?/x'  => '<?php echo distpicker$1; ?>',
-        '/@submit(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo submit$1; ?>',
+
+        '/@script(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo HTML::script$1;?>',
+        '/@decode(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo HTML::decode$1;>',
+        '/@style(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo HTML::style$1;>',
+        '/@image(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo HTML::image$1;>',
+        '/@link(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo HTML::image$1;>',
+        '/@form(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo From::open$1;>',
+        '/@endform/s'                              => '<?php echo <input type="hidden" name="_token" value="<?php echo csrf_token().From::close$1;>',
+        '/@submit(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo From::submit$1;>',
+        '/@button(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo From::button$1;>',
+        '/@reset(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo From::reset$1;>',
+        '/@old(\(((?>[^()]+)|(?1))*\))?/x'         => '<?php echo From::old$1;>',
+        '/@select(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo From::select$1;>',
+        '/@textarea(\(((?>[^()]+)|(?1))*\))?/x'    => '<?php echo From::textarea$1;>',
+        '/@hidden(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo From::hidden$1;>',
+        '/@password(\(((?>[^()]+)|(?1))*\))?/x'    => '<?php echo From::password$1;>',
+        '/@text(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo From::text$1;>',
+        '/@input(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo From::input$1;>',
+        '/@label(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo From::label$1;>',
+        '/@token(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo From::token$1;>',
+        '/@form(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo From::open$1;>',
+
+ 
     ],
 
 
