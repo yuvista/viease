@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{ asset('/js/plugins/switchery/dist/switchery.min.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
+  @yield('css')
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="{{ asset('/plugin/html5shiv/dist/html5shiv.js') }}"></script>
@@ -109,5 +110,6 @@
   <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
   <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
   <script src="{{ asset('/js/admin/app.js') }}"></script>
+  @yield('js')
 </body>
 </html>
