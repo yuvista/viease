@@ -1,4 +1,4 @@
-// Core variables and mixins
+// 主文件
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "utils";
@@ -12,7 +12,7 @@
 @import "sections/tools.scss";
 @import "sections/border.scss";
 
-// common
+// 全局样式
 body, html {
     height: 100%;
     width: 100%;
