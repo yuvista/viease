@@ -1,6 +1,32 @@
 <?php
 
 return [
+   /*
+    |--------------------------------------------------------------------------
+    | 自定义扩展
+    |--------------------------------------------------------------------------
+    */
+    'extends' => [
+        '/@form(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo form$1; ?>',
+        '/@endform/s'                              => '<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"></form>',
+        '/@btn_link(\(((?>[^()]+)|(?1))*\))?/x'    => '<?php echo btn_link$1; ?>',
+        '/@batch_delete/s'                         => '<?php echo batch_delete(); ?>',
+        '/@search_box(\(((?>[^()]+)|(?1))*\))?/x'  => '<?php echo search_box$1; ?>',
+        '/@pager(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo pager$1; ?>',
+        '/@edit_link(\(((?>[^()]+)|(?1))*\))?/x'   => '<?php echo edit_link$1; ?>',
+        '/@delete_link(\(((?>[^()]+)|(?1))*\))?/x' => '<?php echo delete_link$1; ?>',
+        '/@tds(\(((?>[^()]+)|(?1))*\))?/x'         => '<?php echo tds$1; ?>',
+        '/@title(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo title$1; ?>',
+        '/@input(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo inputbox$1; ?>',
+        '/@text(\(((?>[^()]+)|(?1))*\))?/x'        => '<?php echo input_text$1; ?>',
+        '/@label(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo label$1; ?>',
+        '/@btn(\(((?>[^()]+)|(?1))*\))?/x'         => '<?php echo btn$1; ?>',
+        '/@id_chkbox_col(\(((?>[^()]+)|(?1))*\))?/x' => '<?php echo id_chkbox_col$1; ?>',
+        '/@select(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo select$1; ?>',
+        '/@distpicker(\(((?>[^()]+)|(?1))*\))?/x'  => '<?php echo distpicker$1; ?>',
+        '/@submit(\(((?>[^()]+)|(?1))*\))?/x'      => '<?php echo submit$1; ?>',
+    ],
+
 
     /*
     |--------------------------------------------------------------------------

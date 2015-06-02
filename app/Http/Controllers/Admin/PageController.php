@@ -18,11 +18,21 @@ class PageController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.index');
+       return redirect(admin_url('account'));
     }
 
     public function getDivTable()
     {
         return view('admin.div-table');
+    }
+
+    /**
+     * 展示页
+     *
+     * @return void
+     */
+    public function getDemo()
+    {
+        return view('admin.demo');
     }
 }

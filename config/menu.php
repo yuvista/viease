@@ -12,8 +12,12 @@ return [
                 'icon'  => 'ion-social-whatsapp',
                 'submenus' => [
                     [
+                        'label' => '我的公众号',
+                        'uri'   => '',
+                    ],
+                    [
                         'label' => '添加公众号',
-                        'uri'   => 'add',
+                        'uri'   => 'create',
                     ],
                 ],
             ],
@@ -25,10 +29,6 @@ return [
                     [
                         'label' => '密码修改',
                         'uri'   => 'goods',
-                    ],
-                    [
-                        'label' => '票务订单',
-                        'uri'   => 'tickets',
                     ],
                 ],
             ],

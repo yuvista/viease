@@ -24,6 +24,12 @@ $admin = [
          ];
 
 Route::group($admin, function(){
+
+    //我的公众号列表页
+    Route::get('/', 'PageController@getIndex');
+    Route::get('table','PageController@getDivTable');
+    Route::controller('account','AccountController');
     Route::controller('auth', 'AuthController');
-    Route::controller('/', 'PageController');
+    //demo
+    Route::get('demo','PageController@getDemo');
 });

@@ -52,9 +52,7 @@ $(document).ready(function () {
 /**
  * 展示左菜单
  */
-
 function showMenu(group) {
     $("#sidebar-nav > ul").hide();
     $(".nav-group-" + group).show();
-    
 }
