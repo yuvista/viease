@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Repositories;
 
 use App\Models\Account;
@@ -8,6 +8,11 @@ use App\Models\Account;
  */
 class AccountRepository extends BaseRepository
 {
+    /**
+     * Account Model
+     *
+     * @var Account
+     */
     protected $model;
 
     public function __construct(Account $account)
@@ -15,9 +20,16 @@ class AccountRepository extends BaseRepository
         $this->model = $account;
     }
 
-    public function getList()
+    /**
+     * 获取账户列表
+     *
+     * @param int $pageSize 分页大小
+     *
+     * @return \Illuminate\Pagination\Paginator
+     */
+    public function lists($pageSize)
     {
-        return $this->model->orderBy('id','desc')->paginate(10);
+        return $this->model->orderBy('id','desc')->paginate($pageSize);
     }
 
     /**
@@ -30,20 +42,18 @@ class AccountRepository extends BaseRepository
      */
     public function store($input)
     {
-        $model = new $this->model;
-
-        return $this->savePost($model,$input);
+        return $this->savePost($this->model,$input);
     }
 
     /**
      * update
      *
-     * @param  integer $id    
-     * @param  array   $input 
+     * @param  integer $id
+     * @param  array   $input
      *
      * @return void
      */
-    public function update($id,$input)
+    public function update($id, $input)
     {
         $model = $this->model->find($id);
 
@@ -58,19 +68,9 @@ class AccountRepository extends BaseRepository
      *
      * @return void
      */
-    public function savePost($account,$input)
+    public function savePost($account, $input)
     {
-        $account->name = $input['name'];
-
-        $account->original_id = $input['original_id'];
-
-        $account->app_id = $input['app_id'];
-
-        $account->app_secret = $input['app_secret'];
-
-        $account->wechat_account = $input['wechat_account'];
-
-        $account->type = $input['type'];
+        $account->fill($input);
 
         return $account->save();
     }

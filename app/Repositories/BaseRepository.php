@@ -1,6 +1,9 @@
-<?php namespace App\Repositories;
+<?php
 
-abstract class BaseRepository {
+namespace App\Repositories;
+
+abstract class BaseRepository
+{
 
     /**
      * The Model instance.

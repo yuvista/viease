@@ -1,14 +1,13 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use App\Repositories\AccountRepository;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\CreateRequest;
 use App\Http\Requests\Account\UpdateRequest;
-
+use App\Repositories\AccountRepository;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 
 /**
  * 公众号管理
@@ -17,15 +16,18 @@ use App\Http\Requests\Account\UpdateRequest;
  */
 class AccountController extends Controller
 {
+
     /**
      * AccountRepository
+     *
+     * @var AccountRepository
      */
     protected $account;
 
     /**
      * constructer
      *
-     * @param AccountRepository $account 
+     * @param AccountRepository $account
      */
     public function __construct(AccountRepository $account)
     {
@@ -39,9 +41,9 @@ class AccountController extends Controller
      */
     public function getIndex()
     {
-        $accounts = $this->account->getList();
+        $accounts = $this->account->lists(10);
 
-        return view('admin.account.index',compact('accounts'));
+        return view('admin.account.index', compact('accounts'));
     }
 
     /**
@@ -54,6 +56,13 @@ class AccountController extends Controller
         return view('admin.account.form');
     }
 
+    /**
+     * 创建账户
+     *
+     * @param CreateRequest $request
+     *
+     * @return Redirect
+     */
     public function postCreate(CreateRequest $request)
     {
         $this->account->store($request);
