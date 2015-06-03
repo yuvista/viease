@@ -16,11 +16,23 @@
                 </tr>
             </thead>
             <tbody class="tbody">
+                @if($accounts)
+                    @foreach($accounts as $account)
+                    <tr>
+                        <td>{{$account->name}}</td>
+                        <td>{{$account->wechat_account}}</td>
+                        <td>{{$account->type}}</td>
+                        <td>{{$account->created_at->format('Y-m-d H:i:s')}}</td>
+                        <td><a href="" class="btn btn-success btn-xs">管理</a> <a href="" class="btn btn-default btn-xs">编辑</a> <a href="" class="btn btn-danger btn-xs" onclick="if(confirm('确定删除?')==false)return false;">删除</a></td>
+                    </tr>
+                    @endforeach
+                @else
                 <tr>
                     <td colspan="5"> 
                         <span class="empty_tips">暂无公众号，点击<a href="{{ admin_url('account/create') }}" >添加公众号</a></span>
                     </td>
                 </tr>
+                @endif
             </tbody>
         </table>
     </div>
