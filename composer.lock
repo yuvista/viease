@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "a73b7b2bf60259de9f8890731cbe503b",
-=======
-    "hash": "b9a93e540f9bbd702e53f4456e3c08b4",
->>>>>>> 52e3b626d86b185940e55326503e2aa107fa89d0
+    "hash": "5148e348ad964ee1d83e365bbba07b86",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -426,16 +422,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "dev-master",
+            "version": "5.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "44922a0904486f89ddef895b071917ce09ccf85b"
+                "reference": "73ad2636ced1219d6170d4352e091a51a885feb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6c08600ca7a929ff50c5488b5a6f64a4cf6d367d",
-                "reference": "44922a0904486f89ddef895b071917ce09ccf85b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/73ad2636ced1219d6170d4352e091a51a885feb7",
+                "reference": "73ad2636ced1219d6170d4352e091a51a885feb7",
                 "shasum": ""
             },
             "require": {
@@ -443,7 +439,6 @@
                 "danielstjules/stringy": "~1.8",
                 "doctrine/inflector": "~1.0",
                 "ext-mbstring": "*",
-                "ext-mcrypt": "*",
                 "ext-openssl": "*",
                 "jeremeamia/superclosure": "~2.0",
                 "league/flysystem": "~1.0",
@@ -462,7 +457,6 @@
                 "symfony/http-kernel": "2.7.*",
                 "symfony/process": "2.7.*",
                 "symfony/routing": "2.7.*",
-                "symfony/security-core": "2.7.*",
                 "symfony/translation": "2.7.*",
                 "symfony/var-dumper": "2.7.*",
                 "vlucas/phpdotenv": "~1.0"
@@ -552,7 +546,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-05-31 21:12:07"
+            "time": "2015-06-03 21:29:40"
         },
         {
             "name": "league/flysystem",
@@ -904,23 +898,27 @@
         },
         {
             "name": "overtrue/laravel-wechat",
-            "version": "2.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/laravel-wechat.git",
-                "reference": "a6347b5825ed491fb66d544baf33174d28d1710f"
+                "reference": "47b31f22412de1223a1c6a129d94389ef3d20247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/a6347b5825ed491fb66d544baf33174d28d1710f",
-                "reference": "a6347b5825ed491fb66d544baf33174d28d1710f",
+                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/47b31f22412de1223a1c6a129d94389ef3d20247",
+                "reference": "47b31f22412de1223a1c6a129d94389ef3d20247",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.0.0",
-                "overtrue/wechat": "2.0.*"
+                "overtrue/wechat": "2.1.*@dev"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Overtrue\\LaravelWechat\\": "src/"
@@ -943,20 +941,20 @@
                 "wechat",
                 "weixin"
             ],
-            "time": "2015-05-28 09:40:32"
+            "time": "2015-06-04 02:13:04"
         },
         {
             "name": "overtrue/wechat",
-            "version": "2.0.15",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "e8d7ff029c836237e106c893714fb5574cfde7c3"
+                "reference": "31e0acc440e93d5fbe084ae48e160a735fe27bfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/e8d7ff029c836237e106c893714fb5574cfde7c3",
-                "reference": "e8d7ff029c836237e106c893714fb5574cfde7c3",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/31e0acc440e93d5fbe084ae48e160a735fe27bfe",
+                "reference": "31e0acc440e93d5fbe084ae48e160a735fe27bfe",
                 "shasum": ""
             },
             "require": {
@@ -964,9 +962,14 @@
                 "php": ">=5.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "Overtrue\\": "src/"
+                    "Overtrue\\Wechat\\": "src/Wechat/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -986,7 +989,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2015-05-31 05:28:53"
+            "time": "2015-06-04 02:12:57"
         },
         {
             "name": "psr/log",
@@ -1782,69 +1785,6 @@
             "time": "2015-05-19 06:58:17"
         },
         {
-            "name": "symfony/security-core",
-            "version": "v2.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/security-core.git",
-                "reference": "af39a58d9dceabeb8c29c1ac347a78d259db1b29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-core/zipball/af39a58d9dceabeb8c29c1ac347a78d259db1b29",
-                "reference": "af39a58d9dceabeb8c29c1ac347a78d259db1b29",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "ircmaxell/password-compat": "1.0.*",
-                "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.1",
-                "symfony/expression-language": "~2.6",
-                "symfony/http-foundation": "~2.4",
-                "symfony/phpunit-bridge": "~2.7",
-                "symfony/translation": "~2.0,>=2.0.5",
-                "symfony/validator": "~2.5,>=2.5.5"
-            },
-            "suggest": {
-                "ircmaxell/password-compat": "For using the BCrypt password encoder in PHP <5.5",
-                "symfony/event-dispatcher": "",
-                "symfony/expression-language": "For using the expression voter",
-                "symfony/http-foundation": "",
-                "symfony/validator": "For using the user password constraint"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Security\\Core\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Security Component - Core Library",
-            "homepage": "https://symfony.com",
-            "time": "2015-05-15 13:53:44"
-        },
-        {
             "name": "symfony/translation",
             "version": "v2.7.0",
             "source": {
@@ -2497,16 +2437,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "6b7d2094ca2a685a2cad846cb7cd7a30e8b9470f"
+                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6b7d2094ca2a685a2cad846cb7cd7a30e8b9470f",
-                "reference": "6b7d2094ca2a685a2cad846cb7cd7a30e8b9470f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/28a6b34e91d789b2608072ab3c82eaae7cdb973c",
+                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c",
                 "shasum": ""
             },
             "require": {
@@ -2555,7 +2495,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-01 07:35:26"
+            "time": "2015-06-03 07:01:01"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2743,16 +2683,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.9",
+            "version": "4.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "816d12536a7a032adc3b68737f82cfbbf98b79c1"
+                "reference": "7b5fe98b28302a8b25693b2298bca74463336975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/816d12536a7a032adc3b68737f82cfbbf98b79c1",
-                "reference": "816d12536a7a032adc3b68737f82cfbbf98b79c1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7b5fe98b28302a8b25693b2298bca74463336975",
+                "reference": "7b5fe98b28302a8b25693b2298bca74463336975",
                 "shasum": ""
             },
             "require": {
@@ -2793,7 +2733,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2811,7 +2751,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-05-29 06:00:03"
+            "time": "2015-06-03 05:03:30"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3292,6 +3232,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "overtrue/laravel-wechat": 20,
         "barryvdh/laravel-debugbar": 20
     },
     "prefer-stable": true,
