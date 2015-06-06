@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5148e348ad964ee1d83e365bbba07b86",
+    "hash": "52b52709b1711392f4964545a22ea6bd",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -59,6 +59,43 @@
                 "webprofiler"
             ],
             "time": "2015-05-26 07:02:48"
+        },
+        {
+            "name": "caouecs/laravel4-lang",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/caouecs/Laravel-lang.git",
+                "reference": "7ae8b86bbbaf1ffe5458fe985bcf376a4ec255fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/7ae8b86bbbaf1ffe5458fe985bcf376a4ec255fd",
+                "reference": "7ae8b86bbbaf1ffe5458fe985bcf376a4ec255fd",
+                "shasum": ""
+            },
+            "suggest": {
+                "overtrue/laravel-lang": "Command to add languages in your project"
+            },
+            "type": "library",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "caouecs",
+                    "email": "caouecs@caouecs.net"
+                }
+            ],
+            "description": "Languages for Laravel",
+            "keywords": [
+                "lang",
+                "languages",
+                "laravel",
+                "lpm"
+            ],
+            "time": "2015-05-25 09:50:10"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -275,6 +312,52 @@
                 "string"
             ],
             "time": "2014-12-20 21:24:13"
+        },
+        {
+            "name": "illuminate/html",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/html.git",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/html/zipball/3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.0",
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Html\\": ""
+                },
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "time": "2015-01-01 16:31:18"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -897,79 +980,26 @@
             "time": "2015-05-02 15:40:40"
         },
         {
-            "name": "overtrue/laravel-wechat",
-            "version": "dev-master",
+            "name": "overtrue/laravel-lang",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/overtrue/laravel-wechat.git",
-                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c"
+                "url": "https://github.com/overtrue/laravel-lang.git",
+                "reference": "5f4c8cb61b05e3aa7021832bb5af2c311147ae50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
-                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
+                "url": "https://api.github.com/repos/overtrue/laravel-lang/zipball/5f4c8cb61b05e3aa7021832bb5af2c311147ae50",
+                "reference": "5f4c8cb61b05e3aa7021832bb5af2c311147ae50",
                 "shasum": ""
             },
             "require": {
-                "overtrue/wechat": "2.1.*@dev"
+                "caouecs/laravel4-lang": "~2.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "Overtrue\\LaravelWechat\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "overtrue",
-                    "email": "anzhengchao@gmail.com"
-                }
-            ],
-            "description": "微信 SDK for Laravel",
-            "keywords": [
-                "laravel",
-                "sdk",
-                "wechat",
-                "weixin"
-            ],
-            "time": "2015-06-04 08:02:08"
-        },
-        {
-            "name": "overtrue/wechat",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/overtrue/wechat.git",
-                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/8bbd923dd84551167f53921806df7e83f16c38ff",
-                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mcrypt": "*",
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Overtrue\\Wechat\\": "src/Wechat/"
+                    "Overtrue\\LaravelLang\\": "src/"
                 }
             },
             "notification-url": "http://pkg.overtrue.me/downloads/",
@@ -982,14 +1012,13 @@
                     "email": "anzhengchao@gmail.com"
                 }
             ],
-            "description": "微信SDK",
+            "description": "List of 37 languages for Laravel 5",
             "keywords": [
-                "sdk",
-                "wechat",
-                "weixin",
-                "weixin-sdk"
+                "languages",
+                "laravel",
+                "overtrue"
             ],
-            "time": "2015-06-06 05:29:29"
+            "time": "2015-04-19 06:23:23"
         },
         {
             "name": "psr/log",
@@ -2104,52 +2133,6 @@
             "time": "2015-05-11 14:41:42"
         },
         {
-            "name": "illuminate/html",
-            "version": "v5.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/html.git",
-                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/html/zipball/3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
-                "reference": "3d1009bb8e0f25720c914af5c1f4015dd373c9ef",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/http": "~5.0",
-                "illuminate/session": "~5.0",
-                "illuminate/support": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Html\\": ""
-                },
-                "files": [
-                    "helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylorotwell@gmail.com"
-                }
-            ],
-            "time": "2015-01-01 16:31:18"
-        },
-        {
             "name": "mockery/mockery",
             "version": "0.9.4",
             "source": {
@@ -2213,6 +2196,101 @@
                 "testing"
             ],
             "time": "2015-04-02 19:54:00"
+        },
+        {
+            "name": "overtrue/laravel-wechat",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-wechat.git",
+                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
+                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
+                "shasum": ""
+            },
+            "require": {
+                "overtrue/wechat": "2.1.*@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelWechat\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "微信 SDK for Laravel",
+            "keywords": [
+                "laravel",
+                "sdk",
+                "wechat",
+                "weixin"
+            ],
+            "time": "2015-06-04 08:02:08"
+        },
+        {
+            "name": "overtrue/wechat",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/wechat.git",
+                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/8bbd923dd84551167f53921806df7e83f16c38ff",
+                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Wechat\\": "src/Wechat/"
+                }
+            },
+            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "微信SDK",
+            "keywords": [
+                "sdk",
+                "wechat",
+                "weixin",
+                "weixin-sdk"
+            ],
+            "time": "2015-06-06 05:29:29"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -3232,7 +3310,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "overtrue/laravel-wechat": 20,
         "barryvdh/laravel-debugbar": 20
     },
     "prefer-stable": true,

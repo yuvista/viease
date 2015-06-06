@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace App\Http\Requests\Account;
 
 use App\Http\Requests\Request;
+use App\Models\Account;
 
 /**
  * Account CreateRequest

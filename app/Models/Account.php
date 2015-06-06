@@ -28,7 +28,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $aliases = [
+    public static $aliases = [
         'name'           => '公众号名称',
         'original_id'    => '原始ID',
         'wechat_account' => '微信账号',
