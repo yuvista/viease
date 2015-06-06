@@ -5,3 +5,7 @@
 .container {
     max-width:1200px;
 }
+
+.bootstrap-select .dropdown-toggle:focus {
+    outline:none !important;
+}
