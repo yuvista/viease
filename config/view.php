@@ -27,6 +27,7 @@ return [
         '/@label(\(((?>[^()]+)|(?1))*\))?/x'       => '<?php echo Form::label$1;?>',
         '/@token/s'                                => '<?php echo Form::token();?>',
         '/@col_input(\(((?>[^()]+)|(?1))*\))?/x'   => '<?php echo Form::colInput$1;?>',
+        '/@col_select(\(((?>[^()]+)|(?1))*\))?/x'   => '<?php echo Form::colSelect$1;?>',
         '/@col_submit(\(((?>[^()]+)|(?1))*\))?/x'  => '<?php echo Form::colSubmit$1;?>',
 
     ],

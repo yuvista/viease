@@ -1,14 +1,20 @@
-//初始化bootstrap tools
-$("body").tooltip({
-    selector: '[data-toggle="tooltip"]',
-    container: "body"
-    }),
-    $("body").popover({
-    selector: '[data-toggle="popover"]',
-    container: "body"
-});
 
 $(document).ready(function () {
+
+    //初始化bootstrap tools
+    $("body").tooltip({
+        selector: '[data-toggle="tooltip"]',
+        container: "body"
+        }),
+        $("body").popover({
+        selector: '[data-toggle="popover"]',
+        container: "body"
+    });
+
+    $('select').selectpicker({
+        style: 'btn-transparent',
+        size: 4,
+    });
 
     // 顶部菜单点击切换左侧菜单
     $(document).on('click', '.top-nav > ul.navbar-main > li > a', function (e) {
