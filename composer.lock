@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52b52709b1711392f4964545a22ea6bd",
+    "hash": "b974d2ab56b69a222a3d7088a69e70d9",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1021,6 +1021,54 @@
             "time": "2015-04-19 06:23:23"
         },
         {
+            "name": "overtrue/wechat",
+            "version": "2.1.0-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/wechat.git",
+                "reference": "c0e715adbefc0384c98fa85df2cca6b86973f4ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/c0e715adbefc0384c98fa85df2cca6b86973f4ff",
+                "reference": "c0e715adbefc0384c98fa85df2cca6b86973f4ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Wechat\\": "src/Wechat/"
+                }
+            },
+            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "微信SDK",
+            "keywords": [
+                "sdk",
+                "wechat",
+                "weixin",
+                "weixin-sdk"
+            ],
+            "time": "2015-06-06 09:56:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1131,23 +1179,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -1160,7 +1208,7 @@
                     "lib/swift_required.php"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1176,10 +1224,11 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-06-06 14:19:39"
         },
         {
             "name": "symfony/console",
@@ -2196,101 +2245,6 @@
                 "testing"
             ],
             "time": "2015-04-02 19:54:00"
-        },
-        {
-            "name": "overtrue/laravel-wechat",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/overtrue/laravel-wechat.git",
-                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
-                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
-                "shasum": ""
-            },
-            "require": {
-                "overtrue/wechat": "2.1.*@dev"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Overtrue\\LaravelWechat\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "overtrue",
-                    "email": "anzhengchao@gmail.com"
-                }
-            ],
-            "description": "微信 SDK for Laravel",
-            "keywords": [
-                "laravel",
-                "sdk",
-                "wechat",
-                "weixin"
-            ],
-            "time": "2015-06-04 08:02:08"
-        },
-        {
-            "name": "overtrue/wechat",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/overtrue/wechat.git",
-                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/8bbd923dd84551167f53921806df7e83f16c38ff",
-                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mcrypt": "*",
-                "php": ">=5.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Overtrue\\Wechat\\": "src/Wechat/"
-                }
-            },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "overtrue",
-                    "email": "anzhengchao@gmail.com"
-                }
-            ],
-            "description": "微信SDK",
-            "keywords": [
-                "sdk",
-                "wechat",
-                "weixin",
-                "weixin-sdk"
-            ],
-            "time": "2015-06-06 05:29:29"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
