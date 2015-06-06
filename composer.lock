@@ -426,12 +426,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "73ad2636ced1219d6170d4352e091a51a885feb7"
+                "reference": "32628293c7458921edff7c2de82913dcd9d0a610"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/73ad2636ced1219d6170d4352e091a51a885feb7",
-                "reference": "73ad2636ced1219d6170d4352e091a51a885feb7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/32628293c7458921edff7c2de82913dcd9d0a610",
+                "reference": "32628293c7458921edff7c2de82913dcd9d0a610",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +530,7 @@
                     "Illuminate\\": "src/Illuminate/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
             "license": [
                 "MIT"
             ],
@@ -546,7 +546,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-06-03 21:29:40"
+            "time": "2015-06-06 02:20:29"
         },
         {
             "name": "league/flysystem",
@@ -902,12 +902,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/laravel-wechat.git",
-                "reference": "47b31f22412de1223a1c6a129d94389ef3d20247"
+                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/47b31f22412de1223a1c6a129d94389ef3d20247",
-                "reference": "47b31f22412de1223a1c6a129d94389ef3d20247",
+                "url": "https://api.github.com/repos/overtrue/laravel-wechat/zipball/272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
+                "reference": "272c568bda2f466b3e57db4bd5fb9dc1ed80403c",
                 "shasum": ""
             },
             "require": {
@@ -941,7 +941,7 @@
                 "wechat",
                 "weixin"
             ],
-            "time": "2015-06-04 02:13:04"
+            "time": "2015-06-04 08:02:08"
         },
         {
             "name": "overtrue/wechat",
@@ -949,12 +949,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "31e0acc440e93d5fbe084ae48e160a735fe27bfe"
+                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/31e0acc440e93d5fbe084ae48e160a735fe27bfe",
-                "reference": "31e0acc440e93d5fbe084ae48e160a735fe27bfe",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/8bbd923dd84551167f53921806df7e83f16c38ff",
+                "reference": "8bbd923dd84551167f53921806df7e83f16c38ff",
                 "shasum": ""
             },
             "require": {
@@ -972,7 +972,7 @@
                     "Overtrue\\Wechat\\": "src/Wechat/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
             "license": [
                 "MIT"
             ],
@@ -989,7 +989,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2015-06-04 02:12:57"
+            "time": "2015-06-06 05:29:29"
         },
         {
             "name": "psr/log",
@@ -2437,16 +2437,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c"
+                "reference": "3703c4bb67c8700957dd41c843254658539d091d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/28a6b34e91d789b2608072ab3c82eaae7cdb973c",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3703c4bb67c8700957dd41c843254658539d091d",
+                "reference": "3703c4bb67c8700957dd41c843254658539d091d",
                 "shasum": ""
             },
             "require": {
@@ -2477,7 +2477,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2495,7 +2495,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-03 07:01:01"
+            "time": "2015-06-06 08:33:23"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2683,16 +2683,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.10",
+            "version": "4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7b5fe98b28302a8b25693b2298bca74463336975"
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7b5fe98b28302a8b25693b2298bca74463336975",
-                "reference": "7b5fe98b28302a8b25693b2298bca74463336975",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e0c63329c8c4185296b8d357daa5c6bae43080f",
+                "reference": "8e0c63329c8c4185296b8d357daa5c6bae43080f",
                 "shasum": ""
             },
             "require": {
@@ -2703,7 +2703,7 @@
                 "ext-spl": "*",
                 "php": ">=5.3.3",
                 "phpspec/prophecy": "~1.3,>=1.3.1",
-                "phpunit/php-code-coverage": "~2.0,>=2.0.11",
+                "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "~1.0",
@@ -2725,7 +2725,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.6.x-dev"
+                    "dev-master": "4.7.x-dev"
                 }
             },
             "autoload": {
@@ -2733,7 +2733,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://pkg.overtrue.me/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2751,7 +2751,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-03 05:03:30"
+            "time": "2015-06-06 08:36:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

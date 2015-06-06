@@ -9,6 +9,7 @@
 @import "sections/page-header.scss";
 @import "sections/tab-nav.scss";
 @import "sections/table-box.scss";
+@import "sections/table-wechat.scss";
 @import "sections/tools.scss";
 @import "sections/border.scss";
 
@@ -24,35 +25,6 @@ body {
     padding-top: $header-height;
 }
 
-table {
-    &.table-wechat
-    {
-        width: 100%;
-        font-size: 14px;
-        background-color: #fff;
-        text-align: center;
-        border-top: 1px solid #e7e7eb;
-        border-bottom: 1px solid #e7e7eb;
-        border-left: 1px solid #e7e7eb;
-        border-right: 1px solid #e7e7eb;
-        border-spacing: 0;
-    }
-    .thead {
-        background-color: #f4f5f9;
-    }
-    .empty_tips
-    {
-        display:block;
-        line-height:200px;
-        text-align: center;
-        font-size: 14px;
-        color: #8d8d8d;
-        a{
-            color:#459ae9;
-        }
-    }
-}
-
 a {
     color: #666;
     &:hover {
@@ -64,12 +36,7 @@ a {
     }
 }
 
-.muted {
-  font-weight:blod;
-  color: #DF2828;
-}
-
-// layout
+// 布局
 .console-wrapper {
     overflow: auto;
     height: 100%;
