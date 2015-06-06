@@ -38,7 +38,7 @@
     .right {
         height:100%;
         &.table-cell {
-            overflow:visible;
+            overflow:visible !important;
         }
         .top-nav {
             width:100%;
