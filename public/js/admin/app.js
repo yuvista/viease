@@ -45,6 +45,8 @@ $(document).ready(function () {
         $this.parent().toggleClass('active');
 
         $this.next().is('ul') && e.preventDefault();
+
+        var currentUrl = window.location.origin + window.location.pathname;
     });
 
     // switchery
@@ -61,4 +63,12 @@ $(document).ready(function () {
 function showMenu(group) {
     $("#sidebar-nav > ul").hide();
     $(".nav-group-" + group).show();
+
+    $('#sidebar-nav a').each(function(){
+        if (window.location.href.indexOf($(this).attr('href')) >= 0) {
+            $('#sidebar-nav a').removeClass('active');
+
+            return $(this).addClass('active');
+        };
+    });
 }

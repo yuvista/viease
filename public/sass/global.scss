@@ -1,0 +1,22 @@
+// 全局样式
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    min-width: 1200px;
+    background: #e7e8eb;
+    padding-top: $header-height;
+}
+
+a {
+    color: #666;
+    &:hover {
+        color: #333;
+    }
+    &:focus, &:hover, &:hover {
+        outline: none;
+        text-decoration:none;
+    }
+}
