@@ -77,7 +77,7 @@ gulp.task('scripts', function(){
 
 
 gulp.task('watch', ['css', 'scripts'], function(){
-  gulp.watch(cssFiles.concat('sass/sections/*'), ['css']).on('change', function(evt) {
+  gulp.watch(cssFiles.concat('sass/**'), ['css']).on('change', function(evt) {
     changeEvent(evt);
   });
 

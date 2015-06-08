@@ -61,6 +61,23 @@
                 </li>
                 @endforeach
               </ul>
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                          <i class="ion-person"></i> 微易平台
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <a href="#dropdown1">账号名称1</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                              <a href="#dropdown2">账号名称2</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
