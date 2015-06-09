@@ -13,7 +13,17 @@
     color: $text-light-color;
 }
 
-.muted {
+.text-muted {
   font-weight:blod;
-  color: #DF2828;
+  color: #bbb;
+  font-size:small;
+}
+.line-height-sm {
+    line-height: 30px;
+}
+
+// icon
+.icon-md {
+    font-size:18px;
+    line-height:16px;
 }

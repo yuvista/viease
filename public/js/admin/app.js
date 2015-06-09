@@ -14,6 +14,11 @@ $(document).ready(function () {
     $('select').selectpicker({
         style: 'btn-transparent',
         size: 4,
+    }).on('change', function(){
+        $(this).selectpicker({
+            style: 'btn-transparent',
+            size: 4,
+        });
     });
 
     // 顶部菜单点击切换左侧菜单

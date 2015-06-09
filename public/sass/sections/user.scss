@@ -1,0 +1,31 @@
+.user-list {
+    padding:0;
+    .user-item {
+        border-right: 1px solid #f4f4f4;
+        border-bottom: 1px solid #f4f4f4;
+
+        &:hover {
+            background: rgba(241, 241, 241, 0.37);
+        }
+
+        .media {
+            padding: 15px;
+        }
+    }
+}
+
+.user-avatar {
+    border-radius: 50%;
+}
+
+.user-avatar-small {
+    max-width:45px;
+}
+
+.popover-table-label {
+    min-width:60px;
+}
+
+.popover table tr td {
+    padding: 5px 0;
+}
