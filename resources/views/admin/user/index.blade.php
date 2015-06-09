@@ -100,7 +100,7 @@
             <td colspan="2"><span class="nickname">NICKNAME</span></td>
         </tr>
         <tr>
-            <td colspan="2"><span class="remark">REMARK</span> <a href="javascript:;"><i class="ion-ios-compose-outline"></i></a></td>
+            <td colspan="2"><span class="remark">REMARK</span> <a href="javascript:;"><i class="ion-ios-compose-outline icon-md"></i></a></td>
         </tr>
 
         <tr>
@@ -110,7 +110,7 @@
         <tr>
             <td class="popover-table-label">分组：</td>
             <td>
-                <select name="group" class="" id="">
+                <select name="group" class="origin form-control" id="">
                     <option value="0">分组0</option>
                     <option value="1">分组1</option>
                     <option value="2">分组2</option>
