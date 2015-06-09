@@ -11,7 +11,7 @@ $(document).ready(function () {
         container: "body"
     });
 
-    $('select').selectpicker({
+    $('select:not(.origin)').selectpicker({
         style: 'btn-transparent',
         size: 4,
     }).on('change', function(){

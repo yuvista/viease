@@ -3,14 +3,15 @@ $(document).on('mouseenter', '.user-item', function(){
     var data = $(this).data();
         data['html'] = true;
 
+    $('#user-popover-template select').val(data.groupId).change().find('[value="'+data.groupId+'"]').attr('selected', true).siblings().attr('selected', false);
+
     if (!data.content) {
-        var content = $('#user-popover-template').clone().html();
+        var groupSelector = $(content).find('select');
+        var content = $('#user-popover-template').html();
 
         for(i in data){
-            content = content.replace((new RegExp(i, 'g')), data[i]);
+            content = content.replace((new RegExp(i.toUpperCase(), 'g')), data[i]);
         }
-        console.log($(content).find('select[name="group"] option[value="'+data.groupId+'"]'));
-        $(content).find('select[name="group"] option[value="'+data.groupId+'"]').attr('selected', true).change().siblings().attr('selected', false).parent().change();
 
         $(this).data('content', content);
     };
