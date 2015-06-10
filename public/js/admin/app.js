@@ -1,6 +1,9 @@
 
 $(document).ready(function () {
 
+    // 需要ajax加载的框里放上占位符
+    $('.ajax-loading').html('<div class="loader-wrapper"><div class="plus-loader"></div></div>');
+
     //初始化bootstrap tools
     $("body").tooltip({
         selector: '[data-toggle="tooltip"]',

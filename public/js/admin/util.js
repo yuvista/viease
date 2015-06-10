@@ -5,11 +5,12 @@
         // 生成后台uri
         // example: /admin/user
         makeUri: function(uri){
-            return baseURI.endsWith('/') + uri;
+            return baseURI.trim('/') + uri;
         },
 
         // ajax 请求
-        request: function(method, uri, data, done, error){
+        request: function(method, uri, data, done, err){
+            console.log(util.makeUri(uri));
             var params = {
                 url: util.makeUri(uri),
                 type: method || 'GET',
@@ -17,17 +18,20 @@
                 data: data,
             };
 
-            var done = done || function(){
+            var done = done || function(resp){
                 console.log('done. ' + params.url);
+                console.log(resp);
             };
 
-            var error = error || function(err){
+            var err = err || function(err){
                 error('网络错误...');
                 console.log("接口调用失败：",err);
             };
 
-            $.ajax(params).done(done).fail(error).always(function() {
-                console.log("请求：",params);
+            $('.loading').show();
+            $.ajax(params).done(done).fail(err).always(function() {
+                console.log("请求：", params);
+                $('.loading').hide();
             });
         }
     };

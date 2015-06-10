@@ -42,6 +42,7 @@ class UserController extends Controller
                 "sex"      => "女",
                 "group_id" => 3,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
+                "signature" => '这是签名信息',
             ],
             [
                 "id"       => 2,
@@ -51,6 +52,7 @@ class UserController extends Controller
                 "sex"      => "男",
                 "group_id" => 3,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
+                "signature" => '这是签名信息',
             ],
             [
                 "id"       => 3,
@@ -60,6 +62,7 @@ class UserController extends Controller
                 "sex"      => "男",
                 "group_id" => 5,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
+                "signature" => '这是签名信息',
             ],
         ];
 

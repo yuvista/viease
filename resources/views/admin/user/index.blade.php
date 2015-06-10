@@ -31,38 +31,15 @@
                     </form>
                     </div>
                 </div>
-                <div class="user-list clearfix">
-                    @for($i = 0; $i < 50; $i++)
-                        <div class="col-md-4 col-sm-6 user-item" data-nickname="小魔鱼" data-location="北京 海淀" data-remark="小姨子" data-group-id="{{ mt_rand(0,6) }}" data-signature="签名通常比较长的话看起来比较有个性，总的来讲只是为了测试页面而已，不必这么好看。。。">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="javascript:;">
-                                        <img src="http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg" alt="" class="user-avatar user-avatar-small media-object img-responsive">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="user-nickname">小魔鱼</div>
-                                    <div class="text-muted">北京 海淀</div>
-                                </div>
-                            </div>
-                        </div>
-                    @endfor
+                <div class="user-list clearfix ajax-loading">
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">分组 <a href="javascript:;" data-toggle="modal" data-target="#new-group-modal" class="pull-right"><i class="ion-android-add icon-md"></i></a></div>
-                <div class="list-group">
-                    <a href="javascript:;" class="list-group-item">
-                      <span class="badge">24</span>乖乖组
-                    </a>
-                    <a href="javascript:;" class="list-group-item">
-                      <span class="badge">799</span>SB组
-                    </a>
-                    <a href="javascript:;" class="list-group-item">
-                      <span class="badge">50</span>活跃的孩子们
-                    </a>
+                <div class="list-group group-list ajax-loading">
+
                 </div>
             </div>
         </div>
@@ -94,18 +71,40 @@
     </div>
 </div>
 
-<div id="user-popover-template" class="hidden">
+<script id="group-template" type="text/plain">
+    <a href="javascript:;" class="list-group-item">
+      <span class="badge"><%= user_count %></span> <%= title %>
+    </a>
+</script>
+
+<script id="user-template" type="text/plain">
+    <div class="col-md-4 col-sm-6 user-item" >
+        <div class="media">
+            <div class="media-left">
+                <a href="javascript:;">
+                    <img src="<%= avatar %>" alt="" class="user-avatar user-avatar-small media-object img-responsive">
+                </a>
+            </div>
+            <div class="media-body">
+                <div class="user-nickname"><%= nickname %></div>
+                <div class="text-muted"><%= location %></div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="user-popover-template" type="text/plain">
     <table>
         <tr>
-            <td colspan="2"><span class="nickname">NICKNAME</span></td>
+            <td colspan="2"><span class="nickname"><%= nickname %></span></td>
         </tr>
         <tr>
-            <td colspan="2"><span class="remark">REMARK</span> <a href="javascript:;"><i class="ion-ios-compose-outline icon-md"></i></a></td>
+            <td colspan="2"><span class="remark"><%= remark %></span> <a href="javascript:;"><i class="ion-ios-compose-outline icon-md"></i></a></td>
         </tr>
 
         <tr>
             <td class="popover-table-label">地区：</td>
-            <td class="location"> LOCATION </td>
+            <td class="location"> <%= location %> </td>
         </tr>
         <tr>
             <td class="popover-table-label">分组：</td>
@@ -123,12 +122,68 @@
         </tr>
         <tr>
             <td class="popover-table-label">签名：</td>
-            <td class="signature">SIGNATURE</td>
+            <td class="signature"> <%= signature %></td>
         </tr>
     </table>
-</div>
+</script>
 @stop
 
 @section('js')
-<script src="{{ asset('js/admin/user.js') }}"></script>
+<script src="{{ asset('js/admin/repos/user.js') }}"></script>
+<script>
+    $(function(){
+        var userTemplate    = _.template($('#user-template').html());
+        var groupTemplate   = _.template($('#group-template').html());
+        var popoverTemplate = _.template($('#user-popover-template').html());
+        var userContainer   = $('.user-list');
+        var groupContainer  = $('.group-list');
+
+        // 加载用户列表
+        function loadUsers($groupId, $sortBy, $page) {
+            Repo.user.getUsers($groupId, $sortBy, $page, function(users){
+                userContainer.html('');
+                _.each(users, function(user){
+                    var item = $(userTemplate(user));
+                    item.data(user);
+                    userContainer.append(item);
+                });
+            });
+        }
+
+        // 加载组列表
+        function loadGroups($sortBy, $page) {
+            Repo.user.getGroups($sortBy, $page, function(groups){
+                groupContainer.html('');
+                _.each(groups, function(group){
+                    var item = $(groupTemplate(group));
+                    item.data(group);
+                    groupContainer.append(item);
+                });
+            });
+        }
+
+        loadUsers(); // 第一次加载全部用户
+        loadGroups(); // 第一次加载全部组
+
+        // 浮层
+        $(document).on('mouseenter', '.user-item', function(){
+            var data = $(this).data();
+                data['html'] = true;
+
+            if (!data.content) {
+                var content = $(popoverTemplate(data));
+                content.find('select').val(data.group_id).change()
+                                        .find('[value="'+data.group_id+'"]')
+                                        .attr('selected', true)
+                                        .siblings().attr('selected', false);
+                $(this).data('content', content);
+            };
+
+            $(this).popover($(this).data());
+            $('.popover').popover('hide');
+            $(this).popover('show');
+        });
+
+    });
+</script>
 @stop

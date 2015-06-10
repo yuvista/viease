@@ -37,6 +37,7 @@
   <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('/js/underscore-min.js') }}"></script>
   <script src="{{ asset('/js/underscore.string.min.js') }}"></script>
+  <script src="{{ asset('/js/admin/util.js') }}"></script>
 </head>
 <body>
   <header class="console-header">
@@ -124,6 +125,9 @@
         </button>
       </div>
     </div>
+  </div>
+  <div class="loading text-center hidden">
+      <div class="plus-loader">Loading...</div>
   </div>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
