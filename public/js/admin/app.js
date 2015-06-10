@@ -11,6 +11,7 @@ $(document).ready(function () {
         container: "body"
     });
 
+    // select 美化
     $('select:not(.origin)').selectpicker({
         style: 'btn-transparent',
         size: 4,
@@ -19,6 +20,11 @@ $(document).ready(function () {
             style: 'btn-transparent',
             size: 4,
         });
+    });
+
+    // .popover自动关闭
+    $(document).on('click', 'body', function(){
+        setTimeout(function(){ $('.popover').popover('hide'); }, 1);
     });
 
     // 顶部菜单点击切换左侧菜单

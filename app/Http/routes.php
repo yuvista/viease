@@ -31,6 +31,7 @@ Route::group($admin, function(){
     Route::controller('account','AccountController');
     Route::controller('auth', 'AuthController');
     Route::controller('user', 'UserController');
+    Route::controller('user-group', 'UserGroupController');
     //demo
     Route::get('demo','PageController@getDemo');
 });

@@ -34,6 +34,9 @@
   <script src="{{ asset('/plugin/html5shiv/dist/html5shiv.js') }}"></script>
   <script src="{{ asset('/plugin/respond/dest/respond.min.js') }}></script>
   <![endif]-->
+  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{{ asset('/js/underscore-min.js') }}"></script>
+  <script src="{{ asset('/js/underscore.string.min.js') }}"></script>
 </head>
 <body>
   <header class="console-header">
@@ -122,7 +125,6 @@
       </div>
     </div>
   </div>
-  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
