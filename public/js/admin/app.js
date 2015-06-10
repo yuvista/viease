@@ -23,7 +23,7 @@ $(document).ready(function () {
     });
 
     // .popover自动关闭
-    $(document).on('click', 'body', function(){
+    $(document).on('click', ':not(.popover)', function(){
         setTimeout(function(){ $('.popover').popover('hide'); }, 1);
     });
 
