@@ -149,7 +149,10 @@ return [
                 'uri'   => 'account',
                 'icon'  => 'ion-social-whatsapp',
                 'submenus' => [
-
+                    [
+                        'label' => '全部公众号',
+                        'uri'   => 'lists',
+                    ],
                 ],
             ],
         ],
