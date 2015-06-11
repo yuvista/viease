@@ -116,17 +116,17 @@ return [
         'label' => '应用中心',
         'collection' => [
             [
-                'label' => '系统设置',
-                'uri'   => 'orders',
+                'label' => '应用',
+                'uri'   => 'apps',
                 'icon'  => 'ion-ios-crop-strong',
                 'submenus' => [
                     [
-                        'label' => '商品订单',
-                        'uri'   => 'goods',
+                        'label' => '我的应用',
+                        'uri'   => 'mine',
                     ],
                     [
-                        'label' => '票务订单',
-                        'uri'   => 'tickets',
+                        'label' => '应用中心',
+                        'uri'   => 'shop',
                     ],
                 ],
             ],
