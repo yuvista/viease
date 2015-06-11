@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">分组 <a href="javascript:;" data-toggle="modal" data-target="#new-group-modal" class="pull-right"><i class="ion-android-add icon-md"></i></a></div>
+                <div class="panel-heading">分组 <a href="#new-group-modal" data-toggle="modal" data-target="#new-group-modal" class="pull-right"><i class="ion-android-add icon-md"></i></a></div>
                 <div class="list-group group-list ajax-loading">
 
                 </div>
@@ -54,7 +54,7 @@
           <h4 class="modal-title">添加分组</h4>
         </div>
         <div class="modal-body">
-          <form action="" method="post" class="form-horizontal">
+          <form id="new-group" action="" method="post" class="form-horizontal">
             <div class="form-group row">
                 <label for="group-name" class="col-md-3 control-label">分组名称：</label>
                 <div class="col-md-6">
@@ -65,32 +65,36 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary">确认</button>
+          <button type="button" class="btn btn-primary submit-group">确认</button>
         </div>
       </div>
     </div>
 </div>
 
 <script id="group-template" type="text/plain">
+    <% _.each(groups, function(group) { %>
     <a href="javascript:;" class="list-group-item">
-      <span class="badge"><%= user_count %></span> <%= title %>
+      <span class="badge"><%= group.user_count %></span> <%= group.title %>
     </a>
+    <% }); %>
 </script>
 
 <script id="user-template" type="text/plain">
-    <div class="col-md-4 col-sm-6 user-item" >
+    <% _.each(users, function(user) { %>
+    <div class="col-md-4 col-sm-6 user-item" data-nickname="<%= user.nickname %>" data-location="<%= user.location %>" data-remark="<%= user.remark %>" data-group-id="<%= user.group_id %>" data-signature="<%= user.signature %>">
         <div class="media">
             <div class="media-left">
                 <a href="javascript:;">
-                    <img src="<%= avatar %>" alt="" class="user-avatar user-avatar-small media-object img-responsive">
+                    <img src="<%= user.avatar %>" alt="" class="user-avatar user-avatar-small media-object img-responsive">
                 </a>
             </div>
             <div class="media-body">
-                <div class="user-nickname"><%= nickname %></div>
-                <div class="text-muted"><%= location %></div>
+                <div class="user-nickname"><%= user.nickname %></div>
+                <div class="text-muted"><%= user.location %></div>
             </div>
         </div>
     </div>
+    <% }); %>
 </script>
 
 <script id="user-popover-template" type="text/plain">
@@ -141,24 +145,23 @@
         // 加载用户列表
         function loadUsers($groupId, $sortBy, $page) {
             Repo.user.getUsers($groupId, $sortBy, $page, function(users){
-                userContainer.html('');
-                _.each(users, function(user){
-                    var item = $(userTemplate(user));
-                    item.data(user);
-                    userContainer.append(item);
-                });
+                userContainer.html(userTemplate({users:users}));
             });
         }
 
         // 加载组列表
         function loadGroups($sortBy, $page) {
             Repo.user.getGroups($sortBy, $page, function(groups){
-                groupContainer.html('');
-                _.each(groups, function(group){
-                    var item = $(groupTemplate(group));
-                    item.data(group);
-                    groupContainer.append(item);
-                });
+                if (groups['current_page']) {
+                    groups = groups.data;
+                };
+
+                // 加入 “全部分组”
+                var totalUsers = _.reduce(groups, function(sum, group){return sum + group.user_count;}, 0);
+
+                groups.unshift({id:0, title: "全部用户", user_count:totalUsers});
+
+                groupContainer.html(groupTemplate({groups:groups}));
             });
         }
 
@@ -182,6 +185,24 @@
             $(this).popover($(this).data());
             $('.popover').popover('hide');
             $(this).popover('show');
+        });
+
+        // 新建分组
+        $(document).on('click', 'button.submit-group', function(){
+            var params = Util.parseForm($('#new-group'));
+
+            var validator = Validator.make(params, {group_name:"required|min:1"}, {group_name:"名称"});
+            if (validator.fails()) {
+                return Util.formError($('#new-group'), validator.messages());
+            };
+
+            Repo.user.createGroup(params.group_name, function(group){
+                groupContainer.append(groupTemplate({groups: [group]}));
+                success('分组创建成功！');
+                $('#new-group-modal').modal('hide');
+            });
+
+            return true;
         });
 
     });

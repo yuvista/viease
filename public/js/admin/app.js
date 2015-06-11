@@ -1,6 +1,12 @@
 
 $(document).ready(function () {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     // 需要ajax加载的框里放上占位符
     $('.ajax-loading').html('<div class="loader-wrapper"><div class="plus-loader"></div></div>');
 

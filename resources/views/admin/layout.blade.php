@@ -20,6 +20,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>后台管理</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="keywords" content="overtrue,bootstrap, bootstrap theme" />
   <meta name="description" content="a bootstrap theme made by overtrue." />
   <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}" media="screen">
@@ -38,6 +39,8 @@
   <script src="{{ asset('/js/underscore-min.js') }}"></script>
   <script src="{{ asset('/js/underscore.string.min.js') }}"></script>
   <script src="{{ asset('/js/admin/util.js') }}"></script>
+  <script src="{{ asset('/js/plugins/validator.js/i18n/zh_CN.js') }}"></script>
+  <script src="{{ asset('/js/plugins/validator.js/lib/validator.js') }}"></script>
 </head>
 <body>
   <header class="console-header">

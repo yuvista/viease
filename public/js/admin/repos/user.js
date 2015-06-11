@@ -45,18 +45,18 @@
         },
 
         // 创建分组
-        createGroups: function ($name, $callback) {
+        createGroup: function ($title, $callback) {
             var $request = {
-                name: $name
+                title: $title
             };
 
             Util.request('POST', 'user-group/store', $request, $callback);
         },
 
         // 修改分组
-        updateGroup: function ($groupId, $name, $callback) {
+        updateGroup: function ($groupId, $title, $callback) {
             var $request = {
-                name: $name
+                title: $title
             };
 
             Util.request('POST', 'user-group/update/' + $groupId, $request, $callback);

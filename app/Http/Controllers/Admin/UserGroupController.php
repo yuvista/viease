@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserGroupController extends Controller
 {
@@ -22,7 +23,7 @@ class UserGroupController extends Controller
          * sort_by: xxx
          * page: 1
          */
-        return [
+        $groups = [
                  [
                     "id" => 1,
                     "title" => "分组1",
@@ -54,6 +55,26 @@ class UserGroupController extends Controller
                     "user_count" => 0,
                  ],
             ];
+
+        return new LengthAwarePaginator($groups, 30, 5);
+    }
+
+    /**
+     * 创建分组
+     *
+     * @return Reponse
+     */
+    public function postStore(Request $request)
+    {
+        $rules = [
+            'title' => 'required|min:1',
+        ];
+
+        $this->validate($request, $rules);
+
+        //TODO
+
+        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'user_count' => 0];
     }
 
     /**
@@ -68,5 +89,6 @@ class UserGroupController extends Controller
         /**
          * name: $name
          */
+        //TODO
     }
 }
