@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'illuminate.query' => [
+            'App\Listeners\DBQueryListener',// 记录查询SQL
         ],
     ];
 
