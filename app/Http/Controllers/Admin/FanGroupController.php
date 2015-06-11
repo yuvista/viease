@@ -27,32 +27,32 @@ class FanGroupController extends Controller
                  [
                     "id" => 1,
                     "title" => "分组1",
-                    "fans_count" => 34,
+                    "fan_count" => 34,
                  ],
                  [
                     "id" => 2,
                     "title" => "分组2",
-                    "fans_count" => 4,
+                    "fan_count" => 4,
                  ],
                  [
                     "id" => 3,
                     "title" => "分组3",
-                    "fans_count" => 3,
+                    "fan_count" => 3,
                  ],
                  [
                     "id" => 4,
                     "title" => "分组4",
-                    "fans_count" => 324,
+                    "fan_count" => 324,
                  ],
                  [
                     "id" => 5,
                     "title" => "分组5",
-                    "fans_count" => 1034,
+                    "fan_count" => 1034,
                  ],
                  [
                     "id" => 6,
                     "title" => "分组6",
-                    "fans_count" => 0,
+                    "fan_count" => 0,
                  ],
             ];
 
@@ -74,7 +74,7 @@ class FanGroupController extends Controller
 
         //TODO
 
-        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'fans_count' => 0];
+        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'fan_count' => 0];
     }
 
     /**

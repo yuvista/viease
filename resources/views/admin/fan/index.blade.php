@@ -74,7 +74,7 @@
 <script id="group-template" type="text/plain">
     <% _.each(groups, function(group) { %>
     <a href="javascript:;" data-id="<%= group.id %>" class="list-group-item">
-      <span class="badge"><%= group.fans_count %></span> <%= group.title %>
+      <span class="badge"><%= group.fan_count %></span> <%= group.title %>
     </a>
     <% }); %>
 </script>
@@ -167,9 +167,9 @@
                 };
 
                 // 加入 “全部分组”
-                var totalfans = _.reduce($groups, function(sum, group){return sum + group.fans_count;}, 0);
+                var totalfans = _.reduce($groups, function(sum, group){return sum + group.fan_count;}, 0);
 
-                $groups.unshift({id:0, title: "全部用户", fans_count:totalfans});
+                $groups.unshift({id:0, title: "全部用户", fan_count:totalfans});
 
                 groupContainer.html(groupTemplate({groups:$groups}));
             });
