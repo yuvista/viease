@@ -47,28 +47,28 @@
 </div>
 
 <div class="modal" id="new-group-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">添加分组</h4>
-        </div>
-        <div class="modal-body">
-          <form id="new-group" action="" method="post" class="form-horizontal">
-            <div class="form-group row">
-                <label for="group-name" class="col-md-3 control-label">分组名称：</label>
-                <div class="col-md-6">
-                    <input type="text" id="group-name" name="group_name" class="form-control">
+    <form id="new-group" action="" method="post" class="form-horizontal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">添加分组</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="group-name" class="col-md-3 control-label">分组名称：</label>
+                    <div class="col-md-6">
+                        <input type="text" id="group-name" name="group_name" class="form-control">
+                    </div>
                 </div>
             </div>
-          </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="submit" class="btn btn-primary submit-group">确认</button>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-primary submit-group">确认</button>
-        </div>
-      </div>
-    </div>
+    </form>
 </div>
 
 <script id="group-template" type="text/plain">
@@ -141,42 +141,56 @@
         var popoverTemplate = _.template($('#user-popover-template').html());
         var userContainer   = $('.user-list');
         var groupContainer  = $('.group-list');
+        var groupId = 0;
+        var page = 1;
+        var sortBy = $('[name="sort_by"]').val();
 
         // 加载用户列表
         function loadUsers($groupId, $sortBy, $page) {
+            $sortBy = $sortBy || sortBy;
+            $page = $page || page;
+            // 覆盖全局变量
+            page = $page;
+            sortBy = $sortBy;
+
             Repo.user.getUsers($groupId, $sortBy, $page, function(users){
+                console.log(users);
                 userContainer.html(userTemplate({users:users}));
             });
         }
 
         // 加载组列表
         function loadGroups($sortBy, $page) {
-            Repo.user.getGroups($sortBy, $page, function(groups){
-                if (groups['current_page']) {
-                    groups = groups.data;
+            Repo.user.getGroups($sortBy, $page, function($groups){
+                if ($groups['current_page']) {
+                    $groups = $groups.data;
                 };
 
                 // 加入 “全部分组”
-                var totalUsers = _.reduce(groups, function(sum, group){return sum + group.user_count;}, 0);
+                var totalUsers = _.reduce($groups, function(sum, group){return sum + group.user_count;}, 0);
 
-                groups.unshift({id:0, title: "全部用户", user_count:totalUsers});
+                $groups.unshift({id:0, title: "全部用户", user_count:totalUsers});
 
-                groupContainer.html(groupTemplate({groups:groups}));
+                groupContainer.html(groupTemplate({groups:$groups}));
             });
         }
 
         loadUsers(); // 第一次加载全部用户
         loadGroups(); // 第一次加载全部组
 
+        $(document).on('change', '[name="sort_by"]', function(){
+            loadUsers(groupId, $(this).val(), page);
+        });
+
         // 浮层
         $(document).on('mouseenter', '.user-item', function(){
-            var data = $(this).data();
-                data['html'] = true;
+            var $data = $(this).data();
+                $data['html'] = true;
 
-            if (!data.content) {
-                var content = $(popoverTemplate(data));
-                content.find('select').val(data.group_id).change()
-                                        .find('[value="'+data.group_id+'"]')
+            if (!$data['content']) {
+                var content = $(popoverTemplate($data));
+                content.find('select').val($data.group_id).change()
+                                        .find('[value="'+$data.group_id+'"]')
                                         .attr('selected', true)
                                         .siblings().attr('selected', false);
                 $(this).data('content', content);
@@ -188,21 +202,26 @@
         });
 
         // 新建分组
-        $(document).on('click', 'button.submit-group', function(){
-            var params = Util.parseForm($('#new-group'));
+        $(document).on('submit', '#new-group', function(){
+            var $params = Util.parseForm($('#new-group'));
 
-            var validator = Validator.make(params, {group_name:"required|min:1"}, {group_name:"名称"});
-            if (validator.fails()) {
-                return Util.formError($('#new-group'), validator.messages());
+            var $validator = Validator.make($params, {group_name:"required|min:1"}, {group_name:"名称"});
+            if ($validator.fails()) {
+                Util.formError($('#new-group'), $validator.messages());
+                return false;
             };
 
-            Repo.user.createGroup(params.group_name, function(group){
-                groupContainer.append(groupTemplate({groups: [group]}));
+            Repo.user.createGroup($params.group_name, function($group){
+                groupContainer.append(groupTemplate({groups: [$group]}));
                 success('分组创建成功！');
-                $('#new-group-modal').modal('hide');
+                $('#new-group-modal').modal('hide').find('form').reset();
+            }, function(err){
+                if (err.status == 422) {
+                    return Util.formError($('#new-group'), err.responseJSON);
+                };
             });
 
-            return true;
+            return false;
         });
 
     });

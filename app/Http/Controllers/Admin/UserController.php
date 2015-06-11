@@ -24,7 +24,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function getLists()
+    public function getLists(Request $request)
     {
         /**
          * 请求参数：
@@ -43,6 +43,9 @@ class UserController extends Controller
                 "group_id" => 3,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
                 "signature" => '这是签名信息',
+                "followd_at" => 1405290921,
+                "liveness"  => 56,
+                "last_speaking_at" => 1234556366,
             ],
             [
                 "id"       => 2,
@@ -53,6 +56,9 @@ class UserController extends Controller
                 "group_id" => 3,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
                 "signature" => '这是签名信息',
+                "followd_at" => 1405299921,
+                "liveness"  => 5,
+                "last_speaking_at" => 1234556466,
             ],
             [
                 "id"       => 3,
@@ -63,8 +69,13 @@ class UserController extends Controller
                 "group_id" => 5,
                 "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
                 "signature" => '这是签名信息',
+                "followd_at" => 1405296921,
+                "liveness"  => 100,
+                "last_speaking_at" => 1234556266,
             ],
         ];
+
+        $users = collect($users)->sortByDesc($request->sort_by)->values()->all();
 
         return response()->json($users);
     }

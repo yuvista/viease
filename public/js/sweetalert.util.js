@@ -1,4 +1,4 @@
-var defaultTimer = 500000;
+var defaultTimer = 2000;
 
 /**
  * 成功消息
