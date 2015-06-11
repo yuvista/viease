@@ -221,7 +221,7 @@
             Repo.fan.createGroup($params.group_name, function($group){
                 groupContainer.append(groupTemplate({groups: [$group]}));
                 success('分组创建成功！');
-                $('#new-group-modal').modal('hide').find('form').reset();
+                $('#new-group-modal').modal('hide').find('form').get(0).reset();
             }, function(err){
                 if (err.status == 422) {
                     return Util.formError($('#new-group'), err.responseJSON);
