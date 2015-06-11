@@ -14,9 +14,9 @@
                         <div class="pull-right">
                             <div class="form-group">
                                 <select name="sort_by" class="form-control input-sm">
-                                    <option value="subscribe_at">关注时间</option>
+                                    <option value="subscribed_at">关注时间</option>
                                     <option value="liveness">活跃度</option>
-                                    <option value="last_speaking_at">最后发言时间</option>
+                                    <option value="last_online_at">最后发言时间</option>
                                 </select>
                             </div>
                             <div class="form-group">
