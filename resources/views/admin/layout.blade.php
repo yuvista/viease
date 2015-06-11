@@ -129,7 +129,7 @@
       </div>
     </div>
   </div>
-  <div class="loading text-center hidden">
+  <div class="loading text-center" style="display:none">
       <div class="plus-loader">Loading...</div>
   </div>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>

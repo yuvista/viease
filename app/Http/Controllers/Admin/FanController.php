@@ -8,19 +8,19 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 /**
- * 用户管理
+ * 粉丝管理
  *
  * @author overtrue <i@overtrue.me>
  */
-class UserController extends Controller
+class FanController extends Controller
 {
     public function getIndex()
     {
-        return view('admin.user.index');
+        return view('admin.fan.index');
     }
 
     /**
-     * 获取用户列表
+     * 获取粉丝列表
      *
      * @return Response
      */
@@ -33,7 +33,7 @@ class UserController extends Controller
          * page: 1
          */
 
-        $users = [
+        $fans = [
             [
                 "id"       => 1,
                 "nickname" => "小妹你去哪儿?",
@@ -75,15 +75,15 @@ class UserController extends Controller
             ],
         ];
 
-        $users = collect($users)->sortByDesc($request->sort_by)->values()->all();
+        $fans = collect($fans)->sortByDesc($request->sort_by)->values()->all();
 
-        return response()->json($users);
+        return response()->json($fans);
     }
 
     /**
-     * 更新用户备注
+     * 更新粉丝备注
      *
-     * @param int $id 用户ID
+     * @param int $id 粉丝ID
      *
      * @return Response
      */
@@ -93,7 +93,7 @@ class UserController extends Controller
     }
 
     /**
-     * 移动单个或者多个用户到指定分组
+     * 移动单个或者多个粉丝到指定分组
      *
      * @param int $groupId 分组ID
      *
@@ -103,7 +103,7 @@ class UserController extends Controller
     {
         /**
          * 请求参数：
-         * user_id: [1,2,3,4] 或者 user_id: 1,
+         * fans_id: [1,2,3,4] 或者 fans_id: 1,
          * 要求支持单个或者多个
          */
     }

@@ -30,8 +30,9 @@ Route::group($admin, function(){
     Route::get('table','PageController@getDivTable');
     Route::controller('account','AccountController');
     Route::controller('auth', 'AuthController');
-    Route::controller('user', 'UserController');
-    Route::controller('user-group', 'UserGroupController');
+    // Route::controller('user', 'UserController');
+    Route::controller('fan', 'FanController');
+    Route::controller('fan-group', 'FanGroupController');
     //demo
     Route::get('demo','PageController@getDemo');
 });

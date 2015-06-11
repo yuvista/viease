@@ -31,7 +31,7 @@
                     </form>
                     </div>
                 </div>
-                <div class="user-list clearfix ajax-loading">
+                <div class="fans-list clearfix ajax-loading">
                 </div>
             </div>
         </div>
@@ -74,30 +74,30 @@
 <script id="group-template" type="text/plain">
     <% _.each(groups, function(group) { %>
     <a href="javascript:;" data-id="<%= group.id %>" class="list-group-item">
-      <span class="badge"><%= group.user_count %></span> <%= group.title %>
+      <span class="badge"><%= group.fans_count %></span> <%= group.title %>
     </a>
     <% }); %>
 </script>
 
-<script id="user-template" type="text/plain">
-    <% _.each(users, function(user) { %>
-    <div class="col-md-4 col-sm-6 user-item" data-nickname="<%= user.nickname %>" data-location="<%= user.location %>" data-remark="<%= user.remark %>" data-group-id="<%= user.group_id %>" data-signature="<%= user.signature %>">
+<script id="fan-template" type="text/plain">
+    <% _.each(fans, function(fan) { %>
+    <div class="col-md-4 col-sm-6 fan-item" data-nickname="<%= fan.nickname %>" data-location="<%= fan.location %>" data-remark="<%= fan.remark %>" data-group-id="<%= fan.group_id %>" data-signature="<%= fan.signature %>">
         <div class="media">
             <div class="media-left">
                 <a href="javascript:;">
-                    <img src="<%= user.avatar %>" alt="" class="user-avatar user-avatar-small media-object img-responsive">
+                    <img src="<%= fan.avatar %>" alt="" class="fan-avatar fan-avatar-small media-object img-responsive">
                 </a>
             </div>
             <div class="media-body">
-                <div class="user-nickname"><%= user.nickname %></div>
-                <div class="text-muted"><%= user.location %></div>
+                <div class="fan-nickname"><%= fan.nickname %></div>
+                <div class="text-muted"><%= fan.location %></div>
             </div>
         </div>
     </div>
     <% }); %>
 </script>
 
-<script id="user-popover-template" type="text/plain">
+<script id="fan-popover-template" type="text/plain">
     <table>
         <tr>
             <td colspan="2"><span class="nickname"><%= nickname %></span></td>
@@ -133,64 +133,64 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/admin/repos/user.js') }}"></script>
+<script src="{{ asset('js/admin/repos/fan.js') }}"></script>
 <script>
     $(function(){
-        var userTemplate    = _.template($('#user-template').html());
+        var fanTemplate    = _.template($('#fan-template').html());
         var groupTemplate   = _.template($('#group-template').html());
-        var popoverTemplate = _.template($('#user-popover-template').html());
-        var userContainer   = $('.user-list');
+        var popoverTemplate = _.template($('#fan-popover-template').html());
+        var fanContainer   = $('.fans-list');
         var groupContainer  = $('.group-list');
         var groupId = 0;
         var page = 1;
         var sortBy = $('[name="sort_by"]').val();
 
         // 加载用户列表
-        function loadUsers($groupId, $sortBy, $page) {
+        function loadFans($groupId, $sortBy, $page) {
             $sortBy = $sortBy || sortBy;
             $page = $page || page;
             // 覆盖全局变量
             page = $page;
             sortBy = $sortBy;
 
-            Repo.user.getUsers($groupId, $sortBy, $page, function(users){
-                console.log(users);
-                userContainer.html(userTemplate({users:users}));
+            Repo.fan.getFans($groupId, $sortBy, $page, function(fans){
+                console.log(fans);
+                fanContainer.html(fanTemplate({fans:fans}));
             });
         }
 
         // 加载组列表
         function loadGroups($sortBy, $page) {
-            Repo.user.getGroups($sortBy, $page, function($groups){
+            Repo.fan.getGroups($sortBy, $page, function($groups){
                 if ($groups['current_page']) {
                     $groups = $groups.data;
                 };
 
                 // 加入 “全部分组”
-                var totalUsers = _.reduce($groups, function(sum, group){return sum + group.user_count;}, 0);
+                var totalfans = _.reduce($groups, function(sum, group){return sum + group.fans_count;}, 0);
 
-                $groups.unshift({id:0, title: "全部用户", user_count:totalUsers});
+                $groups.unshift({id:0, title: "全部用户", fans_count:totalfans});
 
                 groupContainer.html(groupTemplate({groups:$groups}));
             });
         }
 
-        loadUsers(); // 第一次加载全部用户
+        loadFans(); // 第一次加载全部用户
         loadGroups(); // 第一次加载全部组
 
         // 修改排序方式
         $(document).on('change', '[name="sort_by"]', function(){
-            loadUsers(groupId, $(this).val(), page);
+            loadFans(groupId, $(this).val(), page);
         });
 
         // 分组切换
         $(document).on('click', '.group-list > a', function(){
-            loadUsers($(this).data('id'), sortBy);
+            loadFans($(this).data('id'), sortBy);
             $(this).addClass('active').siblings('a').removeClass('active');
         });
 
         // 浮层
-        $(document).on('mouseenter', '.user-item', function(){
+        $(document).on('mouseenter', '.fan-item', function(){
             var $data = $(this).data();
                 $data['html'] = true;
 
@@ -218,7 +218,7 @@
                 return false;
             };
 
-            Repo.user.createGroup($params.group_name, function($group){
+            Repo.fan.createGroup($params.group_name, function($group){
                 groupContainer.append(groupTemplate({groups: [$group]}));
                 success('分组创建成功！');
                 $('#new-group-modal').modal('hide').find('form').reset();

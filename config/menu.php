@@ -31,16 +31,16 @@ return [
                 ],
             ],
             [
-                'label' => '用户管理',
-                'uri'   => 'user',
+                'label' => '粉丝管理',
+                'uri'   => 'fan',
                 'icon'  => 'ion-ios-people',
                 'submenus' => [
                     [
-                        'label' => '全部用户',
-                        'uri'   => 'lists',
+                        'label' => '全部粉丝',
+                        'uri'   => '',
                     ],
                     [
-                        'label' => '用户标签',
+                        'label' => '粉丝标签',
                         'uri'   => 'tags',
                     ],
                 ],
@@ -134,24 +134,12 @@ return [
             ],
             [
                 'label' => '管理员',
-                'uri'   => 'admin',
+                'uri'   => 'user',
                 'icon'  => 'ion-android-people',
                 'submenus' => [
                     [
                         'label' => '密码修改',
-                        'uri'   => 'goods',
-                    ],
-                ],
-            ],
-
-            [
-                'label' => '公众号',
-                'uri'   => 'account',
-                'icon'  => 'ion-social-whatsapp',
-                'submenus' => [
-                    [
-                        'label' => '全部公众号',
-                        'uri'   => 'lists',
+                        'uri'   => 'password',
                     ],
                 ],
             ],

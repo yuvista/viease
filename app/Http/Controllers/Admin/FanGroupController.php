@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class UserGroupController extends Controller
+class FanGroupController extends Controller
 {
     /**
      * 获取分组列表
@@ -27,32 +27,32 @@ class UserGroupController extends Controller
                  [
                     "id" => 1,
                     "title" => "分组1",
-                    "user_count" => 34,
+                    "fans_count" => 34,
                  ],
                  [
                     "id" => 2,
                     "title" => "分组2",
-                    "user_count" => 4,
+                    "fans_count" => 4,
                  ],
                  [
                     "id" => 3,
                     "title" => "分组3",
-                    "user_count" => 3,
+                    "fans_count" => 3,
                  ],
                  [
                     "id" => 4,
                     "title" => "分组4",
-                    "user_count" => 324,
+                    "fans_count" => 324,
                  ],
                  [
                     "id" => 5,
                     "title" => "分组5",
-                    "user_count" => 1034,
+                    "fans_count" => 1034,
                  ],
                  [
                     "id" => 6,
                     "title" => "分组6",
-                    "user_count" => 0,
+                    "fans_count" => 0,
                  ],
             ];
 
@@ -74,7 +74,7 @@ class UserGroupController extends Controller
 
         //TODO
 
-        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'user_count' => 0];
+        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'fans_count' => 0];
     }
 
     /**

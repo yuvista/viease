@@ -2,36 +2,36 @@
 
     var Repo = Repo || {};
 
-    // 用户仓库
-    Repo.user = {
-        // 获取用户列表
-        getUsers: function ($groupId, $sortBy, $page, $callback) {
+    // 粉丝仓库
+    Repo.fan = {
+        // 获取粉丝列表
+        getFans: function ($groupId, $sortBy, $page, $callback) {
             var $request = {
                 group_id: $groupId || null,
                 sort_by: $sortBy || null,
                 page: $page || 1,
             };
 
-            Util.request('GET', 'user/lists', $request, $callback);
+            Util.request('GET', 'fan/lists', $request, $callback);
         },
 
-        // 修改用户备注
-        setRemark: function ($userId, $remark, $callback) {
+        // 修改粉丝备注
+        setRemark: function ($fanId, $remark, $callback) {
             var $request = {
                 remark: $remark
             };
 
-            Util.request('POST', 'user/remark/' + $userId, $request, $callback);
+            Util.request('POST', 'fan/remark/' + $fanId, $request, $callback);
         },
 
-        // 移动用户（一个或者多个）到分组
-        updateUserGroup: function ($userId, $groupId, $callback) {
+        // 移动粉丝（一个或者多个）到分组
+        updateFanGroup: function ($fanId, $groupId, $callback) {
             var $request = {
-                user_id: $userId,
+                fan_id: $fanId,
                 group_id: $groupId
             };
 
-            Util.request('POST', 'user/set-group', $request, $callback);
+            Util.request('POST', 'fan/set-group', $request, $callback);
         },
 
         // 获取分组列表
@@ -41,7 +41,7 @@
                 page: $page || 1,
             };
 
-            Util.request('GET', 'user-group/lists', $request, $callback);
+            Util.request('GET', 'fan-group/lists', $request, $callback);
         },
 
         // 创建分组
@@ -50,7 +50,7 @@
                 title: $title
             };
 
-            Util.request('POST', 'user-group/store', $request, $callback);
+            Util.request('POST', 'fan-group/store', $request, $callback);
         },
 
         // 修改分组
@@ -59,7 +59,7 @@
                 title: $title
             };
 
-            Util.request('POST', 'user-group/update/' + $groupId, $request, $callback);
+            Util.request('POST', 'fan-group/update/' + $groupId, $request, $callback);
         },
     };
 
