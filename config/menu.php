@@ -27,20 +27,21 @@ return [
                         'label' => '模板消息',
                         'uri'   => 'notice',
                     ],
-                    [
-                        'label' => '自动回复',
-                        'uri'   => 'auto-reply',
-                    ],
+
                 ],
             ],
             [
                 'label' => '用户管理',
                 'uri'   => 'user',
-                'icon'  => 'ion-person',
+                'icon'  => 'ion-ios-people',
                 'submenus' => [
                     [
                         'label' => '全部用户',
-                        'uri'   => '',
+                        'uri'   => 'lists',
+                    ],
+                    [
+                        'label' => '用户标签',
+                        'uri'   => 'tags',
                     ],
                 ],
             ],
@@ -60,9 +61,58 @@ return [
                 ],
             ],
             [
+                'label' => '工具',
+                'uri'   => 'tools',
+                'icon'  => 'ion-ios-color-wand',
+                'submenus' => [
+                    [
+                        'label' => '短链接',
+                        'uri'   => 'short-url',
+                    ],
+                    [
+                        'label' => '二维码',
+                        'uri'   => 'qrcode',
+                    ],
+                ],
+            ],
+            [
+                'label' => '客服',
+                'uri'   => 'staff',
+                'icon'  => 'ion-ios-cog',
+                'submenus' => [
+                    [
+                        'label' => '客服管理',
+                        'uri'   => 'lists',
+                    ],
+                    [
+                        'label' => '绩效查询',
+                        'uri'   => 'staff',
+                    ],
+                ],
+            ],
+            [
+                'label' => '账号与服务',
+                'uri'   => 'services',
+                'icon'  => 'ion-ios-cog',
+                'submenus' => [
+                     [
+                        'label' => '自定义菜单',
+                        'uri'   => 'menu',
+                    ],
+                    [
+                        'label' => '自动回复',
+                        'uri'   => 'auto-reply',
+                    ],
+                    [
+                        'label' => '摇一摇周边',
+                        'uri'   => 'goods',
+                    ],
+                ],
+            ],
+            [
                 'label' => '数据统计',
                 'uri'   => 'data',
-                'icon'  => 'ion-ios-clock',
+                'icon'  => 'ion-ios-pulse-strong',
                 'submenus' => [
                     [
                         'label' => '用户',
@@ -83,8 +133,8 @@ return [
                 ],
             ],
             [
-                'label' => '账号管理',
-                'uri'   => 'user',
+                'label' => '管理员',
+                'uri'   => 'admin',
                 'icon'  => 'ion-android-people',
                 'submenus' => [
                     [
@@ -99,13 +149,67 @@ return [
                 'uri'   => 'account',
                 'icon'  => 'ion-social-whatsapp',
                 'submenus' => [
+
+                ],
+            ],
+        ],
+    ],
+    [
+        'group' => 'card',
+        'label' => '卡券',
+        'collection' => [
+            [
+                'label' => '卡券管理',
+                'uri'   => 'card',
+                'icon'  => 'ion-ios-photos',
+                'submenus' => [
                     [
-                        'label' => '我的公众号',
-                        'uri'   => '',
+                        'label' => '全部卡券',
+                        'uri'   => 'lists',
                     ],
                     [
-                        'label' => '添加公众号',
-                        'uri'   => 'create',
+                        'label' => '应用中心',
+                        'uri'   => 'shop',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    [
+        'group' => 'store',
+        'label' => '小店',
+        'collection' => [
+            [
+                'label' => '订单管理',
+                'uri'   => 'card',
+                'icon'  => 'ion-ios-list',
+                'submenus' => [
+                    [
+                        'label' => '全部订单',
+                        'uri'   => 'lists',
+                    ],
+                ],
+            ],
+            [
+                'label' => '商品管理',
+                'uri'   => 'goods',
+                'icon'  => 'ion-ios-football',
+                'submenus' => [
+                    [
+                        'label' => '全部商品',
+                        'uri'   => 'lists',
+                    ],
+                    [
+                        'label' => '货架管理',
+                        'uri'   => 'shelf',
+                    ],
+                    [
+                        'label' => '商品分组',
+                        'uri'   => 'group',
+                    ],
+                    [
+                        'label' => '邮费模板',
+                        'uri'   => 'postage-template',
                     ],
                 ],
             ],
@@ -118,7 +222,7 @@ return [
             [
                 'label' => '应用',
                 'uri'   => 'apps',
-                'icon'  => 'ion-ios-crop-strong',
+                'icon'  => 'ion-ios-game-controller-b',
                 'submenus' => [
                     [
                         'label' => '我的应用',
