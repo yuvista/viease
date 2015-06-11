@@ -153,9 +153,11 @@
             page = $page;
             sortBy = $sortBy;
 
-            Repo.fan.getFans($groupId, $sortBy, $page, function(fans){
-                console.log(fans);
-                fanContainer.html(fanTemplate({fans:fans}));
+            Repo.fan.getFans($groupId, $sortBy, $page, function($fans){
+                if ($fans['current_page']) {
+                    $fans = $fans.data;
+                };
+                fanContainer.html(fanTemplate({fans:$fans}));
             });
         }
 
