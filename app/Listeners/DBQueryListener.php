@@ -18,6 +18,8 @@ class DBQueryListener
      */
     public function handle($sql, $params)
     {
-        Log::info($sql . ", with[" . join(',', $params) ."]");
+        if (env('APP_ENV', 'production') == 'local') {
+            Log::info($sql . ", with[" . join(',', $params) ."]");
+        }
     }
 }
