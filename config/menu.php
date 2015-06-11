@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     [
         'group' => 'account',
         'label' => '公众号',
@@ -18,6 +18,17 @@ return [
                     [
                         'label' => '添加公众号',
                         'uri'   => 'create',
+                    ],
+                ],
+            ],
+            [
+                'label' => '用户管理',
+                'uri'   => 'user',
+                'icon'  => 'ion-person',
+                'submenus' => [
+                    [
+                        'label' => '全部用户',
+                        'uri'   => '',
                     ],
                 ],
             ],
