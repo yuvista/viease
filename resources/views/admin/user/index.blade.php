@@ -73,7 +73,7 @@
 
 <script id="group-template" type="text/plain">
     <% _.each(groups, function(group) { %>
-    <a href="javascript:;" class="list-group-item">
+    <a href="javascript:;" data-id="<%= group.id %>" class="list-group-item">
       <span class="badge"><%= group.user_count %></span> <%= group.title %>
     </a>
     <% }); %>
@@ -178,8 +178,15 @@
         loadUsers(); // 第一次加载全部用户
         loadGroups(); // 第一次加载全部组
 
+        // 修改排序方式
         $(document).on('change', '[name="sort_by"]', function(){
             loadUsers(groupId, $(this).val(), page);
+        });
+
+        // 分组切换
+        $(document).on('click', '.group-list > a', function(){
+            loadUsers($(this).data('id'), sortBy);
+            $(this).addClass('active').siblings('a').removeClass('active');
         });
 
         // 浮层
