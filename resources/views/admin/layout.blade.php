@@ -75,10 +75,10 @@
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
-                        @if($accountList)
+                        @if(!empty($accountList))
                           @foreach($accountList as $list)
                         <li>
-                        <a href="{{ admin_url('account/change-account/'.$list->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $list->name }}”">@if($currentAccount->id == $list->id)<i class="ion-ios-circle-filled"></i>  @endif{{ $list->name}}</a>
+                        <a href="{{ admin_url('account/change-account/'.$list->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $list->name }}”">@if($currentAccount) @if($currentAccount->id == $list->id)<i class="ion-ios-circle-filled"></i>  @endif @endif {{ $list->name}}</a>
                         </li>
                         <li class="divider"></li>
                         @endforeach

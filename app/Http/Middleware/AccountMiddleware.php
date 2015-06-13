@@ -39,7 +39,7 @@ class AccountMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(!$this->account->chosed()){
+        if(!$this->account->getCurrent()){
             return redirect(admin_url('account'));
         }
 
