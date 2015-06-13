@@ -79,7 +79,6 @@ class AccountRepository
         return $account->save();
     }
 
-
     /**
      * 切换公众号
      *

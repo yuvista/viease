@@ -14,7 +14,8 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id');  
+            $table->integer('account_id');
+            $table->tinyInteger('type')->nullable()->default(1)
             $table->integer('parent_id'); 
             $table->string('title'); //素材标题
             $table->string('digest')->nullable(); //描述
