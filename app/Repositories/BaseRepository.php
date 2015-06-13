@@ -4,6 +4,14 @@ namespace App\Repositories;
 
 trait BaseRepository
 {
+	
+	/**
+	 * Account Id
+	 * 
+	 * @return String
+	 */
+	protected $account_id = 1;
+
 
     /**
      * Get number of records.
