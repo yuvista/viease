@@ -2,15 +2,8 @@
 
 namespace App\Repositories;
 
-abstract class BaseRepository
+trait BaseRepository
 {
-
-    /**
-     * The Model instance.
-     *
-     * @var Illuminate\Database\Eloquent\Model
-     */
-    protected $model;
 
     /**
      * Get number of records.

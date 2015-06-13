@@ -75,13 +75,21 @@
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
-                          <li>
-                              <a href="#dropdown1">账号名称1</a>
-                          </li>
-                          <li class="divider"></li>
-                          <li>
-                              <a href="#dropdown2">账号名称2</a>
-                          </li>
+                        @if($accountList)
+                          @foreach($accountList as $list)
+                        <li>
+                        <a href="{{ admin_url('account/change-account/'.$list->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $list->name }}”">@if($currentAccount->id == $list->id)<i class="ion-ios-circle-filled"></i>  @endif{{ $list->name}}</a>
+                        </li>
+                        <li class="divider"></li>
+                        @endforeach
+                      @endif
+                        <li>
+                          <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                          <a href="{{ admin_url('account/create')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="添加公众号">添加公众号</a>
+                        </li>
                       </ul>
                   </li>
               </ul>

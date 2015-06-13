@@ -2,12 +2,16 @@
 namespace App\Repositories;
 
 use App\Models\Account;
+use Carbon\Carbon;
+use Session;
 
 /**
  * Account Repository
  */
-class AccountRepository extends BaseRepository
+class AccountRepository
 {
+    use BaseRepository;
+
     /**
      * Account Model
      *
@@ -70,8 +74,21 @@ class AccountRepository extends BaseRepository
      */
     public function savePost($account, $input)
     {
-        $account->fill($input);
+        $account->fill($input->all());
 
         return $account->save();
+    }
+
+
+    /**
+     * 切换公众号
+     *
+     * @param  integer $id id
+     *
+     * @return void
+     */
+    public function change($id)
+    {
+        Session::put('account_id',$id);
     }
 }

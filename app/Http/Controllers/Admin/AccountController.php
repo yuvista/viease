@@ -8,6 +8,8 @@ use App\Repositories\AccountRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Services\Account as AccountService;
+use Account;
 
 /**
  * 公众号管理
@@ -22,16 +24,27 @@ class AccountController extends Controller
      *
      * @var AccountRepository
      */
-    protected $account;
+    private $account;
+
+    /**
+     * App\Services\Account
+     *
+     * @var App\Services\Account
+     */
+    private $service;
 
     /**
      * constructer
      *
      * @param AccountRepository $account
      */
-    public function __construct(AccountRepository $account)
+    public function __construct(AccountRepository $account,AccountService $service)
     {
         $this->account = $account;
+
+        $this->service = $service;
+
+        $this->middleware('account',['only' => 'getManage']);
     }
 
     /**
@@ -44,6 +57,18 @@ class AccountController extends Controller
         $accounts = $this->account->lists(10);
 
         return view('admin.account.index', compact('accounts'));
+    }
+
+    /**
+     * 预览首页
+     *
+     * @return void
+     */
+    public function getManage()
+    {
+        $current = $this->service->getCurrent();
+
+        return view('admin.account.manage',compact('current'));
     }
 
     /**
@@ -68,5 +93,62 @@ class AccountController extends Controller
         $this->account->store($request);
 
         return redirect(admin_url('account'))->withMessage('添加成功！');
+    }
+
+    /**
+     * 展示修改
+     *
+     * @param  integer $id id
+     *
+     * @return void
+     */
+    public function getUpdate($id)
+    {
+        $account = $this->account->getById($id);
+
+        return view('admin.account.form', compact('account'));
+    }
+
+    /**
+     * 提交
+     *
+     * @param  integer       $id      id
+     * @param  UpdateRequest $request request
+     *
+     * @return Redirect
+     */
+    public function postUpdate(UpdateRequest $request, $id)
+    {
+        $this->account->update($id,$request);
+
+        return redirect(admin_url('account'))->withMessage('修改成功！');        
+    }
+
+    /**
+     * 删除公众号
+     *
+     * @param  [type] $id [description]
+     *
+     * @return [type]     [description]
+     */
+    public function getDelete($id)
+    {
+        $this->account->destroy($id);
+
+        return redirect(admin_url('account'))->withMessage('删除成功！');      
+    }
+
+    /**
+     * 切换公众号
+     *
+     * @param  integer $id id
+     *
+     * @return void
+     */
+    public function getChangeAccount($id)
+    {
+        $this->service->chose($id);
+
+        return redirect(admin_url('/'));
     }
 }

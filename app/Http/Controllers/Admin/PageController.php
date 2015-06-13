@@ -11,15 +11,6 @@ use App\Http\Controllers\Controller;
  */
 class PageController extends Controller
 {
-    /**
-     * 后台首页展示
-     *
-     * @return void
-     */
-    public function getIndex()
-    {
-       return redirect(admin_url('account'));
-    }
 
     public function getDivTable()
     {

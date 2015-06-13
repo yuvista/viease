@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b974d2ab56b69a222a3d7088a69e70d9",
+    "hash": "3dde5a892194a9b070aa4bc1f91f5579",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -40,7 +40,7 @@
                     "src/helpers.php"
                 ]
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -78,7 +78,7 @@
                 "overtrue/laravel-lang": "Command to add languages in your project"
             },
             "type": "library",
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -135,7 +135,7 @@
                     "ClassPreloader\\": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -187,7 +187,7 @@
                     "src/Create.php"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -239,7 +239,7 @@
                     "XdgBaseDir\\": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -277,7 +277,7 @@
                     "Doctrine\\Common\\Inflector\\": "lib/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -389,7 +389,7 @@
                     "JakubOnderka\\PhpConsoleColor": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
@@ -432,7 +432,7 @@
                     "JakubOnderka\\PhpConsoleHighlighter": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -478,7 +478,7 @@
                     "SuperClosure\\": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -505,16 +505,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.0",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a423a55ed6601daebcbb75817de6d06b4d670a70"
+                "reference": "3a44db7e70146dc1282b39887b5faa67c8583015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a423a55ed6601daebcbb75817de6d06b4d670a70",
-                "reference": "a423a55ed6601daebcbb75817de6d06b4d670a70",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3a44db7e70146dc1282b39887b5faa67c8583015",
+                "reference": "3a44db7e70146dc1282b39887b5faa67c8583015",
                 "shasum": ""
             },
             "require": {
@@ -613,7 +613,7 @@
                     "Illuminate\\": "src/Illuminate/"
                 }
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -629,7 +629,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-06-09 13:05:05"
+            "time": "2015-06-09 14:13:59"
         },
         {
             "name": "league/flysystem",
@@ -685,7 +685,7 @@
                     "League\\Flysystem\\": "src/"
                 }
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -824,7 +824,7 @@
                     "Monolog\\": "src/Monolog"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -870,7 +870,7 @@
                     "Cron": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -915,7 +915,7 @@
                     "Carbon": "src"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -964,7 +964,7 @@
                     "lib/bootstrap.php"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1003,7 +1003,7 @@
                     "Overtrue\\LaravelLang\\": "src/"
                 }
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1050,7 +1050,7 @@
                     "Overtrue\\Wechat\\": "src/Wechat/"
                 }
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1089,7 +1089,7 @@
                     "Psr\\Log\\": ""
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1157,7 +1157,7 @@
                     "Psy\\": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1209,7 +1209,7 @@
                     "lib/swift_required.php"
                 ]
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2066,7 +2066,7 @@
                     "Doctrine\\Instantiator\\": "src"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2120,7 +2120,7 @@
                     "Faker\\": "src/Faker/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2172,7 +2172,7 @@
                     "hamcrest/Hamcrest.php"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD"
             ],
@@ -2215,7 +2215,7 @@
                     "Mockery": "library/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2284,7 +2284,7 @@
                     ]
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2316,7 +2316,7 @@
                     "Diff": "lib/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2441,7 +2441,7 @@
                     "Prophecy\\": "src/"
                 }
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2510,7 +2510,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2558,7 +2558,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2600,7 +2600,7 @@
                     "Text/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
                 ""
             ],
@@ -2644,7 +2644,7 @@
                     "PHP/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "include-path": [
                 ""
             ],
@@ -2697,7 +2697,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2766,7 +2766,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://pkg.overtrue.me/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2822,7 +2822,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2874,7 +2874,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2936,7 +2936,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2988,7 +2988,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3039,7 +3039,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3107,7 +3107,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3155,7 +3155,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3197,7 +3197,7 @@
                     "src/"
                 ]
             },
-            "notification-url": "http://packagist.cn/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -3269,6 +3269,8 @@
     },
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.5.9"
+    },
     "platform-dev": []
 }
