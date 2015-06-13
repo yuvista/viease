@@ -59,7 +59,7 @@ class Account {
      */
     public function getCurrent()
     {
-        return $this->repository->getById($this->chosed());
+        return $this->chosed() ? $this->repository->getById($this->chosed()) : NULL;
     }
 
 }
