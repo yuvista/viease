@@ -127,9 +127,9 @@ class AccountController extends Controller
     /**
      * 删除公众号
      *
-     * @param  [type] $id [description]
+     * @param  ineger $id 公众号iD
      *
-     * @return [type]     [description]
+     * @return void
      */
     public function getDelete($id)
     {
