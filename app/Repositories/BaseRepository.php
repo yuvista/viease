@@ -2,15 +2,16 @@
 
 namespace App\Repositories;
 
-abstract class BaseRepository
+trait BaseRepository
 {
+	
+	/**
+	 * Account Id
+	 * 
+	 * @return String
+	 */
+	protected $account_id = 1;
 
-    /**
-     * The Model instance.
-     *
-     * @var Illuminate\Database\Eloquent\Model
-     */
-    protected $model;
 
     /**
      * Get number of records.
@@ -45,7 +46,7 @@ abstract class BaseRepository
      */
     public function getById($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->find($id);
     }
 
 }

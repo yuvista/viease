@@ -1,39 +1,38 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Account;
-use Carbon\Carbon;
-use Session;
+use App\Models\FanGroup;
 
 /**
- * Account Repository
+ * Fans Repository
  */
-class AccountRepository
+class FanGroupRepository extends BaseRepository
 {
-    use BaseRepository;
-
     /**
-     * Account Model
+     * FanGroup
      *
-     * @var Account
+     * @var Fan Group
      */
     protected $model;
 
-    public function __construct(Account $account)
+    public function __construct(FanGroup $fanGroup)
     {
-        $this->model = $account;
+        $this->model = $fanGroup;
     }
 
     /**
-     * 获取账户列表
+     * 获取粉丝组列表
      *
      * @param int $pageSize 分页大小
      *
      * @return \Illuminate\Pagination\Paginator
      */
-    public function lists($pageSize)
+    public function lists()
     {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
+        return $this->model
+				->where('account_id', $this->account_id)
+				->orderBy('group_id', 'asc')
+				->get();
     }
 
     /**
@@ -61,33 +60,22 @@ class AccountRepository
     {
         $model = $this->model->find($id);
 
-        return $this->savePost($model,$input);
+        return $this->savePost($model, $input);
     }
 
     /**
      * save
      *
-     * @param  Account $account account
+     * @param  Fan $fan fan
      * @param  Request $input   输入
      *
      * @return void
      */
-    public function savePost($account, $input)
+    public function savePost($fan, $input)
     {
-        $account->fill($input->all());
+        $fan->fill($input);
 
-        return $account->save();
+        return $fan->save();
     }
-
-    /**
-     * 切换公众号
-     *
-     * @param  integer $id id
-     *
-     * @return void
-     */
-    public function change($id)
-    {
-        Session::put('account_id',$id);
-    }
+	
 }

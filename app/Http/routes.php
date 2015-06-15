@@ -26,13 +26,18 @@ $admin = [
 Route::group($admin, function(){
 
     //我的公众号列表页
-    Route::get('/', 'PageController@getIndex');
+    Route::get('/', 'AccountController@getManage');
     Route::get('table','PageController@getDivTable');
-    Route::controller('account','AccountController');
     Route::controller('auth', 'AuthController');
     // Route::controller('user', 'UserController');
     Route::controller('fan', 'FanController');
     Route::controller('fan-group', 'FanGroupController');
+    Route::controller('account','AccountController');
     //demo
     Route::get('demo','PageController@getDemo');
+
+    //所有需要公众号操作的控制 请写到这里
+    Route::group(['middleware' => 'account'],function(){
+        Route::controller('menu','MenuController');
+    });
 });

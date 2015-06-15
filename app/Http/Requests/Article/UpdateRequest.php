@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Account;
+namespace App\Http\Requests\Article;
 
 use App\Http\Requests\Request;
-use App\Models\Account;
+use App\Models\Article;
 
 /**
- * Account UpdateRequest
+ * Article UpdateRequest
  */
 class UpdateRequest extends Request
 {
@@ -19,9 +19,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'name'           => 'required',
-            'original_id'    => 'required',
-            'wechat_account' => 'required',
+            'account_id' => 'required',
         ];
     }
 }

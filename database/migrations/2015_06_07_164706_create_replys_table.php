@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountsTable extends Migration
+class CreateReplysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,13 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('replys', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 60); //公众号名称
-            $table->string('original_id',20); //原始id
-            $table->string('app_id',50)->nullable();
-            $table->string('app_secret',50)->nullable();
-            $table->string('wechat_account',20);
-            $table->tinyInteger('account_type')->nullable()->default(1); //类型
+            $table->integer('account_id');  
+            $table->string('name', 30); //标题
+            $table->string('trigger_texts',500); //触发文字
+            $table->tinyInteger('trigger_type')->nullable()->default(1); //默认类型
+            $table->string('messages',300); //触发的消息
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
@@ -33,6 +32,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('accounts');
+        Schema::drop('replys');
     }
 }

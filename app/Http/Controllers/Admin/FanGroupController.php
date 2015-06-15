@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Repositories\FanGroupRepository;
 
 class FanGroupController extends Controller
 {
@@ -15,7 +13,7 @@ class FanGroupController extends Controller
      *
      * @return Response
      */
-    public function getLists()
+    public function getLists(FanGroupRepository $fanGroup)
     {
         /**
          * 请求参数：
@@ -23,38 +21,7 @@ class FanGroupController extends Controller
          * sort_by: xxx
          * page: 1
          */
-        $groups = [
-                 [
-                    "id" => 1,
-                    "title" => "分组1",
-                    "fan_count" => 34,
-                 ],
-                 [
-                    "id" => 2,
-                    "title" => "分组2",
-                    "fan_count" => 4,
-                 ],
-                 [
-                    "id" => 3,
-                    "title" => "分组3",
-                    "fan_count" => 3,
-                 ],
-                 [
-                    "id" => 4,
-                    "title" => "分组4",
-                    "fan_count" => 324,
-                 ],
-                 [
-                    "id" => 5,
-                    "title" => "分组5",
-                    "fan_count" => 1034,
-                 ],
-                 [
-                    "id" => 6,
-                    "title" => "分组6",
-                    "fan_count" => 0,
-                 ],
-            ];
+        $groups = $fanGroup->lists();
 
         return new LengthAwarePaginator($groups, 30, 5);
     }

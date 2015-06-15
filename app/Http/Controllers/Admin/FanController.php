@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Repositories\FanRepository;
 
 /**
  * 粉丝管理
@@ -14,6 +15,19 @@ use App\Http\Controllers\Controller;
  */
 class FanController extends Controller
 {
+	
+	/**
+	 * 获取几条数据
+	 * @var type
+	 */
+	private $_pageSize = 30;
+	
+	/**
+	 * 当前页码
+	 * @var Int
+	 */
+	public $currentPageNumber;
+	
     public function getIndex()
     {
         return view('admin.fan.index');
@@ -24,59 +38,30 @@ class FanController extends Controller
      *
      * @return Response
      */
-    public function getLists(Request $request)
+    public function getLists(Request $request, FanRepository $fan)
     {
         /**
          * 请求参数：
          *
-         * sort_by: xxx
          * page: 1
+         * sort_by: xxx
          */
-
-        $fans = [
-            [
-                "id"       => 1,
-                "nickname" => "小妹你去哪儿?",
-                "location" => "北京 海淀",
-                "remark"   => "备注名称",
-                "sex"      => "女",
-                "group_id" => 3,
-                "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
-                "signature" => '这是签名信息',
-                "subscribed_at" => 1405290921,
-                "liveness"  => 56,
-                "last_online_at" => 1234556366,
-            ],
-            [
-                "id"       => 2,
-                "nickname" => "超哥",
-                "location" => "北京 海淀",
-                "remark"   => "安小超",
-                "sex"      => "男",
-                "group_id" => 3,
-                "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
-                "signature" => '这是签名信息',
-                "subscribed_at" => 1405299921,
-                "liveness"  => 5,
-                "last_online_at" => 1234556466,
-            ],
-            [
-                "id"       => 3,
-                "nickname" => "元哥",
-                "location" => "北京 海淀",
-                "remark"   => "友元",
-                "sex"      => "男",
-                "group_id" => 5,
-                "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
-                "signature" => '这是签名信息',
-                "subscribed_at" => 1405296921,
-                "liveness"  => 100,
-                "last_online_at" => 1234556266,
-            ],
-        ];
-
-        $fans = collect($fans)->sortByDesc($request->sort_by)->values()->all();
-
+//		[
+//                "id"       => 1,
+//                "nickname" => "小妹你去哪儿?",
+//                "location" => "北京 海淀",
+//                "remark"   => "备注名称",
+//                "sex"      => "女",
+//                "group_id" => 3,
+//                "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
+//                "signature" => '这是签名信息',
+//                "followd_at" => 1405290921,
+//                "liveness"  => 56,
+//                "last_speaking_at" => 1234556366,
+//            ]
+		
+		$fans = $fan->lists($this->_pageSize, $request);
+		
         return response()->json($fans);
     }
 
