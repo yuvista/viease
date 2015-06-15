@@ -12,7 +12,7 @@ class CreateFollowReplysTable extends Migration
      */
     public function up()
     {
-        Schema::create('follow_replys', function (Blueprint $table) {
+        Schema::create('follow_replies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');  
             $table->string('follow')->nullable();
@@ -30,6 +30,6 @@ class CreateFollowReplysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('follow_replys');
+        Schema::drop('follow_replies');
     }
 }

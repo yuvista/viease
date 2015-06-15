@@ -179,7 +179,7 @@ return [
                     'submenus' => [
                         [
                             'label' => '图文消息',
-                            'uri'   => 'news',
+                            'uri'   => 'article',
                         ],
                         [
                             'label' => '素材管理',
@@ -232,7 +232,7 @@ return [
                         ],
                         [
                             'label' => '摇一摇周边',
-                            'uri'   => '',
+                            'uri'   => 'shake',
                         ],
                     ],
                 ],

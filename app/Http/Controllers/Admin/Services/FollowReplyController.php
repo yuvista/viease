@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Services;
 
 use App\Http\Requests\FollowReply\CreateRequest;
 use App\Http\Requests\FollowReply\UpdateRequest;

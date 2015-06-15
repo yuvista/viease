@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Services;
 
 use App\Http\Requests\Menu\CreateRequest;
 use App\Http\Requests\Menu\UpdateRequest;
@@ -16,5 +16,13 @@ use App\Http\Requests;
  */
 class MenuController extends Controller
 {
-    
+    /**
+     * 菜单首页
+     *
+     * @return void
+     */
+    public function getIndex()
+    {
+
+    }
 }

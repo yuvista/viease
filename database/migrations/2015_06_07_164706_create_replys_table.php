@@ -12,7 +12,7 @@ class CreateReplysTable extends Migration
      */
     public function up()
     {
-        Schema::create('replys', function (Blueprint $table) {
+        Schema::create('auto_replies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');  
             $table->string('name', 30); //标题
@@ -32,6 +32,6 @@ class CreateReplysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('replys');
+        Schema::drop('auto_replies');
     }
 }

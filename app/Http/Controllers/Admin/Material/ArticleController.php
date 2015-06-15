@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Material;
 
 use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\UpdateRequest;
@@ -16,5 +16,13 @@ use App\Http\Requests;
  */
 class ArticleController extends Controller
 {
-    
+    /**
+     * 图文管理首页
+     *
+     * @return void
+     */
+    public function getIndex()
+    {
+
+    }
 }

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Account\CreateRequest;
 use App\Http\Requests\Account\UpdateRequest;
+use App\Services\Account as AccountService;
 use App\Repositories\AccountRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Services\Account as AccountService;
 use Account;
 
 /**
@@ -18,6 +18,12 @@ use Account;
  */
 class AccountController extends Controller
 {
+    /**
+     * 分页
+     *
+     * @var integer
+     */
+    private $_pageSize = 10;
 
     /**
      * AccountRepository
@@ -38,7 +44,7 @@ class AccountController extends Controller
      *
      * @param AccountRepository $account
      */
-    public function __construct(AccountRepository $account,AccountService $service)
+    public function __construct(AccountRepository $account, AccountService $service)
     {
         $this->account = $account;
 
@@ -54,7 +60,7 @@ class AccountController extends Controller
      */
     public function getIndex()
     {
-        $accounts = $this->account->lists(10);
+        $accounts = $this->account->lists($this->_pageSize);
 
         return view('admin.account.index', compact('accounts'));
     }

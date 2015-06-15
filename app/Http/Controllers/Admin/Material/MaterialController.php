@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Material;
 
 use App\Http\Requests\Material\CreateRequest;
 use App\Http\Requests\Material\UpdateRequest;
@@ -16,5 +16,13 @@ use App\Http\Requests;
  */
 class MaterialController extends Controller
 {
-    
+    /**
+     * 素材管理首页
+     *
+     * @return void
+     */
+    public function getIndex()
+    {
+
+    }
 }
