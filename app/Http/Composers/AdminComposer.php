@@ -1,28 +1,29 @@
 <?php
 
-namespace App\Http\ViewComposers;
+namespace App\Http\Composers;
 
 use App\Repositories\AccountRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Fluent;
 use App\Services\Account;
 
 /**
  * 后台视图组织
- * 
+ *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class AdminComposer
 {
     /**
-     * accountRepository 
+     * accountRepository
      *
      * @var App\Repositories\AccountRepository
      */
     private $accountRepository;
 
     /**
-     * request 
+     * request
      *
      * @var Illuminate\Http\Request
      */
@@ -40,7 +41,11 @@ class AdminComposer
      *
      * @param App\Repositories\AccountRepository $accountRepository
      */
-    public function __construct(AccountRepository $accountRepository, Request $request, Account $accountService)
+    public function __construct(
+        AccountRepository $accountRepository,
+        Request $request,
+        Account $accountService
+        )
     {
         $this->accountRepository  = $accountRepository;
 
@@ -60,10 +65,14 @@ class AdminComposer
     {
         $menus = $this->request->is('admin/account*') ? config('menu.account') : config('menu.func');
 
-        $view->with('menus',$menus);
+        $global = new Fluent();
 
-        $view->with('currentAccount',$this->accountService->getCurrent());
+        $global->menus = $menus;
 
-        $view->with('accountList',$this->accountRepository->lists(99));
+        $global->current_account = $this->accountService->getCurrent();
+
+        $global->accounts = $this->accountRepository->lists(99);
+
+        $view->with('global', $global);
     }
 }

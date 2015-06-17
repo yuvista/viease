@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider {
     public function boot()
     {
         // 使用类来指定视图组件
-        View::composer('admin.*', 'App\Http\ViewComposers\AdminComposer');
+        View::composer('admin.*', 'App\Http\Composers\AdminComposer');
     }
 
     /**
