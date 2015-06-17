@@ -1,6 +1,26 @@
 
 $(document).ready(function () {
 
+    $.fn.domchanged = function(callback){
+        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        var _this = this;
+        var observer = new MutationObserver(function(mutations, observer) {
+            console.log(mutations);
+            _this.trigger('domchanged');
+        });
+
+        observer.observe(document, {
+            subtree: true,
+            attributes: true,
+            childList: true,
+            characterData: true,
+            attributeOldValue: true,
+            characterDataOldValue: true
+        });
+
+        this.on("domchanged", callback).trigger('domchanged');
+    }
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
