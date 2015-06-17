@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ServerController@server');
+Route::post('/', 'ServerController@server');
 
 /**
  * Admin
@@ -26,18 +25,20 @@ $admin = [
 Route::group($admin, function(){
     //我的公众号列表页
     Route::get('/', 'AccountController@getManage');
-    Route::controller('auth', 'AuthController');
-    Route::controller('user', 'UserController');
-    Route::controller('fan', 'FanController');
-    Route::controller('fan-group', 'FanGroupController');
-    Route::controller('account', 'AccountController');
-    Route::controller('menu', 'MenuController');
-    Route::controller('material', 'MaterialController');
-    Route::controller('material/article', 'ArticleController');
-    Route::controller('analysis', 'AnalysisController');
-    Route::controller('staff', 'StaffController');
-    Route::controller('tool', 'ToolController');
-    Route::controller('message', 'MessageController');
-    Route::controller('notice', 'NoticeController');
-    Route::controller('auto-reply', 'AutoReplyController');
+    Route::controllers([
+        'auth'             => 'AuthController',
+        'user'             => 'UserController',
+        'fan'              => 'FanController',
+        'fan-group'        => 'FanGroupController',
+        'account'          => 'AccountController',
+        'menu'             => 'MenuController',
+        'material'         => 'MaterialController',
+        'material/article' => 'ArticleController',
+        'analysis'         => 'AnalysisController',
+        'staff'            => 'StaffController',
+        'tool'             => 'ToolController',
+        'message'          => 'MessageController',
+        'notice'           => 'NoticeController',
+        'auto-reply'       => 'AutoReplyController',
+    ]);
 });

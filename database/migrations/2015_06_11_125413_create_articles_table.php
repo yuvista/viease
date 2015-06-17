@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->tinyInteger('type')->nullable()->default(1);
             $table->integer('parent_id');
             $table->string('title'); //素材标题
-            $table->string('digest')->nullable(); //描述
+            $table->string('description')->nullable(); //描述
             $table->string('author')->nullable();
             $table->text('content');
             $table->string('thumb_media_id'); //

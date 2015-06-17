@@ -40,7 +40,11 @@ class AccountMiddleware
     public function handle($request, Closure $next)
     {
         if(!$this->account->getCurrent()){
-            return redirect(admin_url('account'));
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            }else{
+                return redirect(admin_url('account'));
+            }
         }
 
         return $next($request);

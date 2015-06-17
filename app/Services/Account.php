@@ -61,5 +61,4 @@ class Account {
     {
         return $this->chosed() ? $this->repository->getById($this->chosed()) : NULL;
     }
-
 }
