@@ -14,8 +14,8 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id');
-            $table->enum('type', ['text', 'image', 'voice', 'video', 'news']);   //素材类型
+            $table->integer('account_id')->comment('所属公众号');
+            $table->enum('type', ['text', 'image', 'voice', 'video', 'news'])->comment('素材类型');   
             $table->string('url');
             $table->string('title')->nullable(); //素材标题
             $table->string('description')->nullable()->comment('描述');

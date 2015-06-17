@@ -14,12 +14,12 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id');     //所属公众号
-            $table->integer('parent_id')->nullable()->default(0);//菜单父id 默认0
-            $table->string('name', 30);        //菜单的名称
-            $table->string('type', 30);        //菜单类型
-            $table->string('key', 200);        //实际值
-            $table->tinyInteger('sort')->nullable()->default(0); //排序默认0
+            $table->integer('account_id')->comment('所属公众号');     
+            $table->integer('parent_id')->nullable()->default(0)->comment('菜单父id 默认0');
+            $table->string('name', 30)->comment('菜单名称');       
+            $table->string('type', 30)->comment('菜单类型');       
+            $table->string('key', 200)->comment('菜单触发值');        
+            $table->tinyInteger('sort')->nullable()->default(0)->comment('排序'); 
             $table->timestamps();
             $table->softDeletes();
         });

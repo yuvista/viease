@@ -57,7 +57,7 @@ Route::group($admin, function(){
         //账号与服务
         Route::group(['prefix' => 'services' ,'namespace' => 'Services'],function(){
 
-            Route::controller('menu',　'MenuController');
+           // Route::controller('menu',　'MenuController');
             Route::controller('auto-reply', 'AutoReplyController');
             Route::controller('follow-reply', 'FollowReplyController');
 
