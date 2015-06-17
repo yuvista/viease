@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Services;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FollowReply\CreateRequest;
 use App\Http\Requests\FollowReply\UpdateRequest;
@@ -23,6 +23,6 @@ class FollowReplyController extends Controller
      */
     public function getIndex()
     {
-        
+
     }
 }

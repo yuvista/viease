@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Services;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Menu\CreateRequest;
 use App\Http\Requests\Menu\UpdateRequest;

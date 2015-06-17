@@ -141,7 +141,7 @@ return [
                         ],
                         [
                             'label' => '模板消息',
-                            'uri'   => 'message/notice',
+                            'uri'   => 'notice',
                         ],
 
                     ],
@@ -180,7 +180,7 @@ return [
                     'submenus' => [
                         [
                             'label' => '短链接',
-                            'uri'   => 'tools/short-url',
+                            'uri'   => 'tool/short-url',
                         ],
                         [
                             'label' => '二维码',
@@ -214,10 +214,10 @@ return [
                             'label' => '自动回复',
                             'uri'   => 'auto-reply',
                         ],
-                        [
-                            'label' => '摇一摇周边',
-                            'uri'   => 'shake',
-                        ],
+                        // [
+                        //     'label' => '摇一摇周边',
+                        //     'uri'   => 'shake',
+                        // ],
                     ],
                 ],
                 [

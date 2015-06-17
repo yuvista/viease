@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Message;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 实时消息
+ * 管理账号
  */
-class MessageTimeLineController extends Controller
+class UserController extends Controller
 {
     /**
-     * 消息首页
+     * 首页
      *
      * @return void
      */
     public function getIndex()
     {
 
-    }   
+    }
 }

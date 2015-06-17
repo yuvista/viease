@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Admin\Services;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AutoReply\CreateRequest;
 use App\Http\Requests\AutoReply\UpdateRequest;
@@ -33,8 +33,8 @@ class AutoReplyController extends Controller
     /**
      * construct
      *
-     * @param AccountService      $service   
-     * @param AutoReplyRepository $autoReply 
+     * @param AccountService      $service
+     * @param AutoReplyRepository $autoReply
      */
     public function __construct(AccountService $service,AutoReplyRepository $autoReply)
     {
