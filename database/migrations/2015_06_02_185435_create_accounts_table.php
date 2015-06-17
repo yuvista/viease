@@ -21,9 +21,9 @@ class CreateAccountsTable extends Migration
             $table->string('wechat_account',20);
             $table->string('token',30)->nullable();
             $table->tinyInteger('account_type')->nullable()->default(1); //类型
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

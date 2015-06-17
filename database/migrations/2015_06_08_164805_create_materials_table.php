@@ -18,10 +18,10 @@ class CreateMaterialsTable extends Migration
             $table->tinyInteger('type');   //素材类型
             $table->string('url');
             $table->string('title')->nullable(); //素材标题
-            $table->string('digest')->nullable(); //描述
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->string('description')->nullable(); //描述
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

@@ -18,10 +18,10 @@ class CreateReplysTable extends Migration
             $table->string('name', 30); //标题
             $table->string('trigger_texts',500); //触发文字
             $table->tinyInteger('trigger_type')->nullable()->default(1); //默认类型
-            $table->string('messages',300); //触发的消息
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->string('content',300); //触发的消息
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

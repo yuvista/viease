@@ -16,6 +16,10 @@ class EventServiceProvider extends ServiceProvider
         'illuminate.query' => [
             'App\Listeners\DBQueryListener',// 记录查询SQL
         ],
+
+        'App\Events\MaterialSync' => [
+            'App\Listeners\AccountListener',
+        ],
     ];
 
     /**
