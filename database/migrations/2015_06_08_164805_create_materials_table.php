@@ -15,13 +15,12 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');
-            $table->tinyInteger('type');   //素材类型
+            $table->enum('type', ['text', 'image', 'voice', 'video', 'news']);   //素材类型
             $table->string('url');
             $table->string('title')->nullable(); //素材标题
-            $table->string('digest')->nullable(); //描述
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->string('description')->nullable()->comment('描述');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,12 +14,11 @@ class CreateFollowReplysTable extends Migration
     {
         Schema::create('follow_replies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id');  
+            $table->integer('account_id');
             $table->string('follow')->nullable();
             $table->string('default')->nullable();
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,9 +20,8 @@ class CreateMenusTable extends Migration
             $table->string('type', 30);        //菜单类型
             $table->string('key', 200);        //实际值
             $table->tinyInteger('sort')->nullable()->default(0); //排序默认0
-            $table->dateTime('created_at')->nullable();
-            $table->dateTime('updated_at')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
