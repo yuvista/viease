@@ -8,6 +8,8 @@ use App\Models\Fan;
  */
 class FanRepository
 {
+    use BaseRepository;
+
     /**
      * Fan
      *
