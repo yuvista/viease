@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Account;
+use App\Models\Menu;
+use App\Models\Fan;
+use App\Models\FanGroup;
+use App\Models\Message;
 use Illuminate\Support\ServiceProvider;
 
 class ModelObserverProvider extends ServiceProvider
@@ -14,5 +20,10 @@ class ModelObserverProvider extends ServiceProvider
     public function boot()
     {
         User::observe('App\Observers\UserObserver');
+    }
+
+    public function register()
+    {
+        # code...
     }
 }
