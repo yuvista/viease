@@ -1,5 +1,5 @@
 <nav id="sidebar-nav">
-  @foreach($menus as $group)
+  @foreach($global->menus as $group)
   <ul class="list-nav nav-group-{{$group['group']}}" style="display:none">
    {{--  <li class="separator">
       <div>

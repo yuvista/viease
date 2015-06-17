@@ -62,37 +62,39 @@
                 </button>
               </div>
               <ul class="nav navbar-nav navbar-main">
-                @foreach($menus as $group)
+                @foreach($global->menus as $group)
                 <li>
                   <a href="javascript:;" data-group="{{ $group['group'] }}">{{ $group['label'] }}</a>
                 </li>
                 @endforeach
               </ul>
+              @if(!empty($global->accounts))
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          <i class="ion-person"></i> 微易平台
+                          {{ $global->current_account->name }}
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
-                        @if(!empty($accountList))
-                          @foreach($accountList as $list)
-                        <li>
-                        <a href="{{ admin_url('account/change-account/'.$list->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $list->name }}”">@if($currentAccount) @if($currentAccount->id == $list->id)<i class="ion-ios-circle-filled"></i>  @endif @endif {{ $list->name}}</a>
-                        </li>
-                        <li class="divider"></li>
+                        @foreach($global->accounts as $account)
+                          @if(!$account->id != $global->current_account->id)
+                          <li>
+                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $account->name }}”">{{ $account->name}}</a>
+                          </li>
+                          @endif
                         @endforeach
-                      @endif
+                        <li role="presentation" class="divider"></li>
                         <li>
                           <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
                         </li>
-                        <li class="divider"></li>
                         <li>
                           <a href="{{ admin_url('account/create')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="添加公众号">添加公众号</a>
                         </li>
                       </ul>
                   </li>
               </ul>
+              @endif
+
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
