@@ -68,7 +68,7 @@
                 </li>
                 @endforeach
               </ul>
-              @if(!empty($global->accounts))
+              @unless($global->accounts->isEmpty())
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -93,7 +93,7 @@
                       </ul>
                   </li>
               </ul>
-              @endif
+              @endunless
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
