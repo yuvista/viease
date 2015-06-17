@@ -6,8 +6,10 @@ use App\Models\Fan;
 /**
  * Fans Repository
  */
-class FanRepository extends BaseRepository
+class FanRepository
 {
+    use BaseRepository;
+
     /**
      * Fan
      *
@@ -85,5 +87,5 @@ class FanRepository extends BaseRepository
 
         return $fan->save();
     }
-	
+
 }

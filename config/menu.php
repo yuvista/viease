@@ -7,16 +7,11 @@ $card = [
     'collection' => [
         [
             'label' => '卡券管理',
-            'uri'   => 'card',
             'icon'  => 'ion-ios-photos',
             'submenus' => [
                 [
                     'label' => '全部卡券',
-                    'uri'   => 'lists',
-                ],
-                [
-                    'label' => '应用中心',
-                    'uri'   => 'shop',
+                    'uri'   => 'card/lists',
                 ],
             ],
         ],
@@ -30,35 +25,33 @@ $store = [
     'collection' => [
         [
             'label' => '订单管理',
-            'uri'   => 'card',
             'icon'  => 'ion-ios-list',
             'submenus' => [
                 [
                     'label' => '全部订单',
-                    'uri'   => 'lists',
+                    'uri'   => 'order/lists',
                 ],
             ],
         ],
         [
             'label' => '商品管理',
-            'uri'   => 'goods',
             'icon'  => 'ion-ios-football',
             'submenus' => [
                 [
                     'label' => '全部商品',
-                    'uri'   => 'lists',
+                    'uri'   => 'goods/lists',
                 ],
                 [
                     'label' => '货架管理',
-                    'uri'   => 'shelf',
+                    'uri'   => 'goods/shelf',
                 ],
                 [
                     'label' => '商品分组',
-                    'uri'   => 'group',
+                    'uri'   => 'goods/group',
                 ],
                 [
                     'label' => '邮费模板',
-                    'uri'   => 'postage-template',
+                    'uri'   => 'goods/postage-template',
                 ],
             ],
         ],
@@ -73,16 +66,15 @@ $center = [
     'collection' => [
         [
             'label' => '应用',
-            'uri'   => 'apps',
             'icon'  => 'ion-ios-game-controller-b',
             'submenus' => [
                 [
                     'label' => '我的应用',
-                    'uri'   => 'mine',
+                    'uri'   => 'apps/mine',
                 ],
                 [
                     'label' => '应用中心',
-                    'uri'   => 'shop',
+                    'uri'   => 'apps/shop',
                 ],
             ],
         ],
@@ -98,34 +90,32 @@ return [
             'collection' => [
                 [
                     'label' => '公众号管理',
-                    'uri'   => 'account',
                     'icon'  => 'ion-social-whatsapp',
                     'submenus' => [
                         [
                             'label' => '公众号管理',
-                            'uri'   => '',
+                            'uri'   => 'account',
                         ],
                         [
                             'label' => '新增公众号',
-                            'uri'   => 'create',
+                            'uri'   => 'account/create',
                         ],
                     ],
                 ],
                 [
                     'label' => '管理员',
-                    'uri'   => 'user',
                     'icon'  => 'ion-android-people',
                     'submenus' => [
                         [
                             'label' => '密码修改',
-                            'uri'   => 'password',
+                            'uri'   => 'user/password',
                         ],
                     ],
                 ],
             ],
         ],
 
-        $center,
+        // $center,
     ],
 
     'func' => [
@@ -135,51 +125,48 @@ return [
             'collection' => [
                 [
                     'label' => '消息',
-                    'uri'   => 'message',
                     'icon'  => 'ion-ios-chatboxes',
                     'submenus' => [
                         [
                             'label' => '实时消息',
-                            'uri'   => 'message-timeline',
+                            'uri'   => 'message/timeline',
                         ],
                         [
                             'label' => '消息群发',
-                            'uri'   => 'broadcasting',
+                            'uri'   => 'message/broadcasting',
                         ],
                         [
                             'label' => '消息资源库',
-                            'uri'   => 'resource',
+                            'uri'   => 'message/resource',
                         ],
                         [
                             'label' => '模板消息',
-                            'uri'   => 'notice',
+                            'uri'   => 'message/notice',
                         ],
 
                     ],
                 ],
                 [
                     'label' => '粉丝管理',
-                    'uri'   => 'fan',
                     'icon'  => 'ion-ios-people',
                     'submenus' => [
                         [
                             'label' => '全部粉丝',
-                            'uri'   => '',
+                            'uri'   => 'fan',
                         ],
                         [
                             'label' => '粉丝标签',
-                            'uri'   => 'tags',
+                            'uri'   => 'fan/tags',
                         ],
                     ],
                 ],
                 [
                     'label' => '素材中心',
-                    'uri'   => 'material',
                     'icon'  => 'ion-ios-flask',
                     'submenus' => [
                         [
                             'label' => '图文消息',
-                            'uri'   => 'article',
+                            'uri'   => 'material/articles',
                         ],
                         [
                             'label' => '素材管理',
@@ -189,12 +176,11 @@ return [
                 ],
                 [
                     'label' => '工具',
-                    'uri'   => 'tools',
                     'icon'  => 'ion-ios-color-wand',
                     'submenus' => [
                         [
                             'label' => '短链接',
-                            'uri'   => 'short-url',
+                            'uri'   => 'tools/short-url',
                         ],
                         [
                             'label' => '二维码',
@@ -204,22 +190,20 @@ return [
                 ],
                 [
                     'label' => '客服',
-                    'uri'   => 'staff',
                     'icon'  => 'ion-ios-cog',
                     'submenus' => [
                         [
                             'label' => '客服管理',
-                            'uri'   => 'lists',
+                            'uri'   => 'staff',
                         ],
                         [
                             'label' => '绩效查询',
-                            'uri'   => 'staff',
+                            'uri'   => 'staff/performance',
                         ],
                     ],
                 ],
                 [
                     'label' => '账号与服务',
-                    'uri'   => 'services',
                     'icon'  => 'ion-ios-cog',
                     'submenus' => [
                          [
@@ -238,24 +222,23 @@ return [
                 ],
                 [
                     'label' => '数据统计',
-                    'uri'   => 'data',
                     'icon'  => 'ion-ios-pulse-strong',
                     'submenus' => [
                         [
-                            'label' => '用户',
-                            'uri'   => 'user',
+                            'label' => '粉丝',
+                            'uri'   => 'data/fan',
                         ],
                         [
                             'label' => '图文',
-                            'uri'   => 'news',
+                            'uri'   => 'data/article',
                         ],
                         [
                             'label' => '消息',
-                            'uri'   => 'message',
+                            'uri'   => 'data/message',
                         ],
                         [
                             'label' => '接口',
-                            'uri'   => 'api',
+                            'uri'   => 'data/api',
                         ],
                     ],
                 ],

@@ -12,7 +12,7 @@
       @if(!empty($menu['submenus']))
       <ul class="nav-sub">
         @foreach($menu['submenus'] as $submenu)
-         <li><a href="{{ admin_url($menu['uri'].'/'.$submenu['uri']) }}"><span>{{ $submenu['label'] }}</span></a></li>
+         <li><a href="{{ admin_url($submenu['uri']) }}"><span>{{ $submenu['label'] }}</span></a></li>
         @endforeach
       </ul>
       @endif
