@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 客服
+ * 工具
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
@@ -16,10 +16,20 @@ class ToolController extends Controller
     /**
      * 首页
      *
-     * @return void
+     * @return Response
      */
     public function getIndex()
     {
+        return view('admin.tool.index');
+    }
 
+    /**
+     * 短网址
+     *
+     * @return Response
+     */
+    public function getShortUrl()
+    {
+        return view('admin.tool.short-url');
     }
 }

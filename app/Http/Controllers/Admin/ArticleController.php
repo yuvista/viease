@@ -23,6 +23,6 @@ class ArticleController extends Controller
      */
     public function getIndex()
     {
-
+        return view('admin.article.index');
     }
 }

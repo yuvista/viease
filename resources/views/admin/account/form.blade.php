@@ -1,4 +1,5 @@
 @extends('admin.layout')
+
 @section('content')
 <div class="console-content">
     <div class="page-header">

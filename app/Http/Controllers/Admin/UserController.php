@@ -8,16 +8,28 @@ use App\Http\Requests;
 
 /**
  * 管理账号
+ *
+ * @author overtrue <anzhengchao@gmail.com>
  */
 class UserController extends Controller
 {
     /**
      * 首页
      *
-     * @return void
+     * @return Response
      */
     public function getIndex()
     {
+        return view('admin.user.index');
+    }
 
+    /**
+     * 修改密码
+     *
+     * @return Response
+     */
+    public function getPassword()
+    {
+        return view('admin.user.password');
     }
 }

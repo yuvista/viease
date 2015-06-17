@@ -12,7 +12,7 @@ use App\Http\Requests;
 
 /**
  * 菜单管理
- * 
+ *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class MenuController extends Controller
@@ -34,7 +34,7 @@ class MenuController extends Controller
     /**
      * construct
      *
-     * @param MenuRepository $menu 
+     * @param MenuRepository $menu
      */
     public function __construct(MenuRepository $menuRepository, MenuService $menuService)
     {
@@ -50,9 +50,9 @@ class MenuController extends Controller
      */
     public function getIndex()
     {
-        $remoteMenus = $this->menuService->getMenus();
+        // $remoteMenus = $this->menuService->getMenus();
 
-        return view('admin.services.menu.index',compact('menus'));
+        return view('admin.menu.index', compact('menus'));
     }
 
     /**

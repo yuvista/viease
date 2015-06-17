@@ -11,7 +11,7 @@ $card = [
             'submenus' => [
                 [
                     'label' => '全部卡券',
-                    'uri'   => 'card/lists',
+                    'uri'   => 'card',
                 ],
             ],
         ],
@@ -29,7 +29,7 @@ $store = [
             'submenus' => [
                 [
                     'label' => '全部订单',
-                    'uri'   => 'order/lists',
+                    'uri'   => 'order',
                 ],
             ],
         ],
@@ -39,7 +39,7 @@ $store = [
             'submenus' => [
                 [
                     'label' => '全部商品',
-                    'uri'   => 'goods/lists',
+                    'uri'   => 'goods',
                 ],
                 [
                     'label' => '货架管理',
@@ -74,7 +74,7 @@ $center = [
                 ],
                 [
                     'label' => '应用中心',
-                    'uri'   => 'apps/shop',
+                    'uri'   => 'apps',
                 ],
             ],
         ],
@@ -166,7 +166,7 @@ return [
                     'submenus' => [
                         [
                             'label' => '图文消息',
-                            'uri'   => 'material/articles',
+                            'uri'   => 'material/article',
                         ],
                         [
                             'label' => '素材管理',
@@ -226,19 +226,19 @@ return [
                     'submenus' => [
                         [
                             'label' => '粉丝',
-                            'uri'   => 'data/fan',
+                            'uri'   => 'analysis/fan',
                         ],
                         [
                             'label' => '图文',
-                            'uri'   => 'data/article',
+                            'uri'   => 'analysis/article',
                         ],
                         [
                             'label' => '消息',
-                            'uri'   => 'data/message',
+                            'uri'   => 'analysis/message',
                         ],
                         [
                             'label' => '接口',
-                            'uri'   => 'data/api',
+                            'uri'   => 'analysis/api',
                         ],
                     ],
                 ],
