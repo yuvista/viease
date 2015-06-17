@@ -53,5 +53,6 @@ class AutoReplyController extends Controller
         $list = $this->autoReply->getIndex($this->service->getCurrent());
 
         //view
+        return view('admin.auto-reply.index');
     }
 }

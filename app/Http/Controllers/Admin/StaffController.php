@@ -16,10 +16,20 @@ class StaffController extends Controller
     /**
      * 首页
      *
-     * @return void
+     * @return Response
      */
     public function getIndex()
     {
+        return view('admin.staff.index');
+    }
 
+    /**
+     * 绩效
+     *
+     * @return Response
+     */
+    public function getPerformance()
+    {
+        return view('admin.staff.performance');
     }
 }

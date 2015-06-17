@@ -7,19 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 模板消息
+ * 二维码
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-class NoticeController extends Controller
+class QRCodeController extends Controller
 {
     /**
-     * 模板消息首页
+     * 首页
      *
-     * @return void
+     * @return Response
      */
     public function getIndex()
     {
-        return view('admin.notice.index');
+        return view('admin.qrcode.index');
     }
 }

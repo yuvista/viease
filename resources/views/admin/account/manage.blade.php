@@ -1,4 +1,5 @@
 @extends('admin.layout')
+
 @section('content')
 <div class="console-content">
     <div class="page-header">
@@ -8,4 +9,4 @@
         其他需要展示的通知消息 图表数据等
     </div>
 </div>
-@endsection
+@stop

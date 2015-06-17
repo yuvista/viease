@@ -34,8 +34,8 @@ class FollowReplyController extends Controller
     /**
      * construct
      *
-     * @param AccountService        $service   
-     * @param FollowReplyRepository $followReply 
+     * @param AccountService        $service
+     * @param FollowReplyRepository $followReply
      */
     public function __construct(AccountService $service,FollowReplyRepository $followReply)
     {
@@ -51,6 +51,6 @@ class FollowReplyController extends Controller
      */
     public function getIndex()
     {
-
+        return view('admin.follow-reply.index');
     }
 }

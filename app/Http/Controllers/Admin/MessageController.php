@@ -19,10 +19,40 @@ class MessageController extends Controller
     /**
      * 首页
      *
-     * @return void
+     * @return Response
      */
     public function getIndex()
     {
+        return view('admin.message.index');
+    }
 
+    /**
+     * 实时消息
+     *
+     * @return Response
+     */
+    public function getTimeline()
+    {
+        return view('admin.message.timeline');
+    }
+
+    /**
+     * 广播消息
+     *
+     * @return Response
+     */
+    public function getBroadcasting()
+    {
+        return view('admin.message.broadcasting');
+    }
+
+    /**
+     * 消息资源
+     *
+     * @return Response
+     */
+    public function getResource()
+    {
+        return view('admin.message.resource');
     }
 }
