@@ -64,4 +64,28 @@ class Menu {
     {
         
     }
+
+    /**
+     * 将远程菜单进行本地化 [菜单素材已经同步]
+     *
+     * @param  array $menus 菜单
+     *
+     * @return array 处理后的菜单
+     */
+    public function localize($menus)
+    {
+
+    }
+
+    /**
+     * 取得菜单中的素材
+     *
+     * @param  array $menus 菜单
+     *
+     * @return array 菜单中素材列表
+     */
+    public function getMenuMaterial($menus)
+    {
+
+    }
 }

@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+//test
+use Overtrue\Wechat\Media;
+
 /**
  * 菜单管理
  *
@@ -50,7 +53,22 @@ class MenuController extends Controller
      */
     public function getIndex()
     {
-        // $remoteMenus = $this->menuService->getMenus();
+        //获取远程菜单
+        $menus = $this->menuService->getMenus();
+
+        var_dump($menus);die();
+
+        $mediaId = 'b610826024997228544';
+
+        $appId  = 'wx5c174c50435941e6';
+        $secret = 'b4020e08f0ad463c604badda5771cd78';
+
+        $media = new Media(['app_id' => $appId, 'secret' => $secret]);
+
+        $media->download($mediaId, '/data/www/');
+
+        //保存数据
+        $this->menuRepository->store($this->menuService->localize($menus));
 
         return view('admin.menu.index', compact('menus'));
     }
