@@ -83,7 +83,9 @@
                           </li>
                           @endif
                         @endforeach
+                        @if($global->accounts->count() > 1)
                         <li role="presentation" class="divider"></li>
+                        @endif
                         <li>
                           <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
                         </li>
