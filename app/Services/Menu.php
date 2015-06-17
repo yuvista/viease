@@ -46,7 +46,7 @@ class Menu {
      *
      * @return array 菜单信息
      */
-    public function getMenu()
+    public function getMenus()
     {
         $appId = $this->accountService->getCurrent()->app_id;
 

@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Message;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 广播消息
+ * 客服
+ *
+ * @author overtrue <anzhengchao@gmail.com>
  */
-class BroadcastingController extends Controller
+class StaffController extends Controller
 {
     /**
      * 首页
@@ -19,5 +21,5 @@ class BroadcastingController extends Controller
     public function getIndex()
     {
 
-    }   
+    }
 }

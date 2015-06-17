@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Material;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Material\CreateRequest;
 use App\Http\Requests\Material\UpdateRequest;
@@ -17,7 +17,7 @@ use App\Http\Requests;
 class MaterialController extends Controller
 {
     /**
-     * 素材管理首页
+     * 取得素材列表
      *
      * @return void
      */

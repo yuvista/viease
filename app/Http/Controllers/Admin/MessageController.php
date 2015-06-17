@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Material;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\UpdateRequest;
@@ -10,14 +10,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 图文管理
+ * 消息管理
  *
- * @author rongyouyuan <rongyouyuan@163.com>
+ * @author overtrue <anzhengchao@gmail.com>
  */
-class ArticleController extends Controller
+class MessageController extends Controller
 {
     /**
-     * 图文管理首页
+     * 首页
      *
      * @return void
      */

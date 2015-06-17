@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 消息资源
+ * 实时消息
  */
-class ResourceController extends Controller
+class TimelineController extends Controller
 {
     /**
-     * 首页
+     * 消息首页
      *
      * @return void
      */
     public function getIndex()
     {
 
-    }   
+    }
 }

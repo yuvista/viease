@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Message;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * 模板消息
+ * 数据统计与分析
+ *
+ * @author overtrue <anzhengchao@gmail.com>
  */
-class NoticeController extends Controller
+class AnalysisController extends Controller
 {
     /**
-     * 模板消息首页
+     * 首页
      *
      * @return void
      */
     public function getIndex()
     {
 
-    }   
+    }
 }
