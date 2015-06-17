@@ -63,14 +63,30 @@ $(function(){
         };
     });
 
+    // 显示菜单列表
+    function listsMenu () {
+
+        Repos.menu.getMenus(function($menus){
+            if (menusListContainer.hasClass('no-menus')) {
+                menusListContainer.html('').removeClass('no-menus');
+            };
+
+            _.each($menus, function($menu){
+                menusListContainer.append(menuItemTemplate( { menu: $menu } ));
+            });
+        });
+    }
+
+    listsMenu();
+
     // 创建
     $(document).on('click', '.add-menu-item', function(){
         if (menusListContainer.hasClass('no-menus')) {
             menusListContainer.html('').removeClass('no-menus');
         };
-        var form = menuItemFormTemplate();
+        var $form = menuItemFormTemplate();
 
-        menusListContainer.append(form);
+        menusListContainer.append($form);
 
         menusListContainer.find('input').focus();
     });
@@ -78,16 +94,21 @@ $(function(){
     // 表单提交
     $(document).on('submit', '.menus form.menu-item-form:first', function(e){
         e.preventDefault();
-        var params = Util.parseForm($(this));
-        console.log(params);
+        var $params = Util.parseForm($(this));
+
+        if ($params.id) {
+            Repos.menu.updateMenu($params.id, $params, listsMenu);
+        } else {
+            Repos.menu.createMenu($params, listsMenu);
+        }
     });
 
     // 取消
     $(document).on('click', '.menus form .cancel-do', function(e){
         e.preventDefault();
-        var params = Util.parseForm($(this));
+        var $params = Util.parseForm($(this));
 
-        if (!params.id) {
+        if (!$params.id) {
             $(this).closest('form').remove();
         };
     });
