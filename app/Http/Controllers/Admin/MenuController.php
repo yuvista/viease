@@ -64,19 +64,45 @@ class MenuController extends Controller
     public function getLists()
     {
         //获取远程菜单
-        $menus = $this->menuService->getMenus();
+        // $menus = $this->menuService->getMenus();
 
-        $mediaId = 'b610826024997228544';
+        // $mediaId = 'b610826024997228544';
 
-        $appId  = 'wx5c174c50435941e6';
-        $secret = 'b4020e08f0ad463c604badda5771cd78';
+        // $appId  = 'wx5c174c50435941e6';
+        // $secret = 'b4020e08f0ad463c604badda5771cd78';
 
-        $media = new Media(['app_id' => $appId, 'secret' => $secret]);
+        // $media = new Media(['app_id' => $appId, 'secret' => $secret]);
 
-        $media->download($mediaId, '/data/www/');
+        // $media->download($mediaId, '/data/www/');
 
-        //保存数据
-        $this->menuRepository->store($this->menuService->localize($menus));
+        // //保存数据
+        // $this->menuRepository->store($this->menuService->localize($menus));
+        return [
+            [
+                'id' => 1,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '每日笑话',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+            [
+                'id' => 2,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '菜单项目2',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+            [
+                'id' => 3,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '菜单项目3',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+        ];
     }
 
     /**
@@ -88,6 +114,13 @@ class MenuController extends Controller
      */
     public function postStore(CreateRequest $request)
     {
-        var_dump($request);die();
+        return [
+                'id' => mt_rand(1, 99),
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => $request->name,
+                'type' => 'click',
+                'key' => 'foo',
+            ];
     }
 }

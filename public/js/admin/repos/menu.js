@@ -15,7 +15,7 @@
         },
 
         // 更新菜单
-        createMenu: function ($menuId, $request, $callback) {
+        updateMenu: function ($menuId, $request, $callback) {
             Util.request('POST', 'menu/update/' + $menuId, $request, $callback);
         },
 
