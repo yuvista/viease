@@ -72,7 +72,7 @@
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          @if($global->current_account) {{ $global->current_account->name }} @else @endif 
+                          @if($global->current_account) {{ $global->current_account->name }} @else @endif
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
@@ -105,11 +105,11 @@
                       </a>
                       <ul class="dropdown-menu">
                           <li>
-                              <a href="#dropdown1">账号设置</a>
+                              <a href="{{ admin_url('user/edit/' . $global->user->id) }}">账号设置</a>
                           </li>
                           <li class="divider"></li>
                           <li>
-                              <a href="#dropdown2">注销</a>
+                              <a href="{{ admin_url('auth/logout') }}">注销</a>
                           </li>
                       </ul>
                   </li>

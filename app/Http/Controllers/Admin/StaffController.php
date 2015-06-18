@@ -20,7 +20,7 @@ class StaffController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.staff.index');
+        return admin_view('staff.index');
     }
 
     /**
@@ -30,6 +30,6 @@ class StaffController extends Controller
      */
     public function getPerformance()
     {
-        return view('admin.staff.performance');
+        return admin_view('staff.performance');
     }
 }

@@ -23,7 +23,7 @@ class MessageController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.message.index');
+        return admin_view('message.index');
     }
 
     /**
@@ -33,7 +33,7 @@ class MessageController extends Controller
      */
     public function getTimeline()
     {
-        return view('admin.message.timeline');
+        return admin_view('message.timeline');
     }
 
     /**
@@ -43,7 +43,7 @@ class MessageController extends Controller
      */
     public function getBroadcasting()
     {
-        return view('admin.message.broadcasting');
+        return admin_view('message.broadcasting');
     }
 
     /**
@@ -53,6 +53,6 @@ class MessageController extends Controller
      */
     public function getResource()
     {
-        return view('admin.message.resource');
+        return admin_view('message.resource');
     }
 }

@@ -53,10 +53,18 @@ class MenuController extends Controller
      */
     public function getIndex()
     {
+        return admin_view('menu.index', compact('menus'));
+    }
+
+    /**
+     * 获取菜单列表
+     *
+     * @return Response
+     */
+    public function getLists()
+    {
         //获取远程菜单
         $menus = $this->menuService->getMenus();
-
-        var_dump($menus);die();
 
         $mediaId = 'b610826024997228544';
 
@@ -69,8 +77,6 @@ class MenuController extends Controller
 
         //保存数据
         $this->menuRepository->store($this->menuService->localize($menus));
-
-        return view('admin.menu.index', compact('menus'));
     }
 
     /**

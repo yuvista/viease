@@ -28,11 +28,11 @@ Route::group($admin, function(){
 
     Route::get('/', 'AccountController@getManage');
     Route::controller('account','AccountController');
+    Route::controller('auth','AuthController');
 
-    Route::group(['middleware' => 'account'],function(){
+    Route::group(['middleware' => 'account'], function(){
 
         Route::controllers([
-            'auth'             => 'AuthController',
             'user'             => 'UserController',
             'fan'              => 'FanController',
             'fan-group'        => 'FanGroupController',

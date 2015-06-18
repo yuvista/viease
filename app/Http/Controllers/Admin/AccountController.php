@@ -63,7 +63,7 @@ class AccountController extends Controller
     {
         $accounts = $this->account->lists($this->_pageSize);
 
-        return view('admin.account.index', compact('accounts'));
+        return admin_view('account.index', compact('accounts'));
     }
 
     /**
@@ -75,7 +75,7 @@ class AccountController extends Controller
     {
         $current = $this->service->getCurrent();
 
-        return view('admin.account.manage',compact('current'));
+        return admin_view('account.manage',compact('current'));
     }
 
     /**
@@ -85,7 +85,7 @@ class AccountController extends Controller
      */
     public function getCreate()
     {
-        return view('admin.account.form');
+        return admin_view('account.form');
     }
 
     /**
@@ -113,7 +113,7 @@ class AccountController extends Controller
     {
         $account = $this->account->getById($id);
 
-        return view('admin.account.form', compact('account'));
+        return admin_view('account.form', compact('account'));
     }
 
     /**
@@ -128,7 +128,7 @@ class AccountController extends Controller
     {
         $this->account->update($id,$request);
 
-        return redirect(admin_url('account'))->withMessage('修改成功！');        
+        return redirect(admin_url('account'))->withMessage('修改成功！');
     }
 
     /**
@@ -142,7 +142,7 @@ class AccountController extends Controller
     {
         $this->account->destroy($id);
 
-        return redirect(admin_url('account'))->withMessage('删除成功！');      
+        return redirect(admin_url('account'))->withMessage('删除成功！');
     }
 
     /**

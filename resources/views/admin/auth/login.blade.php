@@ -5,6 +5,8 @@
     <form class="form" action="{{ admin_url('auth/login') }}" method="post">
         <div class="page-header">
           <h2 class="text-center">用户登录</h2>
+          @include('admin.partials.error')
+          @include('admin.partials.message')
         </div>
         <div class="form-group">
             <div class="input-group">
@@ -29,7 +31,7 @@
           </div>
           <div class="form-group">
             <div class="clearfix">
-                <a href="" class="pull-right text-light">POWERED BY XiaoNiuCMS.</a>
+                <a href="" class="pull-right text-light">POWERED BY viease.</a>
             </div>
           </div>
     </form>
