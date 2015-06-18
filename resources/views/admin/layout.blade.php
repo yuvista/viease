@@ -72,14 +72,14 @@
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          {{ $global->current_account->name }}
+                          @if($global->current_account) {{ $global->current_account->name }} @else @endif 
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
                         @foreach($global->accounts as $account)
-                          @if(!$account->id != $global->current_account->id)
+                          @if($global->current_account && $account->id == $global->current_account->id)
                           <li>
-                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $account->name }}”">{{ $account->name}}</a>
+                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="“{{ $account->name }}”">{{ $account->name}}</a>
                           </li>
                           @endif
                         @endforeach

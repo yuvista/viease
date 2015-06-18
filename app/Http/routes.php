@@ -25,6 +25,7 @@ $admin = [
 Route::group($admin, function(){
 
     Route::get('/', 'AccountController@getManage');
+    Route::controller('account','AccountController');
 
     Route::group(['middleware' => 'account'],function(){
 
@@ -33,7 +34,6 @@ Route::group($admin, function(){
             'user'             => 'UserController',
             'fan'              => 'FanController',
             'fan-group'        => 'FanGroupController',
-            'account'          => 'AccountController',
             'menu'             => 'MenuController',
             'material/article' => 'ArticleController',
             'material'         => 'MaterialController',
