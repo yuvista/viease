@@ -68,7 +68,7 @@
                 </li>
                 @endforeach
               </ul>
-              @if(!empty($global->accounts))
+              @unless($global->accounts->isEmpty())
               <ul class="nav navbar-nav">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -83,7 +83,9 @@
                           </li>
                           @endif
                         @endforeach
+                        @if($global->accounts->count() > 1)
                         <li role="presentation" class="divider"></li>
+                        @endif
                         <li>
                           <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
                         </li>
@@ -93,7 +95,7 @@
                       </ul>
                   </li>
               </ul>
-              @endif
+              @endunless
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

@@ -120,3 +120,12 @@
 .blankslate .context-loader.large-format-loader {
     padding-top: 50px
 }
+
+// resizeable
+// 用于触发窗口变化事件
+.resizeable {
+   -moz-transition:width 2.01s, height 2.01s;
+   -webkit-transition:width 2.01s, height 2.01s;
+   -o-transition:width 2.01s, height 2.01s;
+   transition:width 2.01s, height 2.01s;
+}
