@@ -8,8 +8,8 @@
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1"><i class="ion-ios-email-outline"></i></span>
-                <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
+                <span class="input-group-addon" id="basic-addon1"><i class="ion-ios-person"></i></span>
+                <input type="name" class="form-control" name="name" id="name" placeholder="用户名">
             </div>
           </div>
           <div class="form-group">

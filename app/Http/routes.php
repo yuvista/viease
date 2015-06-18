@@ -20,6 +20,7 @@ Route::post('/', 'ServerController@server');
 $admin = [
             'prefix'     => 'admin',
             'namespace'  => 'Admin',
+            'middleware' => 'admin'
          ];
 
 Route::group($admin, function(){
