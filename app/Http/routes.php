@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'ServerController@server');
-Route::post('/', 'ServerController@server');
+Route::get('/', function(){
+    return 'Hello world!';
+});
 
 /**
  * Admin
@@ -24,23 +25,27 @@ $admin = [
          ];
 
 Route::group($admin, function(){
-    //我的公众号列表页
+
     Route::get('/', 'AccountController@getManage');
-    Route::controllers([
-        'auth'             => 'AuthController',
-        'user'             => 'UserController',
-        'fan'              => 'FanController',
-        'fan-group'        => 'FanGroupController',
-        'account'          => 'AccountController',
-        'menu'             => 'MenuController',
-        'material/article' => 'ArticleController',
-        'material'         => 'MaterialController',
-        'analysis'         => 'AnalysisController',
-        'staff'            => 'StaffController',
-        'tool'             => 'ToolController',
-        'message'          => 'MessageController',
-        'notice'           => 'NoticeController',
-        'qrcode'           => 'QRCodeController',
-        'auto-reply'       => 'AutoReplyController',
-    ]);
+    Route::controller('account','AccountController');
+
+    Route::group(['middleware' => 'account'],function(){
+
+        Route::controllers([
+            'auth'             => 'AuthController',
+            'user'             => 'UserController',
+            'fan'              => 'FanController',
+            'fan-group'        => 'FanGroupController',
+            'menu'             => 'MenuController',
+            'material/article' => 'ArticleController',
+            'material'         => 'MaterialController',
+            'analysis'         => 'AnalysisController',
+            'staff'            => 'StaffController',
+            'tool'             => 'ToolController',
+            'message'          => 'MessageController',
+            'notice'           => 'NoticeController',
+            'qrcode'           => 'QRCodeController',
+            'auto-reply'       => 'AutoReplyController',
+        ]);
+    });
 });

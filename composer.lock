@@ -2645,7 +2645,11 @@
                     "src/"
                 ]
             },
+<<<<<<< HEAD
             "notification-url": "http://pkg.overtrue.me/downloads/",
+=======
+            "notification-url": "https://packagist.org/downloads/",
+>>>>>>> 808845cc06fb17be56aba24d6c9a5eb0327d89b4
             "license": [
                 "BSD-3-Clause"
             ],

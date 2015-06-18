@@ -17,10 +17,27 @@ class FanController extends Controller
 {
 	
 	/**
+     * AccountRepository
+     *
+     * @var AccountRepository
+     */
+    private $_fan;
+	
+	/**
 	 * 获取几条数据
 	 * @var type
 	 */
 	private $_pageSize = 30;
+	
+	/**
+     * constructer
+     *
+     * @param AccountRepository $account
+     */
+    public function __construct(FanRepository $fan)
+    {
+        $this->_fan = $fan;
+    }
 	
 	/**
 	 * 当前页码
@@ -38,7 +55,7 @@ class FanController extends Controller
      *
      * @return Response
      */
-    public function getLists(Request $request, FanRepository $fan)
+    public function getLists(Request $request)
     {
         /**
          * 请求参数：
@@ -46,23 +63,10 @@ class FanController extends Controller
          * page: 1
          * sort_by: xxx
          */
-//		[
-//                "id"       => 1,
-//                "nickname" => "小妹你去哪儿?",
-//                "location" => "北京 海淀",
-//                "remark"   => "备注名称",
-//                "sex"      => "女",
-//                "group_id" => 3,
-//                "avatar"   => 'http://dn-weixinhost-admin-data.qbox.me/a72587197de4dc90.jpg',
-//                "signature" => '这是签名信息',
-//                "followd_at" => 1405290921,
-//                "liveness"  => 56,
-//                "last_speaking_at" => 1234556366,
-//            ]
-		
-		$fans = $fan->lists($this->_pageSize, $request);
-		
-        return response()->json($fans);
+//		return $this->_fan->onlineLists();	//获取线上列表
+//		$fans = $this->_fan->lists($this->_pageSize, $request);
+//		
+//        return response()->json($fans);
     }
 
     /**

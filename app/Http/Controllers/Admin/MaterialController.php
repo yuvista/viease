@@ -17,7 +17,7 @@ use App\Http\Requests;
 class MaterialController extends Controller
 {
     /**
-     * 素材管理首页
+     * 取得素材列表
      *
      * @return void
      */
