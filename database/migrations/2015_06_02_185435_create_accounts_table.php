@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->string('app_id',50)->nullable()->comment('AppId');
             $table->string('app_secret',50)->nullable()->comment('AppSecret');
             $table->string('wechat_account',20)->comment('微信号');
-            $table->string('access_token',30)->nullable()->comment('access_token');
+            $table->string('access_token',30)->nullable()->comment('微信access_token');
             $table->tinyInteger('account_type')->nullable()->default(1)->comment('类型');
             $table->timestamps();
             $table->softDeletes();

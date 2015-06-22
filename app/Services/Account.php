@@ -61,4 +61,14 @@ class Account {
     {
         return $this->chosed() ? $this->repository->getById($this->chosed()) : NULL;
     }
+
+    /**
+     * 取得当前操作id
+     *
+     * @return integet|null id
+     */
+    public function getId()
+    {
+        return $this->getCurrent() ? $this->getCurrent()->id : NULL;
+    }
 }

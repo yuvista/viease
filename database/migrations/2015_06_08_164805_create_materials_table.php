@@ -15,10 +15,10 @@ class CreateMaterialsTable extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->comment('所属公众号');
-            $table->enum('type', ['text', 'image', 'voice', 'video', 'news'])->comment('素材类型');   
+            $table->enum('type', ['image', 'voice', 'video'])->comment('素材类型');   
             $table->string('url');
-            $table->string('title')->nullable(); //素材标题
-            $table->string('description')->nullable()->comment('描述');
+            $table->string('title')->nullable()->comment('视频标题');
+            $table->string('description')->nullable()->comment('视频描述');
             $table->timestamps();
             $table->softDeletes();
         });
