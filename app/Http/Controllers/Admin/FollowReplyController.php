@@ -51,6 +51,6 @@ class FollowReplyController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.follow-reply.index');
+        return admin_view('follow-reply.index');
     }
 }

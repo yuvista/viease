@@ -53,19 +53,42 @@ class MenuController extends Controller
      */
     public function getIndex()
     {
+        return admin_view('menu.index', compact('menus'));
+    }
 
-        //逻辑 ： 每次打开菜单都要 拉取一次菜单 解析菜单中的数据 保存为事件和素材 
-
-        //获取远程菜单
-
-        $menus = $this->menuService->localize($this->menuService->getMenus());
-
-        var_dump($menus);die();
-
-        //保存数据
-        $this->menuRepository->store($this->menuService->localize($menus));
-
-        return view('admin.menu.index', compact('menus'));
+    /**
+     * 获取菜单列表
+     *
+     * @return Response
+     */
+    public function getLists()
+    {
+        return [
+            [
+                'id' => 1,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '每日笑话',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+            [
+                'id' => 2,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '菜单项目2',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+            [
+                'id' => 3,
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => '菜单项目3',
+                'type' => 'click',
+                'key' => 'foo',
+            ],
+        ];
     }
 
     /**
@@ -77,6 +100,13 @@ class MenuController extends Controller
      */
     public function postStore(CreateRequest $request)
     {
-        var_dump($request);die();
+        return [
+                'id' => mt_rand(1, 99),
+                'account_id' => 2,
+                'parent_id' => 0,
+                'name' => $request->name,
+                'type' => 'click',
+                'key' => 'foo',
+            ];
     }
 }

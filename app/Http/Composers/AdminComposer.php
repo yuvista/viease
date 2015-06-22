@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
 use App\Services\Account;
+use Auth;
 
 /**
  * 后台视图组织
@@ -66,6 +67,8 @@ class AdminComposer
         $menus = $this->request->is('admin/account*') ? config('menu.account') : config('menu.func');
 
         $global = new Fluent();
+
+        $global->user = Auth::user();
 
         $global->menus = $menus;
 

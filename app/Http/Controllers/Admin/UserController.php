@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.user.index');
+        return admin_view('user.index');
     }
 
     /**
@@ -30,6 +30,6 @@ class UserController extends Controller
      */
     public function getPassword()
     {
-        return view('admin.user.password');
+        return admin_view('user.password');
     }
 }

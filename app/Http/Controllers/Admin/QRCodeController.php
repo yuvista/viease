@@ -20,6 +20,6 @@ class QRCodeController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.qrcode.index');
+        return admin_view('qrcode.index');
     }
 }

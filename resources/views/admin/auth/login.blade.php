@@ -5,11 +5,13 @@
     <form class="form" action="{{ admin_url('auth/login') }}" method="post">
         <div class="page-header">
           <h2 class="text-center">用户登录</h2>
+          @include('admin.partials.error')
+          @include('admin.partials.message')
         </div>
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1"><i class="ion-ios-email-outline"></i></span>
-                <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
+                <span class="input-group-addon" id="basic-addon1"><i class="ion-ios-person"></i></span>
+                <input type="name" class="form-control" name="name" id="name" placeholder="用户名">
             </div>
           </div>
           <div class="form-group">
@@ -29,7 +31,7 @@
           </div>
           <div class="form-group">
             <div class="clearfix">
-                <a href="" class="pull-right text-light">POWERED BY XiaoNiuCMS.</a>
+                <a href="" class="pull-right text-light">POWERED BY viease.</a>
             </div>
           </div>
     </form>

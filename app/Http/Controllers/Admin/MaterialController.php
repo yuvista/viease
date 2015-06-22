@@ -23,6 +23,6 @@ class MaterialController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.material.index');
+        return admin_view('material.index');
     }
 }

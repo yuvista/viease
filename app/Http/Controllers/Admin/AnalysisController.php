@@ -20,7 +20,7 @@ class AnalysisController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.analysis.index');
+        return admin_view('analysis.index');
     }
 
     /**
@@ -30,7 +30,7 @@ class AnalysisController extends Controller
      */
     public function getFan()
     {
-        return view('admin.analysis.fan');
+        return admin_view('analysis.fan');
     }
 
     /**
@@ -40,7 +40,7 @@ class AnalysisController extends Controller
      */
     public function getArticle()
     {
-        return view('admin.analysis.article');
+        return admin_view('analysis.article');
     }
 
     /**
@@ -50,7 +50,7 @@ class AnalysisController extends Controller
      */
     public function getMessage()
     {
-        return view('admin.analysis.message');
+        return admin_view('analysis.message');
     }
 
     /**
@@ -60,6 +60,6 @@ class AnalysisController extends Controller
      */
     public function getApi()
     {
-        return view('admin.analysis.api');
+        return admin_view('analysis.api');
     }
 }

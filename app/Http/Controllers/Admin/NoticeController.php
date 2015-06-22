@@ -20,6 +20,6 @@ class NoticeController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.notice.index');
+        return admin_view('notice.index');
     }
 }

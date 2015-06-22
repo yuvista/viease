@@ -19,7 +19,7 @@ class CreateRequest extends Request
     public function rules()
     {
         return [
-            'menu' => 'required',
+            'name' => 'required',
         ];
     }
 }

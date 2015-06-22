@@ -20,7 +20,7 @@ class ToolController extends Controller
      */
     public function getIndex()
     {
-        return view('admin.tool.index');
+        return admin_view('tool.index');
     }
 
     /**
@@ -30,6 +30,6 @@ class ToolController extends Controller
      */
     public function getShortUrl()
     {
-        return view('admin.tool.short-url');
+        return admin_view('tool.short-url');
     }
 }

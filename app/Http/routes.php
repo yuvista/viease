@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', 'ServerController@server');
-Route::post('/', 'ServerController@server');
+Route::get('/', function(){
+    return 'Hello world!';
+});
 
 /**
  * Admin
@@ -20,17 +21,18 @@ Route::post('/', 'ServerController@server');
 $admin = [
             'prefix'     => 'admin',
             'namespace'  => 'Admin',
+            'middleware' => 'admin'
          ];
 
 Route::group($admin, function(){
 
     Route::get('/', 'AccountController@getManage');
     Route::controller('account','AccountController');
+    Route::controller('auth','AuthController');
 
-    Route::group(['middleware' => 'account'],function(){
+    Route::group(['middleware' => 'account'], function(){
 
         Route::controllers([
-            'auth'             => 'AuthController',
             'user'             => 'UserController',
             'fan'              => 'FanController',
             'fan-group'        => 'FanGroupController',

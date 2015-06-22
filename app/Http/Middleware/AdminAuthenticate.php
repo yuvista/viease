@@ -4,15 +4,25 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use URL;
 
-class AdminAuthenticate {
-
+class AdminAuthenticate
+{
     /**
      * The Guard implementation.
      *
      * @var Guard
      */
     protected $auth;
+
+    /**
+     * 排除项
+     *
+     * @var array
+     */
+    protected $except = [
+        '*auth/login'
+    ];
 
     /**
      * Create a new filter instance.
@@ -34,11 +44,15 @@ class AdminAuthenticate {
      */
     public function handle($request, Closure $next)
     {
+        if ($this->shouldPassThrough($request)) {
+            return $next($request);
+        }
+
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(admin('auth/login?redirect=' . URL::full()));
+                return redirect()->guest(admin_url('auth/login?redirect=' . URL::full()));
             }
         }
 
@@ -47,6 +61,17 @@ class AdminAuthenticate {
         }
 
         return $next($request);
+    }
+
+    public function shouldPassThrough($request)
+    {
+        foreach ($this->except as $uri) {
+            if ($request->is($uri)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

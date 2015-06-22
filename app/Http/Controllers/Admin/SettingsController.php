@@ -18,7 +18,7 @@ class SettingsController extends Controller {
      */
     public function getAll()
     {
-        return view('admin.settings.index');
+        return admin_view('settings.index');
     }
 
 }

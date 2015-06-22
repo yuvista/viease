@@ -23,36 +23,34 @@ class ArticleRepository
         $this->model = $article;
     }
 
-    /**
-     * 获取图文列表
-     *
-     * @param int $pageSize 分页大小
-     *
-     * @return \Illuminate\Pagination\Paginator
-     */
-    public function lists($pageSize)
-    {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
-    }
+    // /**
+    //  * 获取图文列表
+    //  *
+    //  * @param int $pageSize 分页大小
+    //  *
+    //  * @return \Illuminate\Pagination\Paginator
+    //  */
+    // public function lists($pageSize)
+    // {
+    //     return $this->model->orderBy('id','desc')->paginate($pageSize);
+    // }
 
-    public function store($input)
-    {
-        return $this->savePost($this->model,$input);
-    }
+    // public function store($input)
+    // {
+    //     return $this->savePost($this->model,$input);
+    // }
 
-    public function update($id, $input)
-    {
-        $model = $this->model->find($id);
+    // public function update($id, $input)
+    // {
+    //     $model = $this->model->find($id);
 
-        return $this->savePost($model,$input);
-    }
+    //     return $this->savePost($model,$input);
+    // }
 
-    public function savePost($model,$input)
-    {
-        //var_dump($input);die();
+    // public function savePost($model,$input)
+    // {
+    //     $model->fill($input);
 
-        $model->fill($input);
-
-        $model->save();
-    }
+    //     $model->save();
+    // }
 }

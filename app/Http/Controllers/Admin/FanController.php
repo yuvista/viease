@@ -15,20 +15,20 @@ use App\Repositories\FanRepository;
  */
 class FanController extends Controller
 {
-	
+
 	/**
      * AccountRepository
      *
      * @var AccountRepository
      */
     private $_fan;
-	
+
 	/**
 	 * 获取几条数据
 	 * @var type
 	 */
 	private $_pageSize = 30;
-	
+
 	/**
      * constructer
      *
@@ -38,16 +38,16 @@ class FanController extends Controller
     {
         $this->_fan = $fan;
     }
-	
+
 	/**
 	 * 当前页码
 	 * @var Int
 	 */
 	public $currentPageNumber;
-	
+
     public function getIndex()
     {
-        return view('admin.fan.index');
+        return admin_view('fan.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class FanController extends Controller
          */
 //		return $this->_fan->onlineLists();	//获取线上列表
 //		$fans = $this->_fan->lists($this->_pageSize, $request);
-//		
+//
 //        return response()->json($fans);
     }
 
