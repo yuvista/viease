@@ -2,7 +2,6 @@
 
 namespace App\Http\Composers;
 
-use App\Repositories\AccountRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
@@ -17,13 +16,6 @@ use Auth;
 class AdminComposer
 {
     /**
-     * accountRepository.
-     *
-     * @var App\Repositories\AccountRepository
-     */
-    private $accountRepository;
-
-    /**
      * request.
      *
      * @var Illuminate\Http\Request
@@ -37,18 +29,10 @@ class AdminComposer
      */
     private $accountService;
 
-    /**
-     * construct.
-     *
-     * @param App\Repositories\AccountRepository $accountRepository
-     */
     public function __construct(
-        AccountRepository $accountRepository,
         Request $request,
         Account $accountService
     ) {
-        $this->accountRepository = $accountRepository;
-
         $this->request = $request;
 
         $this->accountService = $accountService;
@@ -71,7 +55,7 @@ class AdminComposer
 
         $global->current_account = $this->accountService->getCurrent();
 
-        $global->accounts = $this->accountRepository->lists(99);
+        $global->accounts = $this->accountService->getLists();
 
         $view->with('global', $global);
     }

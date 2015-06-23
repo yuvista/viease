@@ -6,7 +6,7 @@ use App\Services\Account as AccountService;
 use App\Repositories\ArticleRepository;
 
 /**
- * 图文消息服务
+ * 图文消息服务.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */

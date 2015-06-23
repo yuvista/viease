@@ -66,4 +66,14 @@ class Account
     {
         return $this->getCurrent() ? $this->getCurrent()->id : null;
     }
+
+    /**
+     * 取得已有公众号列表.
+     *
+     * @return mixed
+     */
+    public function getLists()
+    {
+        return $this->repository->lists(99);
+    }
 }
