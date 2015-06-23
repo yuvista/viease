@@ -22,6 +22,6 @@ class UpdateRequest extends Request
             'name'           => 'required',
             'original_id'    => 'required',
             'wechat_account' => 'required',
-        ];
+               ];
     }
 }

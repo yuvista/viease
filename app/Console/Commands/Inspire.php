@@ -7,6 +7,7 @@ use Illuminate\Foundation\Inspiring;
 
 class Inspire extends Command
 {
+
     /**
      * The name and signature of the console command.
      *

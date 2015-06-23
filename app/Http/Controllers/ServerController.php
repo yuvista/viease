@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
  */
 class ServerController extends Controller
 {
+
     /**
      * 返回服务端
      *

@@ -19,8 +19,8 @@ class Material extends Model
         'type',
         'url',
         'title',
-        'digest'
-    ];
+        'digest',
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -34,7 +34,5 @@ class Material extends Model
         'app_id'         => '应用ID',
         'title'          => '视频标题',
         'digest'         => '视频描述',
-    ];
+                             ];
 }
-
-

@@ -32,27 +32,27 @@ class AccountRepository
      */
     public function lists($pageSize)
     {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
+        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
     }
 
     /**
      * store
      *
-     * @param  App\Models\Menu  $menu
-     * @param  array            $input
+     * @param App\Models\Menu $menu
+     * @param array           $input
      *
      * @return void
      */
     public function store($input)
     {
-        return $this->savePost($this->model,$input);
+        return $this->savePost($this->model, $input);
     }
 
     /**
      * update
      *
-     * @param  integer $id
-     * @param  array   $input
+     * @param integer $id
+     * @param array   $input
      *
      * @return void
      */
@@ -60,14 +60,14 @@ class AccountRepository
     {
         $model = $this->model->find($id);
 
-        return $this->savePost($model,$input);
+        return $this->savePost($model, $input);
     }
 
     /**
      * save
      *
-     * @param  Account $account account
-     * @param  Request $input   输入
+     * @param Account $account account
+     * @param Request $input   输入
      *
      * @return void
      */
@@ -81,12 +81,12 @@ class AccountRepository
     /**
      * 切换公众号
      *
-     * @param  integer $id id
+     * @param integer $id id
      *
      * @return void
      */
     public function change($id)
     {
-        Session::put('account_id',$id);
+        Session::put('account_id', $id);
     }
 }

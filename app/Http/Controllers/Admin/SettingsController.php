@@ -9,9 +9,10 @@ use App\Http\Controllers\Controller;
  *
  * 功能1： 系统设置
  *
- * @author      yhsong <13810377933@163.com>
+ * @author yhsong <13810377933@163.com>
  */
-class SettingsController extends Controller {
+class SettingsController extends Controller
+{
 
     /**
      * 系统设置界面
@@ -20,5 +21,4 @@ class SettingsController extends Controller {
     {
         return admin_view('settings.index');
     }
-
 }

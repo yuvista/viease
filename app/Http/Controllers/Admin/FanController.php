@@ -16,20 +16,21 @@ use App\Repositories\FanRepository;
 class FanController extends Controller
 {
 
-	/**
+    /**
      * AccountRepository
      *
      * @var AccountRepository
      */
     private $_fan;
 
-	/**
-	 * 获取几条数据
-	 * @var type
-	 */
-	private $_pageSize = 30;
+    /**
+     * 获取几条数据
+     *
+     * @var type
+     */
+    private $_pageSize = 30;
 
-	/**
+    /**
      * constructer
      *
      * @param AccountRepository $account
@@ -39,11 +40,12 @@ class FanController extends Controller
         $this->_fan = $fan;
     }
 
-	/**
-	 * 当前页码
-	 * @var Int
-	 */
-	public $currentPageNumber;
+    /**
+     * 当前页码
+     *
+     * @var Int
+     */
+    public $currentPageNumber;
 
     public function getIndex()
     {
@@ -57,15 +59,15 @@ class FanController extends Controller
      */
     public function getLists(Request $request)
     {
-        /**
-         * 请求参数：
-         *
-         * page: 1
-         * sort_by: xxx
-         */
-//		return $this->_fan->onlineLists();	//获取线上列表
-//		$fans = $this->_fan->lists($this->_pageSize, $request);
-//
+        /*
+            * 请求参数：
+            *
+            * page: 1
+            * sort_by: xxx
+            */
+                        //      return $this->_fan->onlineLists();  //获取线上列表
+                                    //      $fans = $this->_fan->lists($this->_pageSize, $request);
+                                    //
 //        return response()->json($fans);
     }
 
@@ -90,10 +92,10 @@ class FanController extends Controller
      */
     public function postSetGroup($groupId)
     {
-        /**
-         * 请求参数：
-         * fans_id: [1,2,3,4] 或者 fans_id: 1,
-         * 要求支持单个或者多个
+        /*
+            * 请求参数：
+            * fans_id: [1,2,3,4] 或者 fans_id: 1,
+            * 要求支持单个或者多个
          */
     }
 }

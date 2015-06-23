@@ -12,8 +12,9 @@ use App\Models\Event;
  */
 class EventObserver
 {
+
     /**
-     * eventService 
+     * eventService
      *
      * @var App\Services\Event
      */

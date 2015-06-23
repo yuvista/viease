@@ -33,12 +33,11 @@ trait BaseRepository
     /**
      * Get Model by id.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return App\Models\Model
      */
     public function getById($id)
     {
         return $this->model->find($id);
     }
-
 }

@@ -1,5 +1,6 @@
 <?php
-namespace App\Services;
+
+namespace app\Services;
 
 use App\Services\Account as AccountService;
 use App\Repositories\ArticleRepository;
@@ -12,15 +13,16 @@ use App\Models\Article as Model;
  */
 class Article
 {
+
     /**
-     * articleRepository 
+     * articleRepository.
      *
      * @var App\Repositories\ArticleRepository
      */
     private $articleRepository;
 
     /**
-     * accountService
+     * accountService.
      *
      * @var App\Services\Account
      */
@@ -34,9 +36,9 @@ class Article
     }
 
     /**
-     * 保存图文消息 [菜单处使用]
+     * 保存图文消息 [菜单处使用].
      *
-     * @param  array $articles 图文消息
+     * @param array $articles 图文消息
      *
      * @return array
      */
@@ -45,8 +47,7 @@ class Article
         //多图文
         $isMulti = count($articles) >= 2;
 
-        if($isMulti)
-        {
+        if ($isMulti) {
             $parentId = 0;
 
             foreach ($articles as $key => $article) {
@@ -59,7 +60,7 @@ class Article
                 // $article['parent_id'] = $parentId;
 
                 // $parentId = $this->articleRepository->store($article);
-            } 
+            }
         }
     }
 }

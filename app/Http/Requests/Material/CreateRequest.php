@@ -10,6 +10,7 @@ use App\Models\Material;
  */
 class CreateRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,6 +24,6 @@ class CreateRequest extends Request
             'type'       => 'required|in:1,2,3',
             'title'      => 'required_if:type,3',
             'digest'     => 'required_if:type,3'
-        ];
+               ];
     }
 }

@@ -21,7 +21,7 @@ class Account extends Model
         'app_id',
         'app_secret',
         'account_type',
-    ];
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -35,7 +35,5 @@ class Account extends Model
         'app_id'         => '应用ID',
         'app_secret'     => '应用secret',
         'account_type'   => '账户类型',
-    ];
+                             ];
 }
-
-

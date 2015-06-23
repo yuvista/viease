@@ -13,6 +13,7 @@ use App\Http\Requests;
  */
 class UserController extends Controller
 {
+
     /**
      * 首页
      *

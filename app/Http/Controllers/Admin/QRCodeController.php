@@ -13,6 +13,7 @@ use App\Http\Requests;
  */
 class QRCodeController extends Controller
 {
+
     /**
      * 首页
      *

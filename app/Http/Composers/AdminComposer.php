@@ -16,6 +16,7 @@ use Auth;
  */
 class AdminComposer
 {
+
     /**
      * accountRepository
      *
@@ -46,7 +47,7 @@ class AdminComposer
         AccountRepository $accountRepository,
         Request $request,
         Account $accountService
-        )
+    )
     {
         $this->accountRepository  = $accountRepository;
 
@@ -58,7 +59,7 @@ class AdminComposer
     /**
      * compose
      *
-     * @param  View   $view 视图对象
+     * @param View $view 视图对象
      *
      * @return void
      */

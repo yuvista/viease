@@ -25,12 +25,12 @@ class AutoReplyRepository
     /**
      * 取得自动回复列表
      *
-     * @param  App\Models\Account $account account
+     * @param App\Models\Account $account account
      *
      * @return void
      */
     public function getIndex($account)
     {
-        return $this->model->where('account_id',$account->id)->first();
+        return $this->model->where('account_id', $account->id)->first();
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -14,11 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /**
-         * 扩展blade
+        /*
+            * 扩展blade
          */
-        Blade::extend(function($view, $compiler)
-        {
+        Blade::extend(function ($view, $compiler) {
             $replace  = config('view.extends');
             
             return preg_replace(array_keys($replace), $replace, $view);

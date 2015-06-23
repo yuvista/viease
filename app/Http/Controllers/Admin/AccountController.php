@@ -19,6 +19,7 @@ use Event;
  */
 class AccountController extends Controller
 {
+
     /**
      * 分页
      *
@@ -51,7 +52,7 @@ class AccountController extends Controller
 
         $this->service = $service;
 
-        $this->middleware('account',['only' => 'getManage']);
+        $this->middleware('account', ['only' => 'getManage']);
     }
 
     /**
@@ -75,7 +76,7 @@ class AccountController extends Controller
     {
         $current = $this->service->getCurrent();
 
-        return admin_view('account.manage',compact('current'));
+        return admin_view('account.manage', compact('current'));
     }
 
     /**
@@ -105,7 +106,7 @@ class AccountController extends Controller
     /**
      * 展示修改
      *
-     * @param  integer $id id
+     * @param integer $id id
      *
      * @return void
      */
@@ -119,14 +120,14 @@ class AccountController extends Controller
     /**
      * 提交
      *
-     * @param  integer       $id      id
-     * @param  UpdateRequest $request request
+     * @param integer       $id      id
+     * @param UpdateRequest $request request
      *
      * @return Redirect
      */
     public function postUpdate(UpdateRequest $request, $id)
     {
-        $this->account->update($id,$request);
+        $this->account->update($id, $request);
 
         return redirect(admin_url('account'))->withMessage('修改成功！');
     }
@@ -134,7 +135,7 @@ class AccountController extends Controller
     /**
      * 删除公众号
      *
-     * @param  ineger $id 公众号iD
+     * @param ineger $id 公众号iD
      *
      * @return void
      */
@@ -148,7 +149,7 @@ class AccountController extends Controller
     /**
      * 切换公众号
      *
-     * @param  integer $id id
+     * @param integer $id id
      *
      * @return void
      */

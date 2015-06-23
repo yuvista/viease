@@ -14,7 +14,8 @@ use App\Repositories\MenuRepository;
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
-class Menu {
+class Menu
+{
 
     /**
      * account服务
@@ -44,22 +45,22 @@ class Menu {
      */
     private $eventService;
 
-
     private $material = [];
 
     /**
-     * construct 
+     * construct
      *
-     * @param App\Services\Account          $account        account
+     * @param App\Services\Account            $account        account
      * @param App\Repositories\MenuRepository $menuRepository menuRepository
-     * @param App\Services\Event $eventService eventService
-     * @param App\Services\ArticleService $articleService articleService
+     * @param App\Services\Event              $eventService   eventService
+     * @param App\Services\ArticleService     $articleService articleService
      */
     public function __construct(
-        AccountService $accountService, 
-        MenuRepository $menuRepository, 
+        AccountService $accountService,
+        MenuRepository $menuRepository,
         EventService $eventService,
-        articleService $articleService)
+        articleService $articleService
+    )
     {
         $this->accountService = $accountService;
 
@@ -99,7 +100,7 @@ class Menu {
     /**
      * 将远程菜单进行本地化
      *
-     * @param  array $menus 菜单
+     * @param array $menus 菜单
      *
      * @return array 处理后的菜单
      */
@@ -107,11 +108,11 @@ class Menu {
     {
         $menus = $this->getMenusInfo($menus);
 
-        if(empty($menus)){
+        if (empty($menus)) {
             return [];
         }
         
-        $menus = array_map([$this,'analyseMenu'], $menus);
+        $menus = array_map([$this, 'analyseMenu'], $menus);
 
         var_dump($menus);
     }
@@ -119,7 +120,7 @@ class Menu {
     /**
      * 取得菜单中的素材
      *
-     * @param  array $menus 菜单
+     * @param array $menus 菜单
      *
      * @return array 菜单中素材列表
      */
@@ -131,7 +132,7 @@ class Menu {
     /**
      * 取得返回菜单数组中菜单信息
      *
-     * @param  array $menus api返回的菜单信息
+     * @param array $menus api返回的菜单信息
      *
      * @return array
      */
@@ -143,17 +144,16 @@ class Menu {
     /**
      * 分析菜单数据
      *
-     * @param  array  $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
     public function analyseMenu($menu)
     {
-        if(isset($menu['sub_button']['list']))
-        {
+        if (isset($menu['sub_button']['list'])) {
             $menu = array_map([$this, 'analyseMenu'], $menu['sub_button']['list']);
-        }else{
-            $menu = call_user_func([$this, hump('resolve_'.$menu['type'].'_menu')],$menu);
+        } else {
+            $menu = call_user_func([$this, hump('resolve_'.$menu['type'].'_menu')], $menu);
         }
 
         return $menu;
@@ -180,7 +180,7 @@ class Menu {
     /**
      * 解析图片类型的菜单 [转换为事件]
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -198,7 +198,7 @@ class Menu {
     /**
      * 解析新闻类型的菜单 [转换为事件/存储图文为素材]
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -218,7 +218,7 @@ class Menu {
     /**
      * 解析地址类型菜单 不用处理
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -240,7 +240,7 @@ class Menu {
     /**
      * 解析弹出摄像头类型菜单
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -252,7 +252,7 @@ class Menu {
     /**
      * 解析微信相册类型菜单
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -264,7 +264,7 @@ class Menu {
     /**
      * 解析弹出拍照或者相册发图类型菜单
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -276,7 +276,7 @@ class Menu {
     /**
      * 解析选择地理位置类型菜单
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -288,7 +288,7 @@ class Menu {
     /**
      * 解析扫码推事件类型菜单
      *
-     * @param  array $menu 菜单
+     * @param array $menu 菜单
      *
      * @return array
      */
@@ -300,7 +300,7 @@ class Menu {
     /**
      * 解析扫码推事件且弹出“消息接收中”提示框类型菜单
      *
-     * @param  array $menu $menu
+     * @param array $menu $menu
      *
      * @return array
      */

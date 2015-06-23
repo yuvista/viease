@@ -20,8 +20,8 @@ class Menu extends Model
         'name',
         'type',
         'key',
-        'sort'
-    ];
+        'sort',
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -35,7 +35,5 @@ class Menu extends Model
         'type'           => '菜单类型',
         'key'            => '菜单值',
         'sort'           => '值'
-    ];
+                             ];
 }
-
-

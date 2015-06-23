@@ -13,6 +13,7 @@ use App\Http\Requests;
  */
 class StaffController extends Controller
 {
+
     /**
      * 首页
      *

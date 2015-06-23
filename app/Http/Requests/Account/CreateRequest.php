@@ -10,6 +10,7 @@ use App\Models\Account;
  */
 class CreateRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,6 +22,6 @@ class CreateRequest extends Request
             'name'           => 'required',
             'original_id'    => 'required',
             'wechat_account' => 'required'
-        ];
+               ];
     }
 }

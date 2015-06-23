@@ -16,18 +16,18 @@ class Fan extends Model
      */
     protected $fillable = [
         'account_id',
-		'group_id',
+        'group_id',
         'openid',
         'nickname',
-		'signature',
-		'remark',
+        'signature',
+        'remark',
         'sex',
         'language',
         'city',
-		'province',
-		'country',
-		'avatar',
-    ];
+        'province',
+        'country',
+        'avatar',
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -36,26 +36,23 @@ class Fan extends Model
      */
     protected $aliases = [
         'account_id'    => '公众号ID',
-		'group_id'		=> '粉丝组ID',
-        'openid'		=> 'OPENID',
-        'nickname'		=> '昵称',
-		'signature'		=> '签名',
-		'remark'		=> '备注',
-        'sex'			=> '性别',
-        'language'		=> '语言',
-        'city'			=> '城市',
-		'province'		=> '省份',
-		'country'		=> '国家',
-		'avatar'		=> '头像',
-    ];
-	
-	protected $appends = ['location'];
-	
-	public function getLocationAttribute()
-	{
-		return $this->province . ' ' . $this->city;
-	}
-	
+        'group_id'      => '粉丝组ID',
+        'openid'        => 'OPENID',
+        'nickname'      => '昵称',
+        'signature'         => '签名',
+        'remark'        => '备注',
+        'sex'           => '性别',
+        'language'      => '语言',
+        'city'          => '城市',
+        'province'      => '省份',
+        'country'       => '国家',
+        'avatar'        => '头像',
+                         ];
+    
+    protected $appends = ['location'];
+    
+    public function getLocationAttribute()
+    {
+        return $this->province . ' ' . $this->city;
+    }
 }
-
-

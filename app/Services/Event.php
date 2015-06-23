@@ -1,30 +1,28 @@
 <?php
 
-namespace App\Services;
+namespace app\Services;
 
-use App\Services\Account as AccountService;
-use Overtrue\Wechat\Menu as WechatMenu;
 use App\Repositories\EventRepository;
 
-
 /**
- * 事件服务提供
+ * 事件服务提供.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
-class Event {
+class Event
+{
 
     /**
-     * EventRepository
+     * EventRepository.
      *
      * @var App\Repositories\EventRepository
      */
     private $eventRepository;
 
     /**
-     * construct description
+     * construct description.
      *
-     * @param App\Repositories\EventRepository $eventRepository 
+     * @param App\Repositories\EventRepository $eventRepository
      */
     public function __construct(EventRepository $eventRepository)
     {
@@ -32,11 +30,11 @@ class Event {
     }
 
     /**
-     * 是否属于自己的事件
+     * 是否属于自己的事件.
      *
-     * @param  string  $name name
+     * @param string $name name
      *
-     * @return boolean 
+     * @return bool
      */
     public function isOwnEvent($name)
     {
@@ -44,9 +42,9 @@ class Event {
     }
 
     /**
-     * 创建一个文字类型的事件
+     * 创建一个文字类型的事件.
      *
-     * @param  string $text 返回值
+     * @param string $text 返回值
      *
      * @return string 事件id
      */
@@ -56,7 +54,7 @@ class Event {
     }
 
     /**
-     * 创建key名称
+     * 创建key名称.
      *
      * @return string
      */

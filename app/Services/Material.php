@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-
-class Material{
+class Material
+{
     
 }

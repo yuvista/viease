@@ -30,8 +30,8 @@ class Article extends Model
         'show_cover',
         'thumb_media_id',
         'content_url',
-        'source_url'
-    ];
+        'source_url',
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -41,7 +41,5 @@ class Article extends Model
     public static $aliases = [
         'name'           => '公众号名称',
         'original_id'    => '原始ID',
-    ];
+                             ];
 }
-
-

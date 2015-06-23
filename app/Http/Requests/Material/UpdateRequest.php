@@ -24,6 +24,6 @@ class UpdateRequest extends Request
             'type'       => 'required|in:1,2,3',
             'title'      => 'required_if:type,3',
             'digest'     => 'required_if:type,3'
-        ];
+               ];
     }
 }

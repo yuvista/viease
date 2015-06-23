@@ -10,6 +10,7 @@ use App\Models\Article;
  */
 class CreateRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -17,8 +18,6 @@ class CreateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'account_id' => 'required',
-        ];
+        return ['account_id' => 'required'];
     }
 }

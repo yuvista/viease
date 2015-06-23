@@ -32,7 +32,7 @@ class AuthController extends Controller
     /**
      * Handle a login request to the application.
      *
-     * @param Request  $request
+     * @param Request $request
      *
      * @return Response
      */
@@ -41,11 +41,12 @@ class AuthController extends Controller
         $attributes = [
             'name'     => '用户名',
             'password' => '密码',
-        ];
+                      ];
 
         $this->validate($request, [
-            'name' => 'required|min:5', 'password' => 'required',
-        ], [], $attributes);
+            'name' => 'required|min:5',
+        'password' => 'required',
+                                  ], [], $attributes);
 
         $credentials = $request->only('name', 'password');
 
@@ -53,12 +54,9 @@ class AuthController extends Controller
             return redirect($request->get('redirect', admin_url('/')));
         }
 
-        return redirect()
-            ->back()
-            ->withInput($request->except('password'))
-            ->withErrors([
+        return redirect()        ->back()->withInput($request->except('password'))->withErrors([
                 'name' => '用户名或密码错误！',
-            ]);
+                                                                                               ]);
     }
 
     /**

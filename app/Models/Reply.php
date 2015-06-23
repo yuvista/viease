@@ -19,8 +19,8 @@ class Reply extends Model
         'name',
         'trigger_texts',
         'key',
-        'sort'
-    ];
+        'sort',
+                          ];
 
     /**
      * 用于表单验证时的字段名称提示
@@ -34,7 +34,5 @@ class Reply extends Model
         'type'           => '菜单类型',
         'key'            => '菜单值',
         'sort'           => '值'
-    ];
+                             ];
 }
-
-

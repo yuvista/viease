@@ -16,6 +16,7 @@ use App\Http\Requests;
  */
 class MessageController extends Controller
 {
+
     /**
      * 首页
      *

@@ -20,6 +20,7 @@ use Overtrue\Wechat\Media;
  */
 class MenuController extends Controller
 {
+
     /**
      * MenuRepository
      *
@@ -47,7 +48,7 @@ class MenuController extends Controller
     }
 
     /**
-     * 菜单 
+     * 菜单
      *
      * @return void
      */
@@ -88,25 +89,25 @@ class MenuController extends Controller
                 'type' => 'click',
                 'key' => 'foo',
             ],
-        ];
+               ];
     }
 
     /**
      * 保存菜单
      *
-     * @param  CreateRequest $request request
+     * @param CreateRequest $request request
      *
      * @return void
      */
     public function postStore(CreateRequest $request)
     {
         return [
-                'id' => mt_rand(1, 99),
+                'id'         => mt_rand(1, 99),
                 'account_id' => 2,
-                'parent_id' => 0,
-                'name' => $request->name,
-                'type' => 'click',
-                'key' => 'foo',
-            ];
+                'parent_id'  => 0,
+                'name'       => $request->name,
+                'type'       => 'click',
+                'key'        => 'foo',
+               ];
     }
 }

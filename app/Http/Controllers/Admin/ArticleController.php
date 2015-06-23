@@ -16,6 +16,7 @@ use App\Http\Requests;
  */
 class ArticleController extends Controller
 {
+
     /**
      * 图文管理首页
      *

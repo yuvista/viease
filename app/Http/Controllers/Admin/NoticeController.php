@@ -13,6 +13,7 @@ use App\Http\Requests;
  */
 class NoticeController extends Controller
 {
+
     /**
      * 模板消息首页
      *

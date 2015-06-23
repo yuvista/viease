@@ -32,14 +32,14 @@ class MenuRepository
      */
     public function lists($pageSize)
     {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
+        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
     }
 
     /**
      * store
      *
-     * @param  App\Models\Menu  $menu
-     * @param  array            $input
+     * @param App\Models\Menu $menu
+     * @param array           $input
      *
      * @return void
      */
@@ -51,8 +51,8 @@ class MenuRepository
     /**
      * update
      *
-     * @param  integer $id
-     * @param  array   $input
+     * @param integer $id
+     * @param array   $input
      *
      * @return void
      */
@@ -64,8 +64,8 @@ class MenuRepository
     /**
      * save
      *
-     * @param  Account $account account
-     * @param  Request $input   输入
+     * @param Account $account account
+     * @param Request $input   输入
      *
      * @return void
      */

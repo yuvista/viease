@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class DBQueryListener
 {
+
     /**
      * Handle the event.
      *

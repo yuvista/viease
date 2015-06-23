@@ -16,6 +16,7 @@ use App\Http\Requests;
  */
 class AutoReplyController extends Controller
 {
+
     /**
      * account 服务
      *
@@ -36,7 +37,7 @@ class AutoReplyController extends Controller
      * @param AccountService      $service
      * @param AutoReplyRepository $autoReply
      */
-    public function __construct(AccountService $service,AutoReplyRepository $autoReply)
+    public function __construct(AccountService $service, AutoReplyRepository $autoReply)
     {
         $this->service = $service;
 

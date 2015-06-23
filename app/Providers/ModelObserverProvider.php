@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ModelObserverProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap the application services.
      *

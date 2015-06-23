@@ -13,6 +13,7 @@ use App\Http\Requests;
  */
 class ToolController extends Controller
 {
+
     /**
      * 首页
      *

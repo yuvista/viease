@@ -18,8 +18,6 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'account_id' => 'required',
-        ];
+        return ['account_id' => 'required'];
     }
 }

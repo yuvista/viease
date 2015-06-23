@@ -17,6 +17,7 @@ use App\Http\Requests;
  */
 class FollowReplyController extends Controller
 {
+
     /**
      * account 服务
      *
@@ -37,7 +38,7 @@ class FollowReplyController extends Controller
      * @param AccountService        $service
      * @param FollowReplyRepository $followReply
      */
-    public function __construct(AccountService $service,FollowReplyRepository $followReply)
+    public function __construct(AccountService $service, FollowReplyRepository $followReply)
     {
         $this->service = $service;
 

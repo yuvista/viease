@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AccountListener
 {
+
     /**
      * Create the event listener.
      *
@@ -21,7 +22,7 @@ class AccountListener
     /**
      * Handle the event.
      *
-     * @param  Events  $event
+     * @param  Events $event
      * @return void
      */
     public function handle(Events $event)
