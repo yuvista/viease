@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Article;
-use Session;
 
 /**
- * Article Repository
+ * Article Repository.
  */
 class ArticleRepository
 {
     use BaseRepository;
 
     /**
-     * Article Model
+     * Article Model.
      *
      * @var Article
      */
@@ -24,51 +24,39 @@ class ArticleRepository
     }
 
     /**
-     * 保存菜单的远程素材
+     * 保存菜单的远程素材.
      *
-     * @param  array $articles 图文
-     *
-     * @return void
+     * @param array $articles 图文
      */
     public function storeRemoteArticle($articles)
     {
         $isMulti = count($articles) >= 2;
 
-        if(!$isMulti){
-
+        if (!$isMulti) {
             return $this->storeRemoteSimpleArticle($articles);
-
-        }else{
-
+        } else {
             return $this->storeRemoteMultiArticle($articles);
         }
-
     }
 
     /**
-     * 存储远程多图文素材
+     * 存储远程多图文素材.
      *
-     * @param  array $articles 多图文
-     *
-     * @return void
+     * @param array $articles 多图文
      */
     public function storeRemoteMultiArticle($articles)
     {
         foreach ($articles as $article) {
-            
         }
     }
 
     /**
-     * 存储远程单图文素材
+     * 存储远程单图文素材.
      *
-     * @param  array $article 单图文
-     *
-     * @return void
+     * @param array $article 单图文
      */
     public function storeRemoteSimpleArticle($article)
     {
-        
     }
 
     // /**

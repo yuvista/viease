@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 管理账号
+ * 管理账号.
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
 class UserController extends Controller
 {
     /**
-     * 首页
+     * 首页.
      *
      * @return Response
      */
@@ -24,7 +22,7 @@ class UserController extends Controller
     }
 
     /**
-     * 修改密码
+     * 修改密码.
      *
      * @return Response
      */

@@ -1,18 +1,19 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Account;
 use Session;
 
 /**
- * Account Repository
+ * Account Repository.
  */
 class AccountRepository
 {
     use BaseRepository;
 
     /**
-     * Account Model
+     * Account Model.
      *
      * @var Account
      */
@@ -24,7 +25,7 @@ class AccountRepository
     }
 
     /**
-     * 获取账户列表
+     * 获取账户列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -32,44 +33,38 @@ class AccountRepository
      */
     public function lists($pageSize)
     {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
+        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
     }
 
     /**
-     * store
+     * store.
      *
-     * @param  App\Models\Menu  $menu
-     * @param  array            $input
-     *
-     * @return void
+     * @param App\Models\Menu $menu
+     * @param array           $input
      */
     public function store($input)
     {
-        return $this->savePost($this->model,$input);
+        return $this->savePost($this->model, $input);
     }
 
     /**
-     * update
+     * update.
      *
-     * @param  integer $id
-     * @param  array   $input
-     *
-     * @return void
+     * @param int   $id
+     * @param array $input
      */
     public function update($id, $input)
     {
         $model = $this->model->find($id);
 
-        return $this->savePost($model,$input);
+        return $this->savePost($model, $input);
     }
 
     /**
-     * save
+     * save.
      *
-     * @param  Account $account account
-     * @param  Request $input   输入
-     *
-     * @return void
+     * @param Account $account account
+     * @param Request $input   输入
      */
     public function savePost($account, $input)
     {
@@ -79,14 +74,12 @@ class AccountRepository
     }
 
     /**
-     * 切换公众号
+     * 切换公众号.
      *
-     * @param  integer $id id
-     *
-     * @return void
+     * @param int $id id
      */
     public function change($id)
     {
-        Session::put('account_id',$id);
+        Session::put('account_id', $id);
     }
 }

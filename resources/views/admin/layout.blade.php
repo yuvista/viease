@@ -77,7 +77,7 @@
                       </a>
                       <ul class="dropdown-menu">
                         @foreach($global->accounts as $account)
-                          @if($global->current_account && $account->id == $global->current_account->id)
+                          @if($account->id != $global->current_account->id)
                           <li>
                             <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="“{{ $account->name }}”">{{ $account->name}}</a>
                           </li>

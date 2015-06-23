@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Menu\CreateRequest;
-use App\Http\Requests\Menu\UpdateRequest;
 use App\Services\Menu as MenuService;
 use App\Repositories\MenuRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 菜单管理
+ * 菜单管理.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class MenuController extends Controller
 {
     /**
-     * MenuRepository
+     * MenuRepository.
      *
      * @var App\Repositories\MenuRepository;
      */
@@ -32,7 +30,7 @@ class MenuController extends Controller
     private $menuService;
 
     /**
-     * construct
+     * construct.
      *
      * @param MenuRepository $menu
      */
@@ -44,9 +42,7 @@ class MenuController extends Controller
     }
 
     /**
-     * 菜单 
-     *
-     * @return void
+     * 菜单.
      */
     public function getIndex()
     {
@@ -54,7 +50,7 @@ class MenuController extends Controller
     }
 
     /**
-     * 获取菜单列表
+     * 获取菜单列表.
      *
      * @return Response
      */
@@ -89,15 +85,13 @@ class MenuController extends Controller
                 'type' => 'click',
                 'key' => 'foo',
             ],
-        ];
+               ];
     }
 
     /**
-     * 保存菜单
+     * 保存菜单.
      *
-     * @param  CreateRequest $request request
-     *
-     * @return void
+     * @param CreateRequest $request request
      */
     public function postStore(CreateRequest $request)
     {
@@ -108,6 +102,6 @@ class MenuController extends Controller
                 'name' => $request->name,
                 'type' => 'click',
                 'key' => 'foo',
-            ];
+               ];
     }
 }

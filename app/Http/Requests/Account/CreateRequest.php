@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use App\Models\Account;
 
 /**
- * Account CreateRequest
+ * Account CreateRequest.
  */
 class CreateRequest extends Request
 {
@@ -18,9 +18,9 @@ class CreateRequest extends Request
     public function rules()
     {
         return [
-            'name'           => 'required',
-            'original_id'    => 'required',
-            'wechat_account' => 'required'
-        ];
+            'name' => 'required',
+            'original_id' => 'required',
+            'wechat_account' => 'required',
+               ];
     }
 }

@@ -1,27 +1,26 @@
 <?php
 
-namespace App\Services;
+namespace app\Services;
 
 use App\Repositories\AccountRepository;
-use App\Models\Account as AccountModel;
 use Session;
 
 /**
- * 公众号服务提供类
+ * 公众号服务提供类.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
-class Account {
-
+class Account
+{
     /**
-     * repository
+     * repository.
      *
      * @var App\Repositories\AccountRepository
      */
     private $repository;
 
     /**
-     * construct
+     * construct.
      *
      * @param App\Repositories\AccountRepository $repository repository
      */
@@ -31,9 +30,9 @@ class Account {
     }
 
     /**
-     * 当前是否有选择公众号
+     * 当前是否有选择公众号.
      *
-     * @return boolean
+     * @return bool
      */
     public function chosed()
     {
@@ -41,34 +40,30 @@ class Account {
     }
 
     /**
-     * 切换公众号
+     * 切换公众号.
      *
-     * @param  integer $accountId 公众号的Id
-     *
-     * @return void
+     * @param int $accountId 公众号的Id
      */
     public function chose($accountId)
     {
-        return Session::put('account_id',$accountId);
+        return Session::put('account_id', $accountId);
     }
 
     /**
-     * 取得当前使用中的公众号
-     *
-     * @return void
+     * 取得当前使用中的公众号.
      */
     public function getCurrent()
     {
-        return $this->chosed() ? $this->repository->getById($this->chosed()) : NULL;
+        return $this->chosed() ? $this->repository->getById($this->chosed()) : null;
     }
 
     /**
-     * 取得当前操作id
+     * 取得当前操作id.
      *
      * @return integet|null id
      */
     public function getId()
     {
-        return $this->getCurrent() ? $this->getCurrent()->id : NULL;
+        return $this->getCurrent() ? $this->getCurrent()->id : null;
     }
 }

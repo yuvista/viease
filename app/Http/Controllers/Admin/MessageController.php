@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Article\CreateRequest;
-use App\Http\Requests\Article\UpdateRequest;
-use App\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 消息管理
+ * 消息管理.
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
 class MessageController extends Controller
 {
     /**
-     * 首页
+     * 首页.
      *
      * @return Response
      */
@@ -27,7 +22,7 @@ class MessageController extends Controller
     }
 
     /**
-     * 实时消息
+     * 实时消息.
      *
      * @return Response
      */
@@ -37,7 +32,7 @@ class MessageController extends Controller
     }
 
     /**
-     * 广播消息
+     * 广播消息.
      *
      * @return Response
      */
@@ -47,7 +42,7 @@ class MessageController extends Controller
     }
 
     /**
-     * 消息资源
+     * 消息资源.
      *
      * @return Response
      */

@@ -10,16 +10,15 @@ use App\Repositories\FanGroupRepository;
 
 class FanGroupController extends Controller
 {
-	
-	/**
-     * AccountRepository
+    /**
+     * AccountRepository.
      *
      * @var AccountRepository
      */
     private $_fanGroup;
-	
-	/**
-     * constructer
+
+    /**
+     * constructer.
      *
      * @param AccountRepository $account
      */
@@ -27,54 +26,56 @@ class FanGroupController extends Controller
     {
         $this->_fanGroup = $_fanGroup;
     }
-	
+
     /**
-     * 获取分组列表
+     * 获取分组列表.
      *
      * @return Response
      */
     public function getLists()
     {
-        /**
-         * 请求参数：
-         *
-         * sort_by: xxx
-         * page: 1
-         */
-//        $groups = $this->_fanGroup->lists();
-//		return new LengthAwarePaginator($groups, 30, 5);
+        /*
+            * 请求参数：
+            *
+            * sort_by: xxx
+            * page: 1
+            */
+                        //        $groups = $this->_fanGroup->lists();
+                                    //      return new LengthAwarePaginator($groups, 30, 5);
 //return $this->_fanGroup->onlineLists();	//获取线上列表
 
 //return $this->_fanGroup->store('test');	//创建
 
 //return $this->_fanGroup->update(74, ['title'=>'test113']);	//修改
 
-return $this->_fanGroup->delete(102);	//删除
+        return $this->_fanGroup->delete(102);   //删除
 
 //return $this->_fanGroup->moveUsers([2192], 113);	//粉丝分组
     }
 
     /**
-     * 创建分组
+     * 创建分组.
      *
      * @return Reponse
      */
     public function postCreate(CreateRequest $request)
     {
-        $rules = [
-            'title' => 'required|min:1',
-        ];
+        $rules = ['title' => 'required|min:1'];
 
         $this->validate($request, $rules);
 
         //TODO
-		$this->_fanGroup->store($request);
+        $this->_fanGroup->store($request);
 
-        return ['id' => mt_rand(10, 999), 'title' => $request->title, 'fan_count' => 0];
+        return [
+        'id' => mt_rand(10, 999),
+        'title' => $request->title,
+        'fan_count' => 0,
+               ];
     }
 
     /**
-     * 更改分组信息
+     * 更改分组信息.
      *
      * @param int $id 分组ID
      *
@@ -82,23 +83,23 @@ return $this->_fanGroup->delete(102);	//删除
      */
     public function postUpdate(UpdateRequest $request, $id)
     {
-        /**
-         * name: $name
+        /*
+            * name: $name
          */
-		
+
         //TODO
-		$this->_fanGroup->update($id, $request);
+        $this->_fanGroup->update($id, $request);
     }
-	
-	/**
-	 * 删除分组
-	 * 
-	 * @param int $id 分组ID
-	 * @return Response
-	 */
-	public function postDelete($id)
-	{
-		$this->_fanGroup->delete($id);
-	}
-	
+
+    /**
+     * 删除分组.
+     *
+     * @param int $id 分组ID
+     *
+     * @return Response
+     */
+    public function postDelete($id)
+    {
+        $this->_fanGroup->delete($id);
+    }
 }

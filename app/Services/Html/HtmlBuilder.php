@@ -1,16 +1,14 @@
-<?php 
+<?php
 
 namespace App\Services\Html;
 
 /**
- * html 构建类
+ * html 构建类.
  */
-class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
-
+class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
+{
     /**
-     * demo
-     *
-     * @return void
+     * demo.
      */
     public function demo()
     {

@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use App\Models\Material;
 
 /**
- * Material CreateRequest
+ * Material CreateRequest.
  */
 class CreateRequest extends Request
 {
@@ -19,10 +19,10 @@ class CreateRequest extends Request
     {
         return [
             'account_id' => 'required',
-            'url'        => 'required',
-            'type'       => 'required|in:1,2,3',
-            'title'      => 'required_if:type,3',
-            'digest'     => 'required_if:type,3'
-        ];
+            'url' => 'required',
+            'type' => 'required|in:1,2,3',
+            'title' => 'required_if:type,3',
+            'digest' => 'required_if:type,3',
+               ];
     }
 }

@@ -6,11 +6,10 @@ use App\Http\Requests\Request;
 use App\Models\Menu;
 
 /**
- * Menu UpdateRequest
+ * Menu UpdateRequest.
  */
 class UpdateRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,8 +17,6 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'menu' => 'required',
-        ];
+        return ['menu' => 'required'];
     }
 }

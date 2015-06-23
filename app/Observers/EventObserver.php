@@ -6,21 +6,21 @@ use App\Services\Event as EventService;
 use App\Models\Event;
 
 /**
- * Event模型观察者
+ * Event模型观察者.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class EventObserver
 {
     /**
-     * eventService 
+     * eventService.
      *
      * @var App\Services\Event
      */
     private $eventService;
 
     /**
-     * construct
+     * construct.
      *
      * @param EventService $eventService EventService
      */

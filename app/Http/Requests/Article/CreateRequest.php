@@ -6,7 +6,7 @@ use App\Http\Requests\Request;
 use App\Models\Article;
 
 /**
- * Article CreateRequest
+ * Article CreateRequest.
  */
 class CreateRequest extends Request
 {
@@ -17,8 +17,6 @@ class CreateRequest extends Request
      */
     public function rules()
     {
-        return [
-            'account_id' => 'required',
-        ];
+        return ['account_id' => 'required'];
     }
 }

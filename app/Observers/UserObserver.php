@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 /**
- * User模型观察者
+ * User模型观察者.
  *
  * @author overtrue <anzhengchao@gmail.com>
  */

@@ -5,9 +5,8 @@ namespace App\Http\Middleware;
 use App\Services\Account;
 use Closure;
 
-
 /**
- * 公众号切换中间件
+ * 公众号切换中间件.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
@@ -21,7 +20,7 @@ class AccountMiddleware
     private $account;
 
     /**
-     * construct
+     * construct.
      *
      * @param \App\Services\Account $account
      */
@@ -33,16 +32,17 @@ class AccountMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if(!$this->account->getCurrent()){
+        if (!$this->account->getCurrent()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
-            }else{
+            } else {
                 return redirect(admin_url('account'));
             }
         }

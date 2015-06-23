@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Menu;
-use Session;
 
 /**
- * Menu Repository
+ * Menu Repository.
  */
 class MenuRepository
 {
     use BaseRepository;
 
     /**
-     * Account Model
+     * Account Model.
      *
      * @var Account
      */
@@ -24,7 +24,7 @@ class MenuRepository
     }
 
     /**
-     * 获取账户列表
+     * 获取账户列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -32,45 +32,36 @@ class MenuRepository
      */
     public function lists($pageSize)
     {
-        return $this->model->orderBy('id','desc')->paginate($pageSize);
+        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
     }
 
     /**
-     * store
+     * store.
      *
-     * @param  App\Models\Menu  $menu
-     * @param  array            $input
-     *
-     * @return void
+     * @param App\Models\Menu $menu
+     * @param array           $input
      */
     public function store($input)
     {
-
     }
 
     /**
-     * update
+     * update.
      *
-     * @param  integer $id
-     * @param  array   $input
-     *
-     * @return void
+     * @param int   $id
+     * @param array $input
      */
     public function update($id, $input)
     {
-       
     }
 
     /**
-     * save
+     * save.
      *
-     * @param  Account $account account
-     * @param  Request $input   输入
-     *
-     * @return void
+     * @param Account $account account
+     * @param Request $input   输入
      */
     public function savePost($account, $input)
     {
-
     }
 }

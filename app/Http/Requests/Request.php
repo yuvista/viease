@@ -17,7 +17,7 @@ abstract class Request extends FormRequest
     }
 
     /**
-     * 返回字段别名，用于报错信息
+     * 返回字段别名，用于报错信息.
      *
      * 从模型自动获取，请在模型里添加：
      * <pre>
@@ -33,7 +33,7 @@ abstract class Request extends FormRequest
     {
         $class = explode('\\', get_class($this));
 
-        if (!empty($class[3]) && class_exists($model = 'App\Models\\' . $class[3])) {
+        if (!empty($class[3]) && class_exists($model = 'App\Models\\'.$class[3])) {
             return $model::$aliases;
         }
     }

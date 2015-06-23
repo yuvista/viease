@@ -1,9 +1,9 @@
 <?php
-namespace App\Services;
+
+namespace app\Services;
 
 use App\Services\Account as AccountService;
 use App\Repositories\ArticleRepository;
-use App\Models\Article as Model;
 
 /**
  * 图文消息服务
@@ -13,14 +13,14 @@ use App\Models\Article as Model;
 class Article
 {
     /**
-     * articleRepository 
+     * articleRepository.
      *
      * @var App\Repositories\ArticleRepository
      */
     private $articleRepository;
 
     /**
-     * accountService
+     * accountService.
      *
      * @var App\Services\Account
      */
@@ -34,9 +34,9 @@ class Article
     }
 
     /**
-     * 保存远程的图文消息 [菜单处使用,此处的素材无法被提取] 
+     * 保存远程的图文消息 [菜单处使用,此处的素材无法被提取].
      *
-     * @param  array $articles 图文消息
+     * @param array $articles 图文消息
      *
      * @return array
      */

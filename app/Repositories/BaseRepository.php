@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 trait BaseRepository
 {
-
     /**
      * Get number of records.
      *
@@ -22,8 +21,7 @@ trait BaseRepository
     /**
      * Destroy a model.
      *
-     * @param  int $id
-     * @return void
+     * @param int $id
      */
     public function destroy($id)
     {
@@ -33,12 +31,12 @@ trait BaseRepository
     /**
      * Get Model by id.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return App\Models\Model
      */
     public function getById($id)
     {
         return $this->model->find($id);
     }
-
 }
