@@ -9,14 +9,28 @@ class Article extends Model
 {
     use SoftDeletes;
 
+    const MULTI_YES = 1;
+
+    const MULTI_NO = 0;
+
     /**
      * 字段白名单
      *
      * @var array
      */
     protected $fillable = [
+        'account_id',
         'original_id',
-
+        'type',
+        'parent_id',
+        'title',
+        'digest',
+        'author',
+        'content',
+        'show_cover',
+        'thumb_media_id',
+        'content_url',
+        'source_url'
     ];
 
     /**

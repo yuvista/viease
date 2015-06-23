@@ -47,7 +47,7 @@ class MenuController extends Controller
     }
 
     /**
-     * 菜单首页
+     * 菜单 
      *
      * @return void
      */
@@ -63,20 +63,6 @@ class MenuController extends Controller
      */
     public function getLists()
     {
-        //获取远程菜单
-        // $menus = $this->menuService->getMenus();
-
-        // $mediaId = 'b610826024997228544';
-
-        // $appId  = 'wx5c174c50435941e6';
-        // $secret = 'b4020e08f0ad463c604badda5771cd78';
-
-        // $media = new Media(['app_id' => $appId, 'secret' => $secret]);
-
-        // $media->download($mediaId, '/data/www/');
-
-        // //保存数据
-        // $this->menuRepository->store($this->menuService->localize($menus));
         return [
             [
                 'id' => 1,

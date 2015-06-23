@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFollowReplysTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateFollowReplysTable extends Migration
      */
     public function up()
     {
-        Schema::create('follow_replies', function (Blueprint $table) {
+          Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');
-            $table->string('follow')->nullable()->comment('关注时回复');
-            $table->string('default')->nullable()->comment('自动回复');
+            $table->string('key',128)->comment('事件名称');
+            $table->enum('type', ['addon','article','link','text','material','action'])->comment('事件类型');
+            $table->string('content',600)->comment('事件触发的内容,自动回复的字数而定'); 
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +30,6 @@ class CreateFollowReplysTable extends Migration
      */
     public function down()
     {
-        Schema::drop('follow_replies');
+        Schema::drop('events');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\Menu;
+use App\Models\Event;
 use App\Models\Fan;
 use App\Models\FanGroup;
 use App\Models\Message;
@@ -20,6 +21,7 @@ class ModelObserverProvider extends ServiceProvider
     public function boot()
     {
         User::observe('App\Observers\UserObserver');
+        Event::observe('App\Observers\EventObserver');
     }
 
     public function register()

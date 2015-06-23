@@ -73,7 +73,7 @@ class AdminComposer
         $global->menus = $menus;
 
         $global->current_account = $this->accountService->getCurrent();
-
+        
         $global->accounts = $this->accountRepository->lists(99);
 
         $view->with('global', $global);
