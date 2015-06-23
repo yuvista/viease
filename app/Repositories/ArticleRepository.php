@@ -23,6 +23,54 @@ class ArticleRepository
         $this->model = $article;
     }
 
+    /**
+     * 保存菜单的远程素材
+     *
+     * @param  array $articles 图文
+     *
+     * @return void
+     */
+    public function storeRemoteArticle($articles)
+    {
+        $isMulti = count($articles) >= 2;
+
+        if(!$isMulti){
+
+            return $this->storeRemoteSimpleArticle($articles);
+
+        }else{
+
+            return $this->storeRemoteMultiArticle($articles);
+        }
+
+    }
+
+    /**
+     * 存储远程多图文素材
+     *
+     * @param  array $articles 多图文
+     *
+     * @return void
+     */
+    public function storeRemoteMultiArticle($articles)
+    {
+        foreach ($articles as $article) {
+            
+        }
+    }
+
+    /**
+     * 存储远程单图文素材
+     *
+     * @param  array $article 单图文
+     *
+     * @return void
+     */
+    public function storeRemoteSimpleArticle($article)
+    {
+        
+    }
+
     // /**
     //  * 获取图文列表
     //  *

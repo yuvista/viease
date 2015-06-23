@@ -10,9 +10,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-//test
-use Overtrue\Wechat\Media;
-
 /**
  * 菜单管理
  *
@@ -63,6 +60,10 @@ class MenuController extends Controller
      */
     public function getLists()
     {
+        $menus = $this->menuService->getMenus();
+
+        return $this->menuService->localize($menus);
+
         return [
             [
                 'id' => 1,

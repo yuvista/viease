@@ -40,7 +40,7 @@ class Event {
      */
     public function isOwnEvent($name)
     {
-        return strpos($name, 'XN_EVENT_');
+        return strpos($name, 'EVENT_');
     }
 
     /**
@@ -62,6 +62,6 @@ class Event {
      */
     public function buildEventKey()
     {
-        return 'XN_EVENT_'.strtoupper(uniqid());
+        return 'EVENT_'.strtoupper(uniqid());
     }
 }
