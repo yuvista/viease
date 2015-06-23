@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 数据统计与分析
+ * 数据统计与分析.
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
 class AnalysisController extends Controller
 {
-
     /**
-     * 首页
+     * 首页.
      *
      * @return Response
      */
@@ -25,7 +22,7 @@ class AnalysisController extends Controller
     }
 
     /**
-     * 粉丝
+     * 粉丝.
      *
      * @return Response
      */
@@ -35,7 +32,7 @@ class AnalysisController extends Controller
     }
 
     /**
-     * 图文
+     * 图文.
      *
      * @return Response
      */
@@ -45,7 +42,7 @@ class AnalysisController extends Controller
     }
 
     /**
-     * 消息
+     * 消息.
      *
      * @return Response
      */
@@ -55,7 +52,7 @@ class AnalysisController extends Controller
     }
 
     /**
-     * 接口
+     * 接口.
      *
      * @return Response
      */

@@ -10,7 +10,7 @@ class Reply extends Model
     use SoftDeletes;
 
     /**
-     * 字段白名单
+     * 字段白名单.
      *
      * @var array
      */
@@ -23,16 +23,16 @@ class Reply extends Model
                           ];
 
     /**
-     * 用于表单验证时的字段名称提示
+     * 用于表单验证时的字段名称提示.
      *
      * @var array
      */
     public static $aliases = [
-        'account_id'     => '所属公众号',
-        'parent_id'      => '上级菜单',
-        'name'           => '菜单名称',
-        'type'           => '菜单类型',
-        'key'            => '菜单值',
-        'sort'           => '值'
+        'account_id' => '所属公众号',
+        'parent_id' => '上级菜单',
+        'name' => '菜单名称',
+        'type' => '菜单类型',
+        'key' => '菜单值',
+        'sort' => '值',
                              ];
 }

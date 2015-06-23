@@ -6,11 +6,10 @@ use App\Http\Requests\Request;
 use App\Models\Account;
 
 /**
- * Account UpdateRequest
+ * Account UpdateRequest.
  */
 class UpdateRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -19,8 +18,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'name'           => 'required',
-            'original_id'    => 'required',
+            'name' => 'required',
+            'original_id' => 'required',
             'wechat_account' => 'required',
                ];
     }

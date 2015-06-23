@@ -3,15 +3,12 @@
 namespace App\Services\Html;
 
 /**
- * form 构建类
+ * form 构建类.
  */
 class FormBuilder extends \Illuminate\Html\FormBuilder
 {
-
     /**
-     * demo
-     *
-     * @return void
+     * demo.
      */
     public function demo()
     {
@@ -19,7 +16,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
     }
 
     /**
-     * 带有col布局的input （后台使用）
+     * 带有col布局的input （后台使用）.
      *
      * @param string $type    类型
      * @param string $name    表单name
@@ -27,8 +24,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
      * @param string $label   label
      * @param mixed  $value   默认值
      * @param array  $options 其他附属参数
-     *
-     * @return void
      */
     public function colInput($type, $name, $errors, $label = '', $value = '', $options = [])
     {
@@ -54,7 +49,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
     }
 
     /**
-     * 带有col布局的select （后台使用）
+     * 带有col布局的select （后台使用）.
      *
      * @param string $name    表单name
      * @param array  $list    值列表 （值 => 标签）
@@ -62,8 +57,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
      * @param string $label   label
      * @param mixed  $value   默认值
      * @param array  $options 其他附属参数
-     *
-     * @return void
      */
     public function colSelect($name, $list = array(), $errors, $label = '', $selected = null, $options = [])
     {
@@ -92,7 +85,7 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
     {
         return '<div class="form-group">
             <div class="col-lg-8 col-lg-offset-2">'.
-                $this->submit('提交', ["class" => "btn btn-success"])
+                $this->submit('提交', ['class' => 'btn btn-success'])
             .'</div>
         </div>';
     }

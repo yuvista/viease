@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Fan;
@@ -7,41 +8,40 @@ use App\Services\Account;
 use Overtrue\Wechat\Group;
 
 /**
- * Fans Repository
+ * Fans Repository.
  */
 class FanGroupRepository
 {
-    
     use BaseRepository;
-    
+
     /**
-     * FanGroup
+     * FanGroup.
      *
      * @var Fan Group
      */
     protected $model;
-    
+
     /**
-     * Account
+     * Account.
      *
      * @var Object
      */
     private $_account;
-    
+
     /**
-     * Account ID
+     * Account ID.
      *
      * @var Int
      */
     private $_accountId;
-    
+
     /**
-     * Online Group
+     * Online Group.
      */
     private $_onlineGroup;
-    
+
     /**
-     * Construct
+     * Construct.
      *
      * @param \App\Services\Account $account
      * @param \App\Models\FanGroup  $fanGroup
@@ -51,16 +51,16 @@ class FanGroupRepository
         $this->_account = $account;     //use Account
         $this->_accountId = $this->_account->getCurrent()->id;
         $this->model = $fanGroup;
-        
+
         $sdkConfig = [
             'app_id' => $this->_account->getCurrent()->app_id,
-            'secret' => $this->_account->getCurrent()->app_secret
+            'secret' => $this->_account->getCurrent()->app_secret,
                      ];
         $this->_onlineGroup = new Group($sdkConfig);
     }
 
     /**
-     * 获取本地粉丝组列表
+     * 获取本地粉丝组列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -70,21 +70,19 @@ class FanGroupRepository
     {
         return $this->model->where('account_id', $this->_accountId)->orderBy('group_id', 'asc')->get();
     }
-    
+
     /**
-     * 获取线上粉丝组列表,并存入数据库
-     *
-     * @return void
+     * 获取线上粉丝组列表,并存入数据库.
      */
     public function onlineLists()
     {
         $result = false;
-        
+
         /*
             * Online Group List
          */
         $onlineData = $this->_onlineGroup->lists();
-        
+
         if ($onlineData) {
             /*
                 * Prepare Data
@@ -109,17 +107,15 @@ class FanGroupRepository
              */
             $result = $this->model->insert($saveData);
         }
-        
+
         return [$result];
     }
 
     /**
-     * store
+     * store.
      *
      * @param App\Models\FanGroup $menu
      * @param array               $input
-     *
-     * @return void
      */
     public function store($input)
     {
@@ -127,98 +123,89 @@ class FanGroupRepository
             * online create group
          */
         $onlineCreateResult = $this->_onlineGroup->create($input);
-        
+
         if ($onlineCreateResult) {    //success
             $insert['group_id'] = $onlineCreateResult['id'];
             $insert['account_id'] = $this->_accountId;
             $insert['title'] = $onlineCreateResult['name'];
             $insert['fan_count'] = 0;
             $insert['is_default'] = 0;
-            
+
             /*
                 * Local create group
              */
             $this->_savePost($this->model, $insert);
         }
-        
+
         return true;
-        
     }
 
     /**
-     * update
+     * update.
      *
-     * @param integer $id    粉丝组自增ID
-     * @param array   $input Request
-     *
-     * @return void
+     * @param int   $id    粉丝组自增ID
+     * @param array $input Request
      */
     public function update($id, $input)
     {
         $model = $this->model->find($id);
-        
+
         if ($model) {
             $onlineUpdateResult = $this->_onlineGroup->update($model->group_id, $input['title']);
-            
+
             if ($onlineUpdateResult) {
                 $this->_savePost($model, $input);
             }
         }
-        
+
         return true;
-        
     }
-    
+
     /**
-     * Delete
+     * Delete.
      *
-     * @param integer $id    粉丝组自增ID
-     * @param array   $input Request
-     *
-     * @return void
+     * @param int   $id    粉丝组自增ID
+     * @param array $input Request
      */
     public function delete($id)
     {
         $model = $this->model->find($id);
-        
+
         if ($model) {
             $onlineCreateResult = $this->_onlineGroup->delete($model->group_id);
-            
+
             if ($onlineCreateResult) {
                 //$this->destroy($id);
                 //更新本地用户所属分组
-                $fan = new Fan;
+                $fan = new Fan();
                 $fan->where('account_id', $this->_accountId)->where('group_id', $model->group_id)->update(['group_id' => 0]);
                 //同步线上分组
                 $this->onlineLists();
             }
         }
-        
+
         return true;
-        
     }
-    
+
     /**
-     * move user to group (支持批量)
+     * move user to group (支持批量).
      *
      * @param Array $ids       粉丝自增ID
      * @param Int   $toGroupId 粉丝组group_id
-     *
-     * @return void
      */
     public function moveUsers($ids, $toGroupId)
     {
         if (!is_array($ids)) {
             return '粉丝ID不能为空';
         }
-        
+
         $model = $this->model->where('group_id', $toGroupId)->first();
         if (!$model) {
             return '不存在这个粉丝组';
         }
-        
+
         //根据粉丝ID查询
-        $fan = new Fan;
+        $fan = new Fan();
         $fanData = $fan->find($ids);
         if ($fanData) {
             $openIds = [];  //OPEN
@@ -235,23 +222,15 @@ class FanGroupRepository
                 $this->onlineLists();
             }
         }
+
         return true;
     }
 
-
-
-
-
-
-    
-
     /**
-     * save
+     * save.
      *
      * @param object $fanGroup
      * @param array  $input    Request
-     *
-     * @return void
      */
     private function _savePost($fanGroup, $input)
     {

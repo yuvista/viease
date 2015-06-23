@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Overtrue\Wechat\MenuItem as WechatMenuItem;
 use App\Services\Account as AccountService;
 use App\Services\Article as ArticleService;
 use Overtrue\Wechat\Menu as WechatMenu;
@@ -10,13 +9,12 @@ use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
 
 /**
- * 菜单服务提供类
+ * 菜单服务提供类.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class Menu
 {
-
     /**
      * account服务
      *
@@ -25,7 +23,7 @@ class Menu
     private $accountService;
 
     /**
-     * menuRepository
+     * menuRepository.
      *
      * @var App\Repositories\MenuRepository
      */
@@ -48,7 +46,7 @@ class Menu
     private $material = [];
 
     /**
-     * construct
+     * construct.
      *
      * @param App\Services\Account            $account        account
      * @param App\Repositories\MenuRepository $menuRepository menuRepository
@@ -60,8 +58,7 @@ class Menu
         MenuRepository $menuRepository,
         EventService $eventService,
         articleService $articleService
-    )
-    {
+    ) {
         $this->accountService = $accountService;
 
         $this->menuRepository = $menuRepository;
@@ -72,7 +69,7 @@ class Menu
     }
 
     /**
-     * 取得公众号的菜单
+     * 取得公众号的菜单.
      *
      * @return array 菜单信息
      */
@@ -94,11 +91,10 @@ class Menu
      */
     public function setMenu($menus)
     {
-        
     }
 
     /**
-     * 将远程菜单进行本地化
+     * 将远程菜单进行本地化.
      *
      * @param array $menus 菜单
      *
@@ -111,14 +107,14 @@ class Menu
         if (empty($menus)) {
             return [];
         }
-        
+
         $menus = array_map([$this, 'analyseMenu'], $menus);
 
         var_dump($menus);
     }
 
     /**
-     * 取得菜单中的素材
+     * 取得菜单中的素材.
      *
      * @param array $menus 菜单
      *
@@ -130,7 +126,7 @@ class Menu
     }
 
     /**
-     * 取得返回菜单数组中菜单信息
+     * 取得返回菜单数组中菜单信息.
      *
      * @param array $menus api返回的菜单信息
      *
@@ -142,7 +138,7 @@ class Menu
     }
 
     /**
-     * 分析菜单数据
+     * 分析菜单数据.
      *
      * @param array $menu 菜单
      *
@@ -160,7 +156,7 @@ class Menu
     }
 
     /**
-     * 解析文字类型的菜单 [转换为事件]
+     * 解析文字类型的菜单 [转换为事件].
      *
      * @param array $menu 菜单
      *
@@ -178,7 +174,7 @@ class Menu
     }
 
     /**
-     * 解析图片类型的菜单 [转换为事件]
+     * 解析图片类型的菜单 [转换为事件].
      *
      * @param array $menu 菜单
      *
@@ -196,7 +192,7 @@ class Menu
     }
 
     /**
-     * 解析新闻类型的菜单 [转换为事件/存储图文为素材]
+     * 解析新闻类型的菜单 [转换为事件/存储图文为素材].
      *
      * @param array $menu 菜单
      *
@@ -216,7 +212,7 @@ class Menu
     }
 
     /**
-     * 解析地址类型菜单 不用处理
+     * 解析地址类型菜单 不用处理.
      *
      * @param array $menu 菜单
      *
@@ -228,9 +224,7 @@ class Menu
     }
 
     /**
-     * 解析点击事件类型的菜单 [无法处理]
-     *
-     * @return void
+     * 解析点击事件类型的菜单 [无法处理].
      */
     public function resolveClickMenu($menu)
     {
@@ -238,7 +232,7 @@ class Menu
     }
 
     /**
-     * 解析弹出摄像头类型菜单
+     * 解析弹出摄像头类型菜单.
      *
      * @param array $menu 菜单
      *
@@ -250,7 +244,7 @@ class Menu
     }
 
     /**
-     * 解析微信相册类型菜单
+     * 解析微信相册类型菜单.
      *
      * @param array $menu 菜单
      *
@@ -262,7 +256,7 @@ class Menu
     }
 
     /**
-     * 解析弹出拍照或者相册发图类型菜单
+     * 解析弹出拍照或者相册发图类型菜单.
      *
      * @param array $menu 菜单
      *
@@ -274,7 +268,7 @@ class Menu
     }
 
     /**
-     * 解析选择地理位置类型菜单
+     * 解析选择地理位置类型菜单.
      *
      * @param array $menu 菜单
      *
@@ -286,7 +280,7 @@ class Menu
     }
 
     /**
-     * 解析扫码推事件类型菜单
+     * 解析扫码推事件类型菜单.
      *
      * @param array $menu 菜单
      *
@@ -298,7 +292,7 @@ class Menu
     }
 
     /**
-     * 解析扫码推事件且弹出“消息接收中”提示框类型菜单
+     * 解析扫码推事件且弹出“消息接收中”提示框类型菜单.
      *
      * @param array $menu $menu
      *

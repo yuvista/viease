@@ -1,12 +1,11 @@
-<?php namespace App\Services\Html;
+<?php
+
+namespace App\Services\Html;
 
 class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider
 {
-
     /**
      * Register the form builder instance.
-     *
-     * @return void
      */
     protected function registerFormBuilder()
     {

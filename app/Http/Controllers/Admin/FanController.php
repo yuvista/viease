@@ -3,35 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\FanRepository;
 
 /**
- * 粉丝管理
+ * 粉丝管理.
  *
  * @author overtrue <i@overtrue.me>
  */
 class FanController extends Controller
 {
-
     /**
-     * AccountRepository
+     * AccountRepository.
      *
      * @var AccountRepository
      */
     private $_fan;
 
     /**
-     * 获取几条数据
+     * 获取几条数据.
      *
      * @var type
      */
     private $_pageSize = 30;
 
     /**
-     * constructer
+     * constructer.
      *
      * @param AccountRepository $account
      */
@@ -41,7 +38,7 @@ class FanController extends Controller
     }
 
     /**
-     * 当前页码
+     * 当前页码.
      *
      * @var Int
      */
@@ -53,7 +50,7 @@ class FanController extends Controller
     }
 
     /**
-     * 获取粉丝列表
+     * 获取粉丝列表.
      *
      * @return Response
      */
@@ -72,7 +69,7 @@ class FanController extends Controller
     }
 
     /**
-     * 更新粉丝备注
+     * 更新粉丝备注.
      *
      * @param int $id 粉丝ID
      *
@@ -84,7 +81,7 @@ class FanController extends Controller
     }
 
     /**
-     * 移动单个或者多个粉丝到指定分组
+     * 移动单个或者多个粉丝到指定分组.
      *
      * @param int $groupId 分组ID
      *

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Settings;
 use App\Http\Controllers\Controller;
 
 /**
- * 系统设置
+ * 系统设置.
  *
  * 功能1： 系统设置
  *
@@ -13,9 +13,8 @@ use App\Http\Controllers\Controller;
  */
 class SettingsController extends Controller
 {
-
     /**
-     * 系统设置界面
+     * 系统设置界面.
      */
     public function getAll()
     {

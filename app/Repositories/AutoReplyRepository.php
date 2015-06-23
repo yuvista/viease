@@ -1,17 +1,18 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\AutoReply;
 
 /**
- * Account Repository
+ * Account Repository.
  */
 class AutoReplyRepository
 {
     use BaseRepository;
 
     /**
-     * Account Model
+     * Account Model.
      *
      * @var Account
      */
@@ -23,11 +24,9 @@ class AutoReplyRepository
     }
 
     /**
-     * 取得自动回复列表
+     * 取得自动回复列表.
      *
      * @param App\Models\Account $account account
-     *
-     * @return void
      */
     public function getIndex($account)
     {

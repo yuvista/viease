@@ -10,36 +10,35 @@ use App\Services\Account;
 use Auth;
 
 /**
- * 后台视图组织
+ * 后台视图组织.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class AdminComposer
 {
-
     /**
-     * accountRepository
+     * accountRepository.
      *
      * @var App\Repositories\AccountRepository
      */
     private $accountRepository;
 
     /**
-     * request
+     * request.
      *
      * @var Illuminate\Http\Request
      */
     private $request;
 
     /**
-     * accountService
+     * accountService.
      *
      * @var App\Services\Account;
      */
     private $accountService;
 
     /**
-     * construct
+     * construct.
      *
      * @param App\Repositories\AccountRepository $accountRepository
      */
@@ -47,9 +46,8 @@ class AdminComposer
         AccountRepository $accountRepository,
         Request $request,
         Account $accountService
-    )
-    {
-        $this->accountRepository  = $accountRepository;
+    ) {
+        $this->accountRepository = $accountRepository;
 
         $this->request = $request;
 
@@ -57,11 +55,9 @@ class AdminComposer
     }
 
     /**
-     * compose
+     * compose.
      *
      * @param View $view 视图对象
-     *
-     * @return void
      */
     public function compose(View $view)
     {
@@ -74,7 +70,7 @@ class AdminComposer
         $global->menus = $menus;
 
         $global->current_account = $this->accountService->getCurrent();
-        
+
         $global->accounts = $this->accountRepository->lists(99);
 
         $view->with('global', $global);

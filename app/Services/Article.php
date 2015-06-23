@@ -13,7 +13,6 @@ use App\Models\Article as Model;
  */
 class Article
 {
-
     /**
      * articleRepository.
      *

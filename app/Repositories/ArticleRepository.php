@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Article;
-use Session;
 
 /**
- * Article Repository
+ * Article Repository.
  */
 class ArticleRepository
 {
     use BaseRepository;
 
     /**
-     * Article Model
+     * Article Model.
      *
      * @var Article
      */

@@ -10,16 +10,15 @@ use App\Repositories\FanGroupRepository;
 
 class FanGroupController extends Controller
 {
-    
     /**
-     * AccountRepository
+     * AccountRepository.
      *
      * @var AccountRepository
      */
     private $_fanGroup;
-    
+
     /**
-     * constructer
+     * constructer.
      *
      * @param AccountRepository $account
      */
@@ -27,9 +26,9 @@ class FanGroupController extends Controller
     {
         $this->_fanGroup = $_fanGroup;
     }
-    
+
     /**
-     * 获取分组列表
+     * 获取分组列表.
      *
      * @return Response
      */
@@ -55,7 +54,7 @@ class FanGroupController extends Controller
     }
 
     /**
-     * 创建分组
+     * 创建分组.
      *
      * @return Reponse
      */
@@ -71,12 +70,12 @@ class FanGroupController extends Controller
         return [
         'id' => mt_rand(10, 999),
         'title' => $request->title,
-        'fan_count' => 0
+        'fan_count' => 0,
                ];
     }
 
     /**
-     * 更改分组信息
+     * 更改分组信息.
      *
      * @param int $id 分组ID
      *
@@ -87,15 +86,16 @@ class FanGroupController extends Controller
         /*
             * name: $name
          */
-        
+
         //TODO
         $this->_fanGroup->update($id, $request);
     }
-    
+
     /**
-     * 删除分组
+     * 删除分组.
      *
-     * @param  int $id 分组ID
+     * @param int $id 分组ID
+     *
      * @return Response
      */
     public function postDelete($id)

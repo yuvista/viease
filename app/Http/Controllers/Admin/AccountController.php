@@ -8,41 +8,38 @@ use App\Services\Account as AccountService;
 use App\Repositories\AccountRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Account;
-use Event;
 
 /**
- * 公众号管理
+ * 公众号管理.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class AccountController extends Controller
 {
-
     /**
-     * 分页
+     * 分页.
      *
-     * @var integer
+     * @var int
      */
     private $_pageSize = 10;
 
     /**
-     * AccountRepository
+     * AccountRepository.
      *
      * @var AccountRepository
      */
     private $account;
 
     /**
-     * App\Services\Account
+     * App\Services\Account.
      *
      * @var App\Services\Account
      */
     private $service;
 
     /**
-     * constructer
+     * constructer.
      *
      * @param AccountRepository $account
      */
@@ -56,7 +53,7 @@ class AccountController extends Controller
     }
 
     /**
-     * 展示公众号
+     * 展示公众号.
      *
      * @return Response
      */
@@ -68,9 +65,7 @@ class AccountController extends Controller
     }
 
     /**
-     * 预览首页
-     *
-     * @return void
+     * 预览首页.
      */
     public function getManage()
     {
@@ -80,7 +75,7 @@ class AccountController extends Controller
     }
 
     /**
-     * 添加公众号
+     * 添加公众号.
      *
      * @return Response
      */
@@ -90,7 +85,7 @@ class AccountController extends Controller
     }
 
     /**
-     * 创建账户
+     * 创建账户.
      *
      * @param CreateRequest $request
      *
@@ -104,11 +99,9 @@ class AccountController extends Controller
     }
 
     /**
-     * 展示修改
+     * 展示修改.
      *
-     * @param integer $id id
-     *
-     * @return void
+     * @param int $id id
      */
     public function getUpdate($id)
     {
@@ -118,9 +111,9 @@ class AccountController extends Controller
     }
 
     /**
-     * 提交
+     * 提交.
      *
-     * @param integer       $id      id
+     * @param int           $id      id
      * @param UpdateRequest $request request
      *
      * @return Redirect
@@ -133,11 +126,9 @@ class AccountController extends Controller
     }
 
     /**
-     * 删除公众号
+     * 删除公众号.
      *
      * @param ineger $id 公众号iD
-     *
-     * @return void
      */
     public function getDelete($id)
     {
@@ -147,11 +138,9 @@ class AccountController extends Controller
     }
 
     /**
-     * 切换公众号
+     * 切换公众号.
      *
-     * @param integer $id id
-     *
-     * @return void
+     * @param int $id id
      */
     public function getChangeAccount($id)
     {

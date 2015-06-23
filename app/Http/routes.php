@@ -19,9 +19,9 @@ Route::get('/', function () {
     * Admin
  */
 $admin = [
-            'prefix'     => 'admin',
-            'namespace'  => 'Admin',
-            'middleware' => 'admin'
+            'prefix' => 'admin',
+            'namespace' => 'Admin',
+            'middleware' => 'admin',
          ];
 
 Route::group($admin, function () {
@@ -31,19 +31,19 @@ Route::group($admin, function () {
 
     Route::group(['middleware' => 'account'], function () {
         Route::controllers([
-            'user'             => 'UserController',
-            'fan'              => 'FanController',
-            'fan-group'        => 'FanGroupController',
-            'menu'             => 'MenuController',
+            'user' => 'UserController',
+            'fan' => 'FanController',
+            'fan-group' => 'FanGroupController',
+            'menu' => 'MenuController',
             'material/article' => 'ArticleController',
-            'material'         => 'MaterialController',
-            'analysis'         => 'AnalysisController',
-            'staff'            => 'StaffController',
-            'tool'             => 'ToolController',
-            'message'          => 'MessageController',
-            'notice'           => 'NoticeController',
-            'qrcode'           => 'QRCodeController',
-            'auto-reply'       => 'AutoReplyController',
+            'material' => 'MaterialController',
+            'analysis' => 'AnalysisController',
+            'staff' => 'StaffController',
+            'tool' => 'ToolController',
+            'message' => 'MessageController',
+            'notice' => 'NoticeController',
+            'qrcode' => 'QRCodeController',
+            'auto-reply' => 'AutoReplyController',
                            ]);
     });
 });

@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\FollowReply\CreateRequest;
-use App\Http\Requests\FollowReply\UpdateRequest;
 use App\Services\Account as AccountService;
 use App\Repositories\FollowReplyRepository;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 关注回复
+ * 关注回复.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class FollowReplyController extends Controller
 {
-
     /**
      * account 服务
      *
@@ -26,14 +21,14 @@ class FollowReplyController extends Controller
     private $service;
 
     /**
-     * AutoReplyRepository
+     * AutoReplyRepository.
      *
      * @var App\Repositories\FollowReplyRepository
      */
     private $followReply;
 
     /**
-     * construct
+     * construct.
      *
      * @param AccountService        $service
      * @param FollowReplyRepository $followReply
@@ -46,9 +41,7 @@ class FollowReplyController extends Controller
     }
 
     /**
-     * 取得关注回复的参数
-     *
-     * @return void
+     * 取得关注回复的参数.
      */
     public function getIndex()
     {

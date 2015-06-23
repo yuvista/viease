@@ -12,7 +12,6 @@ use Session;
  */
 class Account
 {
-
     /**
      * repository.
      *

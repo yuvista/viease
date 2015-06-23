@@ -6,11 +6,10 @@ use App\Http\Requests\Request;
 use App\Models\Article;
 
 /**
- * Article CreateRequest
+ * Article CreateRequest.
  */
 class CreateRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *

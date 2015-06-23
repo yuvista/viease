@@ -3,19 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 工具
+ * 工具.
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
 class ToolController extends Controller
 {
-
     /**
-     * 首页
+     * 首页.
      *
      * @return Response
      */
@@ -25,7 +22,7 @@ class ToolController extends Controller
     }
 
     /**
-     * 短网址
+     * 短网址.
      *
      * @return Response
      */

@@ -11,7 +11,6 @@ use App\Repositories\EventRepository;
  */
 class Event
 {
-
     /**
      * EventRepository.
      *

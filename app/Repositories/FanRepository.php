@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Fan;
@@ -6,36 +7,35 @@ use App\Services\Account;
 use Overtrue\Wechat\User;
 
 /**
- * Fans Repository
+ * Fans Repository.
  */
 class FanRepository
 {
-    
     use BaseRepository;
-    
+
     /**
-     * Fan
+     * Fan.
      *
      * @var Fans
      */
     protected $model;
-    
+
     /**
-     * Account
+     * Account.
      *
      * @var Object
      */
     private $_account;
-    
+
     /**
-     * Account ID
+     * Account ID.
      *
      * @var Int
      */
     private $_accountId;
-    
+
     /**
-     * Online Group
+     * Online Group.
      */
     private $_onlineUser;
 
@@ -44,16 +44,16 @@ class FanRepository
         $this->_account = $account;     //use Account
         $this->_accountId = $this->_account->getCurrent()->id;
         $this->model = $fan;
-        
+
         $sdkConfig = [
             'app_id' => $this->_account->getCurrent()->app_id,
-            'secret' => $this->_account->getCurrent()->app_secret
+            'secret' => $this->_account->getCurrent()->app_secret,
                      ];
         $this->_onlineUser = new User($sdkConfig);
     }
 
     /**
-     * 获取粉丝列表
+     * 获取粉丝列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -64,20 +64,21 @@ class FanRepository
         if (!$request->sort_by) {
             $request->sort_by = 'subscribed_at';
         }
+
         return $this->model->where('account_id', $this->account->getCurrent()->id)->where(function ($query) use ($request) {
             if ($request->group_id) {
                 $query->where('group_id', $request->group_id);
             }
         })->orderBy($request->sort_by, 'desc')->paginate($pageSize);
     }
-    
+
     /**
-     * 获取线上粉丝列表
+     * 获取线上粉丝列表.
      */
     public function onlineLists()
     {
         set_time_limit(0);
-        
+
         /*
             * Online User List
          */
@@ -88,14 +89,14 @@ class FanRepository
                 * 未取消关注的，先取消关注(设置为当前时间)
              */
             $this->model->where('account_id', $this->_accountId)->delete();
-            
+
             /*
                 * Prepare Data
              */
             foreach ($dataToArr['data']['openid'] as $openId) {
                 $input['account_id'] = $this->_accountId;
                 $input['openid'] = $openId;
-                
+
                 $userInfo = $this->_onlineUser->get($openId);   //获取公众号用户信息
                 if ($userInfo['subscribe']) {
                     $updateInput['nickname'] = $userInfo['nickname'];               //昵称
@@ -111,7 +112,7 @@ class FanRepository
                     $updateInput['group_id'] = $userInfo['groupid'];                //组ID
                     $updateInput['deleted_at'] = null;
                 }
-                
+
                 /*
                     * Local Save
                  */
@@ -123,17 +124,15 @@ class FanRepository
                 }
             }
         }
-        
+
         return [$dataToArr];
     }
-    
+
     /**
-     * 修改用户备注
+     * 修改用户备注.
      *
      * @param String $openId
      * @param String $remark
-     *
-     * @return void
      */
     public function updateRemark($openId, $remark)
     {
@@ -145,12 +144,10 @@ class FanRepository
     }
 
     /**
-     * update
+     * update.
      *
-     * @param integer $id
-     * @param array   $input
-     *
-     * @return void
+     * @param int   $id
+     * @param array $input
      */
 //    public function update($id, $input)
 //    {
@@ -160,12 +157,10 @@ class FanRepository
 //    }
 
     /**
-     * save
+     * save.
      *
      * @param Fan     $fan   fan
      * @param Request $input 输入
-     *
-     * @return void
      */
     private function _savePost($fan, $input)
     {

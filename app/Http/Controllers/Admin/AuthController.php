@@ -8,13 +8,12 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 
 /**
- * 登录
+ * 登录.
  */
 class AuthController extends Controller
 {
-
     /**
-     * 登录页
+     * 登录页.
      *
      * @param Request $request
      *
@@ -39,7 +38,7 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $attributes = [
-            'name'     => '用户名',
+            'name' => '用户名',
             'password' => '密码',
                       ];
 
@@ -54,13 +53,13 @@ class AuthController extends Controller
             return redirect($request->get('redirect', admin_url('/')));
         }
 
-        return redirect()        ->back()->withInput($request->except('password'))->withErrors([
+        return redirect()->back()->withInput($request->except('password'))->withErrors([
                 'name' => '用户名或密码错误！',
                                                                                                ]);
     }
 
     /**
-     * 登出
+     * 登出.
      *
      * @param Request $request
      *

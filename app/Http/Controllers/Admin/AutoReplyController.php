@@ -1,22 +1,18 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\AutoReply\CreateRequest;
-use App\Http\Requests\AutoReply\UpdateRequest;
 use App\Services\Account as AccountService;
 use App\Repositories\AutoReplyRepository;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests;
 
 /**
- * 自动回复管理
+ * 自动回复管理.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class AutoReplyController extends Controller
 {
-
     /**
      * account 服务
      *
@@ -25,14 +21,14 @@ class AutoReplyController extends Controller
     private $service;
 
     /**
-     * AutoReplyRepository
+     * AutoReplyRepository.
      *
      * @var App\Repositories\AutoReplyRepository
      */
     private $autoReply;
 
     /**
-     * construct
+     * construct.
      *
      * @param AccountService      $service
      * @param AutoReplyRepository $autoReply
@@ -45,9 +41,7 @@ class AutoReplyController extends Controller
     }
 
     /**
-     * 获取自动回复
-     *
-     * @return void
+     * 获取自动回复.
      */
     public function getIndex()
     {

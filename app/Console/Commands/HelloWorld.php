@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 
 class HelloWorld extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -23,8 +22,6 @@ class HelloWorld extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -38,6 +35,6 @@ class HelloWorld extends Command
      */
     public function handle()
     {
-        $this->info("您好啊！".$this->argument('name'));
+        $this->info('您好啊！'.$this->argument('name'));
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Events;
 
-use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class MaterialSync extends Event
 {
@@ -12,8 +10,6 @@ class MaterialSync extends Event
 
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct()
     {

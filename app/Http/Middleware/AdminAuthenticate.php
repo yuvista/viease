@@ -8,7 +8,6 @@ use URL;
 
 class AdminAuthenticate
 {
-
     /**
      * The Guard implementation.
      *
@@ -17,7 +16,7 @@ class AdminAuthenticate
     protected $auth;
 
     /**
-     * 排除项
+     * 排除项.
      *
      * @var array
      */
@@ -26,8 +25,7 @@ class AdminAuthenticate
     /**
      * Create a new filter instance.
      *
-     * @param  Guard $auth
-     * @return void
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -37,8 +35,9 @@ class AdminAuthenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -51,7 +50,7 @@ class AdminAuthenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(admin_url('auth/login?redirect=' . URL::full()));
+                return redirect()->guest(admin_url('auth/login?redirect='.URL::full()));
             }
         }
 

@@ -1,18 +1,19 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Account;
 use Session;
 
 /**
- * Account Repository
+ * Account Repository.
  */
 class AccountRepository
 {
     use BaseRepository;
 
     /**
-     * Account Model
+     * Account Model.
      *
      * @var Account
      */
@@ -24,7 +25,7 @@ class AccountRepository
     }
 
     /**
-     * 获取账户列表
+     * 获取账户列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -36,12 +37,10 @@ class AccountRepository
     }
 
     /**
-     * store
+     * store.
      *
      * @param App\Models\Menu $menu
      * @param array           $input
-     *
-     * @return void
      */
     public function store($input)
     {
@@ -49,12 +48,10 @@ class AccountRepository
     }
 
     /**
-     * update
+     * update.
      *
-     * @param integer $id
-     * @param array   $input
-     *
-     * @return void
+     * @param int   $id
+     * @param array $input
      */
     public function update($id, $input)
     {
@@ -64,12 +61,10 @@ class AccountRepository
     }
 
     /**
-     * save
+     * save.
      *
      * @param Account $account account
      * @param Request $input   输入
-     *
-     * @return void
      */
     public function savePost($account, $input)
     {
@@ -79,11 +74,9 @@ class AccountRepository
     }
 
     /**
-     * 切换公众号
+     * 切换公众号.
      *
-     * @param integer $id id
-     *
-     * @return void
+     * @param int $id id
      */
     public function change($id)
     {

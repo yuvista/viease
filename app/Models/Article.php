@@ -14,7 +14,7 @@ class Article extends Model
     const MULTI_NO = 0;
 
     /**
-     * 字段白名单
+     * 字段白名单.
      *
      * @var array
      */
@@ -34,12 +34,12 @@ class Article extends Model
                           ];
 
     /**
-     * 用于表单验证时的字段名称提示
+     * 用于表单验证时的字段名称提示.
      *
      * @var array
      */
     public static $aliases = [
-        'name'           => '公众号名称',
-        'original_id'    => '原始ID',
+        'name' => '公众号名称',
+        'original_id' => '原始ID',
                              ];
 }

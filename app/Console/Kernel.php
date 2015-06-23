@@ -7,7 +7,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-
     /**
      * The Artisan commands provided by your application.
      *
@@ -16,16 +15,16 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\HelloWorld::class,
+        \App\Console\Commands\CodeSniffer::class,
                           ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
-     * @return void
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')        ->hourly();
+        $schedule->command('inspire')->hourly();
     }
 }

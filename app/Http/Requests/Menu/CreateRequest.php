@@ -6,11 +6,10 @@ use App\Http\Requests\Request;
 use App\Models\Menu;
 
 /**
- * Menu CreateRequest
+ * Menu CreateRequest.
  */
 class CreateRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
