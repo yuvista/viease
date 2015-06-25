@@ -35,7 +35,7 @@
             };
 
             var err = err || function(err){
-                error('网络错误...');
+                error('网络错误...', error.statusText);
                 console.log("接口调用失败：",err);
             };
 
