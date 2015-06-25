@@ -18,4 +18,9 @@ class MaterialController extends Controller
     {
         return admin_view('material.index');
     }
+
+    public function getList()
+    {
+        
+    }
 }

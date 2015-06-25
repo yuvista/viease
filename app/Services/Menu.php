@@ -51,7 +51,7 @@ class Menu
      */
     public function getFromRemote()
     {
-        ///return json_decode('{"is_menu_open":1,"selfmenu_info":{"button":[{"type":"media_id","name":"跳转图文url","value":"http://www.baidu.com"},{"name":"回复素材","sub_button":{"list":[{"type":"img","name":"回复图片","value":"s63w7xT2JQp3jRwaHgphtm17rFMRJ6ELJKxb6Lz_Ah0GScEYTsQl8QjCe4VFZMJB"},{"type":"news","name":"回复图文","news_info":{"list":[{"title":"123123","author":"21312313","digest":"12312312","show_cover":1,"cover_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/6WSbicEHejnhNSJScRGEkqiaI0YtCkG51cSZ3MwpYp9EohaDGfMYDgdUd4mNzUnrrma2jwpzgzq4AMIicITrxWk4w\/0?wx_fmt=jpeg","content_url":"http:\/\/mp.weixin.qq.com\/s?__biz=MzAwNjUxODYxNA==&mid=205908485&idx=1&sn=474ed8b00fd8b8843e4edc13694ef7c5#rd","source_url":""},{"title":"123123","author":"131312","digest":"","show_cover":1,"cover_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/6WSbicEHejnhNSJScRGEkqiaI0YtCkG51cSZ3MwpYp9EohaDGfMYDgdUd4mNzUnrrma2jwpzgzq4AMIicITrxWk4w\/0?wx_fmt=jpeg","content_url":"http:\/\/mp.weixin.qq.com\/s?__biz=MzAwNjUxODYxNA==&mid=205908485&idx=2&sn=ffa8c40356023afd37872cc65fdcbc2f#rd","source_url":""}]}},{"type":"text","name":"第二次回复文字","value":"heihie"}]}},{"type":"view","name":"地图跳转","url":"http:\/\/mp.weixin.qq.com\/s?__biz=MzAwNjUxODYxNA==&mid=205908461&idx=1&sn=9e00e20a6e764e500496f9f881f09c4c&scene=18#wechat_redirect"}]}}', true);
+        return json_decode('{"is_menu_open":1,"selfmenu_info":{"button":[{"type":"news","name":"1","news_info":{"list":[{"title":"002","author":"","digest":"111111","show_cover":1,"cover_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/6WSbicEHejnhAvUutRuiaWIWJtuSia01qQibU6vGMhVWWSIVxwlfxvibCjj3qnXUfQdy21vs0HZ5icy45YMYRpqNP44g\/0?wx_fmt=jpeg","content_url":"http:\/\/mp.weixin.qq.com\/s?__biz=MzAwNjUxODYxNA==&mid=205824034&idx=1&sn=b369926ad11ad98868bb7936e5f5bc93#rd","source_url":""}]}},{"type":"img","name":"31231","value":"lcJ0yWx9ADHQdyFPTN3ZISmVLwHdQ4p-D4J9NELhazw08K8QxEDFd470PuJvwDHJ"}]}}', true);
 
         $appId = account()->getCurrent()->app_id;
 
@@ -180,7 +180,7 @@ class Menu
     {
         $menu['type'] = 'click';
 
-        $menu['key'] = $this->eventService->makeImage($menu['value']);
+        $menu['key'] = $this->eventService->makeMediaId($menu['value']);
 
         unset($menu['value']);
 

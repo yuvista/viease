@@ -46,7 +46,7 @@ class ArticleRepository
         $isMulti = count($articles) >= 2;
 
         if (!$isMulti) {
-            return $this->storeRemoteSimpleArticle($articles);
+            return $this->storeRemoteSimpleArticle($articles[0]);
         } else {
             return $this->storeRemoteMultiArticle($articles);
         }

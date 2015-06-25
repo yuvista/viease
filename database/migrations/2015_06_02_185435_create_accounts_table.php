@@ -22,7 +22,7 @@ class CreateAccountsTable extends Migration
             $table->string('aes_key',43)->comment('AES加密key');
             $table->string('wechat_account',20)->comment('微信号');
             $table->string('access_token',30)->nullable()->comment('微信access_token');
-            $table->tinyInteger('account_type')->nullable()->default(1)->comment('类型');
+            $table->tinyInteger('account_type',1)->nullable()->default(1)->comment('类型');
             $table->timestamps();
             $table->softDeletes();
         });

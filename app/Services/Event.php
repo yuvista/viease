@@ -79,21 +79,6 @@ class Event
     }
 
     /**
-     * 创建一个图片回复事件.
-     *
-     * @param string $materialId 原始图片素材Id
-     *
-     * @return string 事件key
-     */
-    public function makeImage($materialId)
-    {
-        //获取存储得到自己的id
-        $mediaId = 'EVENT_XXXXXXXX_TEST';
-
-        return $this->eventRepository->storeMaterial($mediaId);
-    }
-
-    /**
      * 创建一个mediaId类型的回复事件
      *
      * @param  string $materialId 原始图片素材Id
@@ -102,6 +87,7 @@ class Event
      */
     public function makeMediaId($materialId)
     {
+        $mediaId = $this->materialService->localizeInterimMaterialId($materialId);
         //获取存储得到自己的id
         $mediaId = 'EVENT_XXXXXXXX_TEST';
 
