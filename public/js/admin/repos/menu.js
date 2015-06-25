@@ -16,12 +16,12 @@
 
         // 更新菜单
         updateMenu: function ($menuId, $request, $callback) {
-            Util.request('POST', 'menu/update/' + $menuId, $request, $callback);
+            Util.request('PATCH', 'menu/update/' + $menuId, $request, $callback);
         },
 
         // 删除菜单
         deleteMenu: function ($menuId, $callback) {
-            Util.request('POST', 'menu/delete/' + $menuId, $callback);
+            Util.request('DELETE', 'menu/delete/' + $menuId, $callback);
         },
     };
 

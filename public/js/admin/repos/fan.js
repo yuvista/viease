@@ -21,17 +21,17 @@
                 remark: $remark
             };
 
-            Util.request('POST', 'fan/remark/' + $fanId, $request, $callback);
+            Util.request('PATCH', 'fan/remark/' + $fanId, $request, $callback);
         },
 
         // 移动粉丝（一个或者多个）到分组
-        updateFanGroup: function ($fanId, $groupId, $callback) {
+        setFanGroupId: function ($fanId, $groupId, $callback) {
             var $request = {
                 fan_id: $fanId,
                 group_id: $groupId
             };
 
-            Util.request('POST', 'fan/set-group', $request, $callback);
+            Util.request('PATCH', 'fan/set-group', $request, $callback);
         },
 
         // 获取分组列表
@@ -59,7 +59,7 @@
                 title: $title
             };
 
-            Util.request('POST', 'fan-group/update/' + $groupId, $request, $callback);
+            Util.request('PATCH', 'fan-group/update/' + $groupId, $request, $callback);
         },
     };
 
