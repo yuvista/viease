@@ -26,7 +26,7 @@
          * @param {Function} $callback
          */
         getImages: function($callback){
-            $request = {
+            var $request = {
                 type: 'image'
             };
 
@@ -39,7 +39,7 @@
          * @param {Function} $callback
          */
         getVideos: function($callback){
-            $request = {
+            var $request = {
                 type: 'video'
             };
 
@@ -52,7 +52,7 @@
          * @param {Function} $callback
          */
         getVoices: function($callback){
-            $request = {
+            var $request = {
                 type: 'voice'
             };
 
@@ -65,11 +65,25 @@
          * @param {Function} $callback
          */
         getArticles: function($callback){
-            $request = {
+            var $request = {
                 type: 'article'
             };
 
             Repo.material.getLists($request, $callback);
+        },
+
+        /**
+         * 删除素材
+         *
+         * @param {Int}      $id
+         * @param {Function} $callback
+         */
+        delete: function($id, $callback){
+            var $request = {
+                id: $id
+            };
+
+            Util.request('DELETE', 'material/delete', $request, $callback);
         }
     };
 
