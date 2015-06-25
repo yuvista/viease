@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         /*
-            * 扩展blade
+         * 扩展blade
          */
         Blade::extend(function ($view, $compiler) {
             $replace = config('view.extends');

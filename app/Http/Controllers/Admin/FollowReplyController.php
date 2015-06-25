@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\Account as AccountService;
 use App\Repositories\FollowReplyRepository;
 use App\Http\Controllers\Controller;
 
@@ -14,13 +13,6 @@ use App\Http\Controllers\Controller;
 class FollowReplyController extends Controller
 {
     /**
-     * account 服务
-     *
-     * @var App\Services\Account
-     */
-    private $service;
-
-    /**
      * AutoReplyRepository.
      *
      * @var App\Repositories\FollowReplyRepository
@@ -30,13 +22,10 @@ class FollowReplyController extends Controller
     /**
      * construct.
      *
-     * @param AccountService        $service
      * @param FollowReplyRepository $followReply
      */
-    public function __construct(AccountService $service, FollowReplyRepository $followReply)
+    public function __construct(FollowReplyRepository $followReply)
     {
-        $this->service = $service;
-
         $this->followReply = $followReply;
     }
 

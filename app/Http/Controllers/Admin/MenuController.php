@@ -56,36 +56,9 @@ class MenuController extends Controller
      */
     public function getLists()
     {
-        $menus = $this->menuService->getMenus();
+        $this->menuService->sync();
 
-        return $this->menuService->localize($menus);
-
-        return [
-            [
-                'id' => 1,
-                'account_id' => 2,
-                'parent_id' => 0,
-                'name' => '每日笑话',
-                'type' => 'click',
-                'key' => 'foo',
-            ],
-            [
-                'id' => 2,
-                'account_id' => 2,
-                'parent_id' => 0,
-                'name' => '菜单项目2',
-                'type' => 'click',
-                'key' => 'foo',
-            ],
-            [
-                'id' => 3,
-                'account_id' => 2,
-                'parent_id' => 0,
-                'name' => '菜单项目3',
-                'type' => 'click',
-                'key' => 'foo',
-            ],
-               ];
+        //return $this->menuRepository->lists(account()->getCurrent()->id);
     }
 
     /**
@@ -96,12 +69,12 @@ class MenuController extends Controller
     public function postStore(CreateRequest $request)
     {
         return [
-                'id' => mt_rand(1, 99),
-                'account_id' => 2,
-                'parent_id' => 0,
-                'name' => $request->name,
-                'type' => 'click',
-                'key' => 'foo',
-               ];
+            'id' => mt_rand(1, 99),
+            'account_id' => 2,
+            'parent_id' => 0,
+            'name' => $request->name,
+            'type' => 'click',
+            'key' => 'foo',
+        ];
     }
 }

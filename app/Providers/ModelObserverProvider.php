@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Article;
+use App\Models\Material;
+use App\Models\Account;
 use Illuminate\Support\ServiceProvider;
 
 class ModelObserverProvider extends ServiceProvider
@@ -15,6 +18,9 @@ class ModelObserverProvider extends ServiceProvider
     {
         User::observe('App\Observers\UserObserver');
         Event::observe('App\Observers\EventObserver');
+        Article::observe('App\Observers\ArticleObserver');
+        Material::observe('App\Observers\MaterialObserver');
+        Account::observe('App\Observers\AccountObserver');
     }
 
     public function register()

@@ -12,6 +12,12 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
+        /**
+         * 备注防止忘记 :
+         *
+         * 设计中所有的 media_id 将被替换为事件 
+         */
+
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->comment('所属公众号');     
@@ -26,7 +32,7 @@ class CreateMenusTable extends Migration
                     'pic_photo_or_album',
                     'pic_weixin',
                     'location_select',
-                    'media_id',
+                    //'media_id',
                     'view_limited'
                 ])->comment('菜单类型');     
             $table->string('key', 200)->comment('菜单触发值');     

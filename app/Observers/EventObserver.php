@@ -36,7 +36,7 @@ class EventObserver
 
     public function saving(Event $event)
     {
-        $event->key = $this->eventService->buildEventKey();
+        $event->key = $this->eventService->makeEventKey();
     }
 
     public function created()

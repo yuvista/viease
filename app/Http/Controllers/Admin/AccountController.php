@@ -22,32 +22,23 @@ class AccountController extends Controller
      *
      * @var int
      */
-    private $_pageSize = 10;
+    private $pageSize = 10;
 
     /**
      * AccountRepository.
      *
      * @var AccountRepository
      */
-    private $account;
-
-    /**
-     * App\Services\Account.
-     *
-     * @var App\Services\Account
-     */
-    private $service;
+    private $accountRepository;
 
     /**
      * constructer.
      *
      * @param AccountRepository $account
      */
-    public function __construct(AccountRepository $account, AccountService $service)
+    public function __construct(AccountRepository $account)
     {
-        $this->account = $account;
-
-        $this->service = $service;
+        $this->accountRepository = $account;
 
         $this->middleware('account', ['only' => 'getManage']);
     }
@@ -59,7 +50,7 @@ class AccountController extends Controller
      */
     public function getIndex()
     {
-        $accounts = $this->account->lists($this->_pageSize);
+        $accounts = $this->accountRepository->lists($this->pageSize);
 
         return admin_view('account.index', compact('accounts'));
     }
@@ -69,7 +60,7 @@ class AccountController extends Controller
      */
     public function getManage()
     {
-        $current = $this->service->getCurrent();
+        $current = account()->getCurrent();
 
         return admin_view('account.manage', compact('current'));
     }
@@ -93,7 +84,7 @@ class AccountController extends Controller
      */
     public function postCreate(CreateRequest $request)
     {
-        $this->account->store($request);
+        $this->accountRepository->store($request);
 
         return redirect(admin_url('account'))->withMessage('添加成功！');
     }
@@ -105,7 +96,7 @@ class AccountController extends Controller
      */
     public function getUpdate($id)
     {
-        $account = $this->account->getById($id);
+        $account = $this->accountRepository->getById($id);
 
         return admin_view('account.form', compact('account'));
     }
@@ -120,7 +111,7 @@ class AccountController extends Controller
      */
     public function postUpdate(UpdateRequest $request, $id)
     {
-        $this->account->update($id, $request);
+        $this->accountRepository->update($id, $request);
 
         return redirect(admin_url('account'))->withMessage('修改成功！');
     }
@@ -130,9 +121,9 @@ class AccountController extends Controller
      *
      * @param ineger $id 公众号iD
      */
-    public function getDelete($id)
+    public function getDestroy($id)
     {
-        $this->account->destroy($id);
+        $this->accountRepository->destroy($id);
 
         return redirect(admin_url('account'))->withMessage('删除成功！');
     }
@@ -144,7 +135,7 @@ class AccountController extends Controller
      */
     public function getChangeAccount($id)
     {
-        $this->service->chose($id);
+        account()->chose($id);
 
         return redirect(admin_url('/'));
     }

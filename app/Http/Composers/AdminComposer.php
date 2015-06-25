@@ -53,7 +53,7 @@ class AdminComposer
 
         $global->menus = $menus;
 
-        $global->current_account = $this->accountService->getCurrent();
+        $global->current_account = account()->getCurrent();
 
         $global->accounts = $this->accountService->getLists();
 

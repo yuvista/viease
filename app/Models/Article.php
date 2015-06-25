@@ -9,9 +9,30 @@ class Article extends Model
 {
     use SoftDeletes;
 
-    const MULTI_YES = 1;
+    /**
+     * 单图文类型.
+     */
+    const IS_SIMPLE = 1;
 
-    const MULTI_NO = 0;
+    /**
+     * 多图文类型.
+     */
+    const IS_MULTI = 2;
+
+    /**
+     * 远程素材类型.
+     */
+    const IS_REMOTE = 3;
+
+    /**
+     * 创建来自自己.
+     */
+    const CREATED_FROM_SELF = 1;
+
+    /**
+     * 创建来自微信
+     */
+    const CREATED_FROM_WECHAT = 2;
 
     /**
      * 字段白名单.
@@ -24,11 +45,12 @@ class Article extends Model
         'type',
         'parent_id',
         'title',
-        'digest',
+        'description',
         'author',
         'content',
-        'show_cover',
-        'thumb_media_id',
+        'show_cover_pic',
+        'cover_url',
+        'created_from',
         'content_url',
         'source_url',
                           ];

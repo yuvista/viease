@@ -34,9 +34,9 @@ class Account
      *
      * @return bool
      */
-    public function chosed()
+    public function isChosed()
     {
-        return Session::get('account_id');
+        return Session::has('account_id');
     }
 
     /**
@@ -51,20 +51,12 @@ class Account
 
     /**
      * 取得当前使用中的公众号.
+     *
+     * @return App\Models\Account|null
      */
     public function getCurrent()
     {
-        return $this->chosed() ? $this->repository->getById($this->chosed()) : null;
-    }
-
-    /**
-     * 取得当前操作id.
-     *
-     * @return integet|null id
-     */
-    public function getId()
-    {
-        return $this->getCurrent() ? $this->getCurrent()->id : null;
+        return $this->isChosed() ? $this->repository->getById($this->isChosed()) : null;
     }
 
     /**

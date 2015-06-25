@@ -24,44 +24,67 @@ class MenuRepository
     }
 
     /**
-     * 获取账户列表.
+     * 菜单列表.
      *
-     * @param int $pageSize 分页大小
-     *
-     * @return \Illuminate\Pagination\Paginator
+     * @return array
      */
-    public function lists($pageSize)
+    public function lists($accountId)
     {
-        return $this->model->orderBy('id', 'desc')->paginate($pageSize);
+        return $this->model->with('subButtons')->where('account_id', $accountId)->where('parent_id', 0)->orderBy('id', 'desc')->get();
     }
 
     /**
-     * store.
+     * 一次存储所有菜单.
      *
-     * @param App\Models\Menu $menu
-     * @param array           $input
+     * @param int   $$accountId id
+     * @param array $menus      菜单
+     */
+    public function storeMulti($accountId, $menus)
+    {
+        foreach ($menus as $key => $menu) {
+            $menu['sort'] = $key;
+
+            $menu['account_id'] = $accountId;
+
+            $parentId = $this->store($menu)->id;
+
+            if (!empty($menu['sub_button'])) {
+                foreach ($menu['sub_button'] as $subKey => $subMenu) {
+                    $subMenu['parent_id'] = $parentId;
+
+                    $subMenu['sort'] = $subKey;
+
+                    $subMenu['account_id'] = $accountId;
+
+                    $this->store($subMenu);
+                }
+            }
+        }
+    }
+
+    /**
+     * 保存菜单.
+     *
+     * @param array $input input
      */
     public function store($input)
     {
+        return $this->savePost(new $this->model(), $input);
     }
 
     /**
-     * update.
+     * savePost.
      *
-     * @param int   $id
-     * @param array $input
+     * @param App\Models\Menu $menu  菜单
+     * @param array           $input input
+     *
+     * @return App\Models\Menu
      */
-    public function update($id, $input)
+    public function savePost($menu, $input)
     {
-    }
+        $menu->fill($input);
+        $menu->save();
 
-    /**
-     * save.
-     *
-     * @param Account $account account
-     * @param Request $input   输入
-     */
-    public function savePost($account, $input)
-    {
+        return $menu;
     }
 }

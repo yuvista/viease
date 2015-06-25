@@ -19,9 +19,10 @@ class AccountSeeder extends Seeder
                 'app_id'    => 'wx1f5a3940d2412bfb',
                 'app_secret' => 'b4020e08f0ad463c604badda5771cd78',
                 'wechat_account' => 'binsgo',
+                'token' => 'xxxxxxx',
+                'aes_key' => 'xxxxxxxxx',
                 'account_type' => 2,
                 'access_token' => NULL,
-                
             ]);
     }
 }

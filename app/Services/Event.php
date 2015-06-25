@@ -3,6 +3,7 @@
 namespace app\Services;
 
 use App\Repositories\EventRepository;
+use App\Services\Material as MaterialService;
 
 /**
  * 事件服务提供.
@@ -19,13 +20,24 @@ class Event
     private $eventRepository;
 
     /**
+     * 素材服务
+     *
+     * @var App\Services\Material
+     */
+    private $materialService;
+
+    /**
      * construct description.
      *
      * @param App\Repositories\EventRepository $eventRepository
      */
-    public function __construct(EventRepository $eventRepository)
-    {
+    public function __construct(
+        EventRepository $eventRepository,
+        MaterialService $materialService
+    ) {
         $this->eventRepository = $eventRepository;
+        
+        $this->materialService = $materialService;
     }
 
     /**
@@ -37,7 +49,7 @@ class Event
      */
     public function isOwnEvent($name)
     {
-        return strpos($name, 'EVENT_');
+        return starts_with($name, 'V_EVENT_');
     }
 
     /**
@@ -45,11 +57,55 @@ class Event
      *
      * @param string $text 返回值
      *
-     * @return string 事件id
+     * @return string 事件key
      */
-    public function buildText($text)
+    public function makeText($text)
     {
         return $this->eventRepository->storeText($text);
+    }
+
+    /**
+     * 创建一个图文回复事件.
+     *
+     * @param array $articles articles
+     *
+     * @return string 事件key
+     */
+    public function makeNews($articles)
+    {
+        $mediaId = $this->materialService->saveRemoteArticle($articles);
+
+        return $this->eventRepository->storeNews($mediaId);
+    }
+
+    /**
+     * 创建一个图片回复事件.
+     *
+     * @param string $materialId 原始图片素材Id
+     *
+     * @return string 事件key
+     */
+    public function makeImage($materialId)
+    {
+        //获取存储得到自己的id
+        $mediaId = 'EVENT_XXXXXXXX_TEST';
+
+        return $this->eventRepository->storeMaterial($mediaId);
+    }
+
+    /**
+     * 创建一个mediaId类型的回复事件
+     *
+     * @param  string $materialId 原始图片素材Id
+     *
+     * @return string 事件key
+     */
+    public function makeMediaId($materialId)
+    {
+        //获取存储得到自己的id
+        $mediaId = 'EVENT_XXXXXXXX_TEST';
+
+        return $this->eventRepository->storeMaterial($mediaId);
     }
 
     /**
@@ -57,8 +113,8 @@ class Event
      *
      * @return string
      */
-    public function buildEventKey()
+    public function makeEventKey()
     {
-        return 'EVENT_'.strtoupper(uniqid());
+        return 'V_EVENT_'.strtoupper(uniqid());
     }
 }

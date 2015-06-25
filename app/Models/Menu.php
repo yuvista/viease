@@ -36,4 +36,9 @@ class Menu extends Model
         'key' => '菜单值',
         'sort' => '值',
                              ];
+
+    public function subButtons()
+    {
+        return $this->hasMany('App\Models\Menu', 'parent_id');
+    }
 }

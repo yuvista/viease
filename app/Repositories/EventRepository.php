@@ -13,13 +13,6 @@ class EventRepository
     use BaseRepository;
 
     /**
-     * account服务
-     *
-     * @var App\Services\Account
-     */
-    private $accountService;
-
-    /**
      * Event Model.
      *
      * @var Event
@@ -32,27 +25,64 @@ class EventRepository
      * @param Event          $event          event
      * @param AccountService $accountService AccountService
      */
-    public function __construct(Event $event, AccountService $accountService)
+    public function __construct(Event $event)
     {
         $this->model = $event;
-
-        $this->accountService = $accountService;
     }
 
     /**
      * 存储一个文字回复类型事件.
      *
      * @param string $text 回复内容
+     *
+     * @return string key
      */
     public function storeText($text)
     {
         $model = new $this->model();
 
-        $model->account_id = $this->accountService->getId();
+        $model->account_id = account()->getCurrent()->id;
 
         $model->type = 'text';
 
         $model->content = $text;
+
+        $model->save();
+
+        return $model->key;
+    }
+
+    /**
+     * 存储一个图文回复事件.
+     *
+     * @param string $mediaId MediaId
+     *
+     * @return string key
+     */
+    public function storeNews($mediaId)
+    {
+        $model = new $this->model();
+
+        $model->account_id = account()->getCurrent()->id;
+
+        $model->type = 'article';
+
+        $model->content = $mediaId;
+
+        $model->save();
+
+        return $model->key;
+    }
+
+    public function storeMaterial($mediaId)
+    {
+        $model = new $this->model();
+
+        $model->account_id = account()->getCurrent()->id;
+
+        $model->type = 'material';
+
+        $model->content = $mediaId;
 
         $model->save();
 

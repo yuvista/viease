@@ -147,6 +147,7 @@ return [
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ModelObserverProvider::class,
         App\Services\Html\HtmlServiceProvider::class,
+        App\Providers\VieaseServiceProvider::class
     ],
 
     /*
