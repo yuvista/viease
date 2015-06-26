@@ -17,7 +17,7 @@ class MaterialRepository
 
     public function __construct(Material $material)
     {
-        $this->model->material;
+        $this->model = $material;
     }
 
     /**
@@ -62,7 +62,7 @@ class MaterialRepository
      *
      * @param  string  $materialId mediaId
      *
-     * @return boolean  
+     * @return boolean
      */
     public function isExists($accountId,$materialId)
     {
