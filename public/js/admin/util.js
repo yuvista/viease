@@ -1,4 +1,6 @@
 (function(){
+    window.__page = 0;
+
     // 后台基础 URI
     var baseURI = baseURI || '/admin/';
     var util = {
@@ -20,28 +22,47 @@
         },
 
         // ajax 请求
-        request: function(method, uri, data, done, err){
-            console.log(util.makeUri(uri));
+        request: function($method, $uri, $data, $success, $error){
             var params = {
-                url: util.makeUri(uri),
-                type: method || 'GET',
+                url: util.makeUri($uri),
+                type: $method || 'GET',
                 dataType: 'json',
-                data: data,
+                data: $data,
             };
 
-            var done = done || function(resp){
-                console.log('done. ' + params.url);
-                console.log(resp);
+            var success = function($resp){
+                window.last_response = $resp;
+
+                console.log('request success:' + params.url, $resp);
+
+                if (typeof $resp['current_page'] != 'undefined') {
+                    window.__page = $resp.current_page;
+                    $resp = $resp.data;
+                };
+
+                if (typeof $success == 'function') {
+                    $success($resp);
+                };
             };
 
-            var err = err || function(err){
-                error('网络错误...', error.statusText);
-                console.log("接口调用失败：",err);
+            var err = function($err){
+                window.last_response = $err;
+
+                error('网络错误...', $err.status + ' ' + $err.statusText);
+
+                console.log('request error:', $err);
+
+                if (typeof $error == 'function') {
+                    $error($err);
+                }
             };
 
             $('.loading').show();
-            $.ajax(params).done(done).fail(err).always(function() {
-                console.log("请求：", params);
+
+            console.log('request begin:', params);
+
+            $.ajax(params).done(success).fail(err).always(function() {
+                console.log('request finished:', params.url);
                 $('.loading').hide();
             });
         },
