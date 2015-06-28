@@ -31,6 +31,7 @@ class MaterialController extends Controller
 
     public function getLists()
     {
+        // $type：image, video, voice, article
         $arr =  [
             [
                 'id' => 4,

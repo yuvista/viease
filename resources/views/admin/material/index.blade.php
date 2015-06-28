@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body popup-layer empty-listener row videos-container ajax-loading"></div>
+                    <div class="panel-body popup-layer empty-listener row videos-container video-list-thumbs ajax-loading"></div>
                     <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
                 </div>
             </div>
@@ -101,6 +101,16 @@
         </a>
     </div>
 </script>
+<script type="text/plain" id="video-item-template">
+    <div class="col-xs-6 col-sm-3 video-card">
+        <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+            <img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+            <h2>北京中关村大街理想国际大厦</h2>
+            <span class="icon ion-ios-play"></span>
+            <!-- <span class="duration">03:15</span>-->
+        </a>
+    </div>
+</script>
 @stop
 
 @section('js')
@@ -111,6 +121,7 @@
 
         var templates = {
             image: _.template($('#image-item-template').html()),
+            video: _.template($('#video-item-template').html()),
         };
 
         var containers = {
@@ -165,6 +176,7 @@
         });
 
         load('image');
+        load('video');
 
         function pagination ($type) {
             var total = window.last_response.total || 1;
