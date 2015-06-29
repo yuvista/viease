@@ -73,7 +73,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          Admin
+                          <i class="ion-ios-person icon-md"></i> Admin
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
@@ -91,7 +91,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          @if($global->current_account) {{ $global->current_account->name }} @endif
+                          @if($global->current_account) <i class="ion-chatbubble icon-md"></i>  {{ $global->current_account->name }} @endif
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
@@ -142,7 +142,7 @@
       </div>
     </div>
   </div>
-  <div class="loading text-center">
+  <div class="loading text-center" style="display:none;">
       <span class="plus-loader"></span>
       <span class="message">网络加载中...</span>
   </div>
