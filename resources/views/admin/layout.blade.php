@@ -69,8 +69,26 @@
                 </li>
                 @endforeach
               </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                          Admin
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <a href="{{ admin_url('user/edit/' . $global->user->id) }}">账号设置</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                              <a href="{{ admin_url('auth/logout') }}">注销</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
               @unless($global->accounts->isEmpty())
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                           @if($global->current_account) {{ $global->current_account->name }} @endif
@@ -97,24 +115,6 @@
                   </li>
               </ul>
               @endunless
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          Admin
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                          <li>
-                              <a href="{{ admin_url('user/edit/' . $global->user->id) }}">账号设置</a>
-                          </li>
-                          <li class="divider"></li>
-                          <li>
-                              <a href="{{ admin_url('auth/logout') }}">注销</a>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
             </div>
           </div>
         </div>
