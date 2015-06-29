@@ -18,6 +18,13 @@
   color: #bbb;
   font-size:small;
 }
+
+.limited {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+
 .line-height-sm {
     line-height: 30px;
 }

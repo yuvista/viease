@@ -108,6 +108,16 @@ $(document).ready(function () {
     });
 });
 
+String.prototype.limit = function(length, suffix){
+    var suffix = suffix || '...';
+
+    if(this.length > length){
+        return this.substring(0, length) + suffix;
+    }
+
+    return this;
+};
+
 /**
  * 展示左菜单
  */

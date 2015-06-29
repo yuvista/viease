@@ -89,7 +89,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <div class="fan-nickname"><%= fan.nickname %></div>
+                <div class="fan-nickname"><%= fan.nickname.limit(5) %></div>
                 <div class="text-muted"><%= fan.location %></div>
             </div>
         </div>
