@@ -33,7 +33,7 @@ class CreateMenusTable extends Migration
                     'pic_weixin',
                     'location_select',
                     //'media_id',
-                    'view_limited'
+                    //'view_limited'
                 ])->comment('菜单类型');     
             $table->string('key', 200)->comment('菜单触发值');     
             $table->tinyInteger('sort')->nullable()->default(0)->comment('排序'); 

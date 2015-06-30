@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\FollowReply;
+namespace App\Http\Requests\Reply;
 
 use App\Http\Requests\Request;
-use App\Models\FollowReply;
+use App\Models\Reply;
 
 /**
- * FollowReply UpdateRequest.
+ * Reply UpdateRequest.
  */
 class UpdateRequest extends Request
 {

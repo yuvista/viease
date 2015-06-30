@@ -9,7 +9,7 @@ class MaterialRepository
     use BaseRepository;
 
     /**
-     * model
+     * model.
      *
      * @var App\Models\Material
      */
@@ -17,22 +17,23 @@ class MaterialRepository
 
     public function __construct(Material $material)
     {
-        $this->model->material;
+        $this->model = $material;
     }
 
     /**
-     * 获取图文消息列表
+     * 取得素材列表.
      *
-     * @param  integer $accountId accountId
-     * @param  integer $pageSize  分页
+     * @param accountId $accountId 公众号ID
+     * @param string    $type      类型
+     * @param int       $pageSize  分页
      *
-     * @return void
+     * @return Response
      */
-    public function articleLists($accountId,$pageSize)
+    public function getList($accountId, $type, $pageSize)
     {
-        return $this->model->where('type','article')
-                ->where('account_id',$accountId)
-                ->where('parent_id',0)
+        return $this->model->where('type', $type)
+                ->where('account_id', $accountId)
+                ->where('parent_id', 0)
                 ->orderBy('id', 'desc')
                 ->paginate($pageSize);
     }
@@ -40,10 +41,10 @@ class MaterialRepository
     /**
      * 保存菜单的远程素材.
      *
-     * @param integer $accountId 公众号id
-     * @param array $articles 图文
+     * @param int   $accountId 公众号id
+     * @param array $articles  图文
      *
-     * @return  string mediaId
+     * @return string mediaId
      */
     public function storeRemoteArticle($accountId, $articles)
     {
@@ -56,15 +57,15 @@ class MaterialRepository
         }
     }
 
-
     /**
-     * 指定素材是否已经存在
+     * 指定素材是否已经存在.
      *
-     * @param  string  $materialId mediaId
+     * @param int    $accountId  账号id
+     * @param string $materialId mediaId
      *
-     * @return boolean  
+     * @return bool
      */
-    public function isExists($accountId,$materialId)
+    public function isExists($accountId, $materialId)
     {
         return $this->model->where('account_id', $accountId)->where('original_id', $materialId)->get();
     }
@@ -79,8 +80,8 @@ class MaterialRepository
     private function storeRemoteMultiArticle($accountId, $articles)
     {
         $articles = array_map(function ($article) {
-            $article['type'] = Article::IS_REMOTE;
-            $article['created_from'] = Article::CREATED_FROM_WECHAT;
+            $article['type'] = Material::IS_REMOTE;
+            $article['created_from'] = Material::CREATED_FROM_WECHAT;
 
             return $article;
         }, $articles);
@@ -113,20 +114,20 @@ class MaterialRepository
      */
     private function storeRemoteSimpleArticle($accountId, $article)
     {
-        $article['type'] = Article::IS_REMOTE;
-        $article['created_from'] = Article::CREATED_FROM_WECHAT;
+        $article['type'] = Material::IS_REMOTE;
+        $article['created_from'] = Material::CREATED_FROM_WECHAT;
         $article['account_id'] = $accountId;
 
         return $this->savePost($article);
     }
 
-     /**
+    /**
      * 保存 [针对于字段名称不统一].
      *
-     * @param App\Models\Article $article 模型
-     * @param array              $input   图文数据
+     * @param App\Models\Material $material 模型
+     * @param array               $input    图文数据
      *
-     * @return App\Models\Article
+     * @return App\Models\Material
      */
     private function savePost($input)
     {
@@ -146,8 +147,8 @@ class MaterialRepository
     /**
      * fillSavePost.
      *
-     * @param App\Models\Article $article model
-     * @param array              $input   数据
+     * @param App\Models\Material $material model
+     * @param array               $input    数据
      */
     private function fillSavePost($article, $input)
     {

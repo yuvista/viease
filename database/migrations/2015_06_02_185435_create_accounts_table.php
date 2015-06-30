@@ -18,11 +18,11 @@ class CreateAccountsTable extends Migration
             $table->string('original_id',20)->comment('原始id');
             $table->string('app_id',50)->nullable()->comment('AppId');
             $table->string('app_secret',50)->nullable()->comment('AppSecret');
-            $table->string('token',60)->comment('加密token');
-            $table->string('aes_key',43)->comment('AES加密key');
+            $table->string('token',10)->nullable()->comment('加密token');
+            $table->string('aes_key',43)->nullable()->comment('AES加密key');
             $table->string('wechat_account',20)->comment('微信号');
             $table->string('access_token',30)->nullable()->comment('微信access_token');
-            $table->tinyInteger('account_type',1)->nullable()->default(1)->comment('类型');
+            $table->tinyInteger('account_type')->nullable()->default(1)->comment('类型');
             $table->timestamps();
             $table->softDeletes();
         });

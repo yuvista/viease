@@ -212,7 +212,7 @@ return [
                         ],
                         [
                             'label' => '自动回复',
-                            'uri'   => 'auto-reply',
+                            'uri'   => 'reply',
                         ],
                         // [
                         //     'label' => '摇一摇周边',

@@ -34,8 +34,6 @@ Route::group($admin, function () {
             'user' => 'UserController',
             'fan' => 'FanController',
             'fan-group' => 'FanGroupController',
-            'menu' => 'MenuController',
-            'material/article' => 'ArticleController',
             'material' => 'MaterialController',
             'analysis' => 'AnalysisController',
             'staff' => 'StaffController',
@@ -43,7 +41,7 @@ Route::group($admin, function () {
             'message' => 'MessageController',
             'notice' => 'NoticeController',
             'qrcode' => 'QRCodeController',
-            'auto-reply' => 'AutoReplyController',
-                           ]);
+            'reply' => 'ReplyController',
+        ]);
     });
 });

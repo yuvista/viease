@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\FollowReply;
+namespace App\Http\Requests\Reply;
 
 use App\Http\Requests\Request;
-use App\Models\FollowReply;
+use App\Models\Reply;
 
 /**
- * FollowReply UpdateRequest.
+ * Reply CreateRequest.
  */
 class CreateRequest extends Request
 {
@@ -17,6 +17,8 @@ class CreateRequest extends Request
      */
     public function rules()
     {
-        return ['account_id' => 'required'];
+        return [
+            'account_id' => 'required',
+        ];
     }
 }

@@ -31,17 +31,30 @@ class EventRepository
     }
 
     /**
+     * 通过eventId查询.
+     *
+     * @param string $eventId eventId
+     *
+     * @return Event event
+     */
+    public function findByEventId($eventId)
+    {
+        return $this->model->where('key', $eventId)->first();
+    }
+
+    /**
      * 存储一个文字回复类型事件.
      *
-     * @param string $text 回复内容
+     * @param string $text      回复内容
+     * @param int    $accountId
      *
      * @return string key
      */
-    public function storeText($text)
+    public function storeText($text, $accountId)
     {
         $model = new $this->model();
 
-        $model->account_id = account()->getCurrent()->id;
+        $model->account_id = $accountId;
 
         $model->type = 'text';
 
@@ -53,32 +66,18 @@ class EventRepository
     }
 
     /**
-     * 存储一个图文回复事件.
+     * 存储一个素材回复类型的事件.
      *
-     * @param string $mediaId MediaId
+     * @param string $mediaId   素材id
+     * @param int    $accountId accountId
      *
-     * @return string key
+     * @return string mediaId
      */
-    public function storeNews($mediaId)
+    public function storeMaterial($mediaId, $accountId)
     {
         $model = new $this->model();
 
-        $model->account_id = account()->getCurrent()->id;
-
-        $model->type = 'article';
-
-        $model->content = $mediaId;
-
-        $model->save();
-
-        return $model->key;
-    }
-
-    public function storeMaterial($mediaId)
-    {
-        $model = new $this->model();
-
-        $model->account_id = account()->getCurrent()->id;
+        $model->account_id = $accountId;
 
         $model->type = 'material';
 

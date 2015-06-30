@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\MaterialRepository;
-use App\Repositories\ArticleRepository;
-use Overtrue\Wechat\Media;
 
 /**
  * 素材服务.
@@ -14,23 +12,14 @@ use Overtrue\Wechat\Media;
 class Material
 {
     /**
-     * articleRepository.
-     *
-     * @var App\Repositories\ArticleRepository
-     */
-    private $articleRepository;
-
-    /**
      * materialRepository.
      *
      * @var App\Repositories\MaterialRepository
      */
     private $materialRepository;
 
-    public function __construct(ArticleRepository $articleRepository, MaterialRepository $materialRepository)
+    public function __construct(MaterialRepository $materialRepository)
     {
-        $this->articleRepository = $articleRepository;
-
         $this->materialRepository = $materialRepository;
     }
 
@@ -43,13 +32,13 @@ class Material
      */
     public function saveRemoteArticle($articles)
     {
-        return $this->articleRepository->storeRemoteArticle($articles);
+        return $this->materialRepository->storeRemoteArticle($articles);
     }
 
     /**
-     * 临时素材本地化
+     * 临时素材本地化.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
      * @return string 生成的自己的MediaId
      */
@@ -59,9 +48,9 @@ class Material
     }
 
     /**
-     * 获取远程临时素材的信息
+     * 获取远程临时素材的信息.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
      * @return array 素材信息
      */
@@ -73,11 +62,11 @@ class Material
     }
 
     /**
-     * 检测素材是否存在
+     * 检测素材是否存在.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
-     * @return boolean
+     * @return bool
      */
     public function isExists($materialId)
     {
@@ -87,22 +76,12 @@ class Material
     }
 
     /**
-     * 生成一个图文mediaId.
-     *
-     * @return string mediaId
-     */
-    public function buildArticleMediaId()
-    {
-        return 'MEDIA_A_'.strtoupper(uniqid());
-    }
-
-    /**
-     * 生成一个素材mediaId
+     * 生成一个素材mediaId.
      *
      * @return string mediaId
      */
     public function buildMaterialMediaId()
     {
-        return 'MEDIA_M_'.strtoupper(uniqid());
+        return 'MEDIA_'.strtoupper(uniqid());
     }
 }

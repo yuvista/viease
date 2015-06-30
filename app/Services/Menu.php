@@ -226,8 +226,8 @@ class Menu
      */
     private function resolveClickMenu($menu)
     {
-        if(!$this->eventService->isOwnEvent($menu['key'])){
-            $menu['key'] = Null;
+        if (!$this->eventService->isOwnEvent($menu['key'])) {
+            $menu['key'] = null;
         }
 
         return $menu;

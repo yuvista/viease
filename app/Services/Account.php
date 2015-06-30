@@ -68,4 +68,24 @@ class Account
     {
         return $this->repository->lists(99);
     }
+
+    /**
+     * 创建token.
+     *
+     * @return string token
+     */
+    public function buildToken()
+    {
+        return str_random(10);
+    }
+
+    /**
+     * 创建aesKey.
+     *
+     * @return string aesKey
+     */
+    public function buildAesKey()
+    {
+        return str_random(43);
+    }
 }

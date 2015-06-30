@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use App\Repositories\EventRepository;
 use App\Services\Material as MaterialService;
@@ -36,7 +36,7 @@ class Event
         MaterialService $materialService
     ) {
         $this->eventRepository = $eventRepository;
-        
+
         $this->materialService = $materialService;
     }
 
@@ -79,9 +79,9 @@ class Event
     }
 
     /**
-     * 创建一个mediaId类型的回复事件
+     * 创建一个mediaId类型的回复事件.
      *
-     * @param  string $materialId 原始图片素材Id
+     * @param string $materialId 原始图片素材Id
      *
      * @return string 事件key
      */
@@ -102,5 +102,19 @@ class Event
     public function makeEventKey()
     {
         return 'V_EVENT_'.strtoupper(uniqid());
+    }
+
+    /**
+     * 将event转变为素材.
+     *
+     * @param string $event eventId
+     *
+     * @return array
+     */
+    public function eventToMaterial($eventId)
+    {
+        $event = $this->eventRepository->findByEventId($eventId);
+
+        return $event;
     }
 }

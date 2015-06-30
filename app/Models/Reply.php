@@ -10,6 +10,30 @@ class Reply extends Model
     use SoftDeletes;
 
     /**
+     * 类型关注回复.
+     */
+    const TYPE_FOLLOW = 'follow';
+
+    /**
+     * 类型无匹配时回复.
+     */
+    const TYPE_NO_MATCH = 'no-match';
+
+    /**
+     * 类型关键词回复.
+     */
+    const TYPE_KEYWORDS = 'keywords';
+
+    /**
+     * casts.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'content' => 'json',
+    ];
+
+    /**
      * 字段白名单.
      *
      * @var array
@@ -18,8 +42,9 @@ class Reply extends Model
         'account_id',
         'name',
         'trigger_texts',
-        'key',
-        'sort',
+        'trigger_type',
+        'group_ids',
+        'content',
                           ];
 
     /**
@@ -29,10 +54,11 @@ class Reply extends Model
      */
     public static $aliases = [
         'account_id' => '所属公众号',
-        'parent_id' => '上级菜单',
-        'name' => '菜单名称',
-        'type' => '菜单类型',
-        'key' => '菜单值',
-        'sort' => '值',
+        'name' => '规则名称',
+        'type' => '回复类型',
+        'trigger_texts' => '触发文字',
+        'trigger_type' => '触发类型',
+        'group_ids' => '适用组id',
+        'content' => '回复内容',
                              ];
 }
