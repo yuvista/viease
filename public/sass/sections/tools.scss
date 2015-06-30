@@ -18,6 +18,13 @@
   color: #bbb;
   font-size:small;
 }
+
+.limited {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+
 .line-height-sm {
     line-height: 30px;
 }
@@ -25,17 +32,23 @@
 // icon
 .icon-md {
     font-size:18px;
-    line-height:16px;
+    margin:0 5px;
+    line-height:18px;
+    vertical-align: middle;
 }
 
 .icon-lg {
     font-size:30px;
+    margin:0 8px;
     line-height:40px;
+    vertical-align: middle;
 }
 
 .icon-xlg {
     font-size:50px;
+    margin:0 10px;
     line-height:50px;
+    vertical-align: middle;
 }
 
 // Blankslate

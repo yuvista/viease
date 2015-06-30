@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row images-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-light">加载更多</button></div>
+                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="video">
