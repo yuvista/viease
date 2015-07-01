@@ -34,7 +34,7 @@ class Fan extends Model
      *
      * @var array
      */
-    protected $aliases = [
+    public static $aliases = [
         'account_id' => '公众号ID',
         'group_id' => '粉丝组ID',
         'openid' => 'OPENID',
