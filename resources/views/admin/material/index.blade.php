@@ -34,9 +34,7 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row images-container ajax-loading"></div>
-                    <div class="pagination-bar">
-                        <hr>
-                    </div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="video">
@@ -52,9 +50,7 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row videos-container video-list-thumbs ajax-loading"></div>
-                    <div class="pagination-bar">
-                        <hr>
-                    </div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="voice">
@@ -70,9 +66,7 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row voices-container ajax-loading"></div>
-                    <div class="pagination-bar">
-                        <hr>
-                    </div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="article">
@@ -88,9 +82,7 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row articles-container ajax-loading"></div>
-                    <div class="pagination-bar">
-                        <hr>
-                    </div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
         </div>
@@ -198,6 +190,7 @@
             new Pager('#' + $type + ' .pagination-bar', {
                 total: window.last_response.last_page,
                 current: window.last_response.current_page,
+                classes: 'border-top',
                 onChange: function($page){
                     console.log('loading page:'+$page);
                     load($type, $page);

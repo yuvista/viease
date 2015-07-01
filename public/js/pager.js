@@ -1,5 +1,5 @@
 function Pager($selector, $options){
-    var $template = '<div class="viease-pager">\
+    var $template = '<div class="viease-pager CLASSES">\
                         <div class="viease-pager-inner">\
                             <a href="#" class="btn viease-pager-btn-prev"><i class="ion-arrow-left-b"></i></a>\
                             <span class="info viease-pager-current-page">CURRENT_PAGE</span><span class="info">/</span><span class="info viease-pager-total-page">TOTAL_PAGE</span>\
@@ -14,6 +14,7 @@ function Pager($selector, $options){
             container: undefined,
             total: 1,
             current:1,
+            classes: undefined,
             onChange: function(page){
                 console.log(page);
             }
@@ -113,7 +114,9 @@ function Pager($selector, $options){
             var $option = $pager.option;
             var $container = $($option.container);
 
-            var $new = $template.replace('CURRENT_PAGE', $option.current || 1).replace('TOTAL_PAGE', $option.total || 1);
+            var $new = $template.replace('CURRENT_PAGE', $option.current || 1)
+                                .replace('CLASSES', $option.classes)
+                                .replace('TOTAL_PAGE', $option.total || 1);
 
             $container.find('.viease-pager').remove();
 
