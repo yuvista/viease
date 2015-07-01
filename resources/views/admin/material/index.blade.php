@@ -34,7 +34,9 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row images-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar">
+                        <hr>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="video">
@@ -50,7 +52,9 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row videos-container video-list-thumbs ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar">
+                        <hr>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="voice">
@@ -66,7 +70,9 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row voices-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar">
+                        <hr>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="article">
@@ -82,7 +88,9 @@
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row articles-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar">
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
@@ -164,7 +172,7 @@
                 var template = templates[$type];
                 var container = containers[$type];
 
-                container.find('.loader-wrapper').remove();
+                container.html('');
 
                 _.each($items, function($item) {
                     if(window.__page == 1){
@@ -186,15 +194,15 @@
         load('image');
         load('video');
 
-        function pagination ($type) {
-            var total = window.last_response.total || 1;
-
-            if(total > 1){
-                $('.load-more').removeClass('hidden');
-                window.__page++;
-            } else {
-                $('.load-more').addClass('hidden');
-            }
+        function pagination($type) {
+            new Pager('#' + $type + ' .pagination-bar', {
+                total: window.last_response.last_page,
+                current: window.last_response.current_page,
+                onChange: function($page){
+                    console.log('loading page:'+$page);
+                    load($type, $page);
+                }
+            });
         }
 
         $('.load-more button').on('click', function(){

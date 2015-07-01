@@ -154,6 +154,7 @@
   <script src="{{ asset('/js/plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
   <script src="{{ asset('js/plugins/twbs-pagination/jquery.twbsPagination.min.js') }}"></script>
   <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
+  <script src="{{ asset('/js/pager.js') }}"></script>
   <script src="{{ asset('/js/admin/app.js') }}"></script>
   @yield('js')
 </body>
