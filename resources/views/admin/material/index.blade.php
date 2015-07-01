@@ -29,7 +29,7 @@
                                 <h3 class="panel-title">图片库 <small>共 <span class="count">0</span> 张图片</small></h3>
                             </div>
                             <div class="col-md-6">
-                                <button class="pull-right btn btn-success"><i class="ion-plus"></i> 上传图片</button>
+                                <button class="pull-right btn btn-success upload-image"><i class="ion-plus"></i> 上传图片</button>
                             </div>
                         </div>
                     </div>
@@ -111,10 +111,13 @@
         </a>
     </div>
 </script>
+<div id="queue"></div>
 @stop
 
 @section('js')
 <script src="{{ asset('js/admin/repos/material.js') }}"></script>
+<script src="{{ asset('js/plugins/plupload/js/plupload.full.min.js') }}"></script>
+<script src="{{ asset('js/uploader.js') }}"></script>
 <script>
     $(function(){
         var emptyContentTemplate = _.template($('#no-content-template').html());
@@ -131,6 +134,11 @@
             article: $('.articles-container')
         };
 
+        var imageUploader = uploader.make('.upload-image', 'image', function(){
+            console.log(arguments);
+        });
+
+        console.log(imageUploader);
 
         // 当无内容时显示“无内容”提示
         $('.panel-body popup-layer.empty-listener').ifEmpty(function($el){

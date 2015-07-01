@@ -73,7 +73,7 @@
 
 <script id="group-template" type="text/plain">
     <% _.each(groups, function(group) { %>
-    <a href="javascript:;" data-id="<%= group.id %>" class="list-group-item">
+    <a href="javascript:;" data-id="<%= group.id %>" data-group_id="<%= group.group_id %>" class="list-group-item">
       <span class="badge"><%= group.fan_count %></span> <%= group.title %>
     </a>
     <% }); %>
@@ -89,7 +89,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <div class="fan-nickname"><%= fan.nickname.limit(5) %></div>
+                <div class="fan-nickname"><%= fan.nickname.limit(7) %></div>
                 <div class="text-muted"><%= fan.location %></div>
             </div>
         </div>
@@ -180,7 +180,7 @@
 
         // 分组切换
         $(document).on('click', '.group-list > a', function(){
-            loadFans($(this).data('id'), sortBy);
+            loadFans($(this).data('group_id'), sortBy);
             $(this).addClass('active').siblings('a').removeClass('active');
         });
 

@@ -63,9 +63,12 @@ $(document).ready(function () {
     });
 
     // .popover自动关闭
-    // TODO:有bug
-    $(document).on('click', ':not(".popover, .popover *")', function(event){
-        setTimeout(function(){ $('.popover').popover('hide'); }, 1);
+    $(document).on('click', '.popover *', function(event){
+        event.stopPropagation();
+    });
+    $(document).on('click', function(event){
+        event.stopPropagation();
+        setTimeout(function(){ $('.popover').popover('hide'); }, 1000);
     });
 
     // 顶部菜单点击切换左侧菜单
