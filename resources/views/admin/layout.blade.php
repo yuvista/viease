@@ -98,7 +98,7 @@
                         @foreach($global->accounts as $account)
                           @if($global->current_account && $account->id != $global->current_account->id)
                           <li>
-                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="“{{ $account->name }}”">{{ $account->name}}</a>
+                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $account->name }}”">{{ $account->name}}</a>
                           </li>
                           @endif
                         @endforeach
@@ -106,10 +106,10 @@
                         <li role="presentation" class="divider"></li>
                         @endif
                         <li>
-                          <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
+                          <a href="{{ admin_url('account')}}">公众号管理</a>
                         </li>
                         <li>
-                          <a href="{{ admin_url('account/create')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="添加公众号">添加公众号</a>
+                          <a href="{{ admin_url('account/create')}}">添加公众号</a>
                         </li>
                       </ul>
                   </li>
