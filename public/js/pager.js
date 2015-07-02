@@ -12,8 +12,8 @@ function Pager($selector, $options){
     var $pager = {
         option: {
             container: undefined,
-            total: 1,
-            current:1,
+            total: 0,
+            current:0,
             classes: undefined,
             onChange: function(page){
                 console.log(page);
@@ -30,6 +30,11 @@ function Pager($selector, $options){
             var $container = $($selector);
 
             $pager.option = $.extend(true, $pager.option, $options);
+
+            if($pager.option.total <= 0){
+                return;
+            }
+
             $pager.option.container = $selector;
 
             $pager.render($pager.option);

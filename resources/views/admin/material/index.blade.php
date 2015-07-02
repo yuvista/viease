@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body popup-layer empty-listener row videos-container video-list-thumbs ajax-loading"></div>
+                    <div class="panel-body popup-layer empty-listener row videos-container media-list-thumbs ajax-loading"></div>
                     <div class="pagination-bar"></div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body popup-layer empty-listener row voices-container ajax-loading"></div>
+                    <div class="panel-body popup-layer empty-listener row voices-container media-list-thumbs ajax-loading"></div>
                     <div class="pagination-bar"></div>
                 </div>
             </div>
@@ -91,22 +91,40 @@
 <script type="text/plain" id="no-content-template">
     <div class="blankslate spacious">
         <h3><i class="ion-ios-information"></i> 无内容</h3>
-        <p>请点击右上角按钮添加内容</p>
+        <p>您可以点击右上角按钮来添加内容</p>
     </div>
 </script>
 <script type="text/plain" id="image-item-template">
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-3 media-card">
         <a href="<%= url %>" target="_blank" class="popup">
           <img src="<%= url %>" alt="" class="img-responsive">
         </a>
     </div>
 </script>
 <script type="text/plain" id="video-item-template">
-    <div class="col-xs-6 col-sm-3 video-card">
+    <div class="col-xs-6 col-sm-3 media-card">
         <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
-            <img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+            <span class="placeholder bg-video"></span>
             <h2>北京中关村大街理想国际大厦</h2>
             <span class="icon ion-ios-play"></span>
+            <!-- <span class="duration">03:15</span>-->
+        </a>
+    </div>
+</script>
+<script type="text/plain" id="voice-item-template">
+    <div class="col-xs-6 col-sm-3 media-card">
+        <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+            <span class="placeholder bg-vioce"></span>
+            <span class="icon ion-ios-volume-high"></span>
+            <!-- <span class="duration">03:15</span>-->
+        </a>
+    </div>
+</script>
+<script type="text/plain" id="article-item-template">
+    <div class="col-xs-6 col-sm-3 media-card">
+        <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+            <span class="placeholder bg-vioce"></span>
+            <span class="icon ion-ios-volume-high"></span>
             <!-- <span class="duration">03:15</span>-->
         </a>
     </div>
@@ -120,29 +138,29 @@
 <script src="{{ asset('js/uploader.js') }}"></script>
 <script>
     $(function(){
-        var emptyContentTemplate = _.template($('#no-content-template').html());
+        var $emptyContentTemplate = _.template($('#no-content-template').html());
 
-        var templates = {
+        var $templates = {
             image: _.template($('#image-item-template').html()),
             video: _.template($('#video-item-template').html()),
+            voice: _.template($('#voice-item-template').html()),
+            article: _.template($('#article-item-template').html()),
         };
 
-        var containers = {
+        var $containers = {
             image: $('.images-container'),
             video: $('.videos-container'),
             voice: $('.voices-container'),
             article: $('.articles-container')
         };
 
-        var imageUploader = uploader.make('.upload-image', 'image', function(){
+        var $imageUploader = uploader.make('.upload-image', 'image', function(){
             console.log(arguments);
         });
 
-        console.log(imageUploader);
-
         // 当无内容时显示“无内容”提示
-        $('.panel-body popup-layer.empty-listener').ifEmpty(function($el){
-            $el.html(emptyContentTemplate()).addClass('no-content');;
+        $('.panel-body.empty-listener').ifEmpty(function($el){
+            $el.html($emptyContentTemplate()).addClass('no-content');;
         });
 
         /**
@@ -161,16 +179,13 @@
             };
 
             Repo.material.lists($request, function($items){
-                var template = templates[$type];
-                var container = containers[$type];
+                var $template = $templates[$type];
+                var $container = $containers[$type];
 
-                container.html('');
+                $container.html('');
 
                 _.each($items, function($item) {
-                    if(window.__page == 1){
-                        container.find('.blankslate').remove();
-                    }
-                    container.append(template($item));
+                    $container.append($template($item));
                 });
 
                 pagination($type);
@@ -184,7 +199,19 @@
         });
 
         load('image');
-        load('video');
+
+        var $loaded = {
+            image: true
+        };
+
+        $('.nav-tabs a').on('show.bs.tab', function(){
+            var $type = $(this).attr('href').substring(1);
+
+            if(typeof $loaded[$type] == 'undefined'){
+                load($type);
+                $loaded[$type] = true;
+            }
+        });
 
         function pagination($type) {
             new Pager('#' + $type + ' .pagination-bar', {
@@ -197,11 +224,6 @@
                 }
             });
         }
-
-        $('.load-more button').on('click', function(){
-            var $type = $(this).closest('.tab-pane').attr('id');
-            load($type);
-        });
     })
 </script>
 @stop

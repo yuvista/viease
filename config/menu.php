@@ -148,7 +148,7 @@ return [
                 ],
                 [
                     'label' => '功能',
-                    'icon'  => 'ion-ios-people',
+                    'icon'  => 'ion-ios-keypad',
                     'submenus' => [
                         [
                             'label' => '粉丝管理',
