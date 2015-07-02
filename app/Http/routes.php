@@ -10,9 +10,12 @@
     | and give it the controller to call when that URI is requested.
     |
 */
-
 Route::get('/', function () {
     return 'Hello world!';
+});
+
+Route::any('/upload', function () {
+    return ['ok' => 1];
 });
 
 /*
@@ -35,7 +38,6 @@ Route::group($admin, function () {
             'fan' => 'FanController',
             'fan-group' => 'FanGroupController',
             'menu' => 'MenuController',
-            'material/article' => 'ArticleController',
             'material' => 'MaterialController',
             'analysis' => 'AnalysisController',
             'staff' => 'StaffController',

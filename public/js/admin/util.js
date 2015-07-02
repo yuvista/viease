@@ -48,6 +48,10 @@
             var err = function($err){
                 window.last_response = $err;
 
+                if($err.status == 401){
+                    window.location.href = util.makeUri('admin/auth/login');
+                }
+
                 error('网络错误...', $err.status + ' ' + $err.statusText);
 
                 console.log('request error:', $err);

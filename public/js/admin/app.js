@@ -21,7 +21,13 @@ $(document).ready(function () {
     });
 
     // 需要ajax加载的框里放上占位符
-    $('.ajax-loading').html('<div class="loader-wrapper"><div class="plus-loader"></div></div>');
+    $('.ajax-loading').each(function(){
+        var target = $(this);
+        target.html('<div class="loader-wrapper"><div class="plus-loader"></div></div>');
+        setTimeout(function(){
+            target.find('.loader-wrapper').remove();
+        }, 5000);
+    });
 
     //初始化bootstrap tools
     $("body").tooltip({
@@ -63,9 +69,12 @@ $(document).ready(function () {
     });
 
     // .popover自动关闭
-    // TODO:有bug
-    $(document).on('click', ':not(".popover, .popover *")', function(event){
-        setTimeout(function(){ $('.popover').popover('hide'); }, 1);
+    $(document).on('click', '.popover *', function(event){
+        event.stopPropagation();
+    });
+    $(document).on('click', function(event){
+        event.stopPropagation();
+        setTimeout(function(){ $('.popover').popover('hide'); }, 1000);
     });
 
     // 顶部菜单点击切换左侧菜单

@@ -92,16 +92,16 @@
         /**
          * 修改分组
          *
-         * @param {Int}      $groupId
+         * @param {Int}      $id
          * @param {String}   $title
          * @param {Function} $callback
          */
-        updateGroup: function ($groupId, $title, $callback) {
+        updateGroup: function ($id, $title, $callback) {
             var $request = {
                 title: $title
             };
 
-            Util.request('PATCH', 'fan-group/update/' + $groupId, $request, $callback);
+            Util.request('PATCH', 'fan-group/update/' + $id, $request, $callback);
         },
     };
 

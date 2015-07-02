@@ -29,12 +29,12 @@
                                 <h3 class="panel-title">图片库 <small>共 <span class="count">0</span> 张图片</small></h3>
                             </div>
                             <div class="col-md-6">
-                                <button class="pull-right btn btn-success"><i class="ion-plus"></i> 上传图片</button>
+                                <button class="pull-right btn btn-success upload-image"><i class="ion-plus"></i> 上传图片</button>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row images-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="video">
@@ -49,8 +49,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body popup-layer empty-listener row videos-container video-list-thumbs ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="panel-body popup-layer empty-listener row videos-container media-list-thumbs ajax-loading"></div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="voice">
@@ -65,8 +65,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body popup-layer empty-listener row voices-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="panel-body popup-layer empty-listener row voices-container media-list-thumbs ajax-loading"></div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="article">
@@ -77,12 +77,12 @@
                                 <h3 class="panel-title">图文库 <small>共 <span class="count">0</span> 篇文章</small></h3>
                             </div>
                             <div class="col-md-6">
-                                <button class="pull-right btn btn-success"><i class="ion-plus"></i> 创建图文</button>
+                                <a href="{{ admin_url('material/new-article') }}" class="pull-right btn btn-success"><i class="ion-plus"></i> 创建图文</a>
                             </div>
                         </div>
                     </div>
                     <div class="panel-body popup-layer empty-listener row articles-container ajax-loading"></div>
-                    <div class="text-center md-padding hidden load-more"><button class="btn btn-block btn-light">加载更多</button></div>
+                    <div class="pagination-bar"></div>
                 </div>
             </div>
         </div>
@@ -91,22 +91,40 @@
 <script type="text/plain" id="no-content-template">
     <div class="blankslate spacious">
         <h3><i class="ion-ios-information"></i> 无内容</h3>
-        <p>请点击右上角按钮添加内容</p>
+        <p>您可以点击右上角按钮来添加内容</p>
     </div>
 </script>
 <script type="text/plain" id="image-item-template">
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-6 col-sm-3 media-card">
         <a href="<%= url %>" target="_blank" class="popup">
           <img src="<%= url %>" alt="" class="img-responsive">
         </a>
     </div>
 </script>
 <script type="text/plain" id="video-item-template">
-    <div class="col-xs-6 col-sm-3 video-card">
+    <div class="col-xs-6 col-sm-3 media-card">
         <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
-            <img src="http://i.ytimg.com/vi/ZKOtE9DOwGE/mqdefault.jpg" alt="Barca" class="img-responsive" height="130px" />
+            <span class="placeholder bg-video"></span>
             <h2>北京中关村大街理想国际大厦</h2>
             <span class="icon ion-ios-play"></span>
+            <!-- <span class="duration">03:15</span>-->
+        </a>
+    </div>
+</script>
+<script type="text/plain" id="voice-item-template">
+    <div class="col-xs-6 col-sm-3 media-card">
+        <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+            <span class="placeholder bg-vioce"></span>
+            <span class="icon ion-ios-volume-high"></span>
+            <!-- <span class="duration">03:15</span>-->
+        </a>
+    </div>
+</script>
+<script type="text/plain" id="article-item-template">
+    <div class="col-xs-6 col-sm-3 media-card">
+        <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
+            <span class="placeholder bg-vioce"></span>
+            <span class="icon ion-ios-volume-high"></span>
             <!-- <span class="duration">03:15</span>-->
         </a>
     </div>
@@ -115,26 +133,33 @@
 
 @section('js')
 <script src="{{ asset('js/admin/repos/material.js') }}"></script>
+<script src="{{ asset('js/plugins/plupload/js/plupload.full.min.js') }}"></script>
+<script src="{{ asset('js/uploader.js') }}"></script>
 <script>
     $(function(){
-        var emptyContentTemplate = _.template($('#no-content-template').html());
+        var $emptyContentTemplate = _.template($('#no-content-template').html());
 
-        var templates = {
+        var $templates = {
             image: _.template($('#image-item-template').html()),
             video: _.template($('#video-item-template').html()),
+            voice: _.template($('#voice-item-template').html()),
+            article: _.template($('#article-item-template').html()),
         };
 
-        var containers = {
+        var $containers = {
             image: $('.images-container'),
             video: $('.videos-container'),
             voice: $('.voices-container'),
             article: $('.articles-container')
         };
 
+        var $imageUploader = uploader.make('.upload-image', 'image', function(){
+            console.log(arguments);
+        });
 
         // 当无内容时显示“无内容”提示
-        $('.panel-body popup-layer.empty-listener').ifEmpty(function($el){
-            $el.html(emptyContentTemplate()).addClass('no-content');;
+        $('.panel-body.empty-listener').ifEmpty(function($el){
+            $el.html($emptyContentTemplate()).addClass('no-content');;
         });
 
         /**
@@ -153,16 +178,13 @@
             };
 
             Repo.material.lists($request, function($items){
-                var template = templates[$type];
-                var container = containers[$type];
+                var $template = $templates[$type];
+                var $container = $containers[$type];
 
-                container.find('.loader-wrapper').remove();
+                $container.html('');
 
                 _.each($items, function($item) {
-                    if(window.__page == 1){
-                        container.find('.blankslate').remove();
-                    }
-                    container.append(template($item));
+                    $container.append($template($item));
                 });
 
                 pagination($type);
@@ -176,23 +198,31 @@
         });
 
         load('image');
-        load('video');
 
-        function pagination ($type) {
-            var total = window.last_response.total || 1;
+        var $loaded = {
+            image: true
+        };
 
-            if(total > 1){
-                $('.load-more').removeClass('hidden');
-                window.__page++;
-            } else {
-                $('.load-more').addClass('hidden');
+        $('.nav-tabs a').on('show.bs.tab', function(){
+            var $type = $(this).attr('href').substring(1);
+
+            if(typeof $loaded[$type] == 'undefined'){
+                load($type);
+                $loaded[$type] = true;
             }
-        }
-
-        $('.load-more button').on('click', function(){
-            var $type = $(this).closest('.tab-pane').attr('id');
-            load($type);
         });
+
+        function pagination($type) {
+            new Pager('#' + $type + ' .pagination-bar', {
+                total: window.last_response.last_page,
+                current: window.last_response.current_page,
+                classes: 'border-top',
+                onChange: function($page){
+                    console.log('loading page:'+$page);
+                    load($type, $page);
+                }
+            });
+        }
     })
 </script>
 @stop

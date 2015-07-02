@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 /**
@@ -29,8 +30,16 @@ class MaterialController extends Controller
         ];
     }
 
-    public function getLists()
+    public function getNewArticle($value='')
     {
+        return  admin_view('material.new-article');
+    }
+
+    public function getLists(Request $request)
+    {
+        if ($request->type == 'video' || $request->type == 'voice') {
+            return [];
+        }
         // $type：image, video, voice, article
         $arr =  [
             [
@@ -65,6 +74,6 @@ class MaterialController extends Controller
             ],
         ];
 
-        return new \Illuminate\Pagination\LengthAwarePaginator(array_chunk($arr, 2)[\Input::get('page', 1) - 1], 3, 2);
+        return new \Illuminate\Pagination\LengthAwarePaginator(array_chunk($arr, 6)[\Input::get('page', 1) - 1], 1, 6);
     }
 }
