@@ -27,11 +27,6 @@ class FanGroupRepository
     protected $model;
 
     /**
-     * Online Group.
-     */
-    private $onlineGroup;
-
-    /**
      * 实例化 FanGroup Model
 	 * 
 	 * @author yhsong <13810377933@163.com>
@@ -61,46 +56,6 @@ class FanGroupRepository
 				->where('account_id', $accountId)
 				->orderBy($request->sort_by, 'asc')
 				->paginate($pageSize);
-    }
-
-    /**
-     * 获取线上粉丝组列表,并存入数据库
-     */
-    public function onlineLists()
-    {
-        $result = false;
-
-        /*
-         * Online Group List
-         */
-        $onlineData = $this->onlineGroup->lists();
-
-        if ($onlineData) {
-            /**
-             * Prepare Data
-             */
-            $saveData = [];
-
-            foreach ($onlineData as $groupKey => $groupVal) {
-                $saveData[$groupKey]['group_id'] = $groupVal['id'];
-                $saveData[$groupKey]['account_id'] = $this->accountId;
-                $saveData[$groupKey]['title'] = $groupVal['name'];
-                $saveData[$groupKey]['fan_count'] = $groupVal['count'];
-                $saveData[$groupKey]['is_default'] = in_array($groupVal['name'], ['默认组', '屏蔽组', '星标组']) ? 1 : 0;
-            }
-
-            /*
-                * Force Delete
-             */
-            $this->model->where('account_id', $this->accountId)->forceDelete();
-
-            /*
-                * Insert
-             */
-            $result = $this->model->insert($saveData);
-        }
-
-        return [$result];
     }
 
     /**

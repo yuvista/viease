@@ -16,6 +16,11 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\HelloWorld::class,
         \App\Console\Commands\CodeSniffer::class,
+        \App\Console\Commands\FanGroup::class,
+		\App\Console\Commands\AllFanGroup::class,
+		\App\Console\Commands\Fan::class,
+		\App\Console\Commands\AllFan::class,
+		\App\Console\Commands\FanInfo::class,
                           ];
 
     /**

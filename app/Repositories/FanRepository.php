@@ -19,11 +19,6 @@ class FanRepository
      */
     protected $model;
 
-    /**
-     * Online Group.
-     */
-    private $onlineUser;
-
     public function __construct()
     {
         $this->model = new Fan();
@@ -51,62 +46,6 @@ class FanRepository
 				})
 				->orderBy($request->sort_by, 'desc')
 				->paginate($pageSize);
-    }
-
-    /**
-     * 获取线上粉丝列表
-     */
-    public function onlineLists()
-    {
-        set_time_limit(0);
-
-        /*
-            * Online User List
-         */
-        $onlineData = $this->onlineUser->lists();
-        $dataToArr = json_decode($onlineData, true);
-        if (isset($dataToArr['data']['openid']) && !empty($dataToArr['data']['openid'])) {
-            /*
-                * 未取消关注的，先取消关注(设置为当前时间)
-             */
-            $this->model->where('account_id', $this->accountId)->delete();
-
-            /*
-                * Prepare Data
-             */
-            foreach ($dataToArr['data']['openid'] as $openId) {
-                $input['account_id'] = $this->accountId;
-                $input['openid'] = $openId;
-
-                $userInfo = $this->onlineUser->get($openId);   //获取公众号用户信息
-                if ($userInfo['subscribe']) {
-                    $updateInput['nickname'] = $userInfo['nickname'];               //昵称
-                    $updateInput['sex'] = $userInfo['sex'];                         //性别
-                    $updateInput['city'] = $userInfo['city'];                       //城市
-                    $updateInput['country'] = $userInfo['country'];                 //国家
-                    $updateInput['province'] = $userInfo['province'];               //省
-                    $updateInput['language'] = $userInfo['language'];               //语言
-                    $updateInput['avatar'] = $userInfo['headimgurl'];               //头像
-                    $updateInput['subscribed_at'] = $userInfo['subscribe_time'];    //关注时间
-                    $updateInput['unionid'] = $userInfo['unionid'];                 //unionid
-                    $updateInput['remark'] = $userInfo['remark'];                   //备注
-                    $updateInput['group_id'] = $userInfo['groupid'];                //组ID
-                    $updateInput['deleted_at'] = null;
-                }
-
-                /*
-                    * Local Save
-                 */
-                $model = $this->model->withTrashed()->where('openid', $openId)->first();
-                if ($model) {
-                    $this->model->withTrashed()->where('id', $model['id'])->update($updateInput);
-                } else {
-                    $this->model->insert($input);
-                }
-            }
-        }
-
-        return [$dataToArr];
     }
 
     /**

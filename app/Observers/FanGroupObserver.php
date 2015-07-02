@@ -59,7 +59,6 @@ class FanGroupObserver
 		 * 1 获取更新的属性
 		 */
 		$insertArr = $fanGroupModel->getDirty();
-		
 		if(isset($insertArr['group_id']) && $insertArr['group_id']!=-1)
 		{
 			/**
