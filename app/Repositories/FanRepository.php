@@ -57,7 +57,7 @@ class FanRepository
         $model = $this->model->find($request['id']);
         return $this->_savePost($model, ['remark' => $request['remark']]);
     }
-	
+
 	/**
      * 通过粉丝ID 更改粉丝所属组(支持批量)
      *
@@ -73,16 +73,16 @@ class FanRepository
 		}
 		return true;
     }
-	
+
 	/**
 	 * 通过粉丝ID 获取粉丝组group_id和粉丝人数[支持批量]
-	 * 
+	 *
 	 * @param Array $ids       粉丝自增ID
 	 * @return void
 	 */
 	public function getFanGroupByfanIds($ids)
 	{
-		
+
 		$groupIds = [];
 		$return = [];
 		//根据粉丝ID查询group_id
@@ -93,16 +93,16 @@ class FanRepository
 			{
                 $groupIds[$fan['id']] = $fan['group_id'] ? $fan['group_id'] : 0;
             }
-			
+
 			foreach($groupIds as $groupId)
 			{
 				$return[$groupId] = isset($return[$groupId]) ? ($return[$groupId]+1) : 1;
 			}
         }
 		return $return;
-		
+
 	}
-	
+
 	/**
      * 通过粉丝组ID 更改粉丝所属组(支持批量)
      *
@@ -116,9 +116,9 @@ class FanRepository
         return $this->model->where('account_id', $accountId)
 					->where('group_id', $fromGroupId)
 					->update(['group_id' => $toGroupId]);
-		
+
     }
-	
+
 	/**
      * save
      *

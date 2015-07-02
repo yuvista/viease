@@ -26,7 +26,7 @@ class FanController extends Controller
      *
      * @var type
      */
-    private $pageSize = 30;
+    private $pageSize = 21;
 
     /**
      * constructer
@@ -42,7 +42,7 @@ class FanController extends Controller
 	{
 		//return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
 	}
-	
+
 	public function getIndex()
     {
         return admin_view('fan.index');
@@ -76,16 +76,16 @@ class FanController extends Controller
     {
         /**
 		 * 请求参数：
-		 * 
+		 *
 		 * id: 自增ID
 		 * remark: 新的备注名
 		 */
 		return $this->fan->updateRemark($request);
     }
-	
+
 	/**
 	 * 获取 Account
-	 * 
+	 *
 	 * @return Object
 	 */
 	private function getAccount(){

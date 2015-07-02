@@ -20,9 +20,9 @@
          */
         getFans: function ($groupId, $sortBy, $callback, $page) {
             var $request = {
-                group_id: $groupId || null,
-                sort_by: $sortBy || null,
-                page: $page || window.__page + 1 || 1,
+                group_id: $groupId || 0,
+                sort_by: $sortBy || 'id',
+                page: $page || window.__page + 1 || 1
             };
 
             Util.request('GET', 'fan/lists', $request, $callback);

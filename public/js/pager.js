@@ -12,122 +12,41 @@ function Pager($selector, $options){
     var $pager = {
         option: {
             container: undefined,
-            total: 0,
-            current:0,
+            total: 1,
+            current:1,
             classes: undefined,
             onChange: function(page){
                 console.log(page);
             }
         },
 
-        /**
-         * 创建分页器
-         *
-         * @param {String} $selector
-         * @param {Object} $options
-         */
-        make: function($selector, $options){
-            var $container = $($selector);
-
-            $pager.option = $.extend(true, $pager.option, $options);
-
-            if($pager.option.total <= 0){
-                return;
+        display: function($option){
+            if ($option.total <= 1) {
+                return $pager.hide();
+            } else {
+                $pager.show();
             }
+            $pager.option = $.extend(true, $pager.option, $option);
+            $pager.render();
+            console.log($pager.option.current, $pager.option.total);
+        },
 
-            $pager.option.container = $selector;
+        hide: function(){
+            $pager.option.container.find('.viease-pager').hide();
+        },
 
-            $pager.render($pager.option);
-
-            $container.find('a').on('click', function(e){
-                e.preventDefault();
-            });
-
-            // 上一页
-            $container.on('click', '.viease-pager-btn-prev', function() {
-                var $current = $pager.current();
-
-                if ($current - 1 <= 0){
-                    return;
-                }
-
-                $pager.option.onChange($current - 1);
-                $pager.option.current = $current - 1;
-                $pager.render();
-            });
-
-            // 下一页
-            $container.on('click', '.viease-pager-btn-next', function () {
-                var $current = $pager.current();
-
-                if ($current + 1 > $pager.option.total){
-                    return;
-                }
-
-                $pager.option.onChange($current + 1);
-                $pager.option.current = $current + 1;
-                $pager.render();
-            });
-
-            // 跳转
-            $container.on('click', '.viease-pager-btn-goto', function() {
-                var $page = parseInt($container.find('.viease-pager-to-page').val()) || $pager.current();
-
-                if ($page > $pager.option.total || $page < 1 || $page  == $pager.current()){
-                    return;
-                }
-                $pager.option.onChange($page);
-                $pager.option.current = $page;
-                $pager.render();
-            });
+        show: function(){
+            $pager.option.container.find('.viease-pager').show();
         },
 
         /**
-         * 获取上一页
-         *
-         * @return {Int}
+         * 渲染当前分页数据
          */
-        prev: function(){
-            var $current = $pager.current();
-
-            return $current - 1 < 0 ? $current : $current - 1;
-        },
-
-        /**
-         * 获取下一页
-         *
-         * @return {Int}
-         */
-        next: function(){
-            var $current = $pager.current();
-
-            return $current + 1 > $pager.option.total ? $current : $current + 1;
-        },
-
-        /**
-         * 获取当前页
-         *
-         * @param {String} $container
-         *
-         * @return {Int}
-         */
-        current: function(){
-            return parseInt($($pager.option.container + ' .viease-pager-current-page').text()) || 1;
-        },
-
         render: function(){
             var $option = $pager.option;
-            var $container = $($option.container);
+            var $container = $option.container;
 
-            var $new = $template.replace('CURRENT_PAGE', $option.current || 1)
-                                .replace('CLASSES', $option.classes)
-                                .replace('TOTAL_PAGE', $option.total || 1);
-
-            $container.find('.viease-pager').remove();
-
-            $container.append($new);
-
-            console.log($option);
+            $pager.create();
 
             if ($option.current == 1){
                 $container.find('.viease-pager-btn-prev').hide();
@@ -141,8 +60,110 @@ function Pager($selector, $options){
                 $container.find('.viease-pager-btn-next').show();
             }
 
+            $container.find(' .viease-pager-current-page').text($option.current);
+            $container.find(' .viease-pager-total-page').text($option.total);
+        },
+
+        /**
+         * 创建 DOM
+         */
+        create: function(){
+            var $option = $pager.option;
+            var $container = $option.container;
+
+            if ($container.find('.viease-pager').length) {
+                return;
+            }
+
+            var $new = $template.replace('CURRENT_PAGE', $option.current || 1)
+                                .replace('CLASSES', $option.classes)
+                                .replace('TOTAL_PAGE', $option.total || 1);
+
+            $container.append($new);
+
+            $pager.listen($container);
+        },
+
+        listen: function($container){
+            $container.find('a').on('click', function(e){
+                e.preventDefault();
+            });
+
+            // 上一页
+            $container.on('click', '.viease-pager-btn-prev', function() {
+                var $current = $pager.option.current;
+
+                if ($current - 1 <= 0){
+                    return;
+                }
+
+                $pager.option.current--;
+                $pager.render();
+                $pager.option.onChange($current - 1);
+            });
+
+            // 下一页
+            $container.on('click', '.viease-pager-btn-next', function () {
+                var $current = $pager.option.current;
+
+                if ($current + 1 > $pager.option.total){
+                    return;
+                }
+
+                $pager.option.current++;
+                $pager.render();
+                $pager.option.onChange($current + 1);
+            });
+
+            // 跳转
+            $container.on('click', '.viease-pager-btn-goto', function() {
+                var $page = parseInt($container.find('.viease-pager-to-page').val()) || $pager.current();
+
+                if ($page > $pager.option.total || $page < 1 || $page  == $pager.current()){
+                    return;
+                }
+                $pager.option.current = $page;
+                $pager.render();
+                $pager.option.onChange($page);
+            });
+        },
+
+        /**
+         * 获取上一页
+         *
+         * @return {Int}
+         */
+        prev: function(){
+            var $current = $pager.option.current;
+
+            return $current - 1 < 0 ? $current : $current - 1;
+        },
+
+        /**
+         * 获取下一页
+         *
+         * @return {Int}
+         */
+        next: function(){
+            var $current = $pager.option.current;
+
+            return $current + 1 > $pager.option.total ? $current : $current + 1;
+        },
+
+        /**
+         * 获取当前页
+         *
+         * @param {String} $container
+         *
+         * @return {Int}
+         */
+        current: function(){
+            return parseInt($pager.option.container.find('.viease-pager-current-page').text()) || 1;
         }
     }
 
-    $pager.make($selector, $options);
+    $pager.option = $.extend(true, $pager.option, $options || {});
+    $pager.option.container = $($selector);
+
+    return $pager;
 }

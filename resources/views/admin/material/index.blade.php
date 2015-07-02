@@ -153,6 +153,8 @@
             article: $('.articles-container')
         };
 
+        var $pagers = {};
+
         var $imageUploader = uploader.make('.upload-image', 'image', function(){
             console.log(arguments);
         });
@@ -186,17 +188,37 @@
                 _.each($items, function($item) {
                     $container.append($template($item));
                 });
-
-                pagination($type);
+                $pagers[$type].display({
+                    total: window.last_response.last_page,
+                    current: window.last_response.current_page,
+                });
             });
         }
 
+        /**
+         * 生成分页器
+         *
+         * @param {String} $type
+         *
+         * @return {Pager}
+         */
+        function getPager ($type) {
+            return new Pager('#' + $type + ' .pagination-bar', {
+                                classes: 'border-top',
+                                onChange: function($page){
+                                    load($type, $page);
+                                }
+                            })
+        }
+
+        // 加载总数
         Repo.material.summary(function($summary){
             _.mapObject($summary, function($count, $type) {
                 $('#' + $type + ' .count').html($count);
             });
         });
 
+        $pagers['image'] = getPager('image');
         load('image');
 
         var $loaded = {
@@ -207,22 +229,12 @@
             var $type = $(this).attr('href').substring(1);
 
             if(typeof $loaded[$type] == 'undefined'){
+                $pagers[$type] = getPager($type);
                 load($type);
                 $loaded[$type] = true;
             }
         });
 
-        function pagination($type) {
-            new Pager('#' + $type + ' .pagination-bar', {
-                total: window.last_response.last_page,
-                current: window.last_response.current_page,
-                classes: 'border-top',
-                onChange: function($page){
-                    console.log('loading page:'+$page);
-                    load($type, $page);
-                }
-            });
-        }
     })
 </script>
 @stop

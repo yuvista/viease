@@ -3,7 +3,8 @@
     .fan-item {
         border-right: 1px solid #f4f4f4;
         border-bottom: 1px solid #f4f4f4;
-
+        height: 65px;
+        overflow: hidden;
         &:hover {
             background: rgba(241, 241, 241, 0.37);
         }
