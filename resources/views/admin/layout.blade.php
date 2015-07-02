@@ -121,7 +121,7 @@
       </div>
     </div>
   </header>
-  <div class="container">
+  <div class="container main-container">
     <div class="console-wrapper table-box">
       <section class="console-container table-row">
         <aside class="console-sidebar-wrapper table-cell">
@@ -132,7 +132,8 @@
         </section>
       </section>
     </div>
-    <div class="console-footer">
+  </div>
+  <div class="console-footer">
       <div class="clearfix text-center">
         <ul class="list-unstyled list-inline">
         <li>POWERED BY <a href="http://www.viease.com" target="_blank">viease {{ VIEASE_VERSION }}</a> &copy;  2015</li>
@@ -141,7 +142,6 @@
         </button>
       </div>
     </div>
-  </div>
   <div class="loading text-center" style="display:none;">
       <span class="plus-loader"></span>
       <span class="message">网络加载中...</span>

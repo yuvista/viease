@@ -38,7 +38,6 @@ Route::group($admin, function () {
             'fan' => 'FanController',
             'fan-group' => 'FanGroupController',
             'menu' => 'MenuController',
-            'material/article' => 'ArticleController',
             'material' => 'MaterialController',
             'analysis' => 'AnalysisController',
             'staff' => 'StaffController',

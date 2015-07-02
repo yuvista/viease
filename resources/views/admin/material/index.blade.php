@@ -77,7 +77,7 @@
                                 <h3 class="panel-title">图文库 <small>共 <span class="count">0</span> 篇文章</small></h3>
                             </div>
                             <div class="col-md-6">
-                                <button class="pull-right btn btn-success"><i class="ion-plus"></i> 创建图文</button>
+                                <a href="{{ admin_url('material/new-article') }}" class="pull-right btn btn-success"><i class="ion-plus"></i> 创建图文</a>
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,6 @@
         </a>
     </div>
 </script>
-<div id="queue"></div>
 @stop
 
 @section('js')

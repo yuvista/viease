@@ -30,6 +30,11 @@ class MaterialController extends Controller
         ];
     }
 
+    public function getNewArticle($value='')
+    {
+        return  admin_view('material.new-article');
+    }
+
     public function getLists(Request $request)
     {
         if ($request->type == 'video' || $request->type == 'voice') {
