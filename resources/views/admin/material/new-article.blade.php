@@ -41,7 +41,7 @@
 
                     <div class="form-group">
                     <label>正文<small></small></label>
-                        <script id="container" name="content" style="width:100%;" type="text/plain"></script>
+                        <script id="container" name="content" style="width:100%;height:200px;" type="text/plain"></script>
                     </div>
 
                     <div class="form-group">
