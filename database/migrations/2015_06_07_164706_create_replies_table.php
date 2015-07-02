@@ -21,7 +21,7 @@ class CreateRepliesTable extends Migration
                     'keywords'
                 ])->comment('回复类型 follow 关注回复 default 默认回复 keywords 关键词回复');  
             $table->string('name', 30)->nullable()->comment('规则名称'); //标题
-            $table->string('trigger_texts', 500)->nullable()->comment('触发文字'); //触发文字
+            $table->json('trigger_keywords', 500)->nullable()->comment('触发文字'); //触发文字
             $table->enum('trigger_type', [
                     'equal',
                     'contain'

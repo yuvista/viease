@@ -34,9 +34,16 @@ class ReplyController extends Controller
     /**
      * replyService.
      *
-     * @var [type]
+     * @var replyService
      */
     private $replyService;
+
+    /**
+     * accountId.
+     *
+     * @var int
+     */
+    private $accountId;
 
     /**
      * construct.
@@ -48,6 +55,8 @@ class ReplyController extends Controller
         $this->replyService = $replyService;
 
         $this->replyRepository = $replyRepository;
+
+        $this->accountId = account()->getCurrent()->id;
     }
 
     /**
@@ -63,9 +72,7 @@ class ReplyController extends Controller
      */
     public function getFollowReply()
     {
-        $accountId = account()->getCurrent()->id;
-
-        $reply = $this->replyRepository->getFollowReply($accountId);
+        $reply = $this->replyRepository->getFollowReply($this->accountId);
 
         return $this->replyService->resolveEventReply($reply);
     }
@@ -75,9 +82,7 @@ class ReplyController extends Controller
      */
     public function getNoMatchReply()
     {
-        $accountId = account()->getCurrent()->id;
-
-        return $this->replyRepository->getNoMatchReply($accountId);
+        return $this->replyRepository->getNoMatchReply($this->accountId);
     }
 
     /**
@@ -87,25 +92,21 @@ class ReplyController extends Controller
      */
     public function getList(Request $request)
     {
-        $accountId = account()->getCurrent()->id;
-
-        $pageSize = $request->get('page', $this->pageSize);
-
-        return $this->replyRepository->getList($accountId, $pageSize);
+        return $this->replyRepository->getList($this->accountId, $pageSize);
     }
 
     /**
      * 新增与保存事件自动回复[ 关注与无匹配 ].
      *
      * @param EventRequest $request request
+     *
+     * @return  array
      */
     public function postSaveEventReply(EventRequest $request)
     {
-        $accountId = account()->getCurrent()->id;
+        $reply = $this->replyRepository->saveEventReply($request, $this->accountId);
 
-        $reply = $this->replyRepository->saveEventReply($request, $accountId);
-
-        return $this->replyService->resolveEventReply($reply);
+        return $this->replyService->resolveReply($reply);
     }
 
     /**
@@ -113,11 +114,13 @@ class ReplyController extends Controller
      *
      * @param CreateRequest $request request
      *
-     * @return Response
+     * @return array
      */
     public function postStore(CreateRequest $request)
     {
-        $accountId = account()->getCurrent()->id;
+        $reply = $this->replyRepository->store($request, $this->accountId);
+
+        return $this->replyService->resolveReply($reply);
     }
 
     /**
@@ -126,10 +129,12 @@ class ReplyController extends Controller
      * @param UpdateRequest $request request
      * @param int           $id      id
      *
-     * @return Response
+     * @return array
      */
     public function postUpdate(UpdateRequest $request, $id)
     {
-        $accountId = account()->getCurrent()->id;
+        $reply = $this->replyRepository->update($id, $request, $this->accountId);
+
+        return $this->replyService->resolveReply($reply);
     }
 }

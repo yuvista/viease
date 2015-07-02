@@ -1,25 +1,18 @@
-
 $(document).ready(function () {
 
-    $.fn.domchanged = function(callback){
-        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    // 检查div内是否为空
+    $.fn.ifEmpty = function(cb){
         var _this = this;
-        var observer = new MutationObserver(function(mutations, observer) {
-            console.log(mutations);
-            _this.trigger('domchanged');
-        });
+        setInterval(function(){
+            _this.each(function(index, el) {
+                var el = $(el);
+                if(!el.html().length || !el.html().replace(new RegExp('[\s\n\r\t ]+', 'g'), '').length){
+                    return cb(el);
+                }
+            });
+        }, 50);
+    };
 
-        observer.observe(document, {
-            subtree: true,
-            attributes: true,
-            childList: true,
-            characterData: true,
-            attributeOldValue: true,
-            characterDataOldValue: true
-        });
-
-        this.on("domchanged", callback).trigger('domchanged');
-    }
 
     $.ajaxSetup({
         headers: {
@@ -51,6 +44,24 @@ $(document).ready(function () {
         });
     });
 
+    // 图片弹窗
+    $('.popup-layer').magnificPopup({delegate: 'a.popup', type:'image'});
+
+    // tabs
+    $('.nav-tabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show');
+    });
+
+    // 滚动条
+    $(window).scroll(function(event) {
+        if($(window).scrollTop() >= 400){
+            return $('.back-to-top').stop().fadeIn();
+        }
+
+        $('.back-to-top').stop().fadeOut();
+    });
+
     // .popover自动关闭
     // TODO:有bug
     $(document).on('click', ':not(".popover, .popover *")', function(event){
@@ -64,7 +75,6 @@ $(document).ready(function () {
         $this.parent().addClass('active').siblings().removeClass('active');
         showMenu($group);
     });
-
     $('.top-nav > ul > li > a:first').trigger('click');
 
     // 左侧菜单点击
@@ -97,6 +107,16 @@ $(document).ready(function () {
       var switchery = new Switchery(html, { size: html.getAttribute('data-size') || 'default' });
     });
 });
+
+String.prototype.limit = function(length, suffix){
+    var suffix = suffix || '...';
+
+    if(this.length > length){
+        return this.substring(0, length) + suffix;
+    }
+
+    return this;
+};
 
 /**
  * 展示左菜单

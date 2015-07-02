@@ -2,6 +2,9 @@
 
 define('LARAVEL_START', microtime(true));
 
+// 微易版本号
+define('VIEASE_VERSION', "0.0.1");
+
 /*
 |--------------------------------------------------------------------------
 | Register The Composer Auto Loader

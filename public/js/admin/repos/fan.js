@@ -18,11 +18,11 @@
          * @param {[type]}   $page
          * @param {Function} $callback
          */
-        getFans: function ($groupId, $sortBy, $page, $callback) {
+        getFans: function ($groupId, $sortBy, $callback, $page) {
             var $request = {
                 group_id: $groupId || null,
                 sort_by: $sortBy || null,
-                page: $page || 1,
+                page: $page || window.__page + 1 || 1,
             };
 
             Util.request('GET', 'fan/lists', $request, $callback);
@@ -66,10 +66,10 @@
          * @param {Int}      $page
          * @param {Function} $callback
          */
-        getGroups: function ($sortBy, $page, $callback) {
+        getGroups: function ($sortBy, $callback, $page) {
             var $request = {
                 sort_by: $sortBy || null,
-                page: $page || 1,
+                page: $page || window.__page + 1 || 1,
             };
 
             Util.request('GET', 'fan-group/lists', $request, $callback);

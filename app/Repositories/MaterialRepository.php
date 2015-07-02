@@ -62,7 +62,8 @@ class MaterialRepository
      *
      * @param int    $accountId  账号id
      * @param string $materialId mediaId
-     *
+     <<<<<<< HEAD
+     * @return bool
      * @return bool
      */
     public function isExists($accountId, $materialId)

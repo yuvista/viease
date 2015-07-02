@@ -2,16 +2,14 @@
 @section('content')
 <div class="console-content">
     <div class="page-header">
-        <h2 id="nav">菜单管理</h2>
+        <h2 id="nav">菜单管理 <div class="pull-right"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="启用或停用菜单">停用</button></div></h2>
     </div>
     <div class="well row">
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">自定义菜单 <a href="javascript:;" data-toggle="tooltip" data-placement="top" title="" data-original-title="创建一个菜单" class="add-menu-item pull-right"><i class="ion-android-add icon-md" ></i></a></div>
                 <div class="list-group">
-                    <div class="menus no-menus resizeable">
-
-                    </div>
+                    <div class="menus no-menus resizeable"></div>
                 </div>
             </div>
         </div>
@@ -60,10 +58,8 @@ $(function(){
     var i = 0;
 
     // 监听变化
-    menusListContainer.domchanged(function(){
-        if ($(this).height() < 50) {
-            $(this).html(emptyMenusTemplate()).addClass('no-menus');;
-        };
+    menusListContainer.ifEmpty(function(el){
+        el.html(emptyMenusTemplate()).addClass('no-menus');;
     });
 
     // 显示菜单列表
@@ -111,7 +107,7 @@ $(function(){
         var $params = Util.parseForm($(this));
 
         if (!$params.id) {
-            $(this).closest('form').remove();
+            $(this).closest('form').parent().remove();
         };
     });
 });

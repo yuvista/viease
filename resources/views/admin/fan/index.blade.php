@@ -89,7 +89,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <div class="fan-nickname"><%= fan.nickname %></div>
+                <div class="fan-nickname"><%= fan.nickname.limit(5) %></div>
                 <div class="text-muted"><%= fan.location %></div>
             </div>
         </div>
@@ -153,28 +153,21 @@
             page = $page;
             sortBy = $sortBy;
 
-            Repo.fan.getFans($groupId, $sortBy, $page, function($fans){
-                if (typeof $fans['current_page'] != 'undefined') {
-                    $fans = $fans.data;
-                };
+            Repo.fan.getFans($groupId, $sortBy, function($fans){
                 fanContainer.html(fanTemplate({fans:$fans}));
-            });
+            }, $page);
         }
 
         // 加载组列表
         function loadGroups($sortBy, $page) {
-            Repo.fan.getGroups($sortBy, $page, function($groups){
-                if ($groups['current_page']) {
-                    $groups = $groups.data;
-                };
-
+            Repo.fan.getGroups($sortBy, function($groups){
                 // 加入 “全部分组”
                 var totalfans = _.reduce($groups, function(sum, group){return sum + group.fan_count;}, 0);
 
                 $groups.unshift({id:0, title: "全部用户", fan_count:totalfans});
 
                 groupContainer.html(groupTemplate({groups:$groups}));
-            });
+            }, $page);
         }
 
         loadFans(); // 第一次加载全部用户

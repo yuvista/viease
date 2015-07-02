@@ -89,50 +89,23 @@ class ReplyRepository
 
         $type = $request->type;
 
-        $model = $this->model->firstOrCreate([
-                'account_id' => $accountId,
-                'type' => $type,
-            ]);
-
-        if ($model) {
-            $this->saveToEvent($replyType, $content, $accountId);
-        } else {
-            $this->updateEvent($replyType, $content, $accountId);
-        }
-
         $input = $request->all();
 
-        unset($input['reply_content'], $input['reply_type']);
+        $model = $this->model->where('account_id', $accountId)
+                             ->where('type', $type)
+                             ->first();
 
-        $input['account_id'] = $accountId;
-
-        $input['content'] = [$eventId];
-
-        return $this->savePost($model, $input);
-    }
-
-    /**
-     * 新增一个事件到关注或无匹配回复.
-     *
-     * @param string $replyType 回复类型
-     * @param string $content   回复内容
-     * @param int    $accountId accountId
-     *
-     * @return string eventId
-     */
-    private function saveToEvent($replyType, $content, $accountId)
-    {
-        if ($replyType == 'text') {
-            $eventId = $this->eventRepository->storeText($replyContent, $accountId);
+        if (!$model) {
+            $eventId = $this->saveReplyToEvent($replyType, $replyContent, $accountId);
+            $input['content'] = array($eventId);
+            $input['account_id'] = $accountId;
+            $model = new $this->model();
         } else {
-            $eventId = $this->eventRepository->storeMaterial($replyContent, $accountId);
+            $eventId = $model->content;
+            $this->updateEvent($eventId, $replyType, $replyContent);
         }
 
-        return $eventId;
-    }
-
-    private function updateEvent($replyType, $content, $accountId)
-    {
+        return $this->savePost($model, $input);
     }
 
     /**
@@ -145,6 +118,120 @@ class ReplyRepository
      */
     public function store($request, $accountId)
     {
+        $reply = new $this->model();
+
+        $input = $request->all();
+
+        $replies = $input['replies'];
+
+        $input['content'] = $this->saveRepliesToEvent($replies, $accountId);
+
+        $input['account_id'] = $accountId;
+
+        $input['type'] = Reply::TYPE_KEYWORDS;
+
+        return $this->savePost($reply, $input);
+    }
+
+    /**
+     * 保存自动回复到事件.
+     *
+     * @param array $replies   回复内容
+     * @param int   $accountId accountId
+     *
+     * @return array
+     */
+    private function saveRepliesToEvent($replies, $accountId)
+    {
+        $eventRepository = $this->eventRepository;
+
+        $eventId = array_map(function ($reply) use ($eventRepository, $accountId) {
+            if ($reply['type'] == 'text') {
+                return $eventRepository->storeText($reply['content'], $accountId);
+            } else {
+                return $eventRepository->storeMaterial($reply['content'], $accountId);
+            }
+        }, $replies);
+
+        return $eventId;
+    }
+
+    /**
+     * 新增一个回复到事件.
+     *
+     * @param string $replyType 回复类型
+     * @param string $content   回复内容
+     * @param int    $accountId accountId
+     *
+     * @return string eventId
+     */
+    private function saveReplyToEvent($replyType, $content, $accountId)
+    {
+        if ($replyType == 'text') {
+            $eventId = $this->eventRepository->storeText($content, $accountId);
+        } else {
+            $eventId = $this->eventRepository->storeMaterial($content, $accountId);
+        }
+
+        return $eventId;
+    }
+
+    /**
+     * 更新一个自动回复中的事件.
+     *
+     * @param string $eventId   eventId
+     * @param string $replyType 回复类型
+     * @param string $content   回复内容
+     */
+    private function updateEvent($eventId, $replyType, $content)
+    {
+        $event = $this->eventRepository->findByEventId($eventId);
+
+        if ($replyType == 'text') {
+            $this->eventRepository->updateToText($eventId, $content);
+        } else {
+            $this->eventRepository->updateToMaterial($eventId, $content);
+        }
+    }
+
+    /**
+     * 更新自动回复.
+     *
+     * @param int     $id        id
+     * @param Request $request   request
+     * @param integet $accountId accountId
+     *
+     * @return Reply
+     */
+    public function update($id, $request, $accountId)
+    {
+        $reply = $this->model->find($id);
+
+        $input = $request->all();
+
+        $replies = $request->replies;
+
+        $this->distoryReplyEvent($reply->content);
+
+        $input['content'] = $this->saveRepliesToEvent($replies, $accountId);
+
+        return $this->savePost($reply, $input);
+    }
+
+    /**
+     * 删除事件.
+     *
+     * @param array $eventIds 事件ids
+     */
+    private function distoryReplyEvent($eventIds)
+    {
+        $eventRepository = $this->eventRepository;
+
+        return array_map(function ($eventId) use ($eventRepository) {
+
+            return $eventRepository->distoryByEventId($eventId);
+
+        }, $eventIds);
     }
 
     /**

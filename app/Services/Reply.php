@@ -30,11 +30,8 @@ class Reply
      *
      * @return array
      */
-    public function resolveEventReply($reply)
+    public function resolveReply($reply)
     {
-        if (!$reply) {
-            return;
-        }
         $reply = $reply->toArray();
 
         $eventService = $this->eventService;

@@ -11,12 +11,23 @@
      */
     Repo.material = {
         /**
+         * 获取资源数量汇总
+         *
+         * @param {Function} $callback
+         */
+        summary: function($callback){
+            Util.request('GET', 'material/summary',{}, $callback);
+        },
+
+        /**
          * 获取素材列表
          *
          * @param {Object}   $request
          * @param {Function} $callback
          */
-        getLists: function($request, $callback){
+        lists: function($request, $callback){
+            $request['page'] = $request['page'] || (window.__page || 0) + 1;
+
             Util.request('GET', 'material/lists', $request, $callback);
         },
 
@@ -25,12 +36,13 @@
          *
          * @param {Function} $callback
          */
-        getImages: function($callback){
+        getImages: function($callback, $page){
             var $request = {
-                type: 'image'
+                type: 'image',
+                page: $page,
             };
 
-            Repo.material.getLists($request, $callback);
+            Repo.material.lists($request, $callback);
         },
 
         /**
@@ -38,12 +50,13 @@
          *
          * @param {Function} $callback
          */
-        getVideos: function($callback){
+        getVideos: function($callback, $page){
             var $request = {
-                type: 'video'
+                type: 'video',
+                page: $page,
             };
 
-            Repo.material.getLists($request, $callback);
+            Repo.material.lists($request, $callback);
         },
 
         /**
@@ -51,12 +64,13 @@
          *
          * @param {Function} $callback
          */
-        getVoices: function($callback){
+        getVoices: function($callback, $page){
             var $request = {
-                type: 'voice'
+                type: 'voice',
+                page: $page,
             };
 
-            Repo.material.getLists($request, $callback);
+            Repo.material.lists($request, $callback);
         },
 
         /**
@@ -64,12 +78,13 @@
          *
          * @param {Function} $callback
          */
-        getArticles: function($callback){
+        getArticles: function($callback, $page){
             var $request = {
-                type: 'article'
+                type: 'article',
+                page: $page,
             };
 
-            Repo.material.getLists($request, $callback);
+            Repo.material.lists($request, $callback);
         },
 
         /**

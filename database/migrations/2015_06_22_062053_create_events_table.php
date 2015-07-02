@@ -23,7 +23,6 @@ class CreateEventsTable extends Migration
             $table->enum('type', ['addon','text','material'])->comment('事件类型');
             $table->string('content',600)->comment('事件触发的内容,自动回复的字数而定'); 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

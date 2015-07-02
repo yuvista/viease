@@ -23,3 +23,35 @@
 .popover .bootstrap-select {
     max-width:120px;
 }
+
+// tabs
+.nav-tabs>li>a {
+    border:none;
+    text-align: center;
+    border-radius: 0;
+    background:transparent;
+    outline:none;
+    margin-bottom: -1px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border:none;
+    border-bottom:3px solid $brand-color;
+}
+
+.nav-tabs>li>a:focus, .nav-tabs>li>a:hover {
+    background: none;
+    border:none;
+    border-bottom:3px solid $brand-color;
+}
+
+.nav-tabs.min-with-md>li {
+    min-width: 130px;
+}
+
+.flex {
+    display: flex;
+    [class*="col-"] {
+        display:flex;
+    }
+}

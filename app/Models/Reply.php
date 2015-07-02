@@ -24,6 +24,10 @@ class Reply extends Model
      */
     const TYPE_KEYWORDS = 'keywords';
 
+    const TRIGGER_TYPE_EQUAL = 'equal';
+
+    const TRIGGER_TYPE_CONTAIN = 'contain';
+
     /**
      * casts.
      *
@@ -31,6 +35,7 @@ class Reply extends Model
      */
     protected $casts = [
         'content' => 'json',
+        'trigger_keywords' => 'json',
     ];
 
     /**
@@ -41,7 +46,8 @@ class Reply extends Model
     protected $fillable = [
         'account_id',
         'name',
-        'trigger_texts',
+        'type',
+        'trigger_keywords',
         'trigger_type',
         'group_ids',
         'content',
@@ -56,7 +62,7 @@ class Reply extends Model
         'account_id' => '所属公众号',
         'name' => '规则名称',
         'type' => '回复类型',
-        'trigger_texts' => '触发文字',
+        'trigger_keywords' => '触发关键词',
         'trigger_type' => '触发类型',
         'group_ids' => '适用组id',
         'content' => '回复内容',

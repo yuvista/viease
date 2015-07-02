@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{{ asset('/js/plugins/switchery/dist/switchery.min.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/js/plugins/bootstrap-select/dist/css/bootstrap-select.min.css') }}" media="screen">
+  <link rel="stylesheet" href="{{ asset('/js/plugins/magnific-popup/dist/magnific-popup.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
   @yield('css')
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -68,11 +69,29 @@
                 </li>
                 @endforeach
               </ul>
-              @unless($global->accounts->isEmpty())
-              <ul class="nav navbar-nav">
+
+              <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          @if($global->current_account) {{ $global->current_account->name }} @endif
+                          <i class="ion-ios-person icon-md"></i> Admin
+                          <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li>
+                              <a href="{{ admin_url('user/edit/' . $global->user->id) }}">账号设置</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                              <a href="{{ admin_url('auth/logout') }}">注销</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              @unless($global->accounts->isEmpty())
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                          @if($global->current_account) <i class="ion-chatbubble icon-md"></i>  {{ $global->current_account->name }} @endif
                           <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
@@ -96,24 +115,6 @@
                   </li>
               </ul>
               @endunless
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                          Admin
-                          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
-                          <li>
-                              <a href="{{ admin_url('user/edit/' . $global->user->id) }}">账号设置</a>
-                          </li>
-                          <li class="divider"></li>
-                          <li>
-                              <a href="{{ admin_url('auth/logout') }}">注销</a>
-                          </li>
-                      </ul>
-                  </li>
-              </ul>
             </div>
           </div>
         </div>
@@ -134,21 +135,24 @@
     <div class="console-footer">
       <div class="clearfix text-center">
         <ul class="list-unstyled list-inline">
-          <li>overtrue © 2015</li>
+        <li>POWERED BY <a href="http://www.viease.com" target="_blank">viease {{ VIEASE_VERSION }}</a> &copy;  2015</li>
         </ul>
         <button class="pull-right hidden-print  back-to-top" onclick="window.scrollTo(0,0)"> <i class="ion-android-arrow-dropup"></i>
         </button>
       </div>
     </div>
   </div>
-  <div class="loading text-center" style="display:none">
-      <div class="plus-loader">Loading...</div>
+  <div class="loading text-center" style="display:none;">
+      <span class="plus-loader"></span>
+      <span class="message">网络加载中...</span>
   </div>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
   <script src="{{ asset('/js/plugins/bootstrap-select/dist/js/i18n/defaults-zh_CN.js') }}"></script>
+  <script src="{{ asset('/js/plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/twbs-pagination/jquery.twbsPagination.min.js') }}"></script>
   <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
   <script src="{{ asset('/js/admin/app.js') }}"></script>
   @yield('js')
