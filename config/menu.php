@@ -93,13 +93,9 @@ return [
                     'icon'  => 'ion-social-whatsapp',
                     'submenus' => [
                         [
-                            'label' => '公众号管理',
+                            'label' => '公众号列表',
                             'uri'   => 'account',
-                        ],
-                        [
-                            'label' => '新增公众号',
-                            'uri'   => 'account/create',
-                        ],
+                        ]
                     ],
                 ],
                 [
@@ -147,30 +143,32 @@ return [
                     ],
                 ],
                 [
-                    'label' => '粉丝管理',
-                    'icon'  => 'ion-ios-people',
+                    'label' => '功能',
+                    'icon'  => 'ion-ios-keypad',
                     'submenus' => [
                         [
-                            'label' => '全部粉丝',
+                            'label' => '粉丝管理',
                             'uri'   => 'fan',
-                        ],
-                        [
-                            'label' => '粉丝标签',
-                            'uri'   => 'fan/tags',
-                        ],
-                    ],
-                ],
-                [
-                    'label' => '素材中心',
-                    'icon'  => 'ion-ios-flask',
-                    'submenus' => [
-                        [
-                            'label' => '图文消息',
-                            'uri'   => 'material/article',
                         ],
                         [
                             'label' => '素材管理',
                             'uri'   => 'material',
+                        ],
+                        [
+                            'label' => '自定义菜单',
+                            'uri'   => 'menu',
+                        ],
+                        [
+                            'label' => '自动回复',
+                            'uri'   => 'reply',
+                        ],
+                        // [
+                        //     'label' => '摇一摇周边',
+                        //     'uri'   => 'shake',
+                        // ],
+                        [
+                            'label' => '客服管理',
+                            'uri'   => 'staff',
                         ],
                     ],
                 ],
@@ -186,38 +184,6 @@ return [
                             'label' => '二维码',
                             'uri'   => 'qrcode',
                         ],
-                    ],
-                ],
-                [
-                    'label' => '客服',
-                    'icon'  => 'ion-ios-cog',
-                    'submenus' => [
-                        [
-                            'label' => '客服管理',
-                            'uri'   => 'staff',
-                        ],
-                        [
-                            'label' => '绩效查询',
-                            'uri'   => 'staff/performance',
-                        ],
-                    ],
-                ],
-                [
-                    'label' => '账号与服务',
-                    'icon'  => 'ion-ios-cog',
-                    'submenus' => [
-                         [
-                            'label' => '自定义菜单',
-                            'uri'   => 'menu',
-                        ],
-                        [
-                            'label' => '自动回复',
-                            'uri'   => 'reply',
-                        ],
-                        // [
-                        //     'label' => '摇一摇周边',
-                        //     'uri'   => 'shake',
-                        // ],
                     ],
                 ],
                 [

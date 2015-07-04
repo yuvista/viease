@@ -198,7 +198,7 @@ class Menu
     {
         $menu['type'] = 'click';
 
-        $menu['key'] = $this->eventService->makeNews($menu['news_info']['list']);
+        $menu['key'] = $this->eventService->makeArticles($menu['news_info']['list']);
 
         unset($menu['news_info']);
 

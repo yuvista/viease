@@ -27,7 +27,7 @@ class FanGroup extends Model
      *
      * @var array
      */
-    protected $aliases = [
+    public static $aliases = [
         'group_id' => '粉丝组ID',
         'account_id' => '公众号ID',
         'title' => '组名称',

@@ -11,10 +11,27 @@ use App\Models\Account;
  */
 class AccountObserver
 {
+    /**
+     * 保存事件
+     *
+     * @param  Account $account account
+     */
     public function saving(Account $account)
     {
         $account->token = account()->buildToken();
 
         $account->aes_key = account()->buildAesKey();
+
+        $account->tag = account()->buildTag();
+    }
+
+    /**
+     * 创建事件
+     *
+     * @param  Account $account account
+     */
+    public function created(Account $account)
+    {
+
     }
 }

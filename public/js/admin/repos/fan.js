@@ -20,9 +20,9 @@
          */
         getFans: function ($groupId, $sortBy, $callback, $page) {
             var $request = {
-                group_id: $groupId || null,
-                sort_by: $sortBy || null,
-                page: $page || window.__page + 1 || 1,
+                group_id: $groupId || 0,
+                sort_by: $sortBy || 'id',
+                page: $page || window.__page + 1 || 1
             };
 
             Util.request('GET', 'fan/lists', $request, $callback);
@@ -92,16 +92,16 @@
         /**
          * 修改分组
          *
-         * @param {Int}      $groupId
+         * @param {Int}      $id
          * @param {String}   $title
          * @param {Function} $callback
          */
-        updateGroup: function ($groupId, $title, $callback) {
+        updateGroup: function ($id, $title, $callback) {
             var $request = {
                 title: $title
             };
 
-            Util.request('PATCH', 'fan-group/update/' + $groupId, $request, $callback);
+            Util.request('PATCH', 'fan-group/update/' + $id, $request, $callback);
         },
     };
 

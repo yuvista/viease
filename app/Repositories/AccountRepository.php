@@ -48,6 +48,18 @@ class AccountRepository
     }
 
     /**
+     * 根据tag获取公众号
+     *
+     * @param  string $tag tag
+     *
+     * @return Model
+     */
+    public function getByTag($tag)
+    {
+        return $this->model->where('tag', $tag)->first();
+    }
+
+    /**
      * update.
      *
      * @param int   $id

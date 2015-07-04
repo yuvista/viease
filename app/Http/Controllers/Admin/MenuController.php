@@ -56,9 +56,7 @@ class MenuController extends Controller
      */
     public function getLists()
     {
-        $this->menuService->sync();
-
-        //return $this->menuRepository->lists(account()->getCurrent()->id);
+        return $this->menuRepository->lists(account()->getCurrent()->id);
     }
 
     /**

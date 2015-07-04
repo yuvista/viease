@@ -32,7 +32,9 @@ class Material
      */
     public function saveRemoteArticle($articles)
     {
-        return $this->materialRepository->storeRemoteArticle($articles);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->materialRepository->storeRemoteArticle($accountId, $articles);
     }
 
     /**

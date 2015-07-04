@@ -11,8 +11,11 @@
     |
 */
 
-Route::get('/', function () {
-    return 'Hello world!';
+Route::get('/api','ServerController@server');
+Route::post('/api','ServerController@server');
+
+Route::any('/upload', function () {
+    return ['ok' => 1];
 });
 
 /*
@@ -34,6 +37,7 @@ Route::group($admin, function () {
             'user' => 'UserController',
             'fan' => 'FanController',
             'fan-group' => 'FanGroupController',
+            'menu' => 'MenuController',
             'material' => 'MaterialController',
             'analysis' => 'AnalysisController',
             'staff' => 'StaffController',

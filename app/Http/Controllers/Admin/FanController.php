@@ -5,67 +5,64 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FanRepository;
+use App\Http\Requests\Fan\UpdateRequest;
 
 /**
- * 粉丝管理.
+ * 粉丝管理
  *
  * @author overtrue <i@overtrue.me>
  */
 class FanController extends Controller
 {
     /**
-     * AccountRepository.
+     * FanRepository
      *
-     * @var AccountRepository
+     * @var FanRepository
      */
-    private $_fan;
+    private $fan;
 
     /**
-     * 获取几条数据.
+     * 获取多少条数据
      *
      * @var type
      */
-    private $_pageSize = 30;
+    private $pageSize = 21;
 
     /**
-     * constructer.
+     * constructer
      *
      * @param AccountRepository $account
      */
     public function __construct(FanRepository $fan)
     {
-        $this->_fan = $fan;
+        $this->fan = $fan;
     }
 
-    /**
-     * 当前页码.
-     *
-     * @var Int
-     */
-    public $currentPageNumber;
+	public function getTest()
+	{
+		//return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
+	}
 
-    public function getIndex()
+	public function getIndex()
     {
         return admin_view('fan.index');
     }
 
     /**
-     * 获取粉丝列表.
+     * 获取粉丝列表
      *
      * @return Response
      */
     public function getLists(Request $request)
     {
-        /*
-            * 请求参数：
-            *
-            * page: 1
-            * sort_by: xxx
-            */
-                        //      return $this->_fan->onlineLists();  //获取线上列表
-                                    //      $fans = $this->_fan->lists($this->_pageSize, $request);
-                                    //
-//        return response()->json($fans);
+        /**
+         * 请求参数：
+         *
+         * page: 1
+         * sort_by: xxx
+         */
+		$account = $this->getAccount();
+        return $this->fan->lists($account->id, $this->pageSize, $request);
     }
 
     /**
@@ -75,24 +72,24 @@ class FanController extends Controller
      *
      * @return Response
      */
-    public function postRemark($id)
+    public function postRemark(UpdateRequest $request)
     {
-        // 请求参数：remark:新的备注名
+        /**
+		 * 请求参数：
+		 *
+		 * id: 自增ID
+		 * remark: 新的备注名
+		 */
+		return $this->fan->updateRemark($request);
     }
 
-    /**
-     * 移动单个或者多个粉丝到指定分组.
-     *
-     * @param int $groupId 分组ID
-     *
-     * @return Response
-     */
-    public function postSetGroup($groupId)
-    {
-        /*
-            * 请求参数：
-            * fans_id: [1,2,3,4] 或者 fans_id: 1,
-            * 要求支持单个或者多个
-         */
-    }
+	/**
+	 * 获取 Account
+	 *
+	 * @return Object
+	 */
+	private function getAccount(){
+		return account()->getCurrent();
+	}
+
 }

@@ -24,7 +24,7 @@ class Reply
     }
 
     /**
-     * 解析事件回复.
+     * 解析一个事件回复.
      *
      * @param App\Models\Reply $reply reply
      *
@@ -32,8 +32,6 @@ class Reply
      */
     public function resolveReply($reply)
     {
-        $reply = $reply->toArray();
-
         $eventService = $this->eventService;
 
         $reply['content'] = array_map(function ($eventId) use ($eventService) {
@@ -42,5 +40,21 @@ class Reply
         }, $reply['content']);
 
         return $reply;
+    }
+
+    /**
+     * 解析多个事件回复
+     *
+     * @param  array $replies replies
+     *
+     * @return array
+     */
+    public function resolveReplies($replies)
+    {   
+        $replies = $replies->toArray();
+
+        return array_map(function($reply){
+            return $this->resolveReply($reply);
+        },$replies);
     }
 }

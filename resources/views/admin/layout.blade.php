@@ -98,7 +98,7 @@
                         @foreach($global->accounts as $account)
                           @if($global->current_account && $account->id != $global->current_account->id)
                           <li>
-                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="“{{ $account->name }}”">{{ $account->name}}</a>
+                            <a href="{{ admin_url('account/change-account/'.$account->id)}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="切换到 “{{ $account->name }}”">{{ $account->name}}</a>
                           </li>
                           @endif
                         @endforeach
@@ -106,10 +106,10 @@
                         <li role="presentation" class="divider"></li>
                         @endif
                         <li>
-                          <a href="{{ admin_url('account')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="公众号管理">公众号管理</a>
+                          <a href="{{ admin_url('account')}}">公众号管理</a>
                         </li>
                         <li>
-                          <a href="{{ admin_url('account/create')}}" data-toggle="tooltip" data-placement="right" title="" data-original-title="添加公众号">添加公众号</a>
+                          <a href="{{ admin_url('account/create')}}">添加公众号</a>
                         </li>
                       </ul>
                   </li>
@@ -121,7 +121,7 @@
       </div>
     </div>
   </header>
-  <div class="container">
+  <div class="container main-container">
     <div class="console-wrapper table-box">
       <section class="console-container table-row">
         <aside class="console-sidebar-wrapper table-cell">
@@ -132,7 +132,8 @@
         </section>
       </section>
     </div>
-    <div class="console-footer">
+  </div>
+  <div class="console-footer">
       <div class="clearfix text-center">
         <ul class="list-unstyled list-inline">
         <li>POWERED BY <a href="http://www.viease.com" target="_blank">viease {{ VIEASE_VERSION }}</a> &copy;  2015</li>
@@ -141,7 +142,6 @@
         </button>
       </div>
     </div>
-  </div>
   <div class="loading text-center" style="display:none;">
       <span class="plus-loader"></span>
       <span class="message">网络加载中...</span>
@@ -154,6 +154,7 @@
   <script src="{{ asset('/js/plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
   <script src="{{ asset('js/plugins/twbs-pagination/jquery.twbsPagination.min.js') }}"></script>
   <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
+  <script src="{{ asset('/js/pager.js') }}"></script>
   <script src="{{ asset('/js/admin/app.js') }}"></script>
   @yield('js')
 </body>

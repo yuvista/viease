@@ -71,11 +71,13 @@ class Event
      *
      * @return string 事件key
      */
-    public function makeNews($articles)
+    public function makeArticles($articles)
     {
         $mediaId = $this->materialService->saveRemoteArticle($articles);
 
-        return $this->eventRepository->storeNews($mediaId);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeMaterial($mediaId, $accountId);
     }
 
     /**
@@ -91,7 +93,9 @@ class Event
         //获取存储得到自己的id
         $mediaId = 'EVENT_XXXXXXXX_TEST';
 
-        return $this->eventRepository->storeMaterial($mediaId);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeMaterial($mediaId, $accountId);
     }
 
     /**

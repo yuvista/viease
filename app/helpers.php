@@ -29,3 +29,8 @@ function account()
 {
     return app('Viease\Account');
 }
+
+function make_api_url($tag)
+{
+    return url('/api?t='.$tag);
+}

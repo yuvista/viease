@@ -9,3 +9,4 @@ public/.sass-cache/
 vendor/
 .env
 */.sass-cache
+sftp-config.json

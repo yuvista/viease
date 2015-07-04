@@ -58,12 +58,70 @@ class MaterialRepository
     }
 
     /**
+     * 统计图片
+     *
+     * @param  integer $accountId accountId
+     *
+     * @return integer
+     */
+    public function countImage($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'image')
+                            ->count();
+    }
+
+    /**
+     * 统计声音
+     *
+     * @param  integer $accountId accountId
+     *
+     * @return integer
+     */
+    public function countVoice($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'voice')
+                            ->count();
+    }
+
+    /**
+     * 统计图文数量
+     *
+     * @param  integer $accountId accountId
+     *
+     * @return integer
+     */
+    public function countArticle($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'article')
+                            ->count();
+    }
+
+    /**
+     * 统计视频数量
+     *
+     * @param  integer $accountId accounId
+     *
+     * @return integer
+     */
+    public function countVoide($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'voice')
+                            ->count();
+    }
+
+    /**
      * 指定素材是否已经存在.
      *
      * @param int    $accountId  账号id
      * @param string $materialId mediaId
-     <<<<<<< HEAD
-     * @return bool
      * @return bool
      */
     public function isExists($accountId, $materialId)
@@ -81,7 +139,9 @@ class MaterialRepository
     private function storeRemoteMultiArticle($accountId, $articles)
     {
         $articles = array_map(function ($article) {
-            $article['type'] = Material::IS_REMOTE;
+
+            $article['is_remote'] = Material::IS_REMOTE;
+            $article['type'] = 'article';
             $article['created_from'] = Material::CREATED_FROM_WECHAT;
 
             return $article;
@@ -115,9 +175,10 @@ class MaterialRepository
      */
     private function storeRemoteSimpleArticle($accountId, $article)
     {
-        $article['type'] = Material::IS_REMOTE;
+        $article['is_remote'] = Material::IS_REMOTE;
         $article['created_from'] = Material::CREATED_FROM_WECHAT;
         $article['account_id'] = $accountId;
+        $article['type'] = 'article';
 
         return $this->savePost($article);
     }

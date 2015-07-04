@@ -90,9 +90,11 @@ class ReplyController extends Controller
      *
      * @param Request $request request
      */
-    public function getList(Request $request)
+    public function getLists(Request $request)
     {
-        return $this->replyRepository->getList($this->accountId, $pageSize);
+        $replies = $this->replyRepository->getList($this->accountId, $this->pageSize);
+
+        return $this->replyService->resolveReplies($replies);
     }
 
     /**
