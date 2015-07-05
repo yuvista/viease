@@ -83,28 +83,26 @@ class Server
     }
 
     /**
-     * 事件解析为消息
+     * 事件解析为消息.
      *
-     * @param  string $eventId 事件Id
+     * @param string $eventId 事件Id
      *
      * @return Response
      */
     public function eventToMessage($eventId)
     {
-
     }
 
     /**
-     * 多个事件解析为消息
+     * 多个事件解析为消息.
      *
-     * @param  array $eventIds 事件Ids
+     * @param array $eventIds 事件Ids
      *
      * @return Response
      */
     public function eventsToMessage($eventIds)
     {
         foreach ($eventIds as $eventId) {
-            
-        } 
+        }
     }
 }
