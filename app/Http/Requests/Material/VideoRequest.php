@@ -3,12 +3,11 @@
 namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Material;
 
 /**
- * Material UpdateRequest.
+ * VideoRequest.
  */
-class UpdateRequest extends Request
+class VideoRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,11 +17,9 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'account_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
             'url' => 'required',
-            'type' => 'required|in:1,2,3',
-            'title' => 'required_if:type,3',
-            'digest' => 'required_if:type,3',
-               ];
+        ];
     }
 }

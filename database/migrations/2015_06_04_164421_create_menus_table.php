@@ -32,10 +32,8 @@ class CreateMenusTable extends Migration
                     'pic_photo_or_album',
                     'pic_weixin',
                     'location_select',
-                    //'media_id',
-                    'view_limited'
-                ])->comment('菜单类型');     
-            $table->string('key', 200)->comment('菜单触发值');     
+                ])->default('click')->comment('菜单类型');     
+            $table->string('key', 200)->nullable()->comment('菜单触发值');     
             $table->tinyInteger('sort')->nullable()->default(0)->comment('排序'); 
             $table->timestamps();
             $table->softDeletes();

@@ -28,4 +28,11 @@ class MaterialObserver
     {
         $material->media_id = $this->materialService->buildMaterialMediaId();
     }
+
+    public function created(Material $material)
+    {
+        if ($material->type != 'article') {
+            $material->original_id = $this->materialService->updateToRemote($material);
+        }
+    }
 }

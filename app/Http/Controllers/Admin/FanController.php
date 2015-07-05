@@ -8,28 +8,28 @@ use App\Repositories\FanRepository;
 use App\Http\Requests\Fan\UpdateRequest;
 
 /**
- * 粉丝管理
+ * 粉丝管理.
  *
  * @author overtrue <i@overtrue.me>
  */
 class FanController extends Controller
 {
     /**
-     * FanRepository
+     * FanRepository.
      *
      * @var FanRepository
      */
     private $fan;
 
     /**
-     * 获取多少条数据
+     * 获取多少条数据.
      *
      * @var type
      */
     private $pageSize = 21;
 
     /**
-     * constructer
+     * constructer.
      *
      * @param AccountRepository $account
      */
@@ -38,30 +38,31 @@ class FanController extends Controller
         $this->fan = $fan;
     }
 
-	public function getTest()
-	{
-		//return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
-	}
+    public function getTest()
+    {
+        //return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
+    }
 
-	public function getIndex()
+    public function getIndex()
     {
         return admin_view('fan.index');
     }
 
     /**
-     * 获取粉丝列表
+     * 获取粉丝列表.
      *
      * @return Response
      */
     public function getLists(Request $request)
     {
-        /**
+        /*
          * 请求参数：
          *
          * page: 1
          * sort_by: xxx
          */
-		$account = $this->getAccount();
+        $account = $this->getAccount();
+
         return $this->fan->lists($account->id, $this->pageSize, $request);
     }
 
@@ -74,22 +75,22 @@ class FanController extends Controller
      */
     public function postRemark(UpdateRequest $request)
     {
-        /**
-		 * 请求参数：
-		 *
-		 * id: 自增ID
-		 * remark: 新的备注名
-		 */
-		return $this->fan->updateRemark($request);
+        /*
+         * 请求参数：
+         *
+         * id: 自增ID
+         * remark: 新的备注名
+         */
+        return $this->fan->updateRemark($request);
     }
 
-	/**
-	 * 获取 Account
-	 *
-	 * @return Object
-	 */
-	private function getAccount(){
-		return account()->getCurrent();
-	}
-
+    /**
+     * 获取 Account.
+     *
+     * @return Object
+     */
+    private function getAccount()
+    {
+        return account()->getCurrent();
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\MaterialRepository;
-use App\Repositories\ArticleRepository;
 use Overtrue\Wechat\Media;
 
 /**
@@ -14,24 +13,36 @@ use Overtrue\Wechat\Media;
 class Material
 {
     /**
-     * articleRepository.
-     *
-     * @var App\Repositories\ArticleRepository
-     */
-    private $articleRepository;
-
-    /**
      * materialRepository.
      *
      * @var App\Repositories\MaterialRepository
      */
     private $materialRepository;
 
-    public function __construct(ArticleRepository $articleRepository, MaterialRepository $materialRepository)
-    {
-        $this->articleRepository = $articleRepository;
+    /**
+     * accountService.
+     *
+     * @var App\Services\AccountService
+     */
+    private $account;
 
+    /**
+     * $media description.
+     *
+     * @var Overtrue\Wechat\Media
+     */
+    private $media;
+
+    public function __construct(MaterialRepository $materialRepository)
+    {
         $this->materialRepository = $materialRepository;
+
+        $this->account = account()->getCurrent();
+
+        $this->media = new Media([
+            'app_id' => $this->account->app_id,
+            'secret' => $this->account->app_secret,
+        ]);
     }
 
     /**
@@ -43,13 +54,13 @@ class Material
      */
     public function saveRemoteArticle($articles)
     {
-        return $this->articleRepository->storeRemoteArticle($articles);
+        return $this->materialRepository->storeRemoteArticle($this->account->id, $articles);
     }
 
     /**
-     * 临时素材本地化
+     * 临时素材本地化.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
      * @return string 生成的自己的MediaId
      */
@@ -59,9 +70,9 @@ class Material
     }
 
     /**
-     * 获取远程临时素材的信息
+     * 获取远程临时素材的信息.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
      * @return array 素材信息
      */
@@ -73,36 +84,114 @@ class Material
     }
 
     /**
-     * 检测素材是否存在
+     * 检测素材是否存在.
      *
-     * @param  string $materialId 素材id
+     * @param string $materialId 素材id
      *
-     * @return boolean
+     * @return bool
      */
     public function isExists($materialId)
     {
-        $accountId = account()->getCurrent()->id;
-
-        return $this->materialRepository->isExists($accountId, $materialId);
+        return $this->materialRepository->isExists($this->account->id, $materialId);
     }
 
     /**
-     * 生成一个图文mediaId.
-     *
-     * @return string mediaId
-     */
-    public function buildArticleMediaId()
-    {
-        return 'MEDIA_A_'.strtoupper(uniqid());
-    }
-
-    /**
-     * 生成一个素材mediaId
+     * 生成一个素材mediaId.
      *
      * @return string mediaId
      */
     public function buildMaterialMediaId()
     {
-        return 'MEDIA_M_'.strtoupper(uniqid());
+        return 'MEDIA_'.strtoupper(uniqid());
+    }
+
+    /**
+     * 上传素材到远程.
+     *
+     * @param App\Model\Material $material 素材模型
+     */
+    public function updateToRemote($material)
+    {
+        $function = camel_case('upload_remote_'.$material->type);
+
+        return $function($material);
+    }
+
+    /**
+     * 上传视频到远程.
+     *
+     * @param Material $video 视频素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteVideo($video)
+    {
+        $filePath = $this->mediaUrlToPath($video->source_url);
+
+        return $this->media->forever()->video($filePath, $video->title, $video->description);
+    }
+
+    /**
+     * 上传声音到远程.
+     *
+     * @param Material $voice 声音素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteVoice($voice)
+    {
+        $filePath = $this->mediaUrlToPath($voice->source_url);
+
+        return $this->media->forever()->voice($filePath);
+    }
+
+    /**
+     * 上传图片到远程.
+     *
+     * @param Material $image 图片素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteImage($image)
+    {
+        $filePath = $this->mediaUrlToPath($image->source_url);
+
+        return $this->media->forever()->image($filePath);
+    }
+
+    /**
+     * 上传图文素材到远程.
+     *
+     * @param array $articles 图文素材
+     *
+     * @return string
+     */
+    public function uploadRemoteArticles($articles)
+    {
+        return $this->media->news($articles);
+    }
+
+    /**
+     * 素材路径转Url.
+     *
+     * @param string $path 路径
+     *
+     * @return string 地址
+     */
+    public function mediaPathToUrl($path)
+    {
+        return '/demo';
+    }
+
+    /**
+     * 素材Url转路径.
+     *
+     * @param string $url 地址
+     *
+     * @return string 路径
+     */
+    public function mediaUrlToPath($url)
+    {
+        return '/demo';
     }
 }

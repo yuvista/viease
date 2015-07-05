@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Material\ArticleRequest;
+use App\Http\Requests\Material\VideoRequest;
+use App\Http\Requests\Material\voiceRequest;
+use App\Http\Requests\Material\ImageRequest;
+use App\Repositories\MaterialRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 /**
  * 素材管理.
@@ -13,6 +18,37 @@ use App\Http\Controllers\Controller;
 class MaterialController extends Controller
 {
     /**
+     * 分页数目.
+     *
+     * @var int
+     */
+    private $pageSize = 10;
+
+    /**
+     * materialRepository.
+     *
+     * @var app\Repositories\MaterialRepository
+     */
+    private $materialRepository;
+
+    /**
+     * accountId.
+     *
+     * @var int
+     */
+    private $accountId;
+
+    /**
+     * construct.
+     */
+    public function __construct(MaterialRepository $materialRepository)
+    {
+        $this->materialRepository = $materialRepository;
+
+        $this->accountId = account()->getCurrent()->id;
+    }
+
+    /**
      * 取得素材列表.
      */
     public function getIndex()
@@ -20,60 +56,80 @@ class MaterialController extends Controller
         return admin_view('material.index');
     }
 
+    /**
+     * 取得素材列表.
+     *
+     * @param Request $request request
+     */
+    public function getLists(Request $request)
+    {
+        $pageSize = $request->get('page', $this->pageSize);
+
+        return $this->materialRepository->getList($this->accountId, $request->get('type'), $pageSize);
+    }
+
+    /**
+     * 统计素材数量.
+     *
+     * @return array
+     */
     public function getSummary()
     {
         return [
-            'image' => 5678,
-            'video' => 90,
-            'voice' => 34,
-            'article' => 127008,
+            'image' => $this->materialRepository->countImage($this->accountId),
+            'video' => $this->materialRepository->countVoide($this->accountId),
+            'voice' => $this->materialRepository->countVoice($this->accountId),
+            'article' => $this->materialRepository->countArticle($this->accountId),
         ];
     }
 
-    public function getNewArticle($value='')
+    /**
+     * 创建新文章.
+     *
+     * @param string $value value
+     */
+    public function getNewArticle($value = '')
     {
         return  admin_view('material.new-article');
     }
 
-    public function getLists(Request $request)
+    /**
+     * 创建新图文.
+     *
+     * @param ArticleRequest $request request
+     */
+    public function postNewArticle(ArticleRequest $request)
     {
-        if ($request->type == 'video' || $request->type == 'voice') {
-            return [];
-        }
-        // $type：image, video, voice, article
-        $arr =  [
-            [
-                'id' => 4,
-                'url' => 'http://expo.getbootstrap.com/thumbs/lyft-thumb.jpg',
-                "media_id" => '23456789asqwertrytuyi',
-            ],
-            [
-                'id' => 5,
-                'url' => 'http://expo.getbootstrap.com/thumbs/vogue-thumb.jpg',
-                "media_id" => 'qwe1234565',
-            ],
-            [
-                'id' => 6,
-                'url' => 'http://expo.getbootstrap.com/thumbs/lyft-thumb.jpg',
-                "media_id" => 'wew212345tsfdg',
-            ],
-            [
-                'id' => 7,
-                'url' => 'http://expo.getbootstrap.com/thumbs/riot-thumb.jpg',
-                "media_id" => '89okajhsbf,a.ssss',
-            ],
-            [
-                'id' => 8,
-                'url' => 'http://expo.getbootstrap.com/thumbs/lyft-thumb.jpg',
-                "media_id" => '23456789asqwertrytuyi',
-            ],
-            [
-                'id' => 9,
-                'url' => 'http://expo.getbootstrap.com/thumbs/newsweek-thumb.jpg',
-                "media_id" => '8jml;slslssl',
-            ],
-        ];
+        return $this->materialRepository->storeArticle($request->get('article'));
+    }
 
-        return new \Illuminate\Pagination\LengthAwarePaginator(array_chunk($arr, 6)[\Input::get('page', 1) - 1], 1, 6);
+    /**
+     * 创建声音.
+     *
+     * @param voiceRequest $request request
+     */
+    public function postVoice(voiceRequest $request)
+    {
+        return $this->materialRepository->storeVoice($this->accountId, $request);
+    }
+
+    /**
+     * 创建视频.
+     *
+     * @param VideoRequest $request request
+     */
+    public function postVideo(VideoRequest $request)
+    {
+        return $this->materialRepository->storeVideo($this->accountId, $request);
+    }
+
+    /**
+     * 创建图片.
+     *
+     * @param ImageRequest $request request
+     */
+    public function postImage(ImageRequest $request)
+    {
+        return $this->materialRepository->storeImage($this->accountId, $request);
     }
 }

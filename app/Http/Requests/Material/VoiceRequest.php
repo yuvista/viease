@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\FollowReply;
+namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\FollowReply;
 
 /**
- * FollowReply UpdateRequest.
+ * VoiceRequest.
  */
-class UpdateRequest extends Request
+class VoiceRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,6 +16,8 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return ['account_id' => 'required'];
+        return [
+            'url' => 'required',
+               ];
     }
 }

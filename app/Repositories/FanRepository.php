@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Fan;
-use Illuminate\Pagination\Paginator;
 
 /**
  * Fans Repository.
@@ -25,7 +24,7 @@ class FanRepository
     }
 
     /**
-     * 获取粉丝列表
+     * 获取粉丝列表.
      *
      * @param int $pageSize 分页大小
      *
@@ -38,73 +37,68 @@ class FanRepository
         }
 
         return $this->model
-				->where('account_id', $accountId)
-				->where(function ($query) use ($request) {
-					if ($request->group_id) {
-						$query->where('group_id', $request->group_id);
-					}
-				})
-				->orderBy($request->sort_by, 'desc')
-				->paginate($pageSize);
+                ->where('account_id', $accountId)
+                ->where(function ($query) use ($request) {
+                    if ($request->group_id) {
+                        $query->where('group_id', $request->group_id);
+                    }
+                })
+                ->orderBy($request->sort_by, 'desc')
+                ->paginate($pageSize);
     }
 
     /**
-     * 修改粉丝信息
-     *
+     * 修改粉丝信息.
      */
     public function updateRemark($request)
     {
         $model = $this->model->find($request['id']);
+
         return $this->_savePost($model, ['remark' => $request['remark']]);
     }
 
-	/**
-     * 通过粉丝ID 更改粉丝所属组(支持批量)
+    /**
+     * 通过粉丝ID 更改粉丝所属组(支持批量).
      *
      * @param Array $ids       粉丝自增ID
      * @param Int   $toGroupId 粉丝组group_id
      */
     public function moveFanGroupByFansid($ids, $toGroupId)
     {
-		foreach ($ids as $id)
-		{
-			$model = $this->model->find($id);
-			$this->_savePost($model, ['group_id' => $toGroupId]);
-		}
-		return true;
+        foreach ($ids as $id) {
+            $model = $this->model->find($id);
+            $this->_savePost($model, ['group_id' => $toGroupId]);
+        }
+
+        return true;
     }
 
-	/**
-	 * 通过粉丝ID 获取粉丝组group_id和粉丝人数[支持批量]
-	 *
-	 * @param Array $ids       粉丝自增ID
-	 * @return void
-	 */
-	public function getFanGroupByfanIds($ids)
-	{
-
-		$groupIds = [];
-		$return = [];
-		//根据粉丝ID查询group_id
+    /**
+     * 通过粉丝ID 获取粉丝组group_id和粉丝人数[支持批量].
+     *
+     * @param Array $ids 粉丝自增ID
+     */
+    public function getFanGroupByfanIds($ids)
+    {
+        $groupIds = [];
+        $return = [];
+        //根据粉丝ID查询group_id
         $fans = $this->model->find($ids);
-        if ($fans)
-		{
-            foreach ($fans as $fan)
-			{
+        if ($fans) {
+            foreach ($fans as $fan) {
                 $groupIds[$fan['id']] = $fan['group_id'] ? $fan['group_id'] : 0;
             }
 
-			foreach($groupIds as $groupId)
-			{
-				$return[$groupId] = isset($return[$groupId]) ? ($return[$groupId]+1) : 1;
-			}
+            foreach ($groupIds as $groupId) {
+                $return[$groupId] = isset($return[$groupId]) ? ($return[$groupId] + 1) : 1;
+            }
         }
-		return $return;
 
-	}
+        return $return;
+    }
 
-	/**
-     * 通过粉丝组ID 更改粉丝所属组(支持批量)
+    /**
+     * 通过粉丝组ID 更改粉丝所属组(支持批量).
      *
      * @param Array $ids       粉丝自增ID
      * @param Int   $toGroupId 粉丝组group_id
@@ -114,22 +108,18 @@ class FanRepository
 
         //根据粉丝ID查询
         return $this->model->where('account_id', $accountId)
-					->where('group_id', $fromGroupId)
-					->update(['group_id' => $toGroupId]);
-
+                    ->where('group_id', $fromGroupId)
+                    ->update(['group_id' => $toGroupId]);
     }
 
-	/**
-     * save
+    /**
+     * save.
      *
-     * @param  object $fan
-     * @param  array $input   Request
-     *
-     * @return void
+     * @param object $fan
+     * @param array  $input Request
      */
     private function _savePost($fan, $input)
     {
         return $fan->fill($input)->save();
     }
-
 }

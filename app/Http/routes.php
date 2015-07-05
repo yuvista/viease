@@ -10,9 +10,9 @@
     | and give it the controller to call when that URI is requested.
     |
 */
-Route::get('/', function () {
-    return 'Hello world!';
-});
+
+Route::get('/api', 'ServerController@server');
+Route::post('/api', 'ServerController@server');
 
 Route::any('/upload', function () {
     return ['ok' => 1];
@@ -45,7 +45,7 @@ Route::group($admin, function () {
             'message' => 'MessageController',
             'notice' => 'NoticeController',
             'qrcode' => 'QRCodeController',
-            'auto-reply' => 'AutoReplyController',
-                           ]);
+            'reply' => 'ReplyController',
+        ]);
     });
 });

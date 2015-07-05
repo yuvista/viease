@@ -27,11 +27,11 @@
             <form action="" method="POST" role="form">
                     <div class="form-group">
                     <label>标题</label>
-                        <input type="text" name="title" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        <input type="text" name="title" id="input" class="form-control" value="" required="required"  title="">
                     </div>
                     <div class="form-group">
                     <label>作者<small>(选填)</small></label>
-                        <input type="text" name="title" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        <input type="text" name="title" id="input" class="form-control" value="" required="required"  title="">
                     </div>
 
                     <div class="form-group">
@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                     <label>原文链接<small></small></label>
-                        <input type="text" name="title" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        <input type="text" name="title" id="input" class="form-control" value="" required="required"  title="">
                     </div>
 
                     <div class="form-group">

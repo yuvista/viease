@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use App\Repositories\EventRepository;
 use App\Services\Material as MaterialService;
@@ -36,7 +36,7 @@ class Event
         MaterialService $materialService
     ) {
         $this->eventRepository = $eventRepository;
-        
+
         $this->materialService = $materialService;
     }
 
@@ -61,7 +61,9 @@ class Event
      */
     public function makeText($text)
     {
-        return $this->eventRepository->storeText($text);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeText($text, $accountId);
     }
 
     /**
@@ -71,17 +73,19 @@ class Event
      *
      * @return string 事件key
      */
-    public function makeNews($articles)
+    public function makeArticles($articles)
     {
         $mediaId = $this->materialService->saveRemoteArticle($articles);
 
-        return $this->eventRepository->storeNews($mediaId);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeMaterial($mediaId, $accountId);
     }
 
     /**
-     * 创建一个mediaId类型的回复事件
+     * 创建一个mediaId类型的回复事件.
      *
-     * @param  string $materialId 原始图片素材Id
+     * @param string $materialId 原始图片素材Id
      *
      * @return string 事件key
      */
@@ -91,7 +95,9 @@ class Event
         //获取存储得到自己的id
         $mediaId = 'EVENT_XXXXXXXX_TEST';
 
-        return $this->eventRepository->storeMaterial($mediaId);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeMaterial($mediaId, $accountId);
     }
 
     /**
@@ -102,5 +108,29 @@ class Event
     public function makeEventKey()
     {
         return 'V_EVENT_'.strtoupper(uniqid());
+    }
+
+    /**
+     * 将event转变为素材.
+     *
+     * @param string $event eventId
+     *
+     * @return array
+     */
+    public function eventToMaterial($eventId)
+    {
+        $event = $this->eventRepository->findByEventId($eventId);
+
+        return $event;
+    }
+
+    /**
+     * 根据eventId 删除事件.
+     *
+     * @param string $eventId 事件ID
+     */
+    public function distoryByEventId($eventId)
+    {
+        return $this->eventRepository->distoryByEventId($eventId);
     }
 }

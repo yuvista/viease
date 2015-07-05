@@ -93,13 +93,9 @@ return [
                     'icon'  => 'ion-social-whatsapp',
                     'submenus' => [
                         [
-                            'label' => '公众号管理',
+                            'label' => '公众号列表',
                             'uri'   => 'account',
-                        ],
-                        [
-                            'label' => '新增公众号',
-                            'uri'   => 'account/create',
-                        ],
+                        ]
                     ],
                 ],
                 [
@@ -164,7 +160,7 @@ return [
                         ],
                         [
                             'label' => '自动回复',
-                            'uri'   => 'auto-reply',
+                            'uri'   => 'reply',
                         ],
                         // [
                         //     'label' => '摇一摇周边',

@@ -116,13 +116,13 @@ class Menu
     }
 
     /**
-     * 分析菜单数据.
+     * 分析远程取得的菜单数据.
      *
      * @param array $menu 菜单
      *
      * @return array
      */
-    private function analyseMenu($menu)
+    private function analyseRemoteMenu($menu)
     {
         if (isset($menu['sub_button']['list'])) {
             $menu['sub_button'] = array_map([$this, 'analyseMenu'], $menu['sub_button']['list']);
@@ -198,7 +198,7 @@ class Menu
     {
         $menu['type'] = 'click';
 
-        $menu['key'] = $this->eventService->makeNews($menu['news_info']['list']);
+        $menu['key'] = $this->eventService->makeArticles($menu['news_info']['list']);
 
         unset($menu['news_info']);
 
@@ -226,8 +226,8 @@ class Menu
      */
     private function resolveClickMenu($menu)
     {
-        if(!$this->eventService->isOwnEvent($menu['key'])){
-            $menu['key'] = Null;
+        if (!$this->eventService->isOwnEvent($menu['key'])) {
+            $menu['key'] = null;
         }
 
         return $menu;
@@ -323,5 +323,76 @@ class Menu
         unset($menu['value']);
 
         return $menu;
+    }
+
+    /**
+     * 分析菜单数据.
+     *
+     * @param array $menus menus
+     *
+     * @return array
+     */
+    public function analyseMenus($menus)
+    {
+        $menus = array_map(function ($menu) {
+            if (isset($menu['sub_button'])) {
+                $menu['sub_button'] = $this->analyseMenus($menu['sub_button']);
+            } else {
+                $menu = $this->makeMenuEvent($menu);
+            }
+
+            return $menu;
+
+        }, $menus);
+
+        return $menus;
+    }
+
+    /**
+     * 生成菜单中的事件.
+     *
+     * @param array $menu menu
+     *
+     * @return array
+     */
+    private function makeMenuEvent($menu)
+    {
+        if ($menu['type'] == 'text') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventService->makeText($menu['value']);
+            unset($menu['value']);
+        }
+
+        if ($menu['type'] == 'media') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventService->makeMediaId($menu['value']);
+            unset($menu['value']);
+        }
+        if ($menu['type'] == 'view') {
+            $menu['key'] = $menu['value'];
+            unset($menu['value']);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * 删除旧菜单.
+     *
+     * @param int $accountId 公众号id
+     */
+    public function destroyOldMenu($accountId)
+    {
+        $menus = $this->menuRepository->all($accountId);
+
+        array_map(function ($menu) {
+
+            if ($menu['type'] == 'click') {
+                $this->eventService->distoryByEventId($menu['key']);
+            }
+
+        }, $menus);
+
+        $this->menuRepository->distoryMenuByAccountId($accountId);
     }
 }

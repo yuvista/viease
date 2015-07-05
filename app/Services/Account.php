@@ -17,16 +17,16 @@ class Account
      *
      * @var App\Repositories\AccountRepository
      */
-    private $repository;
+    private $accountRepository;
 
     /**
      * construct.
      *
      * @param App\Repositories\AccountRepository $repository repository
      */
-    public function __construct(AccountRepository $repository)
+    public function __construct(AccountRepository $accountRepository)
     {
-        $this->repository = $repository;
+        $this->accountRepository = $accountRepository;
     }
 
     /**
@@ -36,7 +36,7 @@ class Account
      */
     public function isChosed()
     {
-        return Session::has('account_id');
+        return Session::get('account_id');
     }
 
     /**
@@ -56,7 +56,19 @@ class Account
      */
     public function getCurrent()
     {
-        return $this->isChosed() ? $this->repository->getById($this->isChosed()) : null;
+        return $this->isChosed() ? $this->accountRepository->getById($this->isChosed()) : null;
+    }
+
+    /**
+     * 根据tag 获取公众后.
+     *
+     * @param string $tag tag
+     *
+     * @return App\Models\Account|null
+     */
+    public function getAccountByTag($tag)
+    {
+        return $this->accountRepository->getByTag($tag);
     }
 
     /**
@@ -66,6 +78,36 @@ class Account
      */
     public function getLists()
     {
-        return $this->repository->lists(99);
+        return $this->accountRepository->lists(99);
+    }
+
+    /**
+     * 创建识别tag.
+     *
+     * @return string tag
+     */
+    public function buildTag()
+    {
+        return str_random(15);
+    }
+
+    /**
+     * 创建token.
+     *
+     * @return string token
+     */
+    public function buildToken()
+    {
+        return str_random(10);
+    }
+
+    /**
+     * 创建aesKey.
+     *
+     * @return string aesKey
+     */
+    public function buildAesKey()
+    {
+        return str_random(43);
     }
 }

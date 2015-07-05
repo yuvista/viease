@@ -17,7 +17,7 @@ class MoveRequest extends Request
     public function rules()
     {
         return [
-			'ids' => 'required',
+            'ids' => 'required',
             'to_group_id' => 'required',
         ];
     }

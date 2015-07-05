@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Article;
 
 /**
- * Article UpdateRequest.
+ * Article.
  */
-class UpdateRequest extends Request
+class ArticleRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,6 +16,8 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return ['account_id' => 'required'];
+        return [
+            'article' => 'required|array',
+        ];
     }
 }

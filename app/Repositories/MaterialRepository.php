@@ -9,7 +9,7 @@ class MaterialRepository
     use BaseRepository;
 
     /**
-     * model
+     * model.
      *
      * @var App\Models\Material
      */
@@ -21,18 +21,19 @@ class MaterialRepository
     }
 
     /**
-     * 获取图文消息列表
+     * 取得素材列表.
      *
-     * @param  integer $accountId accountId
-     * @param  integer $pageSize  分页
+     * @param accountId $accountId 公众号ID
+     * @param string    $type      类型
+     * @param int       $pageSize  分页
      *
-     * @return void
+     * @return Response
      */
-    public function articleLists($accountId,$pageSize)
+    public function getList($accountId, $type, $pageSize)
     {
-        return $this->model->where('type','article')
-                ->where('account_id',$accountId)
-                ->where('parent_id',0)
+        return $this->model->where('type', $type)
+                ->where('account_id', $accountId)
+                ->where('parent_id', 0)
                 ->orderBy('id', 'desc')
                 ->paginate($pageSize);
     }
@@ -40,10 +41,10 @@ class MaterialRepository
     /**
      * 保存菜单的远程素材.
      *
-     * @param integer $accountId 公众号id
-     * @param array $articles 图文
+     * @param int   $accountId 公众号id
+     * @param array $articles  图文
      *
-     * @return  string mediaId
+     * @return string mediaId
      */
     public function storeRemoteArticle($accountId, $articles)
     {
@@ -56,31 +57,178 @@ class MaterialRepository
         }
     }
 
+    /**
+     * 统计图片.
+     *
+     * @param int $accountId accountId
+     *
+     * @return int
+     */
+    public function countImage($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'image')
+                            ->count();
+    }
 
     /**
-     * 指定素材是否已经存在
+     * 统计声音.
      *
-     * @param  string  $materialId mediaId
+     * @param int $accountId accountId
      *
-     * @return boolean
+     * @return int
      */
-    public function isExists($accountId,$materialId)
+    public function countVoice($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'voice')
+                            ->count();
+    }
+
+    /**
+     * 统计图文数量.
+     *
+     * @param int $accountId accountId
+     *
+     * @return int
+     */
+    public function countArticle($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'article')
+                            ->count();
+    }
+
+    /**
+     * 统计视频数量.
+     *
+     * @param int $accountId accounId
+     *
+     * @return int
+     */
+    public function countVoide($accountId)
+    {
+        return $this->model->where('account_id', $accountId)
+                            ->where('parent_id', 0)
+                            ->where('type', 'voice')
+                            ->count();
+    }
+
+    /**
+     * 指定素材是否已经存在.
+     *
+     * @param int    $accountId  账号id
+     * @param string $materialId mediaId
+     *
+     * @return bool
+     */
+    public function isExists($accountId, $materialId)
     {
         return $this->model->where('account_id', $accountId)->where('original_id', $materialId)->get();
     }
 
     /**
+     * 存储声音素材.
+     *
+     * @param int     $accountId 公众号ID
+     * @param Request $request   request
+     *
+     * @return string mediaId
+     */
+    public function storeVoice($accountId, $request)
+    {
+        $model = new $this->model();
+
+        $model->type = 'voice';
+
+        $model->source_url = $request->url;
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 存储图片素材.
+     *
+     * @param int     $accountId 公众号ID
+     * @param Request $request   request
+     *
+     * @return Response
+     */
+    public function storeImage($accountId, $request)
+    {
+        $model = new $this->model();
+
+        $model->type = 'image';
+
+        $model->source_url = $request->url;
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 存储视频素材.
+     *
+     * @param int     $accountId 公众号id
+     * @param Request $request   request
+     *
+     * @return Response
+     */
+    public function storeVideo($accountId, $request)
+    {
+        $model = new $this->model();
+
+        $model->type = 'video';
+
+        $model->title = $request->title;
+
+        $model->description = $request->description;
+
+        $model->source_url = $request->url;
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 存储图文.
+     *
+     * @param array $articles articles
+     *
+     * @return
+     */
+    public function store($accountId, $articles)
+    {
+        if (count($articles) > 2) {
+            return $this->storeMultiArticle($accountId, $articles);
+        } else {
+            return $this->storeSimpleArticle($accountId, $articles[0]);
+        }
+    }
+
+    /**
      * 存储远程多图文素材.
      *
-     * @param array $articles 多图文
+     * @param int   $accountId 公众号Id
+     * @param array $articles  多图文
+     * @param int   $isRemote  是否为远程图文
      *
      * @return string MediaId
      */
-    private function storeRemoteMultiArticle($accountId, $articles)
+    private function storeMultiArticle($accountId, $articles, $isRemote = Material::IS_NOT_REMOTE)
     {
         $articles = array_map(function ($article) {
-            $article['type'] = Article::IS_REMOTE;
-            $article['created_from'] = Article::CREATED_FROM_WECHAT;
+
+            $article['is_remote'] = $isRemote;
+            $article['type'] = 'article';
+            $article['created_from'] = Material::CREATED_FROM_WECHAT;
 
             return $article;
         }, $articles);
@@ -109,24 +257,27 @@ class MaterialRepository
     /**
      * 存储远程单图文素材.
      *
-     * @param array $article 单图文
+     * @param int   $accountId 公众号ID
+     * @param array $article   单图文
+     * @param int   $isRemote  是否为远程图文
      */
-    private function storeRemoteSimpleArticle($accountId, $article)
+    private function storeSimpleArticle($accountId, $article, $isRemote = Material::IS_NOT_REMOTE)
     {
-        $article['type'] = Article::IS_REMOTE;
-        $article['created_from'] = Article::CREATED_FROM_WECHAT;
+        $article['is_remote'] = $isRemote;
+        $article['created_from'] = Material::CREATED_FROM_WECHAT;
         $article['account_id'] = $accountId;
+        $article['type'] = 'article';
 
         return $this->savePost($article);
     }
 
-     /**
+    /**
      * 保存 [针对于字段名称不统一].
      *
-     * @param App\Models\Article $article 模型
-     * @param array              $input   图文数据
+     * @param App\Models\Material $material 模型
+     * @param array               $input    图文数据
      *
-     * @return App\Models\Article
+     * @return App\Models\Material
      */
     private function savePost($input)
     {
@@ -146,8 +297,8 @@ class MaterialRepository
     /**
      * fillSavePost.
      *
-     * @param App\Models\Article $article model
-     * @param array              $input   数据
+     * @param App\Models\Material $material model
+     * @param array               $input    数据
      */
     private function fillSavePost($article, $input)
     {
