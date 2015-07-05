@@ -26,8 +26,6 @@ class FanGroup extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -41,23 +39,23 @@ class FanGroup extends Command
      */
     public function handle()
     {
-		$accountId = $this->argument('account_id');
-		/**
-		 * 1 获取Account
-		 */
-		$account = $this->getAccount($accountId);
-		$fanGroupModel = new FanGroupModel;
-		/**
-		 * 2 初始化 SDK Config, 构建 SDK 对象
-		 */
-		$sdkConfig = [
-			'app_id' => $account->app_id,
-			'secret' => $account->app_secret
-		];
-		$group = new Group($sdkConfig);
-		$groups = $group->lists();
-		if ($groups) {
-            /**
+        $accountId = $this->argument('account_id');
+        /*
+         * 1 获取Account
+         */
+        $account = $this->getAccount($accountId);
+        $fanGroupModel = new FanGroupModel();
+        /*
+         * 2 初始化 SDK Config, 构建 SDK 对象
+         */
+        $sdkConfig = [
+            'app_id' => $account->app_id,
+            'secret' => $account->app_secret,
+        ];
+        $group = new Group($sdkConfig);
+        $groups = $group->lists();
+        if ($groups) {
+            /*
              * Prepare Data
              */
             $saveData = [];
@@ -70,30 +68,29 @@ class FanGroup extends Command
                 $saveData[$groupKey]['is_default'] = in_array($groupVal['name'], ['默认组', '屏蔽组', '星标组']) ? 1 : 0;
             }
 
-            /**
+            /*
              * Force Delete
              */
             $fanGroupModel->where('account_id', $account->id)->forceDelete();
 
-            /**
+            /*
              * Insert
              */
             $result = $fanGroupModel->insert($saveData);
         }
-		
-		print_r($result);
-		
-	}
-	
-	/**
-	 * 获取Account
-	 * 
-	 * @param Int $id AccountID
-	 * @return void
-	 */
-	private function getAccount($accountId)
-	{
-		$accountRepository = new AccountRepository(new Account);
-		return $accountRepository->getById($accountId);
-	}
+
+        print_r($result);
+    }
+
+    /**
+     * 获取Account.
+     *
+     * @param Int $id AccountID
+     */
+    private function getAccount($accountId)
+    {
+        $accountRepository = new AccountRepository(new Account());
+
+        return $accountRepository->getById($accountId);
+    }
 }

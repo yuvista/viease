@@ -17,6 +17,8 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return ['menu' => 'required'];
+        return [
+            'menus' => 'required',
+        ];
     }
 }

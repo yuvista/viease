@@ -22,6 +22,44 @@
         </div>
     </div>
 </div>
+<!--测试使用-->
+ <a href="javascript:;" id="save-menu">保存菜单</a>
+
+   <script type="text/javascript">
+    $(function(){
+        $('#save-menu').click(function(){
+            $.ajax({
+              type: 'POST',
+              url: '/admin/menu/store',
+              data: {
+                    menus:[
+                        {
+                            name:"大家好", //菜单名称
+                            type:"text", //菜单类型
+                            value:'大家好才是真的好'
+                        },
+                        {
+                            name:"带有二级菜单",
+                            sub_button:[
+                                {
+                                    name:"回复图片",
+                                    type:"media",
+                                    value:"MEDIA_XXXXXXXXX"
+                                },
+                                {
+                                    name:"跳转地址",
+                                    type:"view",
+                                    value:"http://www.baidu.com"
+                                }
+                            ]
+                        }
+                    ]
+                },
+            });
+        });
+    });
+    </script>
+ <!--End 测试使用-->
 
 <script type="text/plain" id="no-menus-content-template">
     <div class="blankslate spacious">

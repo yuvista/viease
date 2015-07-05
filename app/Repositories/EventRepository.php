@@ -43,11 +43,9 @@ class EventRepository
     }
 
     /**
-     * 通过eventId删除事件
+     * 通过eventId删除事件.
      *
-     * @param  string $eventId eventId
-     *
-     * @return void
+     * @param string $eventId eventId
      */
     public function distoryByEventId($eventId)
     {

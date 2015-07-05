@@ -47,9 +47,9 @@
               type: 'POST',
               url: '/admin/reply/store',
               data: {
-                    name:"粉丝",
+                    name:"粉丝22",
                     trigger_keywords:[
-                        "大学","你好"
+                        "大学1","你好2"
                     ],
                     trigger_type:"contain",
                     replies:[
@@ -73,13 +73,13 @@
         $('#update').click(function(){
             $.ajax({
               type: 'POST',
-              url: '/admin/reply/update/4',
+              url: '/admin/reply/update/15',
               data: {
                     name:"粉丝",
                     trigger_keywords:[
-                        "大家好"
+                       "大学","你好"
                     ],
-                    trigger_type:"equal",
+                    trigger_type:"contain",
                     replies:[
                         {
                             'type':'text',

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Material;
 
 /**
  * VideoRequest.
@@ -18,6 +17,9 @@ class VideoRequest extends Request
     public function rules()
     {
         return [
-               ];
+            'title' => 'required',
+            'description' => 'required',
+            'url' => 'required',
+        ];
     }
 }

@@ -48,9 +48,9 @@ class AccountRepository
     }
 
     /**
-     * 根据tag获取公众号
+     * 根据tag获取公众号.
      *
-     * @param  string $tag tag
+     * @param string $tag tag
      *
      * @return Model
      */

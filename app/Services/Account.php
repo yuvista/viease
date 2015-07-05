@@ -60,9 +60,9 @@ class Account
     }
 
     /**
-     * 根据tag 获取公众后
+     * 根据tag 获取公众后.
      *
-     * @param  string $tag tag
+     * @param string $tag tag
      *
      * @return App\Models\Account|null
      */
@@ -82,7 +82,7 @@ class Account
     }
 
     /**
-     * 创建识别tag
+     * 创建识别tag.
      *
      * @return string tag
      */

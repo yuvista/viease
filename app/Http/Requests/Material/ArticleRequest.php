@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Material;
 
 /**
  * Article.

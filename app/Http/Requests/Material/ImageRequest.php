@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Material;
 
 /**
  * ImageRequest.
@@ -18,6 +17,7 @@ class ImageRequest extends Request
     public function rules()
     {
         return [
+            'url' => 'required',
         ];
     }
 }

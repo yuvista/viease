@@ -102,7 +102,7 @@ class ReplyController extends Controller
      *
      * @param EventRequest $request request
      *
-     * @return  array
+     * @return array
      */
     public function postSaveEventReply(EventRequest $request)
     {

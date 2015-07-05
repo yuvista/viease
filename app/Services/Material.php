@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\MaterialRepository;
+use Overtrue\Wechat\Media;
 
 /**
  * 素材服务.
@@ -18,9 +19,30 @@ class Material
      */
     private $materialRepository;
 
+    /**
+     * accountService.
+     *
+     * @var App\Services\AccountService
+     */
+    private $account;
+
+    /**
+     * $media description.
+     *
+     * @var Overtrue\Wechat\Media
+     */
+    private $media;
+
     public function __construct(MaterialRepository $materialRepository)
     {
         $this->materialRepository = $materialRepository;
+
+        $this->account = account()->getCurrent();
+
+        $this->media = new Media([
+            'app_id' => $this->account->app_id,
+            'secret' => $this->account->app_secret,
+        ]);
     }
 
     /**
@@ -32,9 +54,7 @@ class Material
      */
     public function saveRemoteArticle($articles)
     {
-        $accountId = account()->getCurrent()->id;
-
-        return $this->materialRepository->storeRemoteArticle($accountId, $articles);
+        return $this->materialRepository->storeRemoteArticle($this->account->id, $articles);
     }
 
     /**
@@ -72,9 +92,7 @@ class Material
      */
     public function isExists($materialId)
     {
-        $accountId = account()->getCurrent()->id;
-
-        return $this->materialRepository->isExists($accountId, $materialId);
+        return $this->materialRepository->isExists($this->account->id, $materialId);
     }
 
     /**
@@ -85,5 +103,95 @@ class Material
     public function buildMaterialMediaId()
     {
         return 'MEDIA_'.strtoupper(uniqid());
+    }
+
+    /**
+     * 上传素材到远程.
+     *
+     * @param App\Model\Material $material 素材模型
+     */
+    public function updateToRemote($material)
+    {
+        $function = camel_case('upload_remote_'.$material->type);
+
+        return $function($material);
+    }
+
+    /**
+     * 上传视频到远程.
+     *
+     * @param Material $video 视频素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteVideo($video)
+    {
+        $filePath = $this->mediaUrlToPath($video->source_url);
+
+        return $this->media->forever()->video($filePath, $video->title, $video->description);
+    }
+
+    /**
+     * 上传声音到远程.
+     *
+     * @param Material $voice 声音素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteVoice($voice)
+    {
+        $filePath = $this->mediaUrlToPath($voice->source_url);
+
+        return $this->media->forever()->voice($filePath);
+    }
+
+    /**
+     * 上传图片到远程.
+     *
+     * @param Material $image 图片素材
+     *
+     * @return string 微信素材id
+     */
+    private function uploadRemoteImage($image)
+    {
+        $filePath = $this->mediaUrlToPath($image->source_url);
+
+        return $this->media->forever()->image($filePath);
+    }
+
+    /**
+     * 上传图文素材到远程.
+     *
+     * @param array $articles 图文素材
+     *
+     * @return string
+     */
+    public function uploadRemoteArticles($articles)
+    {
+        return $this->media->news($articles);
+    }
+
+    /**
+     * 素材路径转Url.
+     *
+     * @param string $path 路径
+     *
+     * @return string 地址
+     */
+    public function mediaPathToUrl($path)
+    {
+        return '/demo';
+    }
+
+    /**
+     * 素材Url转路径.
+     *
+     * @param string $url 地址
+     *
+     * @return string 路径
+     */
+    public function mediaUrlToPath($url)
+    {
+        return '/demo';
     }
 }

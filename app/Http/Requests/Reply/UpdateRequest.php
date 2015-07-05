@@ -18,7 +18,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|unique:replies,name',
+            'name' => 'required',
             'trigger_keywords' => 'required|array',
             'trigger_type' => 'required|in:equal,contain',
             'replies' => 'required|array',

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Material\ArticleRequest;
-use App\Http\Requests\Material\ImageRequest;
-use App\Http\Requests\Material\VoiceRequest;
 use App\Http\Requests\Material\VideoRequest;
+use App\Http\Requests\Material\voiceRequest;
+use App\Http\Requests\Material\ImageRequest;
 use App\Repositories\MaterialRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -32,9 +32,9 @@ class MaterialController extends Controller
     private $materialRepository;
 
     /**
-     * accountId
+     * accountId.
      *
-     * @var integer
+     * @var int
      */
     private $accountId;
 
@@ -69,7 +69,7 @@ class MaterialController extends Controller
     }
 
     /**
-     * 统计素材数量
+     * 统计素材数量.
      *
      * @return array
      */
@@ -84,11 +84,9 @@ class MaterialController extends Controller
     }
 
     /**
-     * 创建新文章
+     * 创建新文章.
      *
-     * @param  string $value value
-     *
-     * @return void
+     * @param string $value value
      */
     public function getNewArticle($value = '')
     {
@@ -96,14 +94,42 @@ class MaterialController extends Controller
     }
 
     /**
-     * 创建新图文
+     * 创建新图文.
      *
-     * @param  ArticleRequest $request request
-     *
-     * @return void
+     * @param ArticleRequest $request request
      */
     public function postNewArticle(ArticleRequest $request)
     {
-        
+        return $this->materialRepository->storeArticle($request->get('article'));
+    }
+
+    /**
+     * 创建声音.
+     *
+     * @param voiceRequest $request request
+     */
+    public function postVoice(voiceRequest $request)
+    {
+        return $this->materialRepository->storeVoice($this->accountId, $request);
+    }
+
+    /**
+     * 创建视频.
+     *
+     * @param VideoRequest $request request
+     */
+    public function postVideo(VideoRequest $request)
+    {
+        return $this->materialRepository->storeVideo($this->accountId, $request);
+    }
+
+    /**
+     * 创建图片.
+     *
+     * @param ImageRequest $request request
+     */
+    public function postImage(ImageRequest $request)
+    {
+        return $this->materialRepository->storeImage($this->accountId, $request);
     }
 }

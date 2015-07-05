@@ -23,8 +23,6 @@ class AllFanGroup extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -38,13 +36,12 @@ class AllFanGroup extends Command
      */
     public function handle()
     {
-        $accountModel = new Account;
-		$accounts = $accountModel->get();
-		//$accounts = $accountModel->where('id', 1)->get();	//test
+        $accountModel = new Account();
+        $accounts = $accountModel->get();
+        //$accounts = $accountModel->where('id', 1)->get();	//test
 
-		foreach($accounts as $account)
-		{
-			$this->call('sync:group', array('account_id' => $account->id));
-		}
+        foreach ($accounts as $account) {
+            $this->call('sync:group', array('account_id' => $account->id));
+        }
     }
 }

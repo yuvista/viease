@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Services\Event as EventService;
+use App\Repositories\ReplyRepository;
+use Cache;
 
 /**
  * 回复服务.
@@ -18,9 +20,18 @@ class Reply
      */
     private $eventService;
 
-    public function __construct(EventService $eventService)
+    /**
+     * replyRepository.
+     *
+     * @var App\Repositories\ReplyRepository
+     */
+    private $replyRepository;
+
+    public function __construct(EventService $eventService, ReplyRepository $replyRepository)
     {
         $this->eventService = $eventService;
+
+        $this->replyRepository = $replyRepository;
     }
 
     /**
@@ -43,18 +54,43 @@ class Reply
     }
 
     /**
-     * 解析多个事件回复
+     * 解析多个事件回复.
      *
-     * @param  array $replies replies
+     * @param array $replies replies
      *
      * @return array
      */
     public function resolveReplies($replies)
-    {   
+    {
         $replies = $replies->toArray();
 
-        return array_map(function($reply){
+        return array_map(function ($reply) {
             return $this->resolveReply($reply);
-        },$replies);
+        }, $replies);
+    }
+
+    /**
+     * 重建回复缓存.
+     */
+    public function rebuildReplyCache()
+    {
+        $accountId = account()->getCurrent()->id;
+
+        $replies = $this->replyRepository->all($accountId);
+
+        if (empty($replies)) {
+            Cache::forget('replies_'.$accountId);
+        }
+
+        $caches = [];
+
+        foreach ($replies as $reply) {
+            foreach ($reply['trigger_keywords'] as $keyword) {
+                $cache[$keyword]['type'] = $reply['trigger_type'];
+                $cache[$keyword]['content'] = $reply['content'];
+            }
+        }
+
+        Cache::forever('replies_'.$accountId, $caches);
     }
 }

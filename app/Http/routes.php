@@ -11,8 +11,8 @@
     |
 */
 
-Route::get('/api','ServerController@server');
-Route::post('/api','ServerController@server');
+Route::get('/api', 'ServerController@server');
+Route::post('/api', 'ServerController@server');
 
 Route::any('/upload', function () {
     return ['ok' => 1];

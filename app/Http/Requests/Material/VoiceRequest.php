@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Material;
 
 use App\Http\Requests\Request;
-use App\Models\Material;
 
 /**
  * VoiceRequest.
@@ -18,7 +17,7 @@ class VoiceRequest extends Request
     public function rules()
     {
         return [
-
+            'url' => 'required',
                ];
     }
 }

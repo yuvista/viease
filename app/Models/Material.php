@@ -21,7 +21,12 @@ class Material extends Model
     /**
      * 远程素材类型.
      */
-    const IS_REMOTE = 3;
+    const IS_REMOTE = 1;
+
+    /**
+     * 非远程素材.
+     */
+    const IS_NOT_REMOTE = 2;
 
     /**
      * 创建来自自己.

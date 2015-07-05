@@ -12,9 +12,9 @@ use App\Models\Account;
 class AccountObserver
 {
     /**
-     * 保存事件
+     * 保存事件.
      *
-     * @param  Account $account account
+     * @param Account $account account
      */
     public function saving(Account $account)
     {
@@ -26,12 +26,11 @@ class AccountObserver
     }
 
     /**
-     * 创建事件
+     * 创建事件.
      *
-     * @param  Account $account account
+     * @param Account $account account
      */
     public function created(Account $account)
     {
-
     }
 }

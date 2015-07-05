@@ -11,14 +11,14 @@ use Input;
 class ServerController extends Controller
 {
     /**
-     * Server
+     * Server.
      *
      * @var App\Services\Server
      */
     private $server;
 
     /**
-     * construct
+     * construct.
      *
      * @param Server $server server
      */
@@ -28,7 +28,7 @@ class ServerController extends Controller
     }
 
     /**
-     * 返回服务端
+     * 返回服务端.
      *
      * @return Response
      */
@@ -38,7 +38,7 @@ class ServerController extends Controller
 
         $account = account()->getAccountByTag($tag);
 
-        if(!$account){
+        if (!$account) {
             return;
         }
 

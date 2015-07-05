@@ -30,7 +30,27 @@ class MenuRepository
      */
     public function lists($accountId)
     {
-        return $this->model->with('subButtons')->where('account_id', $accountId)->where('parent_id', 0)->orderBy('id', 'desc')->get();
+        return $this->model->with('subButtons')->where('account_id', $accountId)->where('parent_id', 0)->orderBy('id', 'asc')->get();
+    }
+
+    /**
+     * 取得所有菜单 不带有层级.
+     *
+     * @return array
+     */
+    public function all($accountId)
+    {
+        return $this->model->where('account_id', $accountId)->get()->toArray();
+    }
+
+    /**
+     * 根据公众号Id删除菜单.
+     *
+     * @param int $accountId accountId
+     */
+    public function distoryMenuByAccountId($accountId)
+    {
+        return $this->model->where('account_id', $accountId)->delete();
     }
 
     /**
@@ -43,7 +63,6 @@ class MenuRepository
     {
         foreach ($menus as $key => $menu) {
             $menu['sort'] = $key;
-
             $menu['account_id'] = $accountId;
 
             $parentId = $this->store($menu)->id;

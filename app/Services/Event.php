@@ -61,7 +61,9 @@ class Event
      */
     public function makeText($text)
     {
-        return $this->eventRepository->storeText($text);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->eventRepository->storeText($text, $accountId);
     }
 
     /**
@@ -120,5 +122,15 @@ class Event
         $event = $this->eventRepository->findByEventId($eventId);
 
         return $event;
+    }
+
+    /**
+     * 根据eventId 删除事件.
+     *
+     * @param string $eventId 事件ID
+     */
+    public function distoryByEventId($eventId)
+    {
+        return $this->eventRepository->distoryByEventId($eventId);
     }
 }

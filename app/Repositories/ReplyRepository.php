@@ -76,6 +76,18 @@ class ReplyRepository
     }
 
     /**
+     * 取得所有回复记录.
+     *
+     * @param int $accountId accountId
+     *
+     * @return Response
+     */
+    public function all($accountId)
+    {
+        return $this->model->where('account_id', $accountId)->get()->toArray();
+    }
+
+    /**
      * 保存事件自动回复.
      *
      * @param App\Http\Requests\Reply\EventRequest $request   request

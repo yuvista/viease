@@ -56,7 +56,9 @@ class MenuController extends Controller
      */
     public function getLists()
     {
-        return $this->menuRepository->lists(account()->getCurrent()->id);
+        $accountId = account()->getCurrent()->id;
+
+        return $this->menuRepository->lists($accountId);
     }
 
     /**
@@ -66,13 +68,12 @@ class MenuController extends Controller
      */
     public function postStore(CreateRequest $request)
     {
-        return [
-            'id' => mt_rand(1, 99),
-            'account_id' => 2,
-            'parent_id' => 0,
-            'name' => $request->name,
-            'type' => 'click',
-            'key' => 'foo',
-        ];
+        $accountId = account()->getCurrent()->id;
+
+        $this->menuService->destroyOldMenu($accountId);
+
+        $menus = $this->menuService->analyseMenus($request->get('menus'));
+
+        return $this->menuRepository->storeMulti($accountId, $menus);
     }
 }
