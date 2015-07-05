@@ -135,7 +135,9 @@ function showMenu(group) {
     $(".nav-group-" + group).show();
 
     $('#sidebar-nav a').each(function(){
-        if (window.location.href.indexOf($(this).attr('href')) >= 0) {
+        var href = $(this).attr('href').replace(' ', '');
+
+        if (href.length > 0 && window.location.href.indexOf(href) >= 0) {
             $('#sidebar-nav a').removeClass('active');
 
             return $(this).addClass('active');

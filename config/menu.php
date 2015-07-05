@@ -139,10 +139,10 @@ return [
                             'label' => '消息资源库',
                             'uri'   => 'message/resource',
                         ],
-                        [
-                            'label' => '模板消息',
-                            'uri'   => 'notice',
-                        ],
+                        // [
+                        //     'label' => '模板消息',
+                        //     'uri'   => 'notice',
+                        // ],
 
                     ],
                 ],
@@ -173,20 +173,6 @@ return [
                         [
                             'label' => '客服管理',
                             'uri'   => 'staff',
-                        ],
-                    ],
-                ],
-                [
-                    'label' => '工具',
-                    'icon'  => 'ion-ios-color-wand',
-                    'submenus' => [
-                        [
-                            'label' => '短链接',
-                            'uri'   => 'tool/short-url',
-                        ],
-                        [
-                            'label' => '二维码',
-                            'uri'   => 'qrcode',
                         ],
                     ],
                 ],
