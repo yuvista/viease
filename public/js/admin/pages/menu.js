@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/menu'], function ($, $menu) {
+define(['jquery', 'repos/menu', 'util'], function ($, $menu, Util) {
     $(function(){
         // 菜单列表
         var $menusListContainer   = $('.menus');
