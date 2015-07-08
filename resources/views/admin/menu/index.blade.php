@@ -22,55 +22,17 @@
         </div>
     </div>
 </div>
-<!--测试使用-->
- <a href="javascript:;" id="save-menu">保存菜单</a>
 
-   <script type="text/javascript">
-    $(function(){
-        $('#save-menu').click(function(){
-            $.ajax({
-              type: 'POST',
-              url: '/admin/menu/store',
-              data: {
-                    menus:[
-                        {
-                            name:"大家好", //菜单名称
-                            type:"text", //菜单类型
-                            value:'大家好才是真的好'
-                        },
-                        {
-                            name:"带有二级菜单",
-                            sub_button:[
-                                {
-                                    name:"回复图片",
-                                    type:"media",
-                                    value:"MEDIA_XXXXXXXXX"
-                                },
-                                {
-                                    name:"跳转地址",
-                                    type:"view",
-                                    value:"http://www.baidu.com"
-                                }
-                            ]
-                        }
-                    ]
-                },
-            });
-        });
-    });
-    </script>
- <!--End 测试使用-->
-
-<script type="text/plain" id="no-menus-content-template">
+<script type="text/template" id="no-menus-content-template">
     <div class="blankslate spacious">
         <p>尚未配置菜单</p>
         <div><a href="javascript:;" class="add-menu-item">点此立即创建</a></div>
     </div>
 </script>
-<script type="text/plain" id="menu-item-template">
+<script type="text/template" id="menu-item-template">
 <div class="list-group-item menu-item"><%= menu.name %> <button type="button" class="btn btn-default btn-xs pull-right"><i class="ion-compose"></i></button></div>
 </script>
-<script type="text/plain" id="menu-item-form-template">
+<script type="text/template" id="menu-item-form-template">
     <div class="list-group-item">
         <form action="" method="post" accept-charset="utf-8" class="menu-item-form">
             <div class="form-group">
@@ -85,69 +47,7 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/admin/repos/menu.js') }}"></script>
 <script>
-$(function(){
-    // 菜单列表
-    var menusListContainer   = $('.menus');
-    var emptyMenusTemplate   = _.template($('#no-menus-content-template').html());
-    var menuItemFormTemplate = _.template($('#menu-item-form-template').html());
-    var menuItemTemplate     = _.template($('#menu-item-template').html());
-    var i = 0;
-
-    // 监听变化
-    menusListContainer.ifEmpty(function(el){
-        el.html(emptyMenusTemplate()).addClass('no-menus');;
-    });
-
-    // 显示菜单列表
-    function listsMenu () {
-        Repo.menu.getMenus(function($menus){
-            // clean
-            menusListContainer.html('').removeClass('no-menus');
-
-            _.each($menus, function($menu){
-                menusListContainer.append(menuItemTemplate( { menu: $menu } ));
-            });
-        });
-    }
-
-    listsMenu();
-
-    // 创建
-    $(document).on('click', '.add-menu-item', function(){
-        if (menusListContainer.hasClass('no-menus')) {
-            menusListContainer.html('').removeClass('no-menus');
-        };
-
-        var $form = menuItemFormTemplate();
-
-        menusListContainer.append($form);
-
-        menusListContainer.find('input').focus();
-    });
-
-    // 表单提交
-    $(document).on('submit', '.menus form.menu-item-form:first', function(e){
-        e.preventDefault();
-        var $params = Util.parseForm($(this));
-
-        if ($params.id) {
-            Repo.menu.updateMenu($params.id, $params, listsMenu);
-        } else {
-            Repo.menu.createMenu($params, listsMenu);
-        }
-    });
-
-    // 取消
-    $(document).on('click', '.menus form .cancel-do', function(e){
-        e.preventDefault();
-        var $params = Util.parseForm($(this));
-
-        if (!$params.id) {
-            $(this).closest('form').parent().remove();
-        };
-    });
-});
+require(['pages/menu']);
 </script>
 @stop

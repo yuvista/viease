@@ -72,13 +72,13 @@
     </form>
 </div>
 
-<script type="text/plain" id="no-content-template">
+<script type="text/template" id="no-content-template">
     <div class="blankslate spacious">
         <h3><i class="ion-ios-information"></i> 无用户</h3>
     </div>
 </script>
 
-<script id="group-template" type="text/plain">
+<script id="group-template" type="text/template">
     <% _.each(groups, function(group) { %>
     <a href="javascript:;" data-id="<%= group.id %>" data-group_id="<%= group.group_id %>" class="list-group-item">
       <span class="badge"><%= group.fan_count %></span> <%= group.title %>
@@ -86,7 +86,7 @@
     <% }); %>
 </script>
 
-<script id="fan-template" type="text/plain">
+<script id="fan-template" type="text/template">
     <% _.each(fans, function(fan) { %>
     <div class="col-md-4 col-sm-6 fan-item" data-nickname="<%= fan.nickname %>" data-location="<%= fan.location %>" data-remark="<%= fan.remark %>" data-group-id="<%= fan.group_id %>" data-signature="<%= fan.signature %>">
         <div class="media">
@@ -104,7 +104,7 @@
     <% }); %>
 </script>
 
-<script id="fan-popover-template" type="text/plain">
+<script id="fan-popover-template" type="text/template">
     <table>
         <tr>
             <td colspan="2"><span class="nickname"><%= nickname %></span></td>
@@ -140,115 +140,7 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/admin/repos/fan.js') }}"></script>
 <script>
-    $(function(){
-        var $emptyContentTemplate = _.template($('#no-content-template').html());
-        var $fanTemplate    = _.template($('#fan-template').html());
-        var $groupTemplate   = _.template($('#group-template').html());
-        var $popoverTemplate = _.template($('#fan-popover-template').html());
-        var $fanContainer   = $('.fans-list');
-        var $groupContainer  = $('.group-list');
-        var $__groupId = 0;
-        var $__page = 1;
-        var $__sortBy = $('[name="sort_by"]').val();
-
-         // 当无内容时显示“无内容”提示
-        $fanContainer.ifEmpty(function($el){
-            $el.html($emptyContentTemplate()).addClass('no-content');;
-        });
-
-        // 分页
-        var $pager = new Pager('.pagination-bar', {
-                classes: 'border-top',
-                onChange: function($page){
-                    loadFans($__groupId, $__sortBy, $page);
-                }
-            });
-
-        // 加载用户列表
-        function loadFans($groupId, $sortBy, $page) {
-            $__sortBy = $sortBy = $sortBy || $__sortBy;
-            $__page = $page = $page || $__page;
-
-            Repo.fan.getFans($groupId, $sortBy, function($fans){
-                $fanContainer.html($fanTemplate({fans:$fans}));
-                $pager.display({
-                        total: window.last_response.last_page,
-                        current: window.last_response.current_page,
-                    });
-            }, $page);
-        }
-
-        // 加载组列表
-        function loadGroups($sortBy, $page) {
-            Repo.fan.getGroups($sortBy, function($groups){
-                // 加入 “全部分组”
-                var totalfans = _.reduce($groups, function(sum, group){return sum + group.fan_count;}, 0);
-
-                $groups.unshift({id:0, title: "全部用户", fan_count:totalfans});
-
-                $groupContainer.html($groupTemplate({groups:$groups}));
-            }, $page);
-        }
-
-        loadFans($__groupId); // 第一次加载全部用户
-        loadGroups(); // 第一次加载全部组
-
-        // 修改排序方式
-        $(document).on('change', '[name="sort_by"]', function(){
-            loadFans($__groupId, $(this).val(), $__page);
-        });
-
-        // 分组切换
-        $(document).on('click', '.group-list > a', function(){
-            $__groupId = $(this).data('group_id');
-            loadFans($__groupId, $__sortBy);
-            $(this).addClass('active').siblings('a').removeClass('active');
-        });
-
-        // 浮层
-        $(document).on('mouseenter', '.fan-item', function(){
-            var $data = $(this).data();
-                $data['html'] = true;
-
-            if (!$data['content']) {
-                var content = $($popoverTemplate($data));
-                content.find('select').val($data.group_id).change()
-                                        .find('[value="'+$data.group_id+'"]')
-                                        .attr('selected', true)
-                                        .siblings().attr('selected', false);
-                $(this).data('content', content);
-            };
-
-            $(this).popover($(this).data());
-            $('.popover').popover('hide');
-            $(this).popover('show');
-        });
-
-        // 新建分组
-        $(document).on('submit', '#new-group', function(){
-            var $params = Util.parseForm($('#new-group'));
-
-            var $validator = Validator.make($params, {group_name:"required|min:1"}, {group_name:"名称"});
-            if ($validator.fails()) {
-                Util.formError($('#new-group'), $validator.messages());
-                return false;
-            };
-
-            Repo.fan.createGroup($params.group_name, function($group){
-                $groupContainer.append($groupTemplate({groups: [$group]}));
-                success('分组创建成功！');
-                $('#new-group-modal').modal('hide').find('form').get(0).reset();
-            }, function(err){
-                if (err.status == 422) {
-                    return Util.formError($('#new-group'), err.responseJSON);
-                };
-            });
-
-            return false;
-        });
-
-    });
+    require(['pages/fan']);
 </script>
 @stop

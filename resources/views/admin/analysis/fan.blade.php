@@ -5,8 +5,14 @@
     <div class="page-header">
         <h2 id="nav">粉丝 - 数据统计</h2>
     </div>
-    <div class="well row">
-        //TODO
+    <div class="well">
+        <div id="main" style="height:400px;"></div>
     </div>
 </div>
+@stop
+
+@section('js')
+<script>
+    require(['pages/anaylsis.fan']);
+</script>
 @stop

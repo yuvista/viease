@@ -1,6 +1,9 @@
-(function(){
-
-    var Repo = Repo || {};
+/**
+ * 素材数据仓库
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['jquery', 'util'], function($, Util){
 
     /**
      * 素材仓库
@@ -9,7 +12,7 @@
      *
      * @type {Object}
      */
-    Repo.material = {
+    var $material = {
         /**
          * 获取资源数量汇总
          *
@@ -102,6 +105,5 @@
         }
     };
 
-    return window.Repo = Repo;
-
-})();
+    return $material;
+});

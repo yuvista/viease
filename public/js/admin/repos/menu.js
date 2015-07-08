@@ -1,6 +1,9 @@
-(function(){
-
-    var Repo = Repo || {};
+/**
+ * 菜单数据仓库
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['jquery', 'util'], function($, Util){
 
     /**
      * 菜单仓库
@@ -9,7 +12,7 @@
      *
      * @type {Object}
      */
-    Repo.menu = {
+    var $menu = {
         /**
          * 获取菜单列表
          *
@@ -51,6 +54,6 @@
         },
     };
 
-    return window.Repo = Repo;
+    return $menu;
 
-})();
+});

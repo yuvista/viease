@@ -1,4 +1,9 @@
-(function(){
+/**
+ * 上传组件
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['plupload'], function(){
     var $Uploader,
         $uploadUrl = '/upload',
         $filters = {
@@ -117,4 +122,4 @@
     }
 
     return window.uploader = $Uploader;
-})();
+});

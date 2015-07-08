@@ -1,6 +1,9 @@
-(function(){
-
-    var Repo = Repo || {};
+/**
+ * 粉丝数据仓库
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['jquery', 'util'], function($, Util){
 
     /**
      * 粉丝仓库
@@ -9,7 +12,7 @@
      *
      * @type {Object}
      */
-    Repo.fan = {
+    var $fan = {
         /**
          * 获取粉丝列表
          *
@@ -105,6 +108,5 @@
         },
     };
 
-    return window.Repo = Repo;
-
-})();
+    return $fan;
+});
