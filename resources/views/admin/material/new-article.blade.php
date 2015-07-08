@@ -76,43 +76,17 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('js/plugins/ueditor/themes/viease/css/ueditor-viease.css') }}">
+<link rel="stylesheet" href="{{ asset('js/plugins/ueditor/themes/viease/css/ueditor.css') }}">
 @stop
 
+@section('pre_js')
+<script>window.UEDITOR_HOME_URL = "/js/plugins/ueditor/";</script>
+<script type="text/javascript" src="{{ asset('js/plugins/ueditor/ueditor.config.js') }}" async></script>
+<script type="text/javascript" src="{{ asset('js/plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins/ueditor/ueditor.all.js') }}" async></script>
+@stop
 @section('js')
-<script src="{{ asset('js/admin/repos/material.js') }}"></script>
-<script src="{{ asset('js/plugins/plupload/js/plupload.full.min.js') }}"></script>
-<script>window.UEDITOR_HOME_URL = "{{ asset('js/plugins/ueditor/') }}/";</script>
-<script type="text/javascript" src="{{ asset('js/plugins/ueditor/ueditor.config.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/plugins/ueditor/ueditor.all.min.js') }}"></script>
-<script src="{{ asset('js/uploader.js') }}"></script>
 <script>
-    $(function(){
-        var $ue = UE.getEditor('container');
-
-        function checkAddBtn () {
-            var $addBtnBox = $('.add-new-item').closest('.article-preview-item');
-            if($('.articles-preview-container .article-preview-item').length -1 >= 8){
-                $addBtnBox.slideUp(100);
-            } else {
-                $addBtnBox.slideDown(100);
-            }
-        }
-
-        // 添加项目
-        $('.articles-preview-container').on('click', '.add-new-item', function(){
-            var $parentItem = $(this).closest('.article-preview-item');
-            $parentItem.before($('#preview-item-template').html());
-            checkAddBtn();
-        });
-
-        // 删除项目
-        $('.articles-preview-container').on('click', '.delete', function(){
-            $(this).closest('.article-preview-item').slideUp(200, function(){
-                $(this).remove();
-                checkAddBtn();
-            });
-        });
-    })
+    require(['pages/material.new-article']);
 </script>
 @stop

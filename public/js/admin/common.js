@@ -5,13 +5,15 @@
  */
 define([
     'jquery',
+    'Switchery',
     'underscore',
     'bootstrap',
     'magnificPopup',
     'selectpicker',
     'sweetalertUtil'
     ],
-function ($) {
+function ($, Switchery) {
+
     // 检查div内是否为空
     $.fn.ifEmpty = function(cb){
         var _this = this;

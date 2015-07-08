@@ -36,7 +36,7 @@
   <script src="{{ asset('/plugin/html5shiv/dist/html5shiv.js') }}"></script>
   <script src="{{ asset('/plugin/respond/dest/respond.min.js') }}></script>
   <![endif]-->
-  <script src="{{ asset('/js/require.js') }}" data-main="{{ asset('js/admin/main') }}"></script>
+  @yield('pre_js')
 </head>
 <body>
   <header class="console-header">
@@ -141,6 +141,8 @@
       <span class="plus-loader"></span>
       <span class="message">网络加载中...</span>
   </div>
+
+  <script src="{{ asset('/js/require.js') }}" data-main="{{ asset('js/admin/main') }}"></script>
   @yield('js')
 </body>
 </html>

@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/material', 'uploader', 'pager'], function ($, $material, Uploader, Pager) {
+define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], function ($, $material, Uploader, Pager) {
     $(function(){
         var $emptyContentTemplate = _.template($('#no-content-template').html());
 

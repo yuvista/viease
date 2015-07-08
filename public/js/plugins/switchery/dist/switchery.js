@@ -56,11 +56,11 @@ require.helper.semVerSort = function(a, b) {
 
 /**
  * Find and require a module which name starts with the provided name.
- * If multiple modules exists, the highest semver is used. 
+ * If multiple modules exists, the highest semver is used.
  * This function can only be used for remote dependencies.
 
  * @param {String} name - module name: `user~repo`
- * @param {Boolean} returnPath - returns the canonical require path if true, 
+ * @param {Boolean} returnPath - returns the canonical require path if true,
  *                               otherwise it returns the epxorted module
  */
 require.latest = function (name, returnPath) {
@@ -83,7 +83,7 @@ require.latest = function (name, returnPath) {
           semVerCandidates.push({version: version, name: moduleName});
         } else {
           otherCandidates.push({version: version, name: moduleName});
-        } 
+        }
     }
   }
   if (semVerCandidates.concat(otherCandidates).length === 0) {
@@ -943,7 +943,7 @@ FastClick.notNeeded = function(layer) {
 
 		if (FastClick.prototype.deviceIsAndroid) {
 			metaViewport = document.querySelector('meta[name=viewport]');
-			
+
 			if (metaViewport) {
 				// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
 				if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
@@ -995,6 +995,8 @@ if (typeof define !== 'undefined' && define.amd) {
 	window.FastClick = FastClick;
 }
 
+module.exports = FastClick.attach;
+module.exports.FastClick = FastClick;
 });
 
 require.register("component~indexof@0.0.3", function (exports, module) {
@@ -1559,7 +1561,7 @@ function parse(event) {
 
 require.register("switchery", function (exports, module) {
 /**
- * Switchery 0.8.0
+ * Switchery 0.8.1
  * http://abpetkov.github.io/switchery/
  *
  * Authored by Alexander Petkov
@@ -1936,9 +1938,9 @@ Switchery.prototype.enable = function() {
  */
 
 Switchery.prototype.disable = function() {
-  if (this.options.disabled) this.options.disabled = true;
-  if (this.element.disabled) this.element.disabled = true;
-  if (this.element.readOnly) this.element.readOnly = true;
+  if (!this.options.disabled) this.options.disabled = true;
+  if (!this.element.disabled) this.element.disabled = true;
+  if (!this.element.readOnly) this.element.readOnly = true;
   this.switcher.style.opacity = this.options.disabledOpacity;
   this.destroy();
 };

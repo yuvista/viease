@@ -4,8 +4,9 @@
  * @author overtrue <anzhengchao@gmail.com>
  */
 requirejs.config({
-    //默认情况下模块所在目录为js
-    baseUrl: '../js',
+    //默认情况下模块所在目录为 /js
+    baseUrl: '/js',
+
     //这里设置的路径是相对与 baseUrl 的，不要包含.js
     paths: {
         // dirs
@@ -19,12 +20,15 @@ requirejs.config({
         underscore: 'underscore-min',
         validator: 'plugins/validator.js/index',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',
-        switchery: 'plugins/switchery/dist/switchery.min',
         selectpicker: 'plugins/bootstrap-select/dist/js/bootstrap-select.min',
         selectpickerLang: 'plugins/bootstrap-select/dist/js/i18n/defaults-zh_CN',
         magnificPopup: 'plugins/magnific-popup/dist/jquery.magnific-popup.min',
         sweetalertUtil: 'sweetalert.util',
         plupload: 'plugins/plupload/js/plupload.full.min',
+
+        // 必须大写
+        Switchery: 'plugins/switchery/dist/switchery',
+
         // tools
         util: 'admin/util',
         pager: 'pager',
@@ -37,6 +41,9 @@ requirejs.config({
 　　　　 underscore:{
             exports: '_'
 　　　　 },
+        Switchery: {
+            exports: 'Switchery'
+        },
         plupload: {
             exports: 'plupload'
         },
@@ -48,7 +55,7 @@ requirejs.config({
         sweetalertUtil: ['sweetalert'],
         selectpickerLang: ['selectpicker'],
         pager: ['jquery'],
-        uploader: ['jquery']
+        uploader: ['jquery'],
     },
 
     // 包导入

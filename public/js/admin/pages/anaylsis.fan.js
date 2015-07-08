@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery','echarts', 'echarts/chart/line'], function ($, echarts) {
+define(['jquery','echarts', 'echarts/chart/line', 'admin/common'], function ($, echarts) {
     $(function(){
         var myChart = echarts.init(document.getElementById('main'));
         option = {
