@@ -9,7 +9,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
 
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->fixers(array('-psr0'))
+    ->fixers(array('sf23', '-psr0'))
     ->finder($finder)
     ->setUsingCache(true)
 ;
