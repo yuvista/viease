@@ -6,6 +6,7 @@ composer.lock
 public/.htaccess
 */node_modules
 public/.sass-cache/
+public/attachments/
 vendor/
 .env
 */.sass-cache
