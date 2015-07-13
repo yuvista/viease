@@ -88,20 +88,20 @@
         </div>
     </div>
 </div>
-<script type="text/plain" id="no-content-template">
+<script type="text/template" id="no-content-template">
     <div class="blankslate spacious">
         <h3><i class="ion-ios-information"></i> 无内容</h3>
         <p>您可以点击右上角按钮来添加内容</p>
     </div>
 </script>
-<script type="text/plain" id="image-item-template">
+<script type="text/template" id="image-item-template">
     <div class="col-xs-6 col-sm-3 media-card">
         <a href="<%= url %>" target="_blank" class="popup">
           <img src="<%= url %>" alt="" class="img-responsive">
         </a>
     </div>
 </script>
-<script type="text/plain" id="video-item-template">
+<script type="text/template" id="video-item-template">
     <div class="col-xs-6 col-sm-3 media-card">
         <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
             <span class="placeholder bg-video"></span>
@@ -111,7 +111,7 @@
         </a>
     </div>
 </script>
-<script type="text/plain" id="voice-item-template">
+<script type="text/template" id="voice-item-template">
     <div class="col-xs-6 col-sm-3 media-card">
         <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
             <span class="placeholder bg-vioce"></span>
@@ -120,7 +120,7 @@
         </a>
     </div>
 </script>
-<script type="text/plain" id="article-item-template">
+<script type="text/template" id="article-item-template">
     <div class="col-xs-6 col-sm-3 media-card">
         <a href="#" title="Claudio Bravo, antes su debut con el Barça en la Liga">
             <span class="placeholder bg-vioce"></span>
@@ -132,109 +132,7 @@
 @stop
 
 @section('js')
-<script src="{{ asset('js/admin/repos/material.js') }}"></script>
-<script src="{{ asset('js/plugins/plupload/js/plupload.full.min.js') }}"></script>
-<script src="{{ asset('js/uploader.js') }}"></script>
 <script>
-    $(function(){
-        var $emptyContentTemplate = _.template($('#no-content-template').html());
-
-        var $templates = {
-            image: _.template($('#image-item-template').html()),
-            video: _.template($('#video-item-template').html()),
-            voice: _.template($('#voice-item-template').html()),
-            article: _.template($('#article-item-template').html()),
-        };
-
-        var $containers = {
-            image: $('.images-container'),
-            video: $('.videos-container'),
-            voice: $('.voices-container'),
-            article: $('.articles-container')
-        };
-
-        var $pagers = {};
-
-        var $imageUploader = uploader.make('.upload-image', 'image', function(){
-            console.log(arguments);
-        });
-
-        // 当无内容时显示“无内容”提示
-        $('.panel-body.empty-listener').ifEmpty(function($el){
-            $el.html($emptyContentTemplate()).addClass('no-content');;
-        });
-
-        /**
-         * 通用加载资源
-         *
-         * @param {String} $type
-         * @param {Int} $page
-         *
-         * @return {Void}
-         */
-        function load($type, $page) {
-            console.log($type);
-            var $request = {
-                type: $type,
-                page: $page,
-            };
-
-            Repo.material.lists($request, function($items){
-                var $template = $templates[$type];
-                var $container = $containers[$type];
-
-                $container.html('');
-
-                _.each($items, function($item) {
-                    $container.append($template($item));
-                });
-                $pagers[$type].display({
-                    total: window.last_response.last_page,
-                    current: window.last_response.current_page,
-                });
-            });
-        }
-
-        /**
-         * 生成分页器
-         *
-         * @param {String} $type
-         *
-         * @return {Pager}
-         */
-        function getPager ($type) {
-            return new Pager('#' + $type + ' .pagination-bar', {
-                                classes: 'border-top',
-                                onChange: function($page){
-                                    load($type, $page);
-                                }
-                            })
-        }
-
-        // 加载总数
-        Repo.material.summary(function($summary){
-            _.mapObject($summary, function($count, $type) {
-                $('#' + $type + ' .count').html($count);
-            });
-        });
-
-        $pagers['image'] = getPager('image');
-        load('image');
-
-        var $loaded = {
-            image: true
-        };
-
-        $('.nav-tabs a').on('show.bs.tab', function(){
-            var $type = $(this).attr('href').substring(1);
-
-            if(typeof $loaded[$type] == 'undefined'){
-                $pagers[$type] = getPager($type);
-                load($type);
-                $loaded[$type] = true;
-            }
-        });
-
-    })
+    require(['pages/material']);
 </script>
 @stop

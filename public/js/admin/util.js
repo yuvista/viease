@@ -1,4 +1,9 @@
-(function(){
+/**
+ * 工具库
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['jquery'], function(){
     window.__page = 0;
 
     // 后台基础 URI
@@ -111,5 +116,5 @@
     };
 
 
-    return window.Util = util;
-})();
+    return util;
+});

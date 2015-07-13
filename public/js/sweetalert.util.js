@@ -1,116 +1,135 @@
-var defaultTimer = 2000;
-
 /**
- * 成功消息
+ * 基于 Sweetalert 的弹窗组件
  *
- * @param {String} title
- * @param {String} message
- * @param {Integer} timer
- *
- * @return {boolean}
+ * @author overtrue <anzhengchao@gmail.com>
  */
-function success(title, message, timer) {
-    return swal({
-            title: title,
-            text: message,
-            type: "success",
-            html: true,
-            timer: timer || defaultTimer
-        });
-}
+define(['sweetalert'], function (swal) {
+    var defaultTimer = 2000;
 
-/**
- * 普通消息
- *
- * @param {String} title
- * @param {String} message
- * @param {Integer} timer
- *
- * @return {boolean}
- */
-function info(title, message, timer) {
-    return swal({
-            title: title,
-            text: message,
-            type: "info",
-            html: true,
-            timer: timer || defaultTimer
-        });
-}
+    var $functions = {
+        /**
+         * 成功消息
+         *
+         * @param {String} title
+         * @param {String} message
+         * @param {Integer} timer
+         *
+         * @return {boolean}
+         */
+        success: function(title, message, timer) {
+                    return swal({
+                            title: title,
+                            text: message,
+                            type: "success",
+                            html: true,
+                            timer: timer || defaultTimer
+                        });
+        },
 
-/**
- * 失败消息
- *
- * @param {String} title
- * @param {String} message
- * @param {Integer} timer
- *
- * @return {boolean}
- */
-function error(title, message, timer) {
-    return swal({
-            title: title,
-            text: message,
-            type: "error",
-            html: true,
-            timer: timer || defaultTimer
-        });
-}
+        /**
+         * 普通消息
+         *
+         * @param {String} title
+         * @param {String} message
+         * @param {Integer} timer
+         *
+         * @return {boolean}
+         */
+        info: function(title, message, timer) {
+            return swal({
+                    title: title,
+                    text: message,
+                    type: "info",
+                    html: true,
+                    timer: timer || defaultTimer
+                });
+        },
 
-/**
- * 警告消息
- *
- * @param {String}   title
- * @param {String}   message
- * @param {Function} callback
- * @param {String}   confirmButtonText
- * @param {Boolean}  closeOnConfirm
- * @param {Boolean}  showCancelButton
- *
- * @return {Boolean}
- */
-function warning(title, message, callback, confirmButtonText, closeOnConfirm, showCancelButton) {
-    return swal({
-        title: title,
-        text: message,
-        type: "warning",
-        showCancelButton: showCancelButton,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: confirmButtonText || 'OK，没问题！',
-        closeOnConfirm: closeOnConfirm,
-        html: true
-    }, callback);
-}
+        /**
+         * 失败消息
+         *
+         * @param {String} title
+         * @param {String} message
+         * @param {Integer} timer
+         *
+         * @return {boolean}
+         */
+        error: function(title, message, timer) {
+            return swal({
+                    title: title,
+                    text: message,
+                    type: "error",
+                    html: true,
+                    timer: timer || defaultTimer
+                });
+        },
 
-/**
- * 自动关闭
- *
- * @param {String}  title
- * @param {String}  message
- * @param {Integer} timer
- *
- * @return {boolean}
- */
-function flush(title, message, timer) {
-    return swal({   title: title,   text: message,   timer: timer || 2000 });
-}
+        /**
+         * 警告消息
+         *
+         * @param {String}   title
+         * @param {String}   message
+         * @param {Function} callback
+         * @param {String}   confirmButtonText
+         * @param {Boolean}  closeOnConfirm
+         * @param {Boolean}  showCancelButton
+         *
+         * @return {Boolean}
+         */
+        warning: function(title, message, callback, confirmButtonText, closeOnConfirm, showCancelButton) {
+            return swal({
+                title: title,
+                text: message,
+                type: "warning",
+                showCancelButton: showCancelButton,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: confirmButtonText || 'OK，没问题！',
+                closeOnConfirm: closeOnConfirm,
+                html: true
+            }, callback);
+        },
 
-window.alert = function(string){
-    swal('' + string);
-};
+        /**
+         * 自动关闭
+         *
+         * @param {String}  title
+         * @param {String}  message
+         * @param {Integer} timer
+         *
+         * @return {boolean}
+         */
+        flush: function(title, message, timer) {
+            return swal({   title: title,   text: message,   timer: timer || 2000 });
+        },
 
-window.confirm = function(title){
-    sweetAlert({
-        title: title,
-        showCancelButton: true,
-        confirmButtonText: '确认',
-        cancelButtonText: '取消'
-    }, function() {
-        if (window.event && window.event.toElement) {
-            var btn = $(window.event.toElement);
-            window.location.href=btn.attr('href');
-        };
-    });
+        alert: function(string){
+            swal('' + string);
+        },
 
-    return false;
-};
+        confirm: function(title){
+                sweetAlert({
+                    title: title,
+                    showCancelButton: true,
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消'
+                }, function() {
+                    if (window.event && window.event.toElement) {
+                        var btn = $(window.event.toElement);
+                        window.location.href=btn.attr('href');
+                    };
+                });
+
+                return false;
+        }
+    };
+
+    window.success = $functions.success;
+    window.error   = $functions.error;
+    window.alert   = $functions.alert;
+    window.warning = $functions.warning;
+    window.info    = $functions.info;
+    window.flush   = $functions.flush;
+    window.confirm = $functions.confirm;
+
+    return $functions;
+});

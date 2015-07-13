@@ -36,12 +36,7 @@
   <script src="{{ asset('/plugin/html5shiv/dist/html5shiv.js') }}"></script>
   <script src="{{ asset('/plugin/respond/dest/respond.min.js') }}></script>
   <![endif]-->
-  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-  <script src="{{ asset('/js/underscore-min.js') }}"></script>
-  <script src="{{ asset('/js/underscore.string.min.js') }}"></script>
-  <script src="{{ asset('/js/admin/util.js') }}"></script>
-  <script src="{{ asset('/js/plugins/validator.js/i18n/zh_CN.js') }}"></script>
-  <script src="{{ asset('/js/plugins/validator.js/lib/validator.js') }}"></script>
+  @yield('pre_js')
 </head>
 <body>
   <header class="console-header">
@@ -146,16 +141,8 @@
       <span class="plus-loader"></span>
       <span class="message">网络加载中...</span>
   </div>
-  <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/bootstrap-select/dist/js/i18n/defaults-zh_CN.js') }}"></script>
-  <script src="{{ asset('/js/plugins/magnific-popup/dist/jquery.magnific-popup.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/twbs-pagination/jquery.twbsPagination.min.js') }}"></script>
-  <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
-  <script src="{{ asset('/js/pager.js') }}"></script>
-  <script src="{{ asset('/js/admin/app.js') }}"></script>
+
+  <script src="{{ asset('/js/require.js') }}" data-main="{{ asset('js/admin/main') }}"></script>
   @yield('js')
 </body>
 </html>

@@ -1,86 +1,5 @@
 <?php
 
-$card = [
-
-    'group' => 'card',
-    'label' => '卡券',
-    'collection' => [
-        [
-            'label' => '卡券管理',
-            'icon'  => 'ion-ios-photos',
-            'submenus' => [
-                [
-                    'label' => '全部卡券',
-                    'uri'   => 'card',
-                ],
-            ],
-        ],
-    ],
-];
-
-$store = [
-
-    'group' => 'store',
-    'label' => '小店',
-    'collection' => [
-        [
-            'label' => '订单管理',
-            'icon'  => 'ion-ios-list',
-            'submenus' => [
-                [
-                    'label' => '全部订单',
-                    'uri'   => 'order',
-                ],
-            ],
-        ],
-        [
-            'label' => '商品管理',
-            'icon'  => 'ion-ios-football',
-            'submenus' => [
-                [
-                    'label' => '全部商品',
-                    'uri'   => 'goods',
-                ],
-                [
-                    'label' => '货架管理',
-                    'uri'   => 'goods/shelf',
-                ],
-                [
-                    'label' => '商品分组',
-                    'uri'   => 'goods/group',
-                ],
-                [
-                    'label' => '邮费模板',
-                    'uri'   => 'goods/postage-template',
-                ],
-            ],
-        ],
-    ],
-
-];
-
-$center = [
-
-    'group' => 'center',
-    'label' => '应用中心',
-    'collection' => [
-        [
-            'label' => '应用',
-            'icon'  => 'ion-ios-game-controller-b',
-            'submenus' => [
-                [
-                    'label' => '我的应用',
-                    'uri'   => 'apps/mine',
-                ],
-                [
-                    'label' => '应用中心',
-                    'uri'   => 'apps',
-                ],
-            ],
-        ],
-    ]
-];
-
 return [
 
     'account' => [
@@ -110,8 +29,6 @@ return [
                 ],
             ],
         ],
-
-        // $center,
     ],
 
     'func' => [
@@ -135,10 +52,10 @@ return [
                             'label' => '消息资源库',
                             'uri'   => 'message/resource',
                         ],
-                        [
-                            'label' => '模板消息',
-                            'uri'   => 'notice',
-                        ],
+                        // [
+                        //     'label' => '模板消息',
+                        //     'uri'   => 'notice',
+                        // ],
 
                     ],
                 ],
@@ -173,20 +90,6 @@ return [
                     ],
                 ],
                 [
-                    'label' => '工具',
-                    'icon'  => 'ion-ios-color-wand',
-                    'submenus' => [
-                        [
-                            'label' => '短链接',
-                            'uri'   => 'tool/short-url',
-                        ],
-                        [
-                            'label' => '二维码',
-                            'uri'   => 'qrcode',
-                        ],
-                    ],
-                ],
-                [
                     'label' => '数据统计',
                     'icon'  => 'ion-ios-pulse-strong',
                     'submenus' => [
@@ -210,9 +113,5 @@ return [
                 ],
             ],
         ],
-
-        $card,
-
-        $store,
     ],
 ];

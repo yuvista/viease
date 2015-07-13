@@ -1,6 +1,9 @@
-(function(){
-
-    var Repo = Repo || {};
+/**
+ * 消息数据仓库
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
+define(['jquery', 'util'], function($, Util){
 
     /**
      * 消息仓库
@@ -9,10 +12,9 @@
      *
      * @type {Object}
      */
-    Repo.message = {
+    var $message = {
 
     };
 
-    return window.Repo = Repo;
-
-})();
+    return message;
+});
