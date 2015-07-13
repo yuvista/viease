@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\MaterialRepository;
-use Overtrue\Wechat\Media;
+use Overtrue\Wechat\Media as MediaService;
 
 /**
  * 素材服务.
@@ -12,6 +12,16 @@ use Overtrue\Wechat\Media;
  */
 class Material
 {
+    /**
+     * 拉取素材默认起始位置
+     */
+    const MATERIAL_DEFAULT_OFFSET = 0;
+
+    /**
+     * 拉取素材的最大数量
+     */
+    const MATERIAL_MAX_COUNT = 20;
+
     /**
      * materialRepository.
      *
@@ -27,11 +37,11 @@ class Material
     private $account;
 
     /**
-     * $media description.
+     * media.
      *
      * @var Overtrue\Wechat\Media
      */
-    private $media;
+    private $mediaService;
 
     public function __construct(MaterialRepository $materialRepository)
     {
@@ -39,7 +49,7 @@ class Material
 
         $this->account = account()->getCurrent();
 
-        $this->media = new Media([
+        $this->mediaService = new MediaService([
             'app_id' => $this->account->app_id,
             'secret' => $this->account->app_secret,
         ]);
@@ -193,5 +203,114 @@ class Material
     public function mediaUrlToPath($url)
     {
         return '/demo';
+    }
+
+    /**
+     * 同步远程素材到本地
+     *
+     * @param string $type 素材类型
+     *
+     * @return Response
+     */
+    public function syncRemoteMaterial($type)
+    {
+        $countNumber = $this->getRemoteMaterialCount($type);
+
+        for($offset = self::MATERIAL_DEFAULT_OFFSET; $offset < $countNumber; $offset += self::MATERIAL_MAX_COUNT){
+
+            $lists = $this->getRemoteMaterialLists($type, $offset, self::MATERIAL_MAX_COUNT);
+
+            $this->localizeRemoteMaterialLists($lists, $type);
+        }
+    }
+
+    /**
+     * 远程素材存储本地
+     *
+     * @param  array $lists 素材列表
+     * @param  string $type 
+     *
+     * @return Response
+     */
+    private function localizeRemoteMaterialLists($lists, $type)
+    {
+        return array_map(function($list) use ($type){
+            $callFunc = 'storeRemote'.ucfirst($type);
+            return $this->$callFunc($list);
+        },$lists);
+    }
+
+    /**
+     * 存储远程图片素材
+     *
+     * @param  array $image 素材信息
+     *
+     * @return Response
+     */
+    private function storeRemoteImage($image)
+    {
+        $imageUrl = $this->downloadMaterial($image);
+    }
+
+    /**
+     * 存储远程声音素材
+     *
+     * @param  array $voice 声音素材
+     *
+     * @return Response
+     */
+    private function storeRemoteVoice($voice)
+    {
+        var_dump($voice);
+    }
+
+    /**
+     * 存储远程视频素材
+     *
+     * @param  array $video 素材信息
+     *
+     * @return Response
+     */
+    private function storeRemoteVideo($video)
+    {
+        var_dump($video);
+    }
+
+    /**
+     * 下载素材到本地
+     *
+     * @param  string $media 素材
+     *
+     * @return string 文件url
+     */
+    private function downloadMaterial($media)
+    {
+        var_dump($media['media_id']);die();
+        $this->mediaService->forever()->download($media['media_id'], public_path('attachments/').rand().'.jpeg');
+    }
+
+    /**
+     * 获取远程图片列表.
+     *
+     * @param  integer $offset 起始位置
+     * @param  integer $count  获取数量
+     *
+     * @return array 列表
+     */
+    private function getRemoteMaterialLists($type, $offset, $count)
+    {
+        return $this->mediaService->lists($type, $offset, $count)['item'];
+    }
+
+    /**
+     * 取得远程素材的数量
+     *
+     * @param  string $type 素材类型
+     *
+     * @return integer
+     */
+    private function getRemoteMaterialCount($type)
+    {
+        return $this->mediaService->stats($type);
     }
 }
