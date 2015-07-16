@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FanRepository;
 use App\Http\Requests\Fan\UpdateRequest;
+use App\Services\FanReport;
 
 /**
  * 粉丝管理.
@@ -40,6 +41,8 @@ class FanController extends Controller
 
     public function getTest()
     {
+		$fanReport = new FanReport;
+		$fanReport->setLiveness(1, 'oNlnUjpv99nmXBcX-sOTaFzShPpA', 'test');
         //return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
     }
 

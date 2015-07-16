@@ -16,6 +16,7 @@ class CreateFanReportsTable extends Migration
             $table->increments('id');
             $table->integer('account_id')->nullable()->comment('所属公众号');
 			$table->string('openid',100)->nullable()->comment('OPENID');
+			$table->string('type',100)->comment('操作类型');
 			$table->timestamps();
         });
     }

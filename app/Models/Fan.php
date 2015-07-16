@@ -27,6 +27,10 @@ class Fan extends Model
         'province',
         'country',
         'avatar',
+		'unionid',
+		'liveness',
+		'subscribed_at',
+		'last_online_at',
                           ];
 
     /**
@@ -47,6 +51,10 @@ class Fan extends Model
         'province' => '省份',
         'country' => '国家',
         'avatar' => '头像',
+		'unionid' => 'unionid',
+		'liveness' => '活跃度',
+		'subscribed_at' => '关注时间',
+		'last_online_at' => '最后上线时间',
                          ];
 
     protected $appends = ['location'];
