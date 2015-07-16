@@ -39,10 +39,7 @@ class Material
 
         $this->account = account()->getCurrent();
 
-        $this->media = new Media([
-            'app_id' => $this->account->app_id,
-            'secret' => $this->account->app_secret,
-        ]);
+        $this->media = new Media($this->account->app_id, $this->account->app_secret);
     }
 
     /**

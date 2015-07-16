@@ -22,7 +22,7 @@ class AccountObserver
 
         $account->aes_key = account()->buildAesKey();
 
-        $account->tag = account()->buildTag();
+        // $account->tag = account()->buildTag();
     }
 
     /**

@@ -40,20 +40,17 @@ class FanObserver
         /*
          * 1 初始化 SDK Config
          */
-        $sdkConfig = [
-            'app_id' => account()->getCurrent()->app_id,
-            'secret' => account()->getCurrent()->app_secret,
-        ];
+        $account = account()->getCurrent();
 
         /*
          * 2 构建 SDK 对象
          */
-        $this->user = new User($sdkConfig);
+        $this->user = new User($account->app_id, $account->app_secret);
 
         /*
          * 3 构建 SDK 对象
          */
-        $this->group = new Group($sdkConfig);
+        $this->group = new Group($account->app_id, $account->app_secret);
 
         /*
          * 4 构建 Fan Repository 对象
