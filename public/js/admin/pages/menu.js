@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/menu', 'util', 'admin/common'], function ($, $menu, Util) {
+define(['jquery', 'repos/menu', 'util', 'admin/common'], function ($, Menu, Util) {
     $(function(){
         // 菜单列表
         var $menusListContainer   = $('.menus');
@@ -18,7 +18,7 @@ define(['jquery', 'repos/menu', 'util', 'admin/common'], function ($, $menu, Uti
 
         // 显示菜单列表
         function listsMenu () {
-            $menu.getMenus(function($menus){
+            Menu.getMenus(function($menus){
                 // clean
                 $menusListContainer.html('').removeClass('no-menus');
 
@@ -49,9 +49,9 @@ define(['jquery', 'repos/menu', 'util', 'admin/common'], function ($, $menu, Uti
             var $params = Util.parseForm($(this));
 
             if ($params.id) {
-                $menu.updateMenu($params.id, $params, listsMenu);
+                Menu.updateMenu($params.id, $params, listsMenu);
             } else {
-                $menu.createMenu($params, listsMenu);
+                Menu.createMenu($params, listsMenu);
             }
         });
 

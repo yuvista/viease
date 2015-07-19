@@ -1,0 +1,30 @@
+.editor {
+    border:1px solid $light-border-color;
+    margin: 10px 0;
+
+    .editor-content {
+        border-bottom: 1px solid $light-border-color;
+        min-height: 100px;
+        padding: 10px;
+        outline: none;
+    }
+
+    .editor-tool-bar {
+        padding: 0 10px;
+        height: 35px;
+        line-height: 35px;
+
+        .icon-bar {
+            a {
+                color: gray;
+                &:hover {
+                    color: #444;
+                }
+            }
+
+            i {
+                font-size: 28px;
+            }
+        }
+    }
+}

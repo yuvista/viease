@@ -1,3 +1,8 @@
+/**
+ * 新建图片页面
+ *
+ * @author overtrue <anzhengchao@gmail.com>
+ */
 define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], function ($, Uploader, Util, Article) {
     var $ue = UE.getEditor('container');
     var $form = $('.article-form');
@@ -7,7 +12,8 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
     //检查是否显示添加按钮
     function performAddBtn () {
         var $addBtnBox = $('.add-new-item').closest('.article-preview-item');
-        if($('.articles-preview-container .article-preview-item').length -1 >= 8){
+
+        if ($('.articles-preview-container .article-preview-item').length -1 >= 8) {
             $addBtnBox.slideUp(100);
         } else {
             $addBtnBox.slideDown(100);
@@ -30,6 +36,7 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
     // 渲染预览框
     function previewItem ($attributes) {
         var $item = $('.article-preview-item.active');
+
         $item.find('.attr-title').html($attributes['title'] || '标题');
     }
 
@@ -49,7 +56,9 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
     $('.articles-preview-container').on('click', '.add-new-item', function(){
         var $parentItem = $(this).closest('.article-preview-item');
         var $item = $($previewItemTemplate({item:{}})).prop('id', (new Date).getTime());
+
         $parentItem.before($item);
+
         performAddBtn();
     });
 
@@ -69,9 +78,12 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
     // 删除项目
     $('.articles-preview-container').on('click', 'a.delete', function(){
         var $item = $(this).closest('.article-preview-item');
+
         Article.delete($item.prop('id'));
+
         $item.slideUp(200, function(){
             $(this).remove();
+
             performAddBtn();
         });
     });
@@ -80,6 +92,7 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
 
     for($id in $articles){
         if ($id == 'article-first') {continue;};
+
         $firstItem.after($($previewItemTemplate({item: $articles[$id]})).prop('id', $id));
     }
 
