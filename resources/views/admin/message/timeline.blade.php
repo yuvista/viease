@@ -15,7 +15,7 @@
                     </a>
                   </div>
                   <div class="media-body">
-                  <div class="media-heading row"><div class="col-md-6"><a href="">顺风顺水</a></div><div class="col-md-4">昨天 12:30</div><div class="col-md-2 text-right"><a href="javascript:;"><i class="ion-ios-undo"></i> 回复</a></div></div>
+                  <div class="media-heading row"><div class="col-md-6"><a href="">顺风顺水</a></div><div class="col-md-4">昨天 12:30</div><div class="col-md-2 text-right"><a href="javascript:;" class="reply-btn"><i class="ion-ios-undo"></i> 回复</a></div></div>
                     客户太少怎么办？, 产品卖不出去？你的客户不够多？公众号关注太少？NO！NO！NO！您来找我试试？找客户、招商、推广这些都不是事。3天抢光你竞争对手的客户！详情关注“广州微客来”公众号：wkl020
                   </div>
                 </div>
@@ -27,15 +27,15 @@
     </div>
 </div>
 
-<script type="text/template" id="reply-editor">
+<div id="reply-editor" class="hide">
     <div class="reply-editor">
         <div class="editor-wrapper"></div>
         <div class="button-bar">
-            <button class="btn btn-success">发送</button>
-            <button class="btn btn-light">收起</button>
+            <button class="btn btn-success submit-reply">发送</button>
+            <button class="btn btn-light collapse-editor">收起</button>
         </div>
     </div>
-</script>
+</div>
 @stop
 
 @section('js')
