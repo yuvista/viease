@@ -29,6 +29,7 @@ requirejs.config({
 
         // 必须大写
         Switchery: 'plugins/switchery/dist/switchery',
+        WeChatEditor: 'wechat-editor',
 
         // tools
         util: 'admin/util',

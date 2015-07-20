@@ -29,19 +29,7 @@
 
 <script type="text/template" id="reply-editor">
     <div class="reply-editor">
-        <div class="editor">
-            <div class="editor-content" contenteditable="true"></div>
-            <div class="editor-tool-bar">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="icon-bar"><a href="javascript:;" title=""><i class="ion-android-happy"></i></a></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="tips text-right">还可以输入 <em>130</em> 字</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="editor-wrapper"></div>
         <div class="button-bar">
             <button class="btn btn-success">发送</button>
             <button class="btn btn-light">收起</button>

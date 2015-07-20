@@ -1,15 +1,15 @@
-.editor {
+.wechat-editor {
     border:1px solid $light-border-color;
     margin: 10px 0;
 
-    .editor-content {
+    .wechat-editor-content {
         border-bottom: 1px solid $light-border-color;
         min-height: 100px;
         padding: 10px;
         outline: none;
     }
 
-    .editor-tool-bar {
+    .wechat-editor-tool-bar {
         padding: 0 10px;
         height: 35px;
         line-height: 35px;
@@ -27,4 +27,39 @@
             }
         }
     }
+}
+
+.emotions {
+    border-top:1px solid $light-border-color;
+    border-right:1px solid $light-border-color;
+    background: #fff;
+    width: 438px;
+
+    &:before {
+      content: '';
+      width: 30px;
+      height: 30px;
+      border: 1px solid #eee;
+      position: absolute;
+      top: -30px;
+    }
+
+    ul {
+        list-style: none;
+        padding:0;
+        li {
+            float: left;
+            a {
+                padding:2px;
+                display: inline-block;
+                border-bottom: 1px solid $light-border-color;
+                border-left:1px solid $light-border-color;
+
+                &:hover {
+                    background: $light-border-color;
+                }
+            }
+        }
+    }
+
 }
