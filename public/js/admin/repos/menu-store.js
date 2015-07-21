@@ -17,6 +17,14 @@ define(['jquery', 'util', 'store'], function($, Util, Store){
             return $menus[$id] || {};
         },
 
+        update: function ($id, $attributes) {
+            var $menus = Store.get('menus') || {};
+
+            $menus[$id] = $.extend(true, $menus[$id], $attributes || {});
+
+            Store.set('menus', $menus);
+        },
+
         delete: function ($id) {
             var $menus = Store.get('menus') || {};
 

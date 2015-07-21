@@ -31,14 +31,18 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
         // 本地存储的
         var $cachedMenus = Menu.all();
 
+
         if (!$cachedMenus.length) {
+
             for ($id in $cachedMenus) {
                 var $button = $cachedMenus[$id];
                 var $target = $menusListContainer;
 
-                if ($button.parent) {
-                    $target = $('#'+$button.parent).find('.sub-buttons').removeClass('no-menus');
+                if (!isNaN($button.parent) && $button.parent > 0) {
+                    $target = $('#'+$button.parent).find('> .sub-buttons');
                 }
+
+                $target.removeClass('no-menus');
 
                 $target.append($($menuItemTemplate({ menu: $button })).data($button));
             }
@@ -105,7 +109,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
             var $id   = $item.attr('id');
             var $name = $item.find('.menu-item-name:first').text();
 
-            $item.after($menuItemFormTemplate({ name: $name, id: $id }));
+            $item.after($menuItemFormTemplate($item.data()));
         });
 
         // 表单提交
@@ -118,11 +122,14 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
                 error('名称不能为空！');
             };
 
+            $params['parent'] = parseInt($params['parent']) || 0;
+
             // 更新
             if ($params.id) {
                 $('#'+$params.id).data($params).show()
                 .find('.menu-item-heading .menu-item-name:first').text($params.name);
                 $formItem.remove();
+                Menu.update($params.id, $params);
             } else {
                 // 新建
                 $params.id = (new Date).getTime();
