@@ -1,6 +1,7 @@
 define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
-    var $defaults = {};
-    var $options = {};
+    var $defaults = {
+        textareaName: ''
+    };
 
     /**
      * WeChat 编辑器
@@ -13,9 +14,11 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
 
         if (!(this instanceof WeChatEditor)) return new WeChatEditor($element, $options);
 
+        this.options = $options || {};
+
         for (var i in $defaults) {
-          if (this.$options[i] == null) {
-            this.$options[i] = $defaults[i];
+          if (this.options[i] == null) {
+            this.options[i] = $defaults[i];
           }
         }
 
@@ -41,7 +44,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
     }
 
     WeChatEditor.prototype.createContentBox = function() {
-        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div>');
+        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div><textarea style="display:none" name="'+ this.options.textareaName+ '"></textarea>');
     }
 
     WeChatEditor.prototype.createToolbar = function() {
@@ -88,9 +91,10 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
     }
 
     WeChatEditor.prototype.addCountListener = function () {
-        $(document).on("DOMCharacterDataModified", '.wechat-editor-content', function() {
+        var self = this;
+        $(document).on("DOMCharacterDataModified input DOMSubtreeModified", '.wechat-editor-content', function() {
             var $editor = $(this);
-            var $coutViewer = $editor.next().find('.text-counter');
+            var $coutViewer = $editor.siblings('.wechat-editor-tool-bar').find('.text-counter');
             var $emotions = $editor.find('img');
             var $emotionsLenth = 0;
 
@@ -100,6 +104,8 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
             });
 
             $coutViewer.html(140 - ($editor.text().length + $emotionsLenth));
+
+            self.syncContent($editor);
         });
     }
 
@@ -107,9 +113,11 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         $(document).on('click', '.emotions ul li a', function(){
             var $img = $($(this).html());
 
+            $(this).closest('.wechat-editor-tool-bar').siblings('.wechat-editor-content').focus();
+
             if (window.getSelection) {
                 var $sel = window.getSelection();
-                console.log($sel);
+
                 if ($sel.rangeCount) {
                     range = $sel.getRangeAt(0);
                     var selectedText = range.toString();
@@ -144,6 +152,23 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         };
 
         $('.emotions').css($css).show();
+    }
+
+    WeChatEditor.prototype.syncContent = function($editor) {
+        var $content = $('<div>' + $editor.html() + '</div>');
+        var $textarea = $editor.siblings('textarea:first');
+
+        $content.find('img').each(function(index, el) {
+            $(this).replaceWith('/' + $(this).attr('data-title'));
+        });
+
+        $content.find('div').each(function(index, el) {
+            $(this).replaceWith("\n" + $(this).text());
+        });;
+
+        $content.find('br').replaceWith("\n");
+
+        $textarea.text($content.text());
     }
 
     return WeChatEditor;
