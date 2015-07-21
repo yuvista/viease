@@ -36,6 +36,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         this.element.append('<div class="wechat-editor"></div>');
         this.createContentBox();
         this.createToolbar();
+        this.addCountListener();
         this.element.find('.wechat-editor .wechat-editor-content').focus();
     }
 
@@ -50,7 +51,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
                                        + '<div class="icon-bar"><a href="javascript:;" class="emotion-btn" title="emotions"><i class="ion-android-happy"></i></a></div>'
                                     + '</div>'
                                     + '<div class="col-md-6">'
-                                        + '<div class="tips text-right">还可以输入 <em>130</em> 字</div>'
+                                        + '<div class="tips text-right">还可以输入 <em class="text-counter">130</em> 字</div>'
                                     + '</div>'
                                 + '</div>'
                             + '</div>');
@@ -84,6 +85,22 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         $('body').append($emotions);
 
         this.addEmotionListener();
+    }
+
+    WeChatEditor.prototype.addCountListener = function () {
+        $(document).on("DOMCharacterDataModified", '.wechat-editor-content', function() {
+            var $editor = $(this);
+            var $coutViewer = $editor.next().find('.text-counter');
+            var $emotions = $editor.find('img');
+            var $emotionsLenth = 0;
+
+            // 表情长度
+            $emotions.each(function(index, $el) {
+                $emotionsLenth += $(this).attr('data-title').length + 1;
+            });
+
+            $coutViewer.html(140 - ($editor.text().length + $emotionsLenth));
+        });
     }
 
     WeChatEditor.prototype.addEmotionListener = function(){

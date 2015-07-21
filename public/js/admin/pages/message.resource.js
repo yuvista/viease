@@ -1,9 +1,9 @@
 /**
- * 素材管理页 js
+ * 消息素材管理页 js
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], function ($, Material, Uploader, Pager) {
+define(['jquery', 'repos/message', 'uploader', 'pager', 'admin/common'], function ($, Message, Uploader, Pager) {
     $(function(){
         var $emptyContentTemplate = _.template($('#no-content-template').html());
 
@@ -11,21 +11,15 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
             image: _.template($('#image-item-template').html()),
             video: _.template($('#video-item-template').html()),
             voice: _.template($('#voice-item-template').html()),
-            article: _.template($('#article-item-template').html()),
         };
 
         var $containers = {
             image: $('.images-container'),
             video: $('.videos-container'),
             voice: $('.voices-container'),
-            article: $('.articles-container')
         };
 
         var $pagers = {};
-
-        var $imageUploader = Uploader.make('.upload-image', 'image', function(){
-            console.log(arguments);
-        });
 
         // 当无内容时显示“无内容”提示
         $('.panel-body.empty-listener').ifEmpty(function($el){
@@ -47,7 +41,7 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
                 page: $page,
             };
 
-            Material.lists($request, function($items){
+            $material.lists($request, function($items){
                 var $template = $templates[$type];
                 var $container = $containers[$type];
 
@@ -80,7 +74,7 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
         }
 
         // 加载总数
-        Material.summary(function($summary){
+        $material.summary(function($summary){
             _.mapObject($summary, function($count, $type) {
                 $('#' + $type + ' .count').html($count);
             });

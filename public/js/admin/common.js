@@ -5,6 +5,7 @@
  */
 define([
     'jquery',
+    'fastclick',
     'Switchery',
     'underscore',
     'bootstrap',
