@@ -19,8 +19,8 @@ return [
         'prefix'          => '/materials/images',
 
         'allow_types'     => [
-            'jpg' => 'image/jpeg',
             'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
             'png' => 'image/png',
             'bmp' => 'image/bmp',
             'gif' => 'image/gif',

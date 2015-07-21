@@ -28,7 +28,7 @@ class Server
 
         $encodingAESKey = $account->aes_key;
 
-        $server = new WechatServer(['app_id' => $appId, 'token' => $token, 'encoding_key' => $encodingAESKey]);
+        $server = new WechatServer($appId, $token, $encodingAESKey);
 
         $server->on('message', function ($message) use ($server, $account) {
             return $this->resolveMessage($account, $message, $server);

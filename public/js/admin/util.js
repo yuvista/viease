@@ -113,6 +113,17 @@ define(['jquery'], function(){
 
             return data;
         },
+
+        // 反转对象
+        revertObject: function ($obj) {
+            var $temp = {};
+
+            Object.keys($obj).reverse().forEach(function($key){
+                $temp[$key] = $obj[$key];
+            });;
+
+            return $temp;
+        }
     };
 
 

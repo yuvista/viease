@@ -38,10 +38,18 @@ class AllFan extends Command
     {
         $accountModel = new Account();
         $accounts = $accountModel->get();
-        //$accounts = $accountModel->where('id', 1)->get();	//test
+
+        $this->info("\n开始同步...");
+
+        $this->output->progressStart($accounts->count());
 
         foreach ($accounts as $account) {
-            $this->call('sync:fan', array('account_id' => $account->id));
+            $this->call('sync:fans', array('account_id' => $account->id));
+            $this->output->progressAdvance();
         }
+
+        $this->output->progressFinish();
+
+        $this->info("\n同步完成。");
     }
 }

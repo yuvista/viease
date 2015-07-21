@@ -29,17 +29,12 @@ class FanGroupObserver
 
     public function __construct(FanGroupRepository $fanGroupRepository)
     {
+        $account = account()->getCurrent();
         /*
          * 1 初始化 SDK Config
-         */
-        $sdkConfig = [
-            'app_id' => account()->getCurrent()->app_id,
-            'secret' => account()->getCurrent()->app_secret,
-        ];
-        /*
          * 2 构建 SDK 对象
          */
-        $this->group = new Group($sdkConfig);
+        $this->group = new Group($account->app_id, $account->app_secret);
 
         /*
          * 3 构建 FanGroup Repository 对象
@@ -54,7 +49,6 @@ class FanGroupObserver
      */
     public function created(FanGroup $fanGroupModel)
     {
-
         /*
          * 1 获取更新的属性
          */

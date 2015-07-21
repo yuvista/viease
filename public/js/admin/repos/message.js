@@ -16,5 +16,5 @@ define(['jquery', 'util'], function($, Util){
 
     };
 
-    return message;
+    return $message;
 });

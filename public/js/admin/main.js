@@ -18,6 +18,7 @@ requirejs.config({
         bootstrap:'bootstrap.min',
         jquery: '//cdn.bootcss.com/jquery/2.1.4/jquery.min',
         underscore: 'underscore-min',
+        store: 'store+json2.min',
         validator: 'plugins/validator.js/index',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',
         selectpicker: 'plugins/bootstrap-select/dist/js/bootstrap-select.min',
@@ -28,6 +29,7 @@ requirejs.config({
 
         // 必须大写
         Switchery: 'plugins/switchery/dist/switchery',
+        WeChatEditor: 'wechat-editor',
 
         // tools
         util: 'admin/util',

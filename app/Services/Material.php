@@ -422,5 +422,4 @@ class Material
     {
         return $this->materialRepository->getLocalMediaId($accountId, $mediaId);
     }
-
 }

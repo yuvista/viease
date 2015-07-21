@@ -7,7 +7,6 @@ use Overtrue\Wechat\Menu as WechatMenu;
 use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
 use App\Models\Material;
-use App\Models\Account;
 
 /**
  * 菜单服务提供类.
@@ -62,7 +61,7 @@ class Menu
      *
      * @return array 菜单信息
      */
-    private function getFromRemote(Account $account)
+    private function getFromRemote($account)
     {
         return with(new WechatMenu([
             'app_id' => $account->app_id, 
@@ -73,13 +72,15 @@ class Menu
     /**
      * 同步远程菜单到本地数据库.
      *
-     * @param int $accountId 公众号id
+     * @param App\Models\Account $account 公众号
      *
      * @return Response
      */
-    public function syncToLocal($accountId)
+    public function syncToLocal($account)
     {
-        $remoteMenus = $this->getFromRemote($accountId);
+        $this->destroyOldMenu($account->id);
+
+        $remoteMenus = $this->getFromRemote($account);
 
         $menus = $this->localize($remoteMenus);
 
@@ -469,6 +470,7 @@ class Menu
      * 提交菜单到微信
      *
      * @param array $menus 菜单
+     * @todo 未完成呢
      */
     public function saveToRemote($menus)
     {

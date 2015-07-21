@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Fan as FanModel;
 use App\Models\Account;
+use App\Services\Fan as FanService;
 use App\Repositories\AccountRepository;
 use Overtrue\Wechat\User;
 
@@ -47,29 +48,16 @@ class FanInfo extends Command
         $account = $this->getAccount($accountId);
 
         $fanModel = new FanModel();
+        $FanService = new FanService();
+
         /*
          * 2 初始化 SDK Config, 构建 SDK 对象
          */
-        $sdkConfig = [
-            'app_id' => $account->app_id,
-            'secret' => $account->app_secret,
-        ];
-        $userService = new User($sdkConfig);
+        $userService = new User($account->app_id, $account->app_secret);
         $fan = $userService->get($openId);
 
         if (isset($fan['subscribe']) && $fan['subscribe']) {    //subscribe=1 关注了公众号
-            $updateInput['nickname'] = $fan['nickname'];               //昵称
-            $updateInput['sex'] = $fan['sex'] ? '男' : '女';                         //性别
-            $updateInput['city'] = $fan['city'];                       //城市
-            $updateInput['country'] = $fan['country'];                 //国家
-            $updateInput['province'] = $fan['province'];               //省
-            $updateInput['language'] = $fan['language'];               //语言
-            $updateInput['avatar'] = $fan['headimgurl'];               //头像
-            $updateInput['subscribed_at'] = date('Y-m-d H:i:s', $fan['subscribe_time']);    //关注时间
-            $updateInput['unionid'] = $fan['unionid'];                 //unionid
-            $updateInput['remark'] = $fan['remark'];                   //备注
-            $updateInput['group_id'] = $fan['groupid'] ? $fan['groupid'] : 0;                //组ID
-            $updateInput['deleted_at'] = null;
+            $updateInput = $FanService->formatFromWeChat($fan);
 
             /*
              * 存入本地

@@ -38,10 +38,16 @@ class AllFanGroup extends Command
     {
         $accountModel = new Account();
         $accounts = $accountModel->get();
-        //$accounts = $accountModel->where('id', 1)->get();	//test
+
+        $this->output->progressStart($accounts->count());
 
         foreach ($accounts as $account) {
-            $this->call('sync:group', array('account_id' => $account->id));
+            $this->call('sync:groups', array('account_id' => $account->id));
+            $this->output->progressAdvance();
         }
+
+        $this->output->progressFinish();
+
+        $this->info("\n同步完成。");
     }
 }

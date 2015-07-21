@@ -68,11 +68,9 @@ class MenuController extends Controller
      */
     public function getSync()
     {
-        $accountId = account()->getCurrent()->id;
+        $account = account()->getCurrent();
 
-        $this->menuService->destroyOldMenu($accountId);
-
-        $this->menuService->syncToLocal($accountId);
+        $this->menuService->syncToLocal($account);
     }
 
     /**

@@ -46,6 +46,21 @@ class FanRepository
                 ->orderBy($request->sort_by, 'desc')
                 ->paginate($pageSize);
     }
+	
+	/**
+     * 粉丝活跃度+1.
+     */
+    public function updateLiveness($request)
+    {
+        $model = $this->model
+				->where('account_id', $request['account_id'])
+				->where('openid', $request['openid'])
+				->first();
+		if($model){
+			$liveness = $model->liveness+1;
+		}
+        return $this->_savePost($model, ['liveness' => $liveness]);
+    }
 
     /**
      * 修改粉丝信息.

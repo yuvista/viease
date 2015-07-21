@@ -8,14 +8,14 @@ use App\Models\FanGroup as FanGroupModel;
 use App\Repositories\AccountRepository;
 use Overtrue\Wechat\Group;
 
-class FanGroup extends Command
+class FanGroups extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'sync:group {account_id}';
+    protected $signature = 'sync:groups {account_id}';
 
     /**
      * The console command description.
@@ -48,38 +48,37 @@ class FanGroup extends Command
         /*
          * 2 初始化 SDK Config, 构建 SDK 对象
          */
-        $sdkConfig = [
-            'app_id' => $account->app_id,
-            'secret' => $account->app_secret,
-        ];
-        $group = new Group($sdkConfig);
-        $groups = $group->lists();
-        if ($groups) {
-            /*
-             * Prepare Data
-             */
-            $saveData = [];
+        $groupService = new Group($account->app_id, $account->app_secret);
+        $groups = $groupService->lists();
 
-            foreach ($groups as $groupKey => $groupVal) {
-                $saveData[$groupKey]['group_id'] = $groupVal['id'];
-                $saveData[$groupKey]['account_id'] = $account->id;
-                $saveData[$groupKey]['title'] = $groupVal['name'];
-                $saveData[$groupKey]['fan_count'] = $groupVal['count'];
-                $saveData[$groupKey]['is_default'] = in_array($groupVal['name'], ['默认组', '屏蔽组', '星标组']) ? 1 : 0;
+        if ($groups) {
+            $insert = [];
+            $this->output->progressStart(count($groups));
+
+            foreach ($groups as $groupKey => $group) {
+                $insert[$groupKey]['group_id'] = $group['id'];
+                $insert[$groupKey]['account_id'] = $account->id;
+                $insert[$groupKey]['title'] = $group['name'];
+                $insert[$groupKey]['fan_count'] = $group['count'];
+                $insert[$groupKey]['is_default'] = in_array($group['name'], ['默认组', '屏蔽组', '星标组']) ? 1 : 0;
+
+
+                $this->info("\t{$group['name']} created!");
+
+                $this->output->progressAdvance();
+
             }
 
+
             /*
-             * Force Delete
+             * clean
              */
             $fanGroupModel->where('account_id', $account->id)->forceDelete();
 
-            /*
-             * Insert
-             */
-            $result = $fanGroupModel->insert($saveData);
+            $result = $fanGroupModel->insert($insert);
         }
 
-        print_r($result);
+        $this->output->progressFinish();
     }
 
     /**
