@@ -66,9 +66,9 @@ class EventRepository
 
         $model->account_id = $accountId;
 
-        $model->type = 'text';
+        $model->type = 'material';
 
-        $model->content = $text;
+        $model->value = $text;
 
         $model->save();
 
@@ -86,9 +86,9 @@ class EventRepository
     {
         $model = $this->findByEventId($eventId);
 
-        $model->type = 'text';
+        $model->type = 'material';
 
-        $model->content = $text;
+        $model->value = $text;
 
         $model->save();
     }
@@ -106,7 +106,7 @@ class EventRepository
 
         $model->type = 'material';
 
-        $model->content = $mediaId;
+        $model->value = $mediaId;
 
         $model->save();
     }
@@ -127,7 +127,7 @@ class EventRepository
 
         $model->type = 'material';
 
-        $model->content = $mediaId;
+        $model->value = $mediaId;
 
         $model->save();
 

@@ -9,11 +9,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 图片素材job.
+ * 声音素材job.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
-class SyncImageMaterial extends Job implements SelfHandling, ShouldQueue
+class SyncVoiceMaterial extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
@@ -29,7 +29,7 @@ class SyncImageMaterial extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MaterialService $materialService)
     {
-        $materialService->syncRemoteMaterial('image');
+        $materialService->syncRemoteMaterial('voice');
 
         $this->delete();
     }

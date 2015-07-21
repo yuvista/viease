@@ -11,32 +11,32 @@ class Material extends Model
     /**
      * 单图文类型.
      */
-    const IS_SIMPLE = 1;
+    const IS_SIMPLE = 0;
 
     /**
      * 多图文类型.
      */
-    const IS_MULTI = 2;
+    const IS_MULTI = 1;
 
     /**
-     * 远程素材类型.
+     * 不可编辑素材.
      */
-    const IS_REMOTE = 1;
+    const CAN_NOT_EDITED = 0;
 
     /**
-     * 非远程素材.
+     * 可编辑素材.
      */
-    const IS_NOT_REMOTE = 2;
+    const CAN_EDITED = 1;
 
     /**
      * 创建来自自己.
      */
-    const CREATED_FROM_SELF = 1;
+    const CREATED_FROM_SELF = 0;
 
     /**
      * 创建来自微信
      */
-    const CREATED_FROM_WECHAT = 2;
+    const CREATED_FROM_WECHAT = 1;
 
     /**
      * 字段白名单.
@@ -55,9 +55,10 @@ class Material extends Model
         'show_cover_pic',
         'cover_url',
         'created_from',
+        'can_edited',
         'content_url',
         'source_url',
-                            ];
+    ];
 
     /**
      * 用于表单验证时的字段名称提示.

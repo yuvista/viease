@@ -84,8 +84,8 @@ class AccountController extends Controller
     public function postCreate(CreateRequest $request)
     {
         $this->accountRepository->store($request);
-
-        return redirect(admin_url('account'))->withMessage('添加成功！');
+        //跳转到menu去同步
+        return redirect(admin_url('menu/sync'));
     }
 
     /**

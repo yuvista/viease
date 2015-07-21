@@ -39,22 +39,17 @@ class MaterialRepository
     }
 
     /**
-     * 保存菜单的远程素材.
+     * mediaId获取访问资源Url.
      *
-     * @param int   $accountId 公众号id
-     * @param array $articles  图文
+     * @param string $mediaId mediaId
      *
-     * @return string mediaId
+     * @return string
      */
-    public function storeRemoteArticle($accountId, $articles)
+    public function mediaIdToSourceUrl($mediaId)
     {
-        $isMulti = count($articles) >= 2;
+        $record = $this->model->where('original_id', $mediaId)->first();
 
-        if (!$isMulti) {
-            return $this->storeRemoteSimpleArticle($accountId, $articles[0]);
-        } else {
-            return $this->storeRemoteMultiArticle($accountId, $articles);
-        }
+        return $record ? $record->source_url : '';
     }
 
     /**
@@ -131,6 +126,29 @@ class MaterialRepository
     }
 
     /**
+     * 存储一个文字素材.
+     *
+     * @param  int $accountId 公众号id
+     * @param  string $text      文字内容
+     *
+     * @return string mediaId
+     */
+    public function storeText($accountId, $text)
+    {
+        $model = new $this->model();
+
+        $model->type = 'text';
+
+        $model->account_id = $accountId;
+
+        $model->content = $text;
+
+        $model->save();
+
+        return $model->media_id;    
+    }
+
+    /**
      * 存储声音素材.
      *
      * @param int     $accountId 公众号ID
@@ -145,6 +163,8 @@ class MaterialRepository
         $model->type = 'voice';
 
         $model->source_url = $request->url;
+
+        $model->account_id = $accountId;
 
         $model->save();
 
@@ -164,6 +184,8 @@ class MaterialRepository
         $model = new $this->model();
 
         $model->type = 'image';
+
+        $model->account_id = $accountId;
 
         $model->source_url = $request->url;
 
@@ -192,62 +214,181 @@ class MaterialRepository
 
         $model->source_url = $request->url;
 
+        $model->account_id = $accountId;
+
         $model->save();
 
         return $model->media_id;
     }
 
     /**
+     * 存储来自微信同步的图片素材.
+     *
+     * @param int   $accountId 公众号ID
+     * @param array $image     图片信息
+     *
+     * @return bool
+     */
+    public function storeWechatImage($accountId, $image)
+    {
+        $model = new $this->model();
+
+        $model->type = 'image';
+
+        $model->title = $image['name'];
+
+        $model->account_id = $accountId;
+
+        $model->original_id = $image['media_id'];
+
+        $model->source_url = $image['local_url'];
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 存储来自微信同步的声音素材.
+     *
+     * @param int   $accountId 公众号Id
+     * @param array $voice     声音信息
+     *
+     * @return bool
+     */
+    public function storeWechatVoice($accountId, $voice)
+    {
+        $model = new $this->model();
+
+        $model->type = 'voice';
+
+        $model->title = $voice['name'];
+
+        $model->account_id = $accountId;
+
+        $model->original_id = $voice['media_id'];
+
+        $model->source_url = $voice['local_url'];
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 存储来自微信同步的视频素材.
+     *
+     * @param int   $accountId 公众号ID
+     * @param array $video     video
+     *
+     * @return bool
+     */
+    public function storeWechatVideo($accountId, $video)
+    {
+        $model = new $this->model();
+
+        $model->type = 'video';
+
+        $model->title = $video['title'];
+
+        $model->description = $video['description'];
+
+        $model->original_id = $video['media_id'];
+
+        $model->account_id = $accountId;
+
+        $model->source_url = $video['local_url'];
+
+        $model->save();
+
+        return $model->media_id;
+    }
+
+    /**
+     * 获取素材本地存储Id.
+     *
+     * @param int    $accountId 公众号id
+     * @param string $mediaId   素材id
+     *
+     * @return bool|string
+     */
+    public function getLocalMediaId($accountId, $mediaId)
+    {
+        $record = $this->model->where('id', $accountId)->where('original_id', $mediaId)->first();
+
+        return $record ? $record->media_id : null;
+    }
+
+    /**
      * 存储图文.
      *
-     * @param array $articles articles
+     * @param array $article 图文内容
      *
-     * @return
+     * @return Response
      */
-    public function store($accountId, $articles)
-    {
-        if (count($articles) > 2) {
-            return $this->storeMultiArticle($accountId, $articles);
+    public function storeArticle(
+        $accountId,
+        $articles,
+        $originalMediaId = null,
+        $createdFrom = Material::CREATED_FROM_WECHAT,
+        $canEdited = Material::CAN_EDITED
+        ) {
+        //判断多个与单个
+        if (count($articles) >= 2) {
+            return $this->storeMultiArticle(
+                $accountId,
+                $articles,
+                $originalMediaId,
+                $createdFrom,
+                $canEdited
+            );
         } else {
-            return $this->storeSimpleArticle($accountId, $articles[0]);
+            return $this->storeSimpleArticle(
+                $accountId,
+                array_shift($articles),
+                $originalMediaId,
+                $originalMediaId,
+                $createdFrom,
+                $canEdited
+            );
         }
     }
 
     /**
-     * 存储远程多图文素材.
+     * 存储多图文素材.
      *
-     * @param int   $accountId 公众号Id
-     * @param array $articles  多图文
-     * @param int   $isRemote  是否为远程图文
+     * @param int    $accountId       公众号Id
+     * @param array  $articles        多图文
+     * @param string $originalMediaId 微信素材id
+     * @param int    $createdFrom     创建标识
+     * @param int    $canEdited       是否可编辑
      *
      * @return string MediaId
      */
-    private function storeMultiArticle($accountId, $articles, $isRemote = Material::IS_NOT_REMOTE)
+    private function storeMultiArticle(
+        $accountId,
+        $articles,
+        $originalMediaId,
+        $createdFrom,
+        $canEdited)
     {
-        $articles = array_map(function ($article) {
+        $firstData = array_shift($articles);
 
-            $article['is_remote'] = $isRemote;
-            $article['type'] = 'article';
-            $article['created_from'] = Material::CREATED_FROM_WECHAT;
-
-            return $article;
-        }, $articles);
-
-        $firstData = $articles[0];
-
+        $firstData['type'] = 'article';
+        $firstData['can_edited'] = $canEdited;
+        $firstData['original_id'] = $originalMediaId;
+        $firstData['created_from'] = $createdFrom;
         $firstData['parent_id'] = 0;
-
         $firstData['account_id'] = $accountId;
 
         $firstArticle = $this->savePost($firstData);
 
-        unset($articles[0]);
-
         foreach ($articles as $article) {
-            $article['parent_id'] = $firstArticle->id;
-
+            $article['type'] = 'article';
+            $article['created_from'] = $createdFrom;
+            $article['can_edited'] = $canEdited;
             $article['account_id'] = $accountId;
-
+            $article['parent_id'] = $firstArticle->id;
             $this->savePost($article);
         }
 
@@ -257,18 +398,30 @@ class MaterialRepository
     /**
      * 存储远程单图文素材.
      *
-     * @param int   $accountId 公众号ID
-     * @param array $article   单图文
-     * @param int   $isRemote  是否为远程图文
+     * @param int    $accountId       公众号Id
+     * @param array  $article         单图文
+     * @param string $originalMediaId 微信素材id
+     * @param int    $createdFrom     创建标识
+     * @param int    $canEdited       是否可编辑
+     *
+     * @return string 本地MediaId
      */
-    private function storeSimpleArticle($accountId, $article, $isRemote = Material::IS_NOT_REMOTE)
+    private function storeSimpleArticle(
+        $accountId,
+        $article,
+        $originalMediaId,
+        $createdFrom,
+        $canEdited)
     {
-        $article['is_remote'] = $isRemote;
+        $article['type'] = 'article';
+        $article['can_edited'] = $canEdited;
         $article['created_from'] = Material::CREATED_FROM_WECHAT;
         $article['account_id'] = $accountId;
-        $article['type'] = 'article';
+        $article['original_id'] = $originalMediaId;
 
-        return $this->savePost($article);
+        $record = $this->savePost($article);
+
+        return $record->media_id;
     }
 
     /**
@@ -281,11 +434,25 @@ class MaterialRepository
      */
     private function savePost($input)
     {
+        if (isset($input['show_cover_pic'])) {
+            $showCover = $input['show_cover_pic'];
+        } else {
+            $showCover = $input['show_cover'];
+        }
+
+        if (isset($input['url'])) {
+            $sourceUrl = $input['url'];
+        } else {
+            $sourceUrl = $input['source_url'];
+        }
+
         $article = new $this->model();
 
         $article->description = $input['digest'];
 
-        $article->show_cover_pic = $input['show_cover'];
+        $article->source_url = $sourceUrl;
+
+        $article->show_cover_pic = $showCover;
 
         $article->fill($input);
 

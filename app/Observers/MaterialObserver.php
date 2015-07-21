@@ -31,8 +31,8 @@ class MaterialObserver
 
     public function created(Material $material)
     {
-        if ($material->type != 'article') {
-            $material->original_id = $this->materialService->updateToRemote($material);
-        }
+        // if ($material->type != 'article' && !$material->original_id && $material->parent_id) {
+        //     $material->original_id = $this->materialService->updateToRemote($material);
+        // }
     }
 }

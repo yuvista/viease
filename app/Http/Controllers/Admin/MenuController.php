@@ -62,6 +62,20 @@ class MenuController extends Controller
     }
 
     /**
+     * 同步菜单数据到本地.
+     *
+     * @return Response
+     */
+    public function getSync()
+    {
+        $accountId = account()->getCurrent()->id;
+
+        $this->menuService->destroyOldMenu($accountId);
+
+        $this->menuService->syncToLocal($accountId);
+    }
+
+    /**
      * 保存菜单.
      *
      * @param CreateRequest $request request

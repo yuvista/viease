@@ -9,9 +9,6 @@ use App\Http\Requests\Material\ImageRequest;
 use App\Repositories\MaterialRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Jobs\SyncImageMaterial;
-use Queue;
 use App\Models\Account;
 
 /**
@@ -135,16 +132,5 @@ class MaterialController extends Controller
     public function postImage(ImageRequest $request)
     {
         return $this->materialRepository->storeImage($this->accountId, $request);
-    }
-
-
-    /**
-     * 测试同步
-     *
-     * @return [type] [description]
-     */
-    public function getTestSync()
-    {
-        Queue::push(new SyncImageMaterial(Account::find(1)));
     }
 }

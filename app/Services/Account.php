@@ -72,6 +72,18 @@ class Account
     }
 
     /**
+     * id获取公众号.
+     *
+     * @param int $accountId 公众号id
+     *
+     * @return App\Models\Account|null
+     */
+    public function getAccountById($accountId)
+    {
+        return $this->accountRepository->getById($accountId);
+    }
+
+    /**
      * 取得已有公众号列表.
      *
      * @return mixed

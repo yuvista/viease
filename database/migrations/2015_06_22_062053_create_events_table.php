@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->integer('account_id');
             $table->string('key',128)->comment('事件名称');
             $table->enum('type', ['addon','material'])->comment('事件类型');
-            $table->string('content',600)->comment('事件触发的内容,自动回复的字数而定'); 
+            $table->string('value',30)->comment('触发值'); 
             $table->timestamps();
         });
     }
