@@ -28,7 +28,7 @@ define(['jquery', 'util', 'store'], function($, Util, Store){
         all: function() {
             var $articles = Store.get('articles') || {};
 
-            return Util.revertObject($articles);
+            return Util.reverseObject($articles);
         },
 
         clean: function () {

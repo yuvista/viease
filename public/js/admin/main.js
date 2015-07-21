@@ -28,8 +28,6 @@ requirejs.config({
         sweetalertUtil: 'sweetalert.util',
         plupload: 'plugins/plupload/js/plupload.full.min',
 
-        // 必须大写
-        Switchery: 'plugins/switchery/dist/switchery.min',
         WeChatEditor: 'wechat-editor',
 
         // tools
@@ -44,9 +42,6 @@ requirejs.config({
 　　　　 underscore:{
             exports: '_'
 　　　　 },
-        Switchery: {
-            exports: 'Switchery'
-        },
         plupload: {
             exports: 'plupload'
         },

@@ -115,7 +115,7 @@ define(['jquery'], function(){
         },
 
         // 反转对象
-        revertObject: function ($obj) {
+        reverseObject: function ($obj) {
             var $temp = {};
 
             Object.keys($obj).reverse().forEach(function($key){
