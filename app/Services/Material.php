@@ -103,8 +103,8 @@ class Material
      */
     public function localizeMaterialId($mediaId, $mediaType, $isTemporary = true)
     {
-        var_dump($mediaId);
-        die();
+        // var_dump($mediaId);
+        // die();
     }
 
     /**
@@ -134,9 +134,9 @@ class Material
      *
      * @param App\Model\Material $material 素材模型
      */
-    public function updateToRemote($material)
+    public function postToRemote($material)
     {
-        $function = camel_case('upload_remote_'.$material->type);
+        $function = camel_case('post_remote_'.$material->type);
 
         return $function($material);
     }
@@ -148,11 +148,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteVideo($video)
+    private function postRemoteVideo($video)
     {
         $filePath = $this->mediaUrlToPath($video->source_url);
 
-        return $this->media->forever()->video($filePath, $video->title, $video->description);
+        return $this->mediaService->forever()->video($filePath, $video->title, $video->description);
     }
 
     /**
@@ -162,11 +162,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteVoice($voice)
+    private function postRemoteVoice($voice)
     {
         $filePath = $this->mediaUrlToPath($voice->source_url);
 
-        return $this->media->forever()->voice($filePath);
+        return $this->mediaService->forever()->voice($filePath);
     }
 
     /**
@@ -176,11 +176,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteImage($image)
+    private function postRemoteImage($image)
     {
         $filePath = $this->mediaUrlToPath($image->source_url);
 
-        return $this->media->forever()->image($filePath);
+        return $this->mediaService->forever()->image($filePath);
     }
 
     /**
@@ -190,9 +190,9 @@ class Material
      *
      * @return string
      */
-    public function uploadRemoteArticles($articles)
+    public function postRemoteArticles($articles)
     {
-        return $this->media->news($articles);
+        return $this->mediaService->news($articles);
     }
 
     /**

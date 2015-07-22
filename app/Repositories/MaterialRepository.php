@@ -162,6 +162,8 @@ class MaterialRepository
 
         $model->type = 'voice';
 
+        $model->title = $request->title;
+
         $model->source_url = $request->url;
 
         $model->account_id = $accountId;
@@ -188,6 +190,8 @@ class MaterialRepository
         $model->account_id = $accountId;
 
         $model->source_url = $request->url;
+
+        $model->title = $request->title;
 
         $model->save();
 
@@ -346,7 +350,6 @@ class MaterialRepository
             return $this->storeSimpleArticle(
                 $accountId,
                 array_shift($articles),
-                $originalMediaId,
                 $originalMediaId,
                 $createdFrom,
                 $canEdited

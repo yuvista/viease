@@ -91,6 +91,8 @@ class UploadController extends Controller
     {
         $allowTypes = config('material.'.$type.'.allow_types');
 
-        return array_search($mime, $allowTypes);
+        if(!array_search($mime, $allowTypes)) {
+            throw new Exception('Error file type', 422);
+        }
     }
 }
