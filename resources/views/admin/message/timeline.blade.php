@@ -6,7 +6,7 @@
         <h2 id="nav">实时消息</h2>
     </div>
     <div class="well">
-        <div class="panel panel-default">
+        <div class="panel panel-default message-item">
             <div class="panel-body">
                 <div class="media">
                   <div class="media-left">
@@ -20,9 +20,6 @@
                   </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body">内容</div>
         </div>
     </div>
 </div>

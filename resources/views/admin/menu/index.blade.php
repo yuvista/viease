@@ -19,6 +19,12 @@
                 <div class="panel-body">
                     <div class="blankslate spacious">你可以从左边创建一个菜单并设置响应内容。</div>
                 </div>
+            </div>
+        </div>
+        <div class="buttons col-md-12 text-center">
+            <hr>
+            <button class="btn btn-success">提交</button>
+            <button class="btn btn-default">重置</button>
         </div>
     </div>
 </div>
@@ -30,15 +36,26 @@
     </div>
 </script>
 <script type="text/template" id="menu-item-template">
-<div class="list-group-item menu-item"><%= menu.name %> <button type="button" class="btn btn-default btn-xs pull-right"><i class="ion-compose"></i></button></div>
+    <div class="list-group-item menu-item" id="<%= menu.id %>" data-parent-id="<%= menu.parent %>">
+        <div class="menu-item-heading">
+            <span class="menu-item-name"><%= menu.name %></span>
+            <div class="actions pull-right">
+                <a href="javascript:;" class="edit" title=""><i class="ion-ios-compose-outline"></i></a>
+                <a href="javascript:;" class="add-sub" ><i class="ion-ios-plus-empty"></i></a>
+                <a href="javascript:;" class="trash" ><i class="ion-ios-trash-outline"></i></a>
+            </div>
+        </div>
+        <div class="list-group sub-buttons no-menus"></div>
+    </div>
 </script>
 <script type="text/template" id="menu-item-form-template">
-    <div class="list-group-item">
+    <div class="list-group-item menu-item">
         <form action="" method="post" accept-charset="utf-8" class="menu-item-form">
             <div class="form-group">
-                <input type="text" name="name" placeholder="" class="form-control">
+                <input type="text" name="name" placeholder="" class="form-control" value="<% if (typeof name != 'undefined') { %><%= name %><% } %>">
             </div>
-            <input type="hidden" name="id" value="<% if (typeof menu != 'undefined') { %><%= menu.id %><% } %>">
+            <input type="hidden" name="id" value="<% if (typeof id != 'undefined') { %><%= id %><% } %>">
+            <input type="hidden" name="parent" value="<% if (typeof parent != 'undefined') { %><%= parent %><% } %>">
             <button type="submit" class="btn btn-xs btn-success">保存</button>
             <button type="button" class="btn btn-xs btn-danger cancel-do">取消</button>
         </form>

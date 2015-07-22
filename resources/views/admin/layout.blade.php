@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{ asset('/js/plugins/bootstrap-select/dist/css/bootstrap-select.min.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/js/plugins/magnific-popup/dist/magnific-popup.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
+  <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
   @yield('css')
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>

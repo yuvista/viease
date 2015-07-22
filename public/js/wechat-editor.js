@@ -1,6 +1,7 @@
 define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
-    var $defaults = {};
-    var $options = {};
+    var $defaults = {
+        textareaName: ''
+    };
 
     /**
      * WeChat 编辑器
@@ -13,9 +14,11 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
 
         if (!(this instanceof WeChatEditor)) return new WeChatEditor($element, $options);
 
+        this.options = $options || {};
+
         for (var i in $defaults) {
-          if (this.$options[i] == null) {
-            this.$options[i] = $defaults[i];
+          if (this.options[i] == null) {
+            this.options[i] = $defaults[i];
           }
         }
 
@@ -36,11 +39,12 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         this.element.append('<div class="wechat-editor"></div>');
         this.createContentBox();
         this.createToolbar();
+        this.addCountListener();
         this.element.find('.wechat-editor .wechat-editor-content').focus();
     }
 
     WeChatEditor.prototype.createContentBox = function() {
-        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div>');
+        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div><textarea style="display:none" name="'+ this.options.textareaName+ '"></textarea>');
     }
 
     WeChatEditor.prototype.createToolbar = function() {
@@ -50,7 +54,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
                                        + '<div class="icon-bar"><a href="javascript:;" class="emotion-btn" title="emotions"><i class="ion-android-happy"></i></a></div>'
                                     + '</div>'
                                     + '<div class="col-md-6">'
-                                        + '<div class="tips text-right">还可以输入 <em>130</em> 字</div>'
+                                        + '<div class="tips text-right">还可以输入 <em class="text-counter">130</em> 字</div>'
                                     + '</div>'
                                 + '</div>'
                             + '</div>');
@@ -86,13 +90,34 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         this.addEmotionListener();
     }
 
+    WeChatEditor.prototype.addCountListener = function () {
+        var self = this;
+        $(document).on("DOMCharacterDataModified input DOMSubtreeModified", '.wechat-editor-content', function() {
+            var $editor = $(this);
+            var $coutViewer = $editor.siblings('.wechat-editor-tool-bar').find('.text-counter');
+            var $emotions = $editor.find('img');
+            var $emotionsLenth = 0;
+
+            // 表情长度
+            $emotions.each(function(index, $el) {
+                $emotionsLenth += $(this).attr('data-title').length + 1;
+            });
+
+            $coutViewer.html(140 - ($editor.text().length + $emotionsLenth));
+
+            self.syncContent($editor);
+        });
+    }
+
     WeChatEditor.prototype.addEmotionListener = function(){
         $(document).on('click', '.emotions ul li a', function(){
             var $img = $($(this).html());
 
+            $(this).closest('.wechat-editor-tool-bar').siblings('.wechat-editor-content').focus();
+
             if (window.getSelection) {
                 var $sel = window.getSelection();
-                console.log($sel);
+
                 if ($sel.rangeCount) {
                     range = $sel.getRangeAt(0);
                     var selectedText = range.toString();
@@ -127,6 +152,23 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         };
 
         $('.emotions').css($css).show();
+    }
+
+    WeChatEditor.prototype.syncContent = function($editor) {
+        var $content = $('<div>' + $editor.html() + '</div>');
+        var $textarea = $editor.siblings('textarea:first');
+
+        $content.find('img').each(function(index, el) {
+            $(this).replaceWith('/' + $(this).attr('data-title'));
+        });
+
+        $content.find('div').each(function(index, el) {
+            $(this).replaceWith("\n" + $(this).text());
+        });;
+
+        $content.find('br').replaceWith("\n");
+
+        $textarea.text($content.text());
     }
 
     return WeChatEditor;

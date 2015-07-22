@@ -4,7 +4,28 @@
     <div class="page-header">
         <h2 id="nav">自动回复</h2>
     </div>
-    <div class="well row">
+    <div class="well">
+        <div class="panel panel-default">
+            <div class="panel-heading">规则1</div>
+            <div class="panel-body">
+                <div class="keywords">关键词：股票</div>
+                <div class="replys">回复：xxxx</div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">规则1</div>
+            <div class="panel-body">
+                <div class="keywords">关键词：股票</div>
+                <div class="replys">回复：xxxx</div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">规则1</div>
+            <div class="panel-body">
+                <div class="keywords">关键词：股票</div>
+                <div class="replys">回复：xxxx</div>
+            </div>
+        </div>
     <a href="javascript:;" id="tester">保存测试</a>
     <a href="javascript:;" id="save">修改测试</a>
     <a href="javascript:;" id="add">增加一个自动回复</a>

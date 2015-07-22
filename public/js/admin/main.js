@@ -18,6 +18,7 @@ requirejs.config({
         bootstrap:'bootstrap.min',
         jquery: '//cdn.bootcss.com/jquery/2.1.4/jquery.min',
         underscore: 'underscore-min',
+        fastclick: 'fastclick.min',
         store: 'store+json2.min',
         validator: 'plugins/validator.js/index',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',
@@ -27,8 +28,6 @@ requirejs.config({
         sweetalertUtil: 'sweetalert.util',
         plupload: 'plugins/plupload/js/plupload.full.min',
 
-        // 必须大写
-        Switchery: 'plugins/switchery/dist/switchery',
         WeChatEditor: 'wechat-editor',
 
         // tools
@@ -43,9 +42,6 @@ requirejs.config({
 　　　　 underscore:{
             exports: '_'
 　　　　 },
-        Switchery: {
-            exports: 'Switchery'
-        },
         plupload: {
             exports: 'plupload'
         },
