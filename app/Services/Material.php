@@ -50,10 +50,10 @@ class Material
 
         $this->account = account()->getCurrent();
 
-        $this->mediaService = new MediaService([
-            'app_id' => $this->account->app_id,
-            'secret' => $this->account->app_secret,
-        ]);
+        $this->mediaService = new MediaService(       
+            $this->account->app_id,
+            $this->account->app_secret
+        );
     }
 
     /**

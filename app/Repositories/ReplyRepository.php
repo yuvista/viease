@@ -84,7 +84,7 @@ class ReplyRepository
      */
     public function all($accountId)
     {
-        return $this->model->where('account_id', $accountId)->get()->toArray();
+        return $this->model->where('account_id', $accountId)->where('type','keywords')->get()->toArray();
     }
 
     /**

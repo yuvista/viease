@@ -26,10 +26,13 @@
                 <div class="replys">回复：xxxx</div>
             </div>
         </div>
+
+    <!--样例使用完后删除-->
     <a href="javascript:;" id="tester">保存测试</a>
     <a href="javascript:;" id="save">修改测试</a>
     <a href="javascript:;" id="add">增加一个自动回复</a>
      <a href="javascript:;" id="update">修改一个自动回复</a>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
     $(function(){
         $('#tester').click(function(){
@@ -112,7 +115,7 @@
         });
     });
     </script>
-
+    <!--End 样例使用完删除-->
     </div>
 </div>
 @stop

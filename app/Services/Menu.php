@@ -6,6 +6,7 @@ use App\Services\Material as MaterialService;
 use Overtrue\Wechat\Menu as WechatMenu;
 use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
+use Overtrue\Wechat\MenuItem;
 use App\Models\Material;
 
 /**
@@ -36,6 +37,8 @@ class Menu
      */
     private $materialService;
 
+    private $account;
+
     /**
      * construct.
      *
@@ -52,6 +55,8 @@ class Menu
         $this->eventService = $eventService;
 
         $this->materialService = $materialService;
+
+        $this->account = account()->getCurrent();
     }
 
     /**
@@ -152,7 +157,7 @@ class Menu
      *
      * @return array
      */
-    private function analyseMenu($menus)
+    public function analyseMenu($menus)
     {
         $menus = array_map(function ($menu) {
             if (isset($menu['sub_button'])) {
@@ -430,19 +435,17 @@ class Menu
         if ($menu['type'] == 'text') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeText($menu['value']);
-            unset($menu['value']);
-        }
 
-        if ($menu['type'] == 'media') {
+        }else if ($menu['type'] == 'media') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeMediaId($menu['value']);
-            unset($menu['value']);
-        }
-        if ($menu['type'] == 'view') {
+        }else if ($menu['type'] == 'view') {
             $menu['key'] = $menu['value'];
-            unset($menu['value']);
+        }else{
+            $menu['key'] = $menu['value'];
         }
 
+        unset($menu['value']);
         return $menu;
     }
 
@@ -470,9 +473,41 @@ class Menu
      * 提交菜单到微信
      *
      * @param array $menus 菜单
-     * @todo 未完成呢
+     * 
      */
     public function saveToRemote($menus)
     {
+        $wechatMenu = new WechatMenu($this->account->app_id,$this->account->app_secret);
+
+        $menus = $this->formatToWechat($menus);
+
+        return $wechatMenu->set($menus);
+    }
+
+    /**
+     * 格式化为微信菜单
+     *
+     * @param  array $menus 菜单
+     */
+    private function formatToWechat($menus)
+    {
+        $saveMenus = [];
+
+        foreach ($menus as $menu) {
+
+            if(isset($menu['sub_button'])) {
+                $menuItem = new MenuItem($menu['name']);
+                $subButtons = [];
+                foreach ($menu['sub_button'] as $subMenu) {
+                    $subButtons[] = new MenuItem($subMenu['name'], $subMenu['type'], $subMenu['key']);
+                }
+                $menuItem->buttons($subButtons);
+                $saveMenus[] = $menuItem;
+            }else{
+                $saveMenus[] = new MenuItem($menu['name'], $menu['type'], $menu['key']);
+            }
+        }
+
+        return $saveMenus;
     }
 }

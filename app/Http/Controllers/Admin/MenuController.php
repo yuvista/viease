@@ -84,8 +84,10 @@ class MenuController extends Controller
 
         $this->menuService->destroyOldMenu($accountId);
 
-        $menus = $this->menuService->analyseMenus($request->get('menus'));
+        $menus = $this->menuService->analyseMenu($request->get('menus'));
 
-        return $this->menuRepository->storeMulti($accountId, $menus);
+        $this->menuRepository->storeMulti($accountId, $menus);
+        
+        $this->menuService->saveToRemote($menus);
     }
 }

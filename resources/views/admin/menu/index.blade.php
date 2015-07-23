@@ -28,7 +28,12 @@
         </div>
     </div>
 </div>
-
+<!--测试使用 使用完成后删除-->
+<br>
+<br>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<a href="javascript:;" id="save">菜单保存样例</a>
+<!--End-->
 <script type="text/template" id="no-menus-content-template">
     <div class="blankslate spacious">
         <p>尚未配置菜单</p>
@@ -65,6 +70,48 @@
 
 @section('js')
 <script>
+    $(function(){
+        $('#save').click(function(){
+            $.ajax({
+              type: 'POST',
+              url: '/admin/menu/store',
+              data: {
+                    menus:[
+                        {
+                            name:"百度链接",
+                            type:"view",
+                            value:"http://www.baidu.com"
+                        },
+                        {
+                            name:"带有下级",
+                            sub_button:[
+                                {
+                                    name:"新浪连接",
+                                    type:"view",
+                                    value:"http://www.sina.com"
+                                },
+                                {
+                                    name:"给你个图",
+                                    type:"media",
+                                    value:"MEDIA_XXXXXXX11"
+                                },
+                                {
+                                    name:"看点文字",
+                                    type:"pic_sysphoto",
+                                    value:"xxxx"
+                                }
+                            ]
+                        },
+                        {
+                            name:"一个图文",
+                            type:"media",
+                            value:"MEDIA_XXXXXXX",
+                        }    
+                    ]
+                },
+            });
+        });
+    });
 require(['pages/menu']);
 </script>
 @stop
