@@ -80,6 +80,18 @@ class Event
     }
 
     /**
+     * 通过ID得到Event
+     *
+     * @param string $eventId 事件id
+     *
+     * @return Response
+     */
+    public function getEventByKey($eventId)
+    {
+        return $this->eventRepository->getEventByKey($eventId);
+    }
+
+    /**
      * 将event转变为素材.
      *
      * @param string $event eventId
@@ -96,10 +108,10 @@ class Event
     /**
      * 根据eventId 删除事件.
      *
-     * @param string $eventId 事件ID
+     * @param string $eventKey 事件key
      */
-    public function distoryByEventId($eventId)
+    public function distoryByEventKey($eventKey)
     {
-        return $this->eventRepository->distoryByEventId($eventId);
+        return $this->eventRepository->distoryByEventKey($eventKey);
     }
 }

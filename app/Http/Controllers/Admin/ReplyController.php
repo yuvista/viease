@@ -43,7 +43,7 @@ class ReplyController extends Controller
      *
      * @var int
      */
-    private $accountId;
+    private $account;
 
     /**
      * construct.
@@ -56,7 +56,7 @@ class ReplyController extends Controller
 
         $this->replyRepository = $replyRepository;
 
-        $this->accountId = account()->getCurrent()->id;
+        $this->account = account()->getCurrent();
     }
 
     /**
@@ -72,7 +72,7 @@ class ReplyController extends Controller
      */
     public function getFollowReply()
     {
-        $reply = $this->replyRepository->getFollowReply($this->accountId);
+        $reply = $this->replyRepository->getFollowReply($this->account->id);
 
         return $this->replyService->resolveEventReply($reply);
     }
@@ -82,7 +82,7 @@ class ReplyController extends Controller
      */
     public function getNoMatchReply()
     {
-        return $this->replyRepository->getNoMatchReply($this->accountId);
+        return $this->replyRepository->getNoMatchReply($this->account->id);
     }
 
     /**
@@ -92,7 +92,7 @@ class ReplyController extends Controller
      */
     public function getLists(Request $request)
     {
-        $replies = $this->replyRepository->getList($this->accountId, $this->pageSize);
+        $replies = $this->replyRepository->getList($this->account->id, $this->pageSize);
 
         return $this->replyService->resolveReplies($replies);
     }
@@ -106,7 +106,7 @@ class ReplyController extends Controller
      */
     public function postSaveEventReply(EventRequest $request)
     {
-        $reply = $this->replyRepository->saveEventReply($request, $this->accountId);
+        $reply = $this->replyRepository->saveEventReply($request, $this->account->id);
 
         return $this->replyService->resolveReply($reply);
     }
@@ -120,7 +120,7 @@ class ReplyController extends Controller
      */
     public function postStore(CreateRequest $request)
     {
-        $reply = $this->replyRepository->store($request, $this->accountId);
+        $reply = $this->replyRepository->store($request, $this->account->id);
 
         return $this->replyService->resolveReply($reply);
     }
@@ -135,7 +135,7 @@ class ReplyController extends Controller
      */
     public function postUpdate(UpdateRequest $request, $id)
     {
-        $reply = $this->replyRepository->update($id, $request, $this->accountId);
+        $reply = $this->replyRepository->update($id, $request, $this->account->id);
 
         return $this->replyService->resolveReply($reply);
     }

@@ -25,7 +25,7 @@ class CreateRepliesTable extends Migration
             $table->enum('trigger_type', [
                     'equal',
                     'contain'
-                ])->nullable()->default('equal')->comment('触发条件类型'); //默认类型
+                ])->nullable()->comment('触发条件类型'); //默认类型
             $table->string('content')->nullable()->comment('触发内容 events');
             $table->string('group_ids')->nullable()->comment('适用范围：组id数组');
             $table->timestamps();

@@ -71,19 +71,19 @@
               type: 'POST',
               url: '/admin/reply/store',
               data: {
-                    name:"粉丝22",
+                    name:"单回复",
                     trigger_keywords:[
-                        "大学1","你好2"
+                        "说话"
                     ],
-                    trigger_type:"contain",
+                    trigger_type:"equal",
                     replies:[
                         {
                             'type':'text',
                             'content':'你好啊大家好才是真的好'
                         },
                         {
-                            'type':'material',
-                            'content':'MEDIA_123456789'
+                            'type':'text',
+                            'content':'你好啊大家好才是真的好2'
                         }
                     ],
                 },

@@ -34,6 +34,7 @@ class MaterialRepository
         return $this->model->where('type', $type)
                 ->where('account_id', $accountId)
                 ->where('parent_id', 0)
+                ->with('childrens')
                 ->orderBy('id', 'desc')
                 ->paginate($pageSize);
     }
@@ -50,6 +51,18 @@ class MaterialRepository
         $record = $this->model->where('original_id', $mediaId)->first();
 
         return $record ? $record->source_url : '';
+    }
+
+    /**
+     * 通过mediaId获取素材
+     *
+     * @param  string $mediaId 素材标识
+     *
+     * @return App\Models\Material|NULL
+     */
+    public function getMediaByMediaId($mediaId)
+    {
+        return $this->model->where('media_id', $mediaId)->with('childrens')->first();
     }
 
     /**
@@ -318,7 +331,7 @@ class MaterialRepository
      */
     public function getLocalMediaId($accountId, $mediaId)
     {
-        $record = $this->model->where('id', $accountId)->where('original_id', $mediaId)->first();
+        $record = $this->model->where('account_id', $accountId)->where('original_id', $mediaId)->first();
 
         return $record ? $record->media_id : null;
     }
@@ -337,6 +350,7 @@ class MaterialRepository
         $createdFrom = Material::CREATED_FROM_WECHAT,
         $canEdited = Material::CAN_EDITED
         ) {
+        
         //判断多个与单个
         if (count($articles) >= 2) {
             return $this->storeMultiArticle(
@@ -456,6 +470,8 @@ class MaterialRepository
         $article->source_url = $sourceUrl;
 
         $article->show_cover_pic = $showCover;
+
+        $article->cover_media_id = $input['thumb_media_id'];
 
         $article->fill($input);
 

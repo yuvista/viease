@@ -248,7 +248,7 @@ class Material
             return;
         }
 
-        $image['local_url'] = $this->downloadMaterial('image', $mediaId);
+        $image['local_url'] = config('app.url').$this->downloadMaterial('image', $mediaId);
 
         return $this->materialRepository->storeWechatImage($this->account->id, $image);
     }
@@ -268,7 +268,7 @@ class Material
             return;
         }
 
-        $voice['local_url'] = $this->downloadMaterial('voice', $mediaId);
+        $voice['local_url'] =  config('app.url').$this->downloadMaterial('voice', $mediaId);
 
         return $this->materialRepository->storeWechatVoice($this->account->id, $voice);
     }
@@ -309,7 +309,11 @@ class Material
         }
         $news['content']['news_item'] = $this->localizeNewsCoverMaterialId($news['content']['news_item']);
 
-        return $this->materialRepository->storeArticle($this->account->id, $news);
+        return $this->materialRepository->storeArticle(
+            $this->account->id, 
+            $news['content']['news_item'],
+            $news['media_id']
+        );
     }
 
     /**
@@ -359,8 +363,10 @@ class Material
 
         is_dir($dir) || mkdir($dir, 0755, true);
 
+        //如果属于视频类型
         if ($type == 'video') {
-            $videoInfo = $this->mediaService->forever()->download($mediaId);
+            
+            $videoInfo = json_decode($this->mediaService->forever()->download($mediaId),true);
 
             ob_start();
 
@@ -370,7 +376,7 @@ class Material
 
             ob_end_clean();
 
-            file_put_contents($dir.$name.'.mp4', $contents);
+            file_put_contents($dir.$name.'.mp4',$contents);
 
             return [
                 'title' => $videoInfo['title'],
@@ -379,7 +385,12 @@ class Material
                 'media_id' => $mediaId,
             ];
         } else {
-            $fileName = $this->mediaService->forever()->download($mediaId, $dir, $name);
+
+            $dirFilename = $this->mediaService->forever()->download($mediaId, $dir.$name);
+
+            $fileName = explode('/',$dirFilename); 
+
+            $fileName = array_pop($fileName);
 
             return config('material.'.$type.'.prefix').'/'.$dateDir.$fileName;
         }

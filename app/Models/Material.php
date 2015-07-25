@@ -53,6 +53,7 @@ class Material extends Model
         'author',
         'content',
         'show_cover_pic',
+        'cover_media_id',
         'cover_url',
         'created_from',
         'can_edited',
@@ -70,7 +71,12 @@ class Material extends Model
         'type' => '类型',
         'url' => '素材地址',
         'app_id' => '应用ID',
-        'title' => '视频标题',
-        'digest' => '视频描述',
-                             ];
+        'title' => '标题',
+        'digest' => '描述',
+    ];
+
+    public function childrens()
+    {
+        return $this->hasMany('App\Models\Material', 'parent_id');
+    }
 }

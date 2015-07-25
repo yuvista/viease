@@ -68,10 +68,7 @@ class Menu
      */
     private function getFromRemote($account)
     {
-        return with(new WechatMenu([
-            'app_id' => $account->app_id, 
-            'secret' => $account->app_secret
-            ]))->current();
+        return with(new WechatMenu($account->app_id, $account->app_secret))->current();
     }
 
     /**
@@ -461,7 +458,7 @@ class Menu
         array_map(function ($menu) {
 
             if ($menu['type'] == 'click') {
-                $this->eventService->distoryByEventId($menu['key']);
+                $this->eventService->distoryByEventKey($menu['key']);
             }
 
         }, $menus);
