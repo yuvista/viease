@@ -86,8 +86,8 @@ class Reply
 
         foreach ($replies as $reply) {
             foreach ($reply['trigger_keywords'] as $keyword) {
-                $cache[$keyword]['type'] = $reply['trigger_type'];
-                $cache[$keyword]['content'] = $reply['content'];
+                $caches[$keyword]['type'] = $reply['trigger_type'];
+                $caches[$keyword]['content'] = $reply['content'];
             }
         }
 

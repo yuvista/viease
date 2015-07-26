@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use Overtrue\Wechat\Media as MediaService;
 use App\Repositories\MaterialRepository;
-use Overtrue\Wechat\Media;
+use App\Models\Material as MaterialModel;
 
 /**
  * 素材服务.
@@ -12,6 +13,16 @@ use Overtrue\Wechat\Media;
  */
 class Material
 {
+    /**
+     * 拉取素材默认起始位置.
+     */
+    const MATERIAL_DEFAULT_OFFSET = 0;
+
+    /**
+     * 拉取素材的最大数量.
+     */
+    const MATERIAL_MAX_COUNT = 20;
+
     /**
      * materialRepository.
      *
@@ -27,11 +38,11 @@ class Material
     private $account;
 
     /**
-     * $media description.
+     * media.
      *
      * @var Overtrue\Wechat\Media
      */
-    private $media;
+    private $mediaService;
 
     public function __construct(MaterialRepository $materialRepository)
     {
@@ -39,45 +50,61 @@ class Material
 
         $this->account = account()->getCurrent();
 
-        $this->media = new Media($this->account->app_id, $this->account->app_secret);
+        $this->mediaService = new MediaService(       
+            $this->account->app_id,
+            $this->account->app_secret
+        );
     }
 
     /**
-     * 保存远程的临时图文消息 [菜单处使用,此处的素材无法被提取].
+     * 保存图文消息.
      *
      * @param array $articles 图文消息
      *
      * @return array
      */
-    public function saveRemoteArticle($articles)
+    public function saveArticle(
+        $accountId,
+        $articles,
+        $originalMediaId,
+        $createdFrom,
+        $canEdited)
     {
-        return $this->materialRepository->storeRemoteArticle($this->account->id, $articles);
+        return $this->materialRepository->storeArticle(
+            $accountId,
+            $articles,
+            $originalMediaId,
+            $createdFrom,
+            $canEdited
+        );
     }
 
     /**
-     * 临时素材本地化.
+     * 存储一个文字回复消息.
      *
-     * @param string $materialId 素材id
+     * @param int $accountId 公众号ID
+     * @param string $text  文字内容
+     *
+     * @return Response
+     */
+    public function saveText($accountId, $text)
+    {
+        return $this->materialRepository->storeText($accountId, $text);
+    }
+
+    /**
+     * 素材转为本地素材.
+     *
+     * @param string $mediaId     素材id
+     * @param string $mediaType   素材类型
+     * @param bool   $isTemporary 是否是临时素材
      *
      * @return string 生成的自己的MediaId
      */
-    public function localizeInterimMaterialId($materialId)
+    public function localizeMaterialId($mediaId, $mediaType, $isTemporary = true)
     {
-        $remoteMaterial = $this->getInterimRemoteMaterial($materialId);
-    }
-
-    /**
-     * 获取远程临时素材的信息.
-     *
-     * @param string $materialId 素材id
-     *
-     * @return array 素材信息
-     */
-    public function getInterimRemoteMaterial($materialId)
-    {
-        $appId = account()->getCurrent()->app_id;
-
-        $appSecret = account()->getCurrent()->app_secret;
+        // var_dump($mediaId);
+        // die();
     }
 
     /**
@@ -107,9 +134,9 @@ class Material
      *
      * @param App\Model\Material $material 素材模型
      */
-    public function updateToRemote($material)
+    public function postToRemote($material)
     {
-        $function = camel_case('upload_remote_'.$material->type);
+        $function = camel_case('post_remote_'.$material->type);
 
         return $function($material);
     }
@@ -121,11 +148,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteVideo($video)
+    private function postRemoteVideo($video)
     {
         $filePath = $this->mediaUrlToPath($video->source_url);
 
-        return $this->media->forever()->video($filePath, $video->title, $video->description);
+        return $this->mediaService->forever()->video($filePath, $video->title, $video->description);
     }
 
     /**
@@ -135,11 +162,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteVoice($voice)
+    private function postRemoteVoice($voice)
     {
         $filePath = $this->mediaUrlToPath($voice->source_url);
 
-        return $this->media->forever()->voice($filePath);
+        return $this->mediaService->forever()->voice($filePath);
     }
 
     /**
@@ -149,11 +176,11 @@ class Material
      *
      * @return string 微信素材id
      */
-    private function uploadRemoteImage($image)
+    private function postRemoteImage($image)
     {
         $filePath = $this->mediaUrlToPath($image->source_url);
 
-        return $this->media->forever()->image($filePath);
+        return $this->mediaService->forever()->image($filePath);
     }
 
     /**
@@ -163,32 +190,247 @@ class Material
      *
      * @return string
      */
-    public function uploadRemoteArticles($articles)
+    public function postRemoteArticles($articles)
     {
-        return $this->media->news($articles);
+        return $this->mediaService->news($articles);
     }
 
     /**
-     * 素材路径转Url.
+     * 同步远程素材到本地.
      *
-     * @param string $path 路径
+     * @param string $type 素材类型
      *
-     * @return string 地址
+     * @return Response
      */
-    public function mediaPathToUrl($path)
+    public function syncRemoteMaterial($type)
     {
-        return '/demo';
+        $countNumber = $this->getRemoteMaterialCount($type);
+
+        for ($offset = self::MATERIAL_DEFAULT_OFFSET;
+             $offset < $countNumber;
+             $offset += self::MATERIAL_MAX_COUNT
+            ) {
+            $lists = $this->getRemoteMaterialLists($type, $offset, self::MATERIAL_MAX_COUNT);
+
+            $this->localizeRemoteMaterialLists($lists, $type);
+        }
     }
 
     /**
-     * 素材Url转路径.
+     * 远程素材存储本地.
      *
-     * @param string $url 地址
+     * @param array  $lists 素材列表
+     * @param string $type
      *
-     * @return string 路径
+     * @return Response
      */
-    public function mediaUrlToPath($url)
+    private function localizeRemoteMaterialLists($lists, $type)
     {
-        return '/demo';
+        return array_map(function ($list) use ($type) {
+            $callFunc = 'storeRemote'.ucfirst($type);
+
+            return $this->$callFunc($list);
+        }, $lists);
+    }
+
+    /**
+     * 存储远程图片素材.
+     *
+     * @param array $image 素材信息
+     *
+     * @return Response
+     */
+    private function storeRemoteImage($image)
+    {
+        $mediaId = $image['media_id'];
+
+        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+            return;
+        }
+
+        $image['local_url'] = config('app.url').$this->downloadMaterial('image', $mediaId);
+
+        return $this->materialRepository->storeWechatImage($this->account->id, $image);
+    }
+
+    /**
+     * 存储远程声音素材.
+     *
+     * @param array $voice 声音素材
+     *
+     * @return Response
+     */
+    private function storeRemoteVoice($voice)
+    {
+        $mediaId = $voice['media_id'];
+
+        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+            return;
+        }
+
+        $voice['local_url'] =  config('app.url').$this->downloadMaterial('voice', $mediaId);
+
+        return $this->materialRepository->storeWechatVoice($this->account->id, $voice);
+    }
+
+    /**
+     * 存储远程视频素材.
+     *
+     * @param array $video 素材信息
+     *
+     * @return Response
+     */
+    private function storeRemoteVideo($video)
+    {
+        $mediaId = $video['media_id'];
+
+        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+            return;
+        }
+
+        $videoInfo = $this->downloadMaterial('video', $mediaId);
+
+        return $this->materialRepository->storeWechatVideo($this->account->id, $videoInfo);
+    }
+
+    /**
+     * 存储远程图文素材.
+     *
+     * @param array $news 图文
+     *
+     * @return Response
+     */
+    private function storeRemoteNews($news)
+    {
+        $mediaId = $news['media_id'];
+
+        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+            return;
+        }
+        $news['content']['news_item'] = $this->localizeNewsCoverMaterialId($news['content']['news_item']);
+
+        return $this->materialRepository->storeArticle(
+            $this->account->id, 
+            $news['content']['news_item'],
+            $news['media_id']
+        );
+    }
+
+    /**
+     * 将图文消息中的素材转换为本地.
+     *
+     * @return array
+     */
+    private function localizeNewsCoverMaterialId($newsItems)
+    {
+        $newsItems = array_map(function ($item) {
+
+            $item['cover_url'] = $this->mediaIdToSourceUrl($item['thumb_media_id']);
+
+            return $item;
+        }, $newsItems);
+
+        return $newsItems;
+    }
+
+    /**
+     * mediaId转换为本地Url.
+     *
+     * @param string $mediaId mediaId
+     *
+     * @return string
+     */
+    private function mediaIdToSourceUrl($mediaId)
+    {
+        return $this->materialRepository->mediaIdToSourceUrl($mediaId);
+    }
+
+    /**
+     * 下载素材到本地.
+     *
+     * @param string $type    素材类型
+     * @param string $mediaId 素材
+     *
+     * @return mixed
+     */
+    private function downloadMaterial($type, $mediaId)
+    {
+        $dateDir = date('Ym').'/';
+
+        $dir = config('material.'.$type.'.storage_path').$dateDir;
+
+        $name = md5($mediaId);
+
+        is_dir($dir) || mkdir($dir, 0755, true);
+
+        //如果属于视频类型
+        if ($type == 'video') {
+            
+            $videoInfo = json_decode($this->mediaService->forever()->download($mediaId),true);
+
+            ob_start();
+
+            readfile($videoInfo['down_url']);
+
+            $contents = ob_get_contents();
+
+            ob_end_clean();
+
+            file_put_contents($dir.$name.'.mp4',$contents);
+
+            return [
+                'title' => $videoInfo['title'],
+                'description' => $videoInfo['description'],
+                'local_url' => config('material.video.prefix').'/'.$dateDir.$name.'.mp4',
+                'media_id' => $mediaId,
+            ];
+        } else {
+
+            $dirFilename = $this->mediaService->forever()->download($mediaId, $dir.$name);
+
+            $fileName = explode('/',$dirFilename); 
+
+            $fileName = array_pop($fileName);
+
+            return config('material.'.$type.'.prefix').'/'.$dateDir.$fileName;
+        }
+    }
+
+    /**
+     * 获取远程图片列表.
+     *
+     * @param int $offset 起始位置
+     * @param int $count  获取数量
+     *
+     * @return array 列表
+     */
+    private function getRemoteMaterialLists($type, $offset, $count)
+    {
+        return $this->mediaService->lists($type, $offset, $count)['item'];
+    }
+
+    /**
+     * 取得远程素材的数量.
+     *
+     * @param string $type 素材类型
+     *
+     * @return int
+     */
+    private function getRemoteMaterialCount($type)
+    {
+        return $this->mediaService->stats($type);
+    }
+
+    /**
+     * 获取本地存储素材id.
+     *
+     * @param int    $accountId 公众号id
+     * @param string $mediaId   素材id
+     *
+     * @return NULL|string
+     */
+    private function getLocalMediaId($accountId, $mediaId)
+    {
+        return $this->materialRepository->getLocalMediaId($accountId, $mediaId);
     }
 }

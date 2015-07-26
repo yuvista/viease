@@ -5,6 +5,8 @@ composer.lock
 public/.htaccess
 */node_modules
 public/.sass-cache/
+public/attachments/
+public/materials/
 vendor/
 /vendor
 /node_modules

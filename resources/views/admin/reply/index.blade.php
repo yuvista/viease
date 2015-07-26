@@ -26,10 +26,13 @@
                 <div class="replys">回复：xxxx</div>
             </div>
         </div>
+
+    <!--样例使用完后删除-->
     <a href="javascript:;" id="tester">保存测试</a>
     <a href="javascript:;" id="save">修改测试</a>
     <a href="javascript:;" id="add">增加一个自动回复</a>
      <a href="javascript:;" id="update">修改一个自动回复</a>
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
     $(function(){
         $('#tester').click(function(){
@@ -68,19 +71,19 @@
               type: 'POST',
               url: '/admin/reply/store',
               data: {
-                    name:"粉丝22",
+                    name:"单回复",
                     trigger_keywords:[
-                        "大学1","你好2"
+                        "说话"
                     ],
-                    trigger_type:"contain",
+                    trigger_type:"equal",
                     replies:[
                         {
                             'type':'text',
                             'content':'你好啊大家好才是真的好'
                         },
                         {
-                            'type':'material',
-                            'content':'MEDIA_123456789'
+                            'type':'text',
+                            'content':'你好啊大家好才是真的好2'
                         }
                     ],
                 },
@@ -112,7 +115,7 @@
         });
     });
     </script>
-
+    <!--End 样例使用完删除-->
     </div>
 </div>
 @stop

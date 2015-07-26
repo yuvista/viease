@@ -11,32 +11,32 @@ class Material extends Model
     /**
      * 单图文类型.
      */
-    const IS_SIMPLE = 1;
+    const IS_SIMPLE = 0;
 
     /**
      * 多图文类型.
      */
-    const IS_MULTI = 2;
+    const IS_MULTI = 1;
 
     /**
-     * 远程素材类型.
+     * 不可编辑素材.
      */
-    const IS_REMOTE = 1;
+    const CAN_NOT_EDITED = 0;
 
     /**
-     * 非远程素材.
+     * 可编辑素材.
      */
-    const IS_NOT_REMOTE = 2;
+    const CAN_EDITED = 1;
 
     /**
      * 创建来自自己.
      */
-    const CREATED_FROM_SELF = 1;
+    const CREATED_FROM_SELF = 0;
 
     /**
      * 创建来自微信
      */
-    const CREATED_FROM_WECHAT = 2;
+    const CREATED_FROM_WECHAT = 1;
 
     /**
      * 字段白名单.
@@ -53,11 +53,13 @@ class Material extends Model
         'author',
         'content',
         'show_cover_pic',
+        'cover_media_id',
         'cover_url',
         'created_from',
+        'can_edited',
         'content_url',
         'source_url',
-                            ];
+    ];
 
     /**
      * 用于表单验证时的字段名称提示.
@@ -69,7 +71,12 @@ class Material extends Model
         'type' => '类型',
         'url' => '素材地址',
         'app_id' => '应用ID',
-        'title' => '视频标题',
-        'digest' => '视频描述',
-                             ];
+        'title' => '标题',
+        'digest' => '描述',
+    ];
+
+    public function childrens()
+    {
+        return $this->hasMany('App\Models\Material', 'parent_id');
+    }
 }

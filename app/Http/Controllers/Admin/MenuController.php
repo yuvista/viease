@@ -62,6 +62,18 @@ class MenuController extends Controller
     }
 
     /**
+     * 同步菜单数据到本地.
+     *
+     * @return Response
+     */
+    public function getSync()
+    {
+        $account = account()->getCurrent();
+
+        $this->menuService->syncToLocal($account);
+    }
+
+    /**
      * 保存菜单.
      *
      * @param CreateRequest $request request
@@ -72,8 +84,10 @@ class MenuController extends Controller
 
         $this->menuService->destroyOldMenu($accountId);
 
-        $menus = $this->menuService->analyseMenus($request->get('menus'));
+        $menus = $this->menuService->analyseMenu($request->get('menus'));
 
-        return $this->menuRepository->storeMulti($accountId, $menus);
+        $this->menuRepository->storeMulti($accountId, $menus);
+        
+        $this->menuService->saveToRemote($menus);
     }
 }

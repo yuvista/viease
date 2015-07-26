@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Services\Material as MaterialService;
 use Overtrue\Wechat\Menu as WechatMenu;
 use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
+use Overtrue\Wechat\MenuItem;
+use App\Models\Material;
 
 /**
  * 菜单服务提供类.
@@ -27,7 +30,14 @@ class Menu
      */
     private $eventService;
 
-    private $material = [];
+    /**
+     * 素材服务
+     *
+     * @var App\Services\Material
+     */
+    private $materialService;
+
+    private $account;
 
     /**
      * construct.
@@ -37,36 +47,46 @@ class Menu
      */
     public function __construct(
         MenuRepository $menuRepository,
-        EventService $eventService
+        EventService $eventService,
+        MaterialService $materialService
     ) {
         $this->menuRepository = $menuRepository;
 
         $this->eventService = $eventService;
+
+        $this->materialService = $materialService;
+
+        $this->account = account()->getCurrent();
     }
 
     /**
      * 取得远程公众号的菜单.
      *
+     * @param App\Models\Account $account 
+     *
      * @return array 菜单信息
      */
-    public function getFromRemote()
+    private function getFromRemote($account)
     {
-        return json_decode('{"is_menu_open":1,"selfmenu_info":{"button":[{"type":"news","name":"1","news_info":{"list":[{"title":"002","author":"","digest":"111111","show_cover":1,"cover_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/6WSbicEHejnhAvUutRuiaWIWJtuSia01qQibU6vGMhVWWSIVxwlfxvibCjj3qnXUfQdy21vs0HZ5icy45YMYRpqNP44g\/0?wx_fmt=jpeg","content_url":"http:\/\/mp.weixin.qq.com\/s?__biz=MzAwNjUxODYxNA==&mid=205824034&idx=1&sn=b369926ad11ad98868bb7936e5f5bc93#rd","source_url":""}]}},{"type":"img","name":"31231","value":"lcJ0yWx9ADHQdyFPTN3ZISmVLwHdQ4p-D4J9NELhazw08K8QxEDFd470PuJvwDHJ"}]}}', true);
-
-        $appId = account()->getCurrent()->app_id;
-
-        $secret = account()->getCurrent()->app_secret;
-
-        return with(new WechatMenu(['app_id' => $appId, 'secret' => $secret]))->current();
+        return with(new WechatMenu($account->app_id, $account->app_secret))->current();
     }
 
     /**
-     * 提交菜单到微信
+     * 同步远程菜单到本地数据库.
      *
-     * @param array $menus 菜单
+     * @param App\Models\Account $account 公众号
+     *
+     * @return Response
      */
-    public function saveToRemote($menus)
+    public function syncToLocal($account)
     {
+        $this->destroyOldMenu($account->id);
+
+        $remoteMenus = $this->getFromRemote($account);
+
+        $menus = $this->localize($remoteMenus);
+
+        return $this->saveToLocal($menus);
     }
 
     /**
@@ -84,21 +104,70 @@ class Menu
             return [];
         }
 
-        $menus = array_map([$this, 'analyseMenu'], $menus);
+        return $this->filterEmptyMenu(array_map([$this, 'analyseRemoteMenu'], $menus));
+    }
+
+    /**
+     * 过滤掉菜单中空的内容.
+     *
+     * @param array $menus 菜单
+     *
+     * @return array
+     */
+    private function filterEmptyMenu($menus)
+    {
+        foreach ($menus as $key => $menu) {
+            if(false == $menu){
+                unset($menus[$key]);
+            }
+
+            if(isset($menu['sub_button'])){
+                $menus[$key]['sub_button'] = array_filter($menu['sub_button']);
+            }
+        }
 
         return $menus;
     }
 
     /**
-     * 同步远程菜单到本地数据库.
+     * 分析远程取得的菜单数据.
+     *
+     * @param array $menu 菜单
+     *
+     * @return array|NULL
      */
-    public function sync()
+    private function analyseRemoteMenu($menu)
     {
-        $remoteMenus = $this->getFromRemote();
+        if (isset($menu['sub_button']['list'])) {
+            $menu['sub_button'] = array_map([$this, 'analyseRemoteMenu'], $menu['sub_button']['list']);
+        } else {
+            $menu = call_user_func([$this, camel_case('resolve_'.$menu['type'].'_menu')], $menu);
+        }
 
-        $menus = $this->localize($remoteMenus);
+        return $menu;
+    }
 
-        return $this->saveToLocal($menus);
+    /**
+     * 分析菜单数据.
+     *
+     * @param array $menus menus
+     *
+     * @return array
+     */
+    public function analyseMenu($menus)
+    {
+        $menus = array_map(function ($menu) {
+            if (isset($menu['sub_button'])) {
+                $menu['sub_button'] = $this->analyseMenu($menu['sub_button']);
+            } else {
+                $menu = $this->makeMenuEvent($menu);
+            }
+
+            return $menu;
+
+        }, $menus);
+
+        return $menus;
     }
 
     /**
@@ -116,24 +185,6 @@ class Menu
     }
 
     /**
-     * 分析远程取得的菜单数据.
-     *
-     * @param array $menu 菜单
-     *
-     * @return array
-     */
-    private function analyseRemoteMenu($menu)
-    {
-        if (isset($menu['sub_button']['list'])) {
-            $menu['sub_button'] = array_map([$this, 'analyseMenu'], $menu['sub_button']['list']);
-        } else {
-            $menu = call_user_func([$this, camel_case('resolve_'.$menu['type'].'_menu')], $menu);
-        }
-
-        return $menu;
-    }
-
-    /**
      * 解析文字类型的菜单 [转换为事件].
      *
      * @param array $menu 菜单
@@ -144,7 +195,12 @@ class Menu
     {
         $menu['type'] = 'click';
 
-        $menu['key'] = $this->eventService->makeText($menu['value']);
+        $mediaId = $this->materialService->saveText(
+            account()->getCurrent()->id,
+            $menu['value']
+        );
+
+        $menu['key'] = $this->eventService->makeMediaId($mediaId);
 
         unset($menu['value']);
 
@@ -152,7 +208,7 @@ class Menu
     }
 
     /**
-     * 解析MediaId类型的菜单 [转换事件,存储素材].
+     * 解析MediaId类型的菜单.
      *
      * @param array $menu 菜单
      *
@@ -160,27 +216,10 @@ class Menu
      */
     private function resolveMediaIdMenu($menu)
     {
+        return false; //暂时关系此类型处理 todo
         $menu['type'] = 'click';
-
-        $menu['key'] = $this->eventService->makeMediaId($menu['value']);
-
-        unset($menu['value']);
-
-        return $menu;
-    }
-
-    /**
-     * 解析图片类型的菜单 [转换为事件].
-     *
-     * @param array $menu 菜单
-     *
-     * @return array
-     */
-    private function resolveImgMenu($menu)
-    {
-        $menu['type'] = 'click';
-
-        $menu['key'] = $this->eventService->makeMediaId($menu['value']);
+        //mediaId类型属于永久素材类型
+        $menu['key'] = $this->eventService->makeMediaId();
 
         unset($menu['value']);
 
@@ -198,11 +237,57 @@ class Menu
     {
         $menu['type'] = 'click';
 
-        $menu['key'] = $this->eventService->makeArticles($menu['news_info']['list']);
+        $mediaId = $this->materialService->saveArticle(
+            account()->getCurrent()->id,
+            $menu['news_info']['list'],
+            null,
+            Material::CREATED_FROM_WECHAT,
+            Material::CAN_NOT_EDITED //无法编辑
+        );
+
+        $menu['key'] = $this->eventService->makeMediaId($mediaId);
+
+        unset($menu['value']);
 
         unset($menu['news_info']);
 
         return $menu;
+    }
+
+    /**
+     * 解析视频类型的菜单 属于临时素材丢弃.
+     *
+     * @param array $menu 菜单参数
+     *
+     * @return false
+     */
+    private function resolveVideoMenu($menu)
+    {
+        return false;
+    }
+
+    /**
+     * 解析声音类型的菜单 属于临时素材丢弃.
+     *
+     * @param array $menu 菜单参数
+     *
+     * @return false
+     */
+    private function resolveVoiceMenu($menu)
+    {
+        return false;
+    }
+
+    /**
+     * 解析图片类型的菜单 属于临时素材丢弃.
+     *
+     * @param array $menu 菜单
+     *
+     * @return array
+     */
+    private function resolveImgMenu($menu)
+    {
+        return false;
     }
 
     /**
@@ -223,11 +308,15 @@ class Menu
 
     /**
      * 解析点击事件类型的菜单 [自己的保留，否则丢弃].
+     *
+     * @param array $menu 菜单信息
+     *
+     * @return array|boolean
      */
     private function resolveClickMenu($menu)
     {
         if (!$this->eventService->isOwnEvent($menu['key'])) {
-            $menu['key'] = null;
+            return false;
         }
 
         return $menu;
@@ -314,38 +403,21 @@ class Menu
      */
     private function resolveViewLimitedMenu($menu)
     {
+        return false; //暂时关闭这个功能 todo
+
         $menu['type'] = 'view';
 
-        $url = 'http://www.badiu.com';
+        $url = $this->materialService->localizeMaterialId($menu['value']);
+
+        if(!$url){
+            return false;
+        }
 
         $menu['key'] = $url;
 
         unset($menu['value']);
 
         return $menu;
-    }
-
-    /**
-     * 分析菜单数据.
-     *
-     * @param array $menus menus
-     *
-     * @return array
-     */
-    public function analyseMenus($menus)
-    {
-        $menus = array_map(function ($menu) {
-            if (isset($menu['sub_button'])) {
-                $menu['sub_button'] = $this->analyseMenus($menu['sub_button']);
-            } else {
-                $menu = $this->makeMenuEvent($menu);
-            }
-
-            return $menu;
-
-        }, $menus);
-
-        return $menus;
     }
 
     /**
@@ -360,19 +432,17 @@ class Menu
         if ($menu['type'] == 'text') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeText($menu['value']);
-            unset($menu['value']);
-        }
 
-        if ($menu['type'] == 'media') {
+        }else if ($menu['type'] == 'media') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeMediaId($menu['value']);
-            unset($menu['value']);
-        }
-        if ($menu['type'] == 'view') {
+        }else if ($menu['type'] == 'view') {
             $menu['key'] = $menu['value'];
-            unset($menu['value']);
+        }else{
+            $menu['key'] = $menu['value'];
         }
 
+        unset($menu['value']);
         return $menu;
     }
 
@@ -388,11 +458,53 @@ class Menu
         array_map(function ($menu) {
 
             if ($menu['type'] == 'click') {
-                $this->eventService->distoryByEventId($menu['key']);
+                $this->eventService->distoryByEventKey($menu['key']);
             }
 
         }, $menus);
 
         $this->menuRepository->distoryMenuByAccountId($accountId);
+    }
+
+    /**
+     * 提交菜单到微信
+     *
+     * @param array $menus 菜单
+     * 
+     */
+    public function saveToRemote($menus)
+    {
+        $wechatMenu = new WechatMenu($this->account->app_id,$this->account->app_secret);
+
+        $menus = $this->formatToWechat($menus);
+
+        return $wechatMenu->set($menus);
+    }
+
+    /**
+     * 格式化为微信菜单
+     *
+     * @param  array $menus 菜单
+     */
+    private function formatToWechat($menus)
+    {
+        $saveMenus = [];
+
+        foreach ($menus as $menu) {
+
+            if(isset($menu['sub_button'])) {
+                $menuItem = new MenuItem($menu['name']);
+                $subButtons = [];
+                foreach ($menu['sub_button'] as $subMenu) {
+                    $subButtons[] = new MenuItem($subMenu['name'], $subMenu['type'], $subMenu['key']);
+                }
+                $menuItem->buttons($subButtons);
+                $saveMenus[] = $menuItem;
+            }else{
+                $saveMenus[] = new MenuItem($menu['name'], $menu['type'], $menu['key']);
+            }
+        }
+
+        return $saveMenus;
     }
 }

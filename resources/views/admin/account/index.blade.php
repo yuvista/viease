@@ -33,7 +33,7 @@
                         <a href="{{ admin_url('account/change-account/'.$account->id)}}" class="btn btn-success btn-xs">功能管理</a>
                         <a href="{{ admin_url('account/update/'.$account->id)}}" class="btn btn-default btn-xs">编辑</a>
                         <a href="#api_{{$account->id}}" class="btn btn-mint btn-xs" data-toggle="modal">接口</a>
-                        <a href="{{ admin_url('account/delete/'.$account->
+                        <a href="{{ admin_url('account/destroy/'.$account->
                             id) }}" class="btn btn-danger btn-xs" onclick="return confirm('删除后无法恢复,确定要删除吗')">删除
                         </a>
                     </td>

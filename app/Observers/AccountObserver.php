@@ -2,7 +2,12 @@
 
 namespace App\Observers;
 
+use App\Jobs\SyncImageMaterial;
+use App\Jobs\SyncVoiceMaterial;
+use App\Jobs\SyncVideoMaterial;
+use App\Jobs\SyncNewsMaterial;
 use App\Models\Account;
+use Queue;
 
 /**
  * Account模型观察者.
@@ -22,7 +27,7 @@ class AccountObserver
 
         $account->aes_key = account()->buildAesKey();
 
-        // $account->tag = account()->buildTag();
+        $account->tag = account()->buildTag();
     }
 
     /**
@@ -32,5 +37,14 @@ class AccountObserver
      */
     public function created(Account $account)
     {
+        account()->chose($account->id);
+        // //同步图片
+        // Queue::push(new SyncImageMaterial($account));
+        // //同步声音
+        // Queue::push(new SyncVoiceMaterial($account));
+        //同步视频
+        Queue::push(new SyncVideoMaterial($account));
+        //同步图文
+        //Queue::push(new SyncNewsMaterial($account));
     }
 }

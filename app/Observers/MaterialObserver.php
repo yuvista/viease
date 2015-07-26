@@ -26,13 +26,16 @@ class MaterialObserver
 
     public function saving(Material $material)
     {
-        $material->media_id = $this->materialService->buildMaterialMediaId();
+        if(!$material->media_id) {
+            $material->media_id = $this->materialService->buildMaterialMediaId();
+        }
     }
 
     public function created(Material $material)
     {
-        if ($material->type != 'article') {
-            $material->original_id = $this->materialService->updateToRemote($material);
+        //artile类型不可放到监听中
+        if ($material->type != 'article' && !$material->original_id && $material->parent_id) {
+            $material->original_id = $this->materialService->postToRemote($material);
         }
     }
 }

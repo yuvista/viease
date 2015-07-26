@@ -31,25 +31,25 @@ class EventRepository
     }
 
     /**
-     * 通过eventId查询.
+     * 通过key查询event.
      *
      * @param string $eventId eventId
      *
      * @return Event event
      */
-    public function findByEventId($eventId)
+    public function getEventByKey($eventId)
     {
         return $this->model->where('key', $eventId)->first();
     }
 
     /**
-     * 通过eventId删除事件.
+     * 通过key删除事件.
      *
      * @param string $eventId eventId
      */
-    public function distoryByEventId($eventId)
+    public function distoryByEventKey($eventKey)
     {
-        return $this->model->where('key', $eventId)->delete();
+        return $this->model->where('key', $eventKey)->delete();
     }
 
     /**
@@ -66,9 +66,9 @@ class EventRepository
 
         $model->account_id = $accountId;
 
-        $model->type = 'text';
+        $model->type = 'material';
 
-        $model->content = $text;
+        $model->value = $text;
 
         $model->save();
 
@@ -86,9 +86,9 @@ class EventRepository
     {
         $model = $this->findByEventId($eventId);
 
-        $model->type = 'text';
+        $model->type = 'material';
 
-        $model->content = $text;
+        $model->value = $text;
 
         $model->save();
     }
@@ -106,7 +106,7 @@ class EventRepository
 
         $model->type = 'material';
 
-        $model->content = $mediaId;
+        $model->value = $mediaId;
 
         $model->save();
     }
@@ -127,7 +127,7 @@ class EventRepository
 
         $model->type = 'material';
 
-        $model->content = $mediaId;
+        $model->value = $mediaId;
 
         $model->save();
 

@@ -9,6 +9,7 @@ use App\Http\Requests\Material\ImageRequest;
 use App\Repositories\MaterialRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Account;
 
 /**
  * 素材管理.

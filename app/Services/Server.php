@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use Overtrue\Wechat\Server as WechatServer;
-use Overtrue\Wechat\Message;
-use Cache;
+use Overtrue\Wechat\Message as WechatMessage;
+use App\Services\Message as MessageService;
+use App\Repositories\ReplyRepository;
+use Cache,Log;
 
 /**
  * 回复服务.
@@ -13,6 +15,32 @@ use Cache;
  */
 class Server
 {
+    /**
+     * 消息服务
+     *
+     * @var App\Services\Message
+     */
+    private $messageService;
+
+    /**
+     * replyRepository
+     *
+     * @var App\Repositories\ReplyRepository
+     */
+    private $replyRepository;
+
+    /**
+     * constructer
+     *
+     * @param MessageService $messageService 消息服务
+     */
+    public function __construct(MessageService $messageService, ReplyRepository $replyRepository)
+    {
+        $this->messageService = $messageService;
+
+        $this->replyRepository = $replyRepository;
+    }
+
     /**
      * 返回服务器.
      *
@@ -31,12 +59,15 @@ class Server
         $server = new WechatServer($appId, $token, $encodingAESKey);
 
         $server->on('message', function ($message) use ($server, $account) {
-            return $this->resolveMessage($account, $message, $server);
+
+            Log::error($message);
+            
+            return $this->handleMessage($account, $message, $server);
         });
 
         //普通事件
         $server->on('event', function ($event) use ($server, $account) {
-            return $this->resolveEvent($account, $event, $server);
+            return $this->handleEvent($account, $event, $server);
         });
 
         return $server->serve();
@@ -48,12 +79,52 @@ class Server
      * @param int                    $account 公众号
      * @param array                  $event   事件
      * @param Overtrue\Wechat\Server $server  server
+     * @example     "t":"NqIN7nWjkBb6TPO",
+     *              "signature":"6f03b7898963ed36652eaa30c3559f6d35b33bf5",
+     *              "timestamp":"1437715046",
+     *              "nonce":"1713756659",
+     *              "ToUserName":"gh_aaee1f6935ae",
+     *              "FromUserName":"oVtUzsyIY491_Tid3_nI2XDXbXvc",
+     *              "CreateTime":"1437715046",
+     *              "MsgType":"event",
+     *              "Event":"subscribe",
+     *              "EventKey":[]
      *
      * @return Response
      */
-    private function resolveEvent($account, $event, $server)
+    private function handleEvent($account, $event, $server)
     {
-        //$eventId = $
+        if($event['Event'] == 'subscribe'){
+            return $this->handleSubscribe($account);
+        }
+    }
+
+    /**
+     * 处理订阅时的消息
+     *
+     * @return Response
+     */
+    private function handleSubscribe($account)
+    {
+        $event = $this->replyRepository->getFollowReply($account->id);
+
+        $eventId = $event['content'][0];
+
+        return $eventId ? $this->messageService->eventToMessage($eventId) : $this->messageService->emptyMessage();
+    }
+
+    /**
+     * 处理未匹配时的回复
+     *
+     * @return Response
+     */
+    private function handleNoMatch($account)
+    {
+        $event = $this->replyRepository->getNoMatchReply($account->id);
+
+        $eventId = $event['content'][0];
+
+        return $eventId ? $this->messageService->eventToMessage($eventId) : $this->messageService->emptyMessage();
     }
 
     /**
@@ -65,44 +136,24 @@ class Server
      *
      * @return Response
      */
-    private function resolveMessage($account, $message, $server)
+    private function handleMessage($account, $message, $server)
     {
-        $replies = Cache::get('replies_'.$account->id);
+        //存储消息
+        $this->messageService->storeMessage($message);
+        //属于文字类型消息
+        if($message['MsgType'] == 'text'){
 
-        foreach ($replies as $keyword) {
-            if ($keyword == $message) {
-                if ($keyword['type' == 'equal']) {
-                    return $this->eventsToMessage($keyword['content'], $server);
-                }
-            } else {
-                if ($keyword['type'] == 'contain') {
-                    return $this->eventsToMessage($keyword['content'], $server);
+            $replies = Cache::get('replies_'.$account->id);
+
+            foreach ($replies as $key => $reply) {
+                //查找字符串
+                if(str_contains($message['Content'],$key))
+                {
+                    return $this->messageService->eventsToMessage($reply['content']);
                 }
             }
-        }
-    }
 
-    /**
-     * 事件解析为消息.
-     *
-     * @param string $eventId 事件Id
-     *
-     * @return Response
-     */
-    public function eventToMessage($eventId)
-    {
-    }
-
-    /**
-     * 多个事件解析为消息.
-     *
-     * @param array $eventIds 事件Ids
-     *
-     * @return Response
-     */
-    public function eventsToMessage($eventIds)
-    {
-        foreach ($eventIds as $eventId) {
+            return $this->handleNoMatch($account);
         }
     }
 }
