@@ -80,35 +80,9 @@ return [
                             'uri'   => 'reply',
                         ],
                         // [
-                        //     'label' => '摇一摇周边',
-                        //     'uri'   => 'shake',
-                        // ],
-                        // [
                         //     'label' => '客服管理',
                         //     'uri'   => 'staff',
                         // ],
-                    ],
-                ],
-                [
-                    'label' => '数据统计',
-                    'icon'  => 'ion-ios-pulse-strong',
-                    'submenus' => [
-                        [
-                            'label' => '粉丝',
-                            'uri'   => 'analysis/fan',
-                        ],
-                        [
-                            'label' => '图文',
-                            'uri'   => 'analysis/article',
-                        ],
-                        [
-                            'label' => '消息',
-                            'uri'   => 'analysis/message',
-                        ],
-                        [
-                            'label' => '接口',
-                            'uri'   => 'analysis/api',
-                        ],
                     ],
                 ],
             ],

@@ -16,7 +16,7 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">自定义菜单</div>
-                <div class="panel-body">
+                <div class="panel-body response-content">
                     <div class="blankslate spacious">你可以从左边创建一个菜单并设置响应内容。</div>
                 </div>
             </div>
@@ -61,6 +61,141 @@
         </form>
     </div>
 </script>
+
+<div class="modal" id="media-picker">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">素材选择</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="response-content-picker" class="hidden" type="text/plain">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"><a href="#text-tab-content" data-type="text" aria-controls="text-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-information-outline"></i> 文字</a></li>
+        <li role="presentation"><a href="#url-tab-content" data-type="url" aria-controls="url-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-monitor"></i> 网页</a></li>
+        <li role="presentation"><a href="#image-tab-content" data-type="image" aria-controls="image-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-photos-outline"></i> 图片</a></li>
+        <li role="presentation"><a href="#video-tab-content" data-type="video" aria-controls="video-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-videocam-outline"></i> 视频</a></li>
+        <li role="presentation"><a href="#voice-tab-content" data-type="voice" aria-controls="voice-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-volume-high"></i> 声音</a></li>
+        <li role="presentation"><a href="#article-tab-content" data-type="article" aria-controls="article-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-paper-outline"></i> 图文</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="response-content-form">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="text-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="message-editor"></div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="url-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="well row">
+                        <label class="col-md-3 control-label">目标网址：</label>
+                        <div class="col-md-9">
+                            <input type="text" name="url" value="" class="form-control" placeholder="http://viease.com">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="image-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="text-center response-content-picker">
+                        <div class="preview-content"></div>
+                        <div class="btns">
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传图片</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="video-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="text-center response-content-picker">
+                        <div class="preview-content"></div>
+                        <div class="btns">
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传视频</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="voice-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="text-center response-content-picker">
+                        <div class="preview-content"></div>
+                        <div class="btns">
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传声音</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="article-tab-content">
+                <div class="result-container-wrapper" style="display:none">
+                    <div class="result-container"></div>
+                    <div>
+                        <button type="" class="btn btn-default edit-btn">编辑</button>
+                    </div>
+                </div>
+                <div class="form-area">
+                    <div class="text-center response-content-picker">
+                        <div class="preview-content"></div>
+                        <div class="btns">
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 新建图文</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="submit-btns">
+            <input type="hidden" name="type" value="">
+            <button type="" class="btn btn-success">确定</button>
+        </div>
+    </form>
+</script>
+
 @stop
 
 @section('js')

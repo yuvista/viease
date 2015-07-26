@@ -13,7 +13,7 @@
     }
 
     &:hover {
-        .actions {
+        > .menu-item-heading > .actions {
             display: block;
             transition: all 0.3s;
         }
@@ -45,4 +45,48 @@
             }
         }
     }
+}
+
+.response-content {
+    .result-container {
+        padding: 10px;
+        margin: 15px 0;
+        min-height: 100px;
+        border:1px solid $light-border-color;
+    }
+
+    .tab-pane {
+        padding: 10px 0;
+
+
+        .response-content-picker {
+            border: 1px solid $light-border-color;
+            padding:10px;
+            .btns {
+                padding: 10px;
+            }
+        }
+    }
+    // ul {
+    //     padding-left: 1px;
+    //     display:inline-block;
+    //     margin:0 auto;
+
+    //     li{
+    //             float: left;
+    //             list-style: none;
+
+    //             a {
+    //                 padding:10px 20px;
+    //                 margin: 30px 0;
+    //                 margin-left:-1px;
+    //                 display: inline-block;
+    //                 border:1px solid $light-border-color;
+
+    //                 &:hover {
+    //                     background: $light-border-color;
+    //                 }
+    //             }
+    //         }
+    // }
 }

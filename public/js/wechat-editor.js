@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
     var $defaults = {
-        textareaName: ''
+        textarea: 'content'
     };
 
     /**
@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
     }
 
     WeChatEditor.prototype.createContentBox = function() {
-        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div><textarea style="display:none" name="'+ this.options.textareaName+ '"></textarea>');
+        this.element.find('.wechat-editor').append('<div class="wechat-editor-content" contenteditable="true"></div><textarea style="display:none" name="'+ this.options.textarea+ '"></textarea>');
     }
 
     WeChatEditor.prototype.createToolbar = function() {

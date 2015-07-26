@@ -3,13 +3,14 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], function ($, Menu, MenuRepo, Util) {
+define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'admin/common'], function ($, Menu, MenuRepo, WeChatEditor, Util) {
     $(function(){
         // 菜单列表
-        var $menusListContainer   = $('.menus');
-        var $emptyMenusTemplate   = _.template($('#no-menus-content-template').html());
-        var $menuItemFormTemplate = _.template($('#menu-item-form-template').html());
-        var $menuItemTemplate     = _.template($('#menu-item-template').html());
+        var $menusListContainer     = $('.menus');
+        var $emptyMenusTemplate     = _.template($('#no-menus-content-template').html());
+        var $menuItemFormTemplate   = _.template($('#menu-item-form-template').html());
+        var $menuItemTemplate       = _.template($('#menu-item-template').html());
+        var $responsePickerTemplate = _.template($('#response-content-picker').html());
 
         // 监听变化
         $menusListContainer.ifEmpty(function(el){
@@ -55,7 +56,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
          *
          * @param {Object} $target
          */
-        function createMenuItemForm ($target, $parentId) {
+        function createMenuItemForm($target, $parentId) {
             if ($target.hasClass('no-menus')) {
                 $target.html('').removeClass('no-menus');
             };
@@ -100,6 +101,8 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
             event.stopPropagation();
             $('.menu-item.current').removeClass('current');
             $(this).addClass('current');
+            showResponseContent(Menu.get($(this).attr('id')));
+
         });
 
         // 编辑菜单名称
@@ -153,5 +156,139 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'util', 'admin/common'], fun
 
             $(this).closest('form').parent().remove();
         });
+
+        // 显示一个按钮的内容
+        function showResponseContent ($menu) {
+            $('.response-content').html($responsePickerTemplate());
+            $('.response-content ul.nav-tabs a').tab();
+            $('.message-editor');
+            new WeChatEditor($('.message-editor'), {textarea: 'text'});
+
+            var $form = $('#response-content-form');
+            var $resultContainer = getCurrentResultContainer();
+
+            $type = $menu.type || 'text';
+
+            $('.response-content ul.nav-tabs a').on('shown.bs.tab', function(){
+                $form.find('[name=type]').val(getCurrentType());
+                if (!getCurrentResultContainer().is(':visible')) {
+                    $('#response-content-form .submit-btns').show();
+                } else {
+                    $('#response-content-form .submit-btns').hide();
+                }
+            });
+
+            $('.response-content ul.nav-tabs a[data-type='+$type+']').trigger('click');
+
+            dataToForm($menu['content'] || {}, $type);
+
+            if (typeof $menu['content']['previewContent'] == undefined) {
+                $menu['content']['previewContent'] = '';
+            }
+
+            toResultContainer($menu['content']['previewContent'], $menu['content']);
+            toggleResultAndForm('result');
+
+
+            addFormListener($form);
+        }
+
+        // 从按钮显示表单
+        function dataToForm ($data, $type) {
+            var $form = $('#response-content-form');
+            var $resultContainer = getCurrentResultContainer();
+
+            switch($type){
+                case 'text':
+                    $form.find('.wechat-editor-content').html($data.previewContent);
+                    break;
+                case 'url':
+                    $form.find('[name=url]').val($data.url);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 当前面板的结果容器
+        function getCurrentResultContainer () {
+            return $('.tab-pane.active .result-container-wrapper');
+        }
+
+        // 当前点击的类型
+        function getCurrentType () {
+            return $('ul.nav-tabs .active a').data('type');
+        }
+
+        function toResultContainer ($content, $data) {
+            var $resultContainer = getCurrentResultContainer();
+            var $contentArea = $resultContainer.find('.result-container');
+
+            $contentArea.html($content).data($data);
+        }
+
+        // 表单 -> 结果
+        function saveMenu ($content, $data) {
+            toResultContainer($content, $data);
+            var $menuId = $('.menu-item.current').data('id');
+            Menu.update($menuId, {});
+            Menu.update($menuId, $data);
+            toggleResultAndForm('form');
+        }
+
+        function toggleResultAndForm ($type) {
+            var $resultContainer = getCurrentResultContainer();
+
+            if ($type == 'result') {
+                $('.tab-pane.active .form-area').hide();
+                $('#response-content-form .submit-btns').hide();
+                $resultContainer.show();
+            } else {
+                $('.tab-pane.active .form-area').show();
+                $('#response-content-form .submit-btns').show();
+                $resultContainer.hide();
+            }
+        }
+
+        function addFormListener ($form) {
+            var $resultContainer = getCurrentResultContainer();
+            var $contentArea = $resultContainer.find('.result-container');
+            var $editButton = $resultContainer.find('.edit-btn');
+
+            $editButton.on('click', function(event){
+                event.preventDefault();
+                var $data = $contentArea.data();
+                dataToForm($data);
+                toggleResultAndForm('form');
+            });
+
+            $form.on('submit', function(event){
+                event.preventDefault();
+
+                var $params = Util.parseForm($form);
+
+                switch($params.type){
+                    case 'text':
+                        if (!$params.text.length) {
+                            return error('请填写文字内容！');
+                        };
+                        $content = $(this).find('.wechat-editor-content').html();
+                        $data = {text: $params.text, previewContent: $content};
+                        break;
+                    case 'url':
+                        if (!$params.url.length || $params.url.indexOf('http://') !== 0) {
+                            return error('请正确填写网址！');
+                        };
+                        $content = $params.url;
+                        $data = {url: $params.url, previewContent: $content};
+                        break;
+                    default:
+                        break;
+                }
+
+                saveMenu($content, {content:$data, type: $params.type});
+                toggleResultAndForm('result');
+            });
+        }
     });
 });
