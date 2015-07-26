@@ -46,6 +46,39 @@ class FanRepository
                 ->orderBy($request->sort_by, 'desc')
                 ->paginate($pageSize);
     }
+
+    /**
+     * 通过openid获取fans的id，无数据时创建后返回
+     * @param int $accountId 账户ID
+     * @param int $openId Open ID
+     * @return int fansID
+     */
+    public function getIdByOpenid($accountId, $openId)
+    {
+        /**
+         * 通过openid查询
+         */
+        $fan = $this->model
+                ->where('account_id', $accountId)
+                ->where('openid', $openId)
+                ->first();
+        if($fan)
+        {
+            return $fan->id;
+        }
+        else
+        {
+            /**
+             * 若无返回结果，创建后返回
+             */
+            $insert = [
+                'account_id' => $accountId,
+                'openid' => $openId
+            ];
+            $this->_savePost($this->model, $insert);
+            return $this->model->id;
+        }
+    }
 	
 	/**
      * 粉丝活跃度+1.
