@@ -83,7 +83,7 @@
                       </ul>
                   </li>
               </ul>
-              @unless($global->accounts->isEmpty())
+              @if(!$global->accounts->isEmpty() && !empty($global->current_account))
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
@@ -110,7 +110,7 @@
                       </ul>
                   </li>
               </ul>
-              @endunless
+              @endif
             </div>
           </div>
         </div>

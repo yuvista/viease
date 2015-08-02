@@ -5,6 +5,7 @@
  */
 define([
     'jquery',
+    'relocator',
     'underscore',
     'bootstrap',
     'magnificPopup',
@@ -26,7 +27,6 @@ function ($, _) {
                 });
             }, 50);
         };
-
 
         $.ajaxSetup({
             headers: {

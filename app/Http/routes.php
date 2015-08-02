@@ -14,10 +14,6 @@
 Route::get('/api', 'ServerController@server');
 Route::post('/api', 'ServerController@server');
 
-Route::any('/upload', function () {
-    return ['ok' => 1];
-});
-
 /*
     * Admin
  */
@@ -39,13 +35,10 @@ Route::group($admin, function () {
             'fan-group' => 'FanGroupController',
             'menu' => 'MenuController',
             'material' => 'MaterialController',
-            'analysis' => 'AnalysisController',
             'staff' => 'StaffController',
-            'tool' => 'ToolController',
             'message' => 'MessageController',
-            'notice' => 'NoticeController',
-            'qrcode' => 'QRCodeController',
             'reply' => 'ReplyController',
+            'upload' => 'UploadController',
         ]);
     });
 });

@@ -53,7 +53,6 @@
         </table>
     </div>
 </div>
-@endsection
 @if($accounts->count())
     @foreach($accounts as $account)
         <div class="modal" id="api_{{$account->id}}">
@@ -76,3 +75,9 @@
         </div>
     @endforeach
 @endif
+@stop
+
+@section('js')
+<script>
+</script>
+@stop

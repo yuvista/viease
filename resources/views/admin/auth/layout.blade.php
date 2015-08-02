@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}" media="screen">
   <link rel="stylesheet" href="{{ asset('/css/login.css') }}" media="screen">
+  <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
   <script src="{{ asset('/plugin/html5shiv/dist/html5shiv.js') }}"></script>
@@ -41,11 +42,6 @@
   <div class="container full-height">
     @yield('content')
   </div>
-  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-  <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/sweetalert/lib/sweet-alert.min.js') }}"></script>
-  <script src="{{ asset('/js/plugins/switchery/dist/switchery.min.js') }}"></script>
-  <script src="{{ asset('/js/sweetalert.util.js') }}"></script>
-  <script src="{{ asset('/js/admin/app.js') }}"></script>
+  <script src="{{ asset('/js/require.js') }}" data-main="{{ asset('js/admin/main') }}"></script>
 </body>
 </html>

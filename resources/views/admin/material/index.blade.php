@@ -96,8 +96,8 @@
 </script>
 <script type="text/template" id="image-item-template">
     <div class="col-xs-6 col-sm-3 media-card">
-        <a href="<%= url %>" target="_blank" class="popup">
-          <img src="<%= url %>" alt="" class="img-responsive">
+        <a href="<%= source_url %>" target="_blank" class="popup">
+          <img src="<%= source_url %>" alt="" class="img-responsive">
         </a>
     </div>
 </script>

@@ -19,6 +19,7 @@ requirejs.config({
         jquery: '//cdn.bootcss.com/jquery/2.1.4/jquery.min',
         underscore: 'underscore-min',
         fastclick: 'fastclick.min',
+        relocator: 'relocator-1.0.1.min',
         store: 'store+json2.min',
         validator: 'plugins/validator.js/index',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',

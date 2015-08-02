@@ -5,7 +5,7 @@
  */
 define(['plupload'], function(){
     var $Uploader,
-        $uploadUrl = '/upload',
+        $uploadUrl = '/admin/upload',
         $filters = {
         image: {
             mime_types : [
@@ -69,7 +69,7 @@ define(['plupload'], function(){
 
             var $up = new plupload.Uploader({
                     browse_button: $button,
-                    url: $uploadUrl,
+                    url: $uploadUrl+'?type='+$type,
                     file_data_name: 'file'
                 });
             var $container = createQueueContainer($buttonSelector);

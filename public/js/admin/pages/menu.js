@@ -69,7 +69,8 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         }
 
         // 创建一级
-        $(document).on('click', '.add-menu-item', function(){
+        $(document).on('click', '.add-menu-item', function(event){
+            event.stopPropagation();
             if ($menusListContainer.find('> .menu-item').length >= 3) {
                 return error('最多只有 3 个一级菜单');
             };
@@ -77,7 +78,8 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         });
 
         // 创建二级
-        $(document).on('click', '.actions .add-sub', function(){
+        $(document).on('click', '.actions .add-sub', function(event){
+            event.stopPropagation();
             var $item = $(this).closest('.menu-item');
             var $subButtons = $item.find('.sub-buttons:first');
 
@@ -89,7 +91,8 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         });
 
         // 删除菜单
-        $(document).on('click', '.actions .trash', function(){
+        $(document).on('click', '.actions .trash', function(event){
+            event.stopPropagation();
             $(this).closest('.menu-item').slideUp(300, function(){
                 Menu.delete($(this).attr('id'));
                 $(this).remove();
@@ -102,11 +105,11 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             $('.menu-item.current').removeClass('current');
             $(this).addClass('current');
             showResponseContent(Menu.get($(this).attr('id')));
-
         });
 
         // 编辑菜单名称
-        $(document).on('click', '.actions .edit', function(){
+        $(document).on('click', '.actions .edit', function(event){
+            event.stopPropagation();
             var $item = $(this).closest('.menu-item').hide();
 
             var $id   = $item.attr('id');
@@ -116,8 +119,9 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         });
 
         // 表单提交
-        $(document).on('submit', '.menus form.menu-item-form:first', function(e){
-            e.preventDefault();
+        $(document).on('submit', '.menus form.menu-item-form:first', function(event){
+            event.preventDefault();
+            event.stopPropagation();
             var $params = Util.parseForm($(this));
             var $formItem = $(this).closest('.list-group-item');
 
@@ -144,9 +148,15 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             Menu.put($params['id'], $params);
         });
 
+        // 防止冒泡
+        $(document).on('click', '.menus form', function (event) {
+            event.stopPropagation();
+        });
+
         // 取消
         $(document).on('click', '.menus form .cancel-do', function(event){
             event.preventDefault();
+            event.stopPropagation();
             var $form = $(this).closest('form.menu-item-form');
             var $params = Util.parseForm($form);
 
@@ -187,7 +197,9 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             }
 
             toResultContainer($menu['content']['previewContent'], $menu['content']);
-            toggleResultAndForm('result');
+            if ($menu['content']['previewContent']) {
+                toggleResultAndForm('result');
+            };
 
 
             addFormListener($form);

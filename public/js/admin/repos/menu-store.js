@@ -4,10 +4,19 @@
  * @author overtrue <anzhengchao@gmail.com>
  */
 define(['jquery', 'util', 'store'], function($, Util, Store){
+    var $default = {
+        name:'',
+        parent:'',
+        id: '',
+        content: {
+
+        }
+    };
+
     var $menu = {
         put: function ($id, $attributes) {
             var $menus = Store.get('menus') || {};
-            $menus[$id] = $attributes;
+            $menus[$id] = $.extend(true, $default, $attributes);
             Store.set('menus', $menus);
         },
 

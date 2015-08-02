@@ -5,7 +5,7 @@ namespace App\Services;
 use Overtrue\Wechat\Media as MediaService;
 use App\Repositories\MaterialRepository;
 use App\Models\Material as MaterialModel;
-
+ini_set('max_execute_time', 0);
 /**
  * 素材服务.
  *
@@ -50,7 +50,7 @@ class Material
 
         $this->account = account()->getCurrent();
 
-        $this->mediaService = new MediaService(       
+        $this->mediaService = new MediaService(
             $this->account->app_id,
             $this->account->app_secret
         );
@@ -310,7 +310,7 @@ class Material
         $news['content']['news_item'] = $this->localizeNewsCoverMaterialId($news['content']['news_item']);
 
         return $this->materialRepository->storeArticle(
-            $this->account->id, 
+            $this->account->id,
             $news['content']['news_item'],
             $news['media_id']
         );
@@ -362,11 +362,10 @@ class Material
         $name = md5($mediaId);
 
         is_dir($dir) || mkdir($dir, 0755, true);
-
         //如果属于视频类型
         if ($type == 'video') {
-            
-            $videoInfo = json_decode($this->mediaService->forever()->download($mediaId),true);
+
+            $videoInfo = $this->mediaService->forever()->download($mediaId);
 
             ob_start();
 
@@ -388,7 +387,7 @@ class Material
 
             $dirFilename = $this->mediaService->forever()->download($mediaId, $dir.$name);
 
-            $fileName = explode('/',$dirFilename); 
+            $fileName = explode('/',$dirFilename);
 
             $fileName = array_pop($fileName);
 

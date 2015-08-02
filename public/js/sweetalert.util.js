@@ -107,14 +107,16 @@ define(['sweetalert'], function (swal) {
         },
 
         confirm: function(title){
-                sweetAlert({
+            window.__last_btn = $(window.event.target);
+                swal({
                     title: title,
+                    type: "warning",
                     showCancelButton: true,
                     confirmButtonText: '确认',
                     cancelButtonText: '取消'
                 }, function() {
-                    if (window.event && window.event.toElement) {
-                        var btn = $(window.event.toElement);
+                    if (window.event) {
+                        var btn = window.__last_btn;
                         window.location.href=btn.attr('href');
                     };
                 });

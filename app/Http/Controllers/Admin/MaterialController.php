@@ -64,7 +64,7 @@ class MaterialController extends Controller
      */
     public function getLists(Request $request)
     {
-        $pageSize = $request->get('page', $this->pageSize);
+        $pageSize = $request->get('page_size', $this->pageSize);
 
         return $this->materialRepository->getList($this->accountId, $request->get('type'), $pageSize);
     }
