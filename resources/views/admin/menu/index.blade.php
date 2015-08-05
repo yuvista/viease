@@ -67,24 +67,6 @@
     </div>
 </script>
 
-<div class="modal" id="media-picker">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h4 class="modal-title">素材选择</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-              <button type="button" class="btn btn-primary">确认</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script id="response-content-picker" class="hidden" type="text/plain">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation"><a href="#text-tab-content" data-type="text" aria-controls="text-tab-content" role="tab" data-toggle="tab"><i class="ion-ios-information-outline"></i> 文字</a></li>
@@ -136,7 +118,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success image-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
                             <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传图片</a>
                         </div>
                     </div>
@@ -153,7 +135,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success video-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
                             <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传视频</a>
                         </div>
                     </div>
@@ -170,7 +152,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success voice-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
                             <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传声音</a>
                         </div>
                     </div>
@@ -187,7 +169,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 从媒体库选择</a> 或者
+                            <a href="javascript:;" class="btn btn-success article-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
                             <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 新建图文</a>
                         </div>
                     </div>
@@ -241,7 +223,7 @@
                             name:"一个图文",
                             type:"media",
                             value:"MEDIA_XXXXXXX",
-                        }    
+                        }
                     ]
                 },
             });

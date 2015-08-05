@@ -30,7 +30,6 @@ define(['jquery', 'util'], function($, Util){
          */
         lists: function($request, $callback){
             $request['page'] = $request['page'] || (window.__page || 0) + 1;
-
             Util.request('GET', 'material/lists', $request, $callback);
         },
 

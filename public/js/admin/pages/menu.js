@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'admin/common'], function ($, Menu, MenuRepo, WeChatEditor, Util) {
+define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'admin/media-picker', 'admin/common'], function ($, Menu, MenuRepo, WeChatEditor, Util, MediaPicker) {
     $(function(){
         // 菜单列表
         var $menusListContainer     = $('.menus');
@@ -50,6 +50,11 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         } else {
             listsMenuFromDB();
         }
+
+        new MediaPicker('.image-picker', {type: 'image'});
+        new MediaPicker('.video-picker', {type: 'video'});
+        new MediaPicker('.voice-picker', {type: 'voice'});
+        new MediaPicker('.article-picker', {type: 'article'});
 
         /**
          * 创建表单
