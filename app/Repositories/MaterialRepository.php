@@ -189,12 +189,12 @@ class MaterialRepository
     /**
      * 存储图片素材.
      *
-     * @param int     $accountId 公众号ID
-     * @param Request $request   request
+     * @param  int     $accountId     公众号ID
+     * @param  string  $resourceUrl   图片访问地址
      *
      * @return Response
      */
-    public function storeImage($accountId, $request)
+    public function storeImage($accountId, $resourceUrl)
     {
         $model = new $this->model();
 
@@ -202,13 +202,11 @@ class MaterialRepository
 
         $model->account_id = $accountId;
 
-        $model->source_url = $request->url;
-
-        $model->title = $request->title;
+        $model->source_url = $resourceUrl;
 
         $model->save();
 
-        return $model->media_id;
+        return $model;
     }
 
     /**
