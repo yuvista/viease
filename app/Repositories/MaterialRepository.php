@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repositories;
+namespace App\Repositories;
 
 use App\Models\Material;
 
@@ -158,7 +158,7 @@ class MaterialRepository
 
         $model->save();
 
-        return $model->media_id;    
+        return $model->media_id;
     }
 
     /**
@@ -350,7 +350,7 @@ class MaterialRepository
         $createdFrom = Material::CREATED_FROM_WECHAT,
         $canEdited = Material::CAN_EDITED
         ) {
-        
+
         //判断多个与单个
         if (count($articles) >= 2) {
             return $this->storeMultiArticle(
