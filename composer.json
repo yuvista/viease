@@ -10,7 +10,8 @@
         "barryvdh/laravel-debugbar": "^2.0@dev",
         "overtrue/wechat": "2.0.*",
         "overtrue/laravel-lang": "1.0.*",
-        "php": ">=5.5.9"
+        "php": ">=5.5.9",
+        "overtrue": "2.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
