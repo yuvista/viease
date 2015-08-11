@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 图片素材job.
+ * 图片素材Job.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
@@ -37,6 +37,10 @@ class SyncImageMaterial extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MaterialService $materialService)
     {
+        if(!$this->account) {
+            $this->delete();
+        }
+
         $materialService->syncRemoteMaterial($this->account, 'image');
 
         $this->delete();

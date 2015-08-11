@@ -37,6 +37,10 @@ class SyncVideoMaterial extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MaterialService $materialService)
     {
+        if(!$this->account){
+            $this->delete();
+        }
+
         $materialService->syncRemoteMaterial($this->account, 'video');
 
         $this->delete();

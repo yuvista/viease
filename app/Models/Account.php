@@ -9,6 +9,17 @@ class Account extends Model
 {
     use SoftDeletes;
 
+    //完成图片同步
+    const SYNC_STATUS_FINSHED_IMAGE = 1;
+    //完成图文同步
+    const SYNC_STATUS_FINSHED_NEWS = 2;
+    //完成视频同步
+    const SYNC_STATUS_FINSHED_VIDEO = 3;
+    //完成声音同步
+    const SYNC_STATUS_FINSHED_VOICE = 4;
+    //完成菜单同步
+    const SYNC_STATUS_FINSHED_MENU = 5;
+
     /**
      * 字段白名单.
      *

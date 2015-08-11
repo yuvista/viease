@@ -5,7 +5,6 @@ namespace App\Services;
 use Overtrue\Wechat\Media as MediaService;
 use App\Repositories\MaterialRepository;
 
-ini_set('max_execute_time', 0);
 /**
  * 素材服务.
  *
@@ -211,13 +210,13 @@ class Material
      */
     public function syncRemoteMaterial($account, $type)
     {
-        $countNumber = $this->getRemoteMaterialCount($type);
+        $countNumber = $this->getRemoteMaterialCount($account, $type);
 
         for ($offset = self::MATERIAL_DEFAULT_OFFSET;
              $offset < $countNumber;
              $offset += self::MATERIAL_MAX_COUNT
             ) {
-            $lists = $this->getRemoteMaterialLists($type, $offset, self::MATERIAL_MAX_COUNT);
+            $lists = $this->getRemoteMaterialLists($account, $type, $offset, self::MATERIAL_MAX_COUNT);
 
             $this->localizeRemoteMaterialLists($account, $lists, $type);
         }
@@ -384,21 +383,11 @@ class Material
         //如果属于视频类型
         if ($type == 'video') {
             $videoInfo = $mediaService->forever()->download($mediaId);
-
-            ob_start();
-
-            readfile($videoInfo['down_url']);
-
-            $contents = ob_get_contents();
-
-            ob_end_clean();
-
-            file_put_contents($dir.$name.'.mp4', $contents);
-
+            //取消下载Mp4文件
             return [
                 'title' => $videoInfo['title'],
                 'description' => $videoInfo['description'],
-                'local_url' => config('material.video.prefix').'/'.$dateDir.$name.'.mp4',
+                'local_url' => '',
                 'media_id' => $mediaId,
             ];
         } else {
@@ -415,16 +404,17 @@ class Material
     /**
      * 获取远程图片列表.
      *
-     * @param int $offset 起始位置
-     * @param int $count  获取数量
+     * @param Account $account 公众号
+     * @param int     $offset  起始位置
+     * @param int     $count   获取数量
      *
      * @return array 列表
      */
-    private function getRemoteMaterialLists($type, $offset, $count)
+    private function getRemoteMaterialLists($account, $type, $offset, $count)
     {
         $mediaService = new MediaService(
-            account()->getCurrent()->app_id,
-            account()->getCurrent()->app_secret
+            $account->app_id,
+            $account->app_secret
         );
 
         return $mediaService->lists($type, $offset, $count)['item'];
@@ -433,15 +423,16 @@ class Material
     /**
      * 取得远程素材的数量.
      *
-     * @param string $type 素材类型
+     * @param Account $account 公众号
+     * @param string  $type    素材类型
      *
      * @return int
      */
-    private function getRemoteMaterialCount($type)
+    private function getRemoteMaterialCount($account, $type)
     {
         $mediaService = new MediaService(
-            account()->getCurrent()->app_id,
-            account()->getCurrent()->app_secret
+            $account->app_id,
+            $account->app_secret
         );
 
         return $mediaService->stats($type);

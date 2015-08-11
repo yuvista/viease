@@ -61,17 +61,6 @@ class MenuController extends Controller
         return $this->menuRepository->lists($accountId);
     }
 
-    /**
-     * 同步菜单数据到本地.
-     *
-     * @return Response
-     */
-    public function getSync()
-    {
-        $account = account()->getCurrent();
-
-        $this->menuService->syncToLocal($account);
-    }
 
     /**
      * 保存菜单.

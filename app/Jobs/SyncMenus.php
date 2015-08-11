@@ -2,18 +2,18 @@
 
 namespace App\Jobs;
 
-use App\Services\Material as MaterialService;
+use App\Services\Menu as MenuService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 图文素材job.
+ * 同步菜单Job.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
-class SyncNewsMaterial extends Job implements SelfHandling, ShouldQueue
+class SyncMenus extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
@@ -35,13 +35,13 @@ class SyncNewsMaterial extends Job implements SelfHandling, ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(MaterialService $materialService)
+    public function handle(MenuService $menuService)
     {
-        if(!$this->account){
+        if(!$this->account) {
             $this->delete();
         }
 
-        $materialService->syncRemoteMaterial($this->account, 'news');
+        $menuService->syncToLocal($this->account);
 
         $this->delete();
     }
