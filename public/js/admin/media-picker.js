@@ -157,12 +157,13 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
                 $template = '<div class="list-group-item media-item">'
                                     + '<span class="title"><%= title %></span>'
                                     + '<a href="javascript:;" class="pull-right"><span class="icon ion-android-volume-up icon-md music-play"></span></a>'
-                                    + '<span class="selected-item"><i class="ion-ios-checkmark"></i></span>'
+                                    + '<span class="selected-item"></span>'
                             + '</div>';
                 break;
             case 'article':
                 $template = '<div class="list-group-item media-item">'
                                 + '<span class="title"><%= title %></span>'
+                                + '<span class="selected-item"></span>'
                             +'</div>';
                 break;
         }
