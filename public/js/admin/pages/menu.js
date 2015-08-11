@@ -73,6 +73,19 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             $target.find('input').focus();
         }
 
+        /**
+         * 点击父级时显示
+         *
+         * @param {Menu} $menu
+         */
+        function showFirstLevelContent ($menu) {
+            $blankslate = $('<div class="blankslate spacious"><a href="javascript:;" class="btn btn-success">添加子级</a></div>');
+            $blankslate.find('.btn').on('click', function(){
+                $('.menu-item[id='+$menu.id+'] .actions .add-sub').trigger('click');
+            });
+            $('.response-content').html($blankslate);
+        }
+
         // 创建一级
         $(document).on('click', '.add-menu-item', function(event){
             event.stopPropagation();
@@ -87,6 +100,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             event.stopPropagation();
             var $item = $(this).closest('.menu-item');
             var $subButtons = $item.find('.sub-buttons:first');
+            if ($item.data('parentId')) {return;};
 
             if ($subButtons.find('.menu-item').length >= 5) {
                 return error('最多只有 5 个二级菜单');
@@ -109,7 +123,13 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             event.stopPropagation();
             $('.menu-item.current').removeClass('current');
             $(this).addClass('current');
-            showResponseContent(Menu.get($(this).attr('id')));
+            var $menu = Menu.get($(this).attr('id'));
+
+            if ($menu['hasChild']) {
+                return showFirstLevelContent($menu);
+            };
+
+            showResponseContent($menu);
         });
 
         // 编辑菜单名称
@@ -146,11 +166,14 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
                 // 新建
                 $params.id = (new Date).getTime();
                 var $item   = $($menuItemTemplate({ menu: $params})).data($params);
+
+                if ($params['parent']) {
+                    Menu.update($params['parent'], {hasChild:true});
+                }
+
                 $formItem.replaceWith($item);
+                Menu.put($params['id'], $params);
             }
-
-
-            Menu.put($params['id'], $params);
         });
 
         // 防止冒泡

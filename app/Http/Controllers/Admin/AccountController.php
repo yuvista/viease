@@ -84,8 +84,8 @@ class AccountController extends Controller
     public function postCreate(CreateRequest $request)
     {
         $this->accountRepository->store($request);
-        
-        return redirect(admin_url('account'))->withMessage('修改成功！');
+
+        return redirect(admin_url('account'))->withMessage('创建成功！');
     }
 
     /**
