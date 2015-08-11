@@ -62,13 +62,10 @@ class FanGroups extends Command
                 $insert[$groupKey]['fan_count'] = $group['count'];
                 $insert[$groupKey]['is_default'] = in_array($group['name'], ['默认组', '屏蔽组', '星标组']) ? 1 : 0;
 
-
                 $this->info("\t{$group['name']} created!");
 
                 $this->output->progressAdvance();
-
             }
-
 
             /*
              * clean

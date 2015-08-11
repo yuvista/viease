@@ -17,7 +17,7 @@ class FanReport extends Model
     protected $fillable = [
         'account_id',
         'openid',
-        'type'
+        'type',
                           ];
 
     /**
@@ -28,7 +28,6 @@ class FanReport extends Model
     public static $aliases = [
         'account_id' => '公众号ID',
         'openid' => 'OPENID',
-        'type' => '操作类型'
+        'type' => '操作类型',
                          ];
-
 }

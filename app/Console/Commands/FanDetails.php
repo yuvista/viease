@@ -57,7 +57,7 @@ class FanDetails extends Command
     }
 
     /**
-     * 分段更新本地用户资料
+     * 分段更新本地用户资料.
      *
      * @param int      $total
      * @param FanModel $fanModel
@@ -70,14 +70,14 @@ class FanDetails extends Command
         $this->output->progressStart($total);
 
         $userService = new User($account->app_id, $account->app_secret);
-        $fanService = new FanService;
+        $fanService = new FanService();
 
         $accountId = $account->id;
 
         $fanModel->where('account_id', $accountId)
                  ->orderBy('id', 'desc')
                  ->chunk(100,
-                    function($fans) use ($userService, $accountId, $fanModel, $fanService) {
+                    function ($fans) use ($userService, $accountId, $fanModel, $fanService) {
                         $fans = $userService->batchGet($fans->lists('openid')->toArray());
 
                         foreach ($fans as $fan) {

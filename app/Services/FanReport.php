@@ -18,8 +18,8 @@ class FanReport
      * @var App\Repositories\FanRepository
      */
     private $fanRepository;
-	
-	/**
+
+    /**
      * repository.
      *
      * @var App\Repositories\FanReportRepository
@@ -33,29 +33,29 @@ class FanReport
      */
     public function __construct()
     {
-		$this->fanRepository = new FanRepository;
-        $this->fanReportRepository = new FanReportRepository;
+        $this->fanRepository = new FanRepository();
+        $this->fanReportRepository = new FanReportRepository();
     }
 
     /**
-     * 粉丝活跃度+1, 同时在fan_reports表中增加记录
+     * 粉丝活跃度+1, 同时在fan_reports表中增加记录.
      *
-	 * @param Int   $accountId AccountID
-	 * @param String   $openId OpenID
-	 * @param String   $type 操作类型
+     * @param Int    $accountId AccountID
+     * @param String $openId    OpenID
+     * @param String $type      操作类型
+     *
      * @return bool
      */
     public function setLiveness($accountId, $openId, $type)
     {
-		/**
-		 * 1 粉丝活跃度+1
-		 */
-		$this->fanRepository->updateLiveness(['account_id'=>$accountId, 'openid'=>$openId]);
-		
-		/**
-		 * 2 在fan_reports表中增加记录
-		 */
-        $this->fanReportRepository->store(['account_id'=>$accountId, 'openid'=>$openId, 'type'=>$type]);
-    }
+        /*
+         * 1 粉丝活跃度+1
+         */
+        $this->fanRepository->updateLiveness(['account_id' => $accountId, 'openid' => $openId]);
 
+        /*
+         * 2 在fan_reports表中增加记录
+         */
+        $this->fanReportRepository->store(['account_id' => $accountId, 'openid' => $openId, 'type' => $type]);
+    }
 }

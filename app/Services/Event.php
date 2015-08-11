@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Services\Material as MaterialService;
 use App\Repositories\EventRepository;
 
 /**
@@ -24,7 +23,8 @@ class Event
      *
      * @param App\Repositories\EventRepository $eventRepository
      */
-    public function __construct(EventRepository $eventRepository) {
+    public function __construct(EventRepository $eventRepository)
+    {
         $this->eventRepository = $eventRepository;
     }
 
@@ -80,7 +80,7 @@ class Event
     }
 
     /**
-     * 通过ID得到Event
+     * 通过ID得到Event.
      *
      * @param string $eventId 事件id
      *

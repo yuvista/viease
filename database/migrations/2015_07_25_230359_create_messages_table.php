@@ -14,19 +14,12 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id');
-            $table->integer('fans_id')->comment('粉丝id');
-            $table->enum('type', [
-                    'text',
-                    'image',
-                    'shortvideo',
-                    'location'
-                ])->comment('消息类型 text 文字 image 图片 shortvideo 短视频 location位置');
-            $table->timestamp('sent_at')->comment('消息发送时间');
-            $table->integer('resource_id')->comment('对应消息资源');
-            $table->integer('reply_id')->default(0)->nullable()->comment('消息回复id');
-            $table->timestamp('replied_at')->nullable()->comment('消息回复时间');
-            $table->json('content');
+            $table->integer('account_id')->comment('公众号ID');
+            $table->integer('fans_id')->nullable()->comment('粉丝ID 不存在时为公众号回复');
+            $table->timestamp('sent_at')->comment('消息发送时间 OR 消息回复时间');
+            $table->integer('resource_id')->nullable()->comment('对应消息资源');
+            $table->integer('reply_id')->nullable()->default(0)->comment('消息回复ID');
+            $table->json('content')->comment('消息内容');
             $table->string('msg_id',25)->comment('消息id');
             $table->timestamps();
         });

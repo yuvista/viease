@@ -28,6 +28,15 @@ class AccountObserver
         $account->aes_key = account()->buildAesKey();
 
         $account->tag = account()->buildTag();
+
+        //同步图片
+        Queue::push(new SyncImageMaterial($account));
+        //同步声音
+        Queue::push(new SyncVoiceMaterial($account));
+        // 同步视频
+        Queue::push(new SyncVideoMaterial($account));
+        //同步图文
+        Queue::push(new SyncNewsMaterial($account));
     }
 
     /**

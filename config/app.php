@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://w.app',
+    'url' => 'http://rongyouyuan.manmanshenghuo.com',
 
     /*
     |--------------------------------------------------------------------------

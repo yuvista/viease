@@ -15,7 +15,16 @@ class CreateMessageResourcesTable extends Migration
         Schema::create('message_resources', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id');
-            $table->string('resource_url',300)->nullable()->comment('资源访问地址');
+            $table->json('detail')->comment('详细');
+            $table->enum('type', [
+                    'text',
+                    'image',
+                    'voice',
+                    'shortvideo',
+                    'link',
+                    'location'
+                ])->comment('消息类型 text 文字 image 图片 shortvideo 短视频 location 位置');
+            $table->tinyInteger('status')->nullable()->default(0)->comment('同步状态 0 未同步 1 已经完成同步');
             $table->timestamps();
         });
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Material\ArticleRequest;
 use App\Http\Requests\Material\VideoRequest;
 use App\Http\Requests\Material\voiceRequest;
-use App\Http\Requests\Material\ImageRequest;
 use App\Repositories\MaterialRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class MaterialController extends Controller
      *
      * @var int
      */
-    private $pageSize = 10;
+    private $pageSize = 12;
 
     /**
      * materialRepository.
@@ -122,15 +121,5 @@ class MaterialController extends Controller
     public function postVideo(VideoRequest $request)
     {
         return $this->materialRepository->storeVideo($this->accountId, $request);
-    }
-
-    /**
-     * 创建图片.
-     *
-     * @param ImageRequest $request request
-     */
-    public function postImage(ImageRequest $request)
-    {
-        return $this->materialRepository->storeImage($this->accountId, $request);
     }
 }

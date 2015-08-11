@@ -37,8 +37,6 @@ class Menu
      */
     private $materialService;
 
-    private $account;
-
     /**
      * construct.
      *
@@ -55,14 +53,12 @@ class Menu
         $this->eventService = $eventService;
 
         $this->materialService = $materialService;
-
-        $this->account = account()->getCurrent();
     }
 
     /**
      * 取得远程公众号的菜单.
      *
-     * @param App\Models\Account $account 
+     * @param App\Models\Account $account
      *
      * @return array 菜单信息
      */
@@ -117,11 +113,11 @@ class Menu
     private function filterEmptyMenu($menus)
     {
         foreach ($menus as $key => $menu) {
-            if(false == $menu){
+            if (false == $menu) {
                 unset($menus[$key]);
             }
 
-            if(isset($menu['sub_button'])){
+            if (isset($menu['sub_button'])) {
                 $menus[$key]['sub_button'] = array_filter($menu['sub_button']);
             }
         }
@@ -216,7 +212,7 @@ class Menu
      */
     private function resolveMediaIdMenu($menu)
     {
-        return false; //暂时关系此类型处理 todo
+        return false; //暂时关掉此类型处理 todo
         $menu['type'] = 'click';
         //mediaId类型属于永久素材类型
         $menu['key'] = $this->eventService->makeMediaId();
@@ -311,7 +307,7 @@ class Menu
      *
      * @param array $menu 菜单信息
      *
-     * @return array|boolean
+     * @return array|bool
      */
     private function resolveClickMenu($menu)
     {
@@ -409,7 +405,7 @@ class Menu
 
         $url = $this->materialService->localizeMaterialId($menu['value']);
 
-        if(!$url){
+        if (!$url) {
             return false;
         }
 
@@ -432,17 +428,17 @@ class Menu
         if ($menu['type'] == 'text') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeText($menu['value']);
-
-        }else if ($menu['type'] == 'media') {
+        } elseif ($menu['type'] == 'media') {
             $menu['type'] = 'click';
             $menu['key'] = $this->eventService->makeMediaId($menu['value']);
-        }else if ($menu['type'] == 'view') {
+        } elseif ($menu['type'] == 'view') {
             $menu['key'] = $menu['value'];
-        }else{
+        } else {
             $menu['key'] = $menu['value'];
         }
 
         unset($menu['value']);
+
         return $menu;
     }
 
@@ -470,11 +466,10 @@ class Menu
      * 提交菜单到微信
      *
      * @param array $menus 菜单
-     * 
      */
     public function saveToRemote($menus)
     {
-        $wechatMenu = new WechatMenu($this->account->app_id,$this->account->app_secret);
+        $wechatMenu = new WechatMenu($this->account->app_id, $this->account->app_secret);
 
         $menus = $this->formatToWechat($menus);
 
@@ -482,17 +477,16 @@ class Menu
     }
 
     /**
-     * 格式化为微信菜单
+     * 格式化为微信菜单.
      *
-     * @param  array $menus 菜单
+     * @param array $menus 菜单
      */
     private function formatToWechat($menus)
     {
         $saveMenus = [];
 
         foreach ($menus as $menu) {
-
-            if(isset($menu['sub_button'])) {
+            if (isset($menu['sub_button'])) {
                 $menuItem = new MenuItem($menu['name']);
                 $subButtons = [];
                 foreach ($menu['sub_button'] as $subMenu) {
@@ -500,7 +494,7 @@ class Menu
                 }
                 $menuItem->buttons($subButtons);
                 $saveMenus[] = $menuItem;
-            }else{
+            } else {
                 $saveMenus[] = new MenuItem($menu['name'], $menu['type'], $menu['key']);
             }
         }

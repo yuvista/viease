@@ -8,10 +8,10 @@
         "laravel/framework": "5.1.*",
         "illuminate/html": "~5.0",
         "barryvdh/laravel-debugbar": "^2.0@dev",
-        "overtrue/wechat": "2.0.*",
+        "overtrue/wechat": "2.*",
         "overtrue/laravel-lang": "1.0.*",
         "php": ">=5.5.9",
-        "overtrue": "2.0.*"
+        "predis/predis": "~1.1@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

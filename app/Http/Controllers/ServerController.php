@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\Server;
 use Input;
 //测试
-use Log;
-use Queue;
-use App\Jobs\SyncNewsMaterial;
 
 /**
  * 微信服务通讯.

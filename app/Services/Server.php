@@ -3,10 +3,9 @@
 namespace App\Services;
 
 use Overtrue\Wechat\Server as WechatServer;
-use Overtrue\Wechat\Message as WechatMessage;
 use App\Services\Message as MessageService;
 use App\Repositories\ReplyRepository;
-use Cache,Log;
+use Cache;
 
 /**
  * 回复服务.
@@ -23,14 +22,14 @@ class Server
     private $messageService;
 
     /**
-     * replyRepository
+     * replyRepository.
      *
      * @var App\Repositories\ReplyRepository
      */
     private $replyRepository;
 
     /**
-     * constructer
+     * constructer.
      *
      * @param MessageService $messageService 消息服务
      */
@@ -59,9 +58,6 @@ class Server
         $server = new WechatServer($appId, $token, $encodingAESKey);
 
         $server->on('message', function ($message) use ($server, $account) {
-
-            Log::error($message);
-            
             return $this->handleMessage($account, $message, $server);
         });
 
@@ -79,28 +75,18 @@ class Server
      * @param int                    $account 公众号
      * @param array                  $event   事件
      * @param Overtrue\Wechat\Server $server  server
-     * @example     "t":"NqIN7nWjkBb6TPO",
-     *              "signature":"6f03b7898963ed36652eaa30c3559f6d35b33bf5",
-     *              "timestamp":"1437715046",
-     *              "nonce":"1713756659",
-     *              "ToUserName":"gh_aaee1f6935ae",
-     *              "FromUserName":"oVtUzsyIY491_Tid3_nI2XDXbXvc",
-     *              "CreateTime":"1437715046",
-     *              "MsgType":"event",
-     *              "Event":"subscribe",
-     *              "EventKey":[]
      *
      * @return Response
      */
     private function handleEvent($account, $event, $server)
     {
-        if($event['Event'] == 'subscribe'){
+        if ($event['Event'] == 'subscribe') {
             return $this->handleSubscribe($account);
         }
     }
 
     /**
-     * 处理订阅时的消息
+     * 处理订阅时的消息.
      *
      * @return Response
      */
@@ -114,7 +100,7 @@ class Server
     }
 
     /**
-     * 处理未匹配时的回复
+     * 处理未匹配时的回复.
      *
      * @return Response
      */
@@ -139,16 +125,14 @@ class Server
     private function handleMessage($account, $message, $server)
     {
         //存储消息
-        $this->messageService->storeMessage($message);
+        $this->messageService->storeMessage($account, $message);
         //属于文字类型消息
-        if($message['MsgType'] == 'text'){
-
+        if ($message['MsgType'] == 'text') {
             $replies = Cache::get('replies_'.$account->id);
 
             foreach ($replies as $key => $reply) {
                 //查找字符串
-                if(str_contains($message['Content'],$key))
-                {
+                if (str_contains($message['Content'], $key)) {
                     return $this->messageService->eventsToMessage($reply['content']);
                 }
             }

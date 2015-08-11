@@ -7,8 +7,6 @@ use App\Repositories\MaterialRepository;
 use App\Services\Event as EventService;
 use App\Repositories\MessageRepository;
 use Overtrue\Wechat\Media;
-use App\Models\Material;
-use Log;
 
 /**
  * 消息服务提供类.
@@ -18,29 +16,33 @@ use Log;
 class Message
 {
     /**
-     * eventService
+     * eventService.
      *
      * @var App\Services\Event
      */
     private $eventService;
 
     /**
-     * materialService
+     * materialService.
      *
      * @var App\Services\Material
      */
     private $materialRepository;
 
     /**
-     * construct
+     * construct.
      *
-     * @param ReplySercice $replyService 
+     * @param ReplySercice $replyService
      */
-    public function __construct(EventService $eventService, MaterialRepository $materialRepository)
-    {
+    public function __construct(EventService $eventService,
+                                 MaterialRepository $materialRepository,
+                                 MessageRepository $messageRepository
+        ) {
         $this->eventService = $eventService;
 
         $this->materialRepository = $materialRepository;
+
+        $this->messageRepository = $messageRepository;
     }
 
     /**
@@ -56,35 +58,35 @@ class Message
     }
 
     /**
-     * 事件解析为消息
+     * 事件解析为消息.
      *
-     * @param  string $eventKey 事件key
+     * @param string $eventKey 事件key
      *
      * @return Response
      */
     public function eventToMessage($eventKey)
     {
-       $event = $this->eventService->getEventByKey($eventKey);
+        $event = $this->eventService->getEventByKey($eventKey);
 
-       if(!isset($event['value'])){
+        if (!isset($event['value'])) {
             return $this->emptyMessage();
-       }
+        }
 
-       return $this->mediaIdToMessage($event['value']);
+        return $this->mediaIdToMessage($event['value']);
     }
 
     /**
-     * mediaId 转为消息
+     * mediaId 转为消息.
      *
-     * @param  string $mediaId mediaId
+     * @param string $mediaId mediaId
      *
      * @return Response
      */
     private function mediaIdToMessage($mediaId)
-    {   
+    {
         $media = $this->materialRepository->getMediaByMediaId($mediaId);
 
-        if(!$media){
+        if (!$media) {
             return $this->emptyMessage();
         }
 
@@ -94,24 +96,24 @@ class Message
     }
 
     /**
-     * 图文转为消息
+     * 图文转为消息.
      *
-     * @param  App\Models\Material $media 素材
+     * @param App\Models\Material $media 素材
      *
      * @return Response
      */
     private function replyArticle($media)
     {
-        return  WechatMessage::make('news')->items(function() use ($media){
+        return  WechatMessage::make('news')->items(function () use ($media) {
 
             $item = WechatMessage::make('news_item')
                                     ->title($media->title)
                                     ->url($media->content_url)
                                     ->description($media->description)
                                     ->picUrl($media->cover_url);
-            if(!isset($media->childrens)){
+            if (!isset($media->childrens)) {
                 return array($item);
-            }else{
+            } else {
                 $return = [];
                 foreach ($media->childrens as $child) {
                     $return[] = WechatMessage::make('news_item')
@@ -121,28 +123,29 @@ class Message
                                     ->picUrl($child->cover_url);
                 }
 
-                array_unshift($return,$item);
+                array_unshift($return, $item);
+
                 return $return;
             }
-        });        
+        });
     }
 
     /**
-     * 文字转为消息
+     * 文字转为消息.
      *
-     * @param  App\Models\Material $media 素材
+     * @param App\Models\Material $media 素材
      *
      * @return Response
      */
     private function replyText($media)
     {
-         return WechatMessage::make('text')->content($media->content);
+        return WechatMessage::make('text')->content($media->content);
     }
 
     /**
-     * 回复图片
+     * 回复图片.
      *
-     * @param  App\Models\Material  $media 素材
+     * @param App\Models\Material $media 素材
      *
      * @return Response
      */
@@ -152,13 +155,13 @@ class Message
     }
 
     /**
-     * 回复声音
+     * 回复声音.
      *
-     * @param  App\Models\Material $voice 素材
+     * @param App\Models\Material $voice 素材
      *
      * @return Response
      *
-     * @todo  不能使用老版本的sdk 
+     * @todo  不能使用老版本的sdk
      */
     private function replyVoice($voice)
     {
@@ -166,9 +169,9 @@ class Message
     }
 
     /**
-     * 回复视频
+     * 回复视频.
      *
-     * @param  App\Models\Material $video 素材
+     * @param App\Models\Material $video 素材
      *
      * @return Response
      */
@@ -181,17 +184,20 @@ class Message
     }
 
     /**
-     * 存储消息
+     * 存储消息.
      *
-     * @param  array $message 消息
+     * @param array $account 公众号
+     * @param array $message 消息
      */
-    public function storeMessage($message)
+    public function storeMessage($account, $message)
     {
+        $accountId = $account->id;
 
+        return $this->messageRepository->storeMessage($accountId, $message);
     }
 
     /**
-     * 返回一条空消息
+     * 返回一条空消息.
      *
      * @return Response
      */

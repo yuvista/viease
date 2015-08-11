@@ -48,50 +48,51 @@ class FanRepository
     }
 
     /**
-     * 通过openid获取fans的id，无数据时创建后返回
+     * 通过openid获取fans的id，无数据时创建后返回.
+     *
      * @param int $accountId 账户ID
-     * @param int $openId Open ID
+     * @param int $openId    Open ID
+     *
      * @return int fansID
      */
     public function getIdByOpenid($accountId, $openId)
     {
-        /**
+        /*
          * 通过openid查询
          */
         $fan = $this->model
                 ->where('account_id', $accountId)
                 ->where('openid', $openId)
                 ->first();
-        if($fan)
-        {
+        if ($fan) {
             return $fan->id;
-        }
-        else
-        {
-            /**
+        } else {
+            /*
              * 若无返回结果，创建后返回
              */
             $insert = [
                 'account_id' => $accountId,
-                'openid' => $openId
+                'openid' => $openId,
             ];
             $this->_savePost($this->model, $insert);
+
             return $this->model->id;
         }
     }
-	
-	/**
+
+    /**
      * 粉丝活跃度+1.
      */
     public function updateLiveness($request)
     {
         $model = $this->model
-				->where('account_id', $request['account_id'])
-				->where('openid', $request['openid'])
-				->first();
-		if($model){
-			$liveness = $model->liveness+1;
-		}
+                ->where('account_id', $request['account_id'])
+                ->where('openid', $request['openid'])
+                ->first();
+        if ($model) {
+            $liveness = $model->liveness + 1;
+        }
+
         return $this->_savePost($model, ['liveness' => $liveness]);
     }
 

@@ -26,7 +26,7 @@ class MaterialObserver
 
     public function saving(Material $material)
     {
-        if(!$material->media_id) {
+        if (!$material->media_id) {
             $material->media_id = $this->materialService->buildMaterialMediaId();
         }
     }

@@ -68,7 +68,6 @@ class Fans extends Command
         $this->output->progressStart($total);
 
         while (!empty($fans['data'])) {
-
             $inserts = [];
 
             $openId = null;
@@ -96,7 +95,6 @@ class Fans extends Command
             $fanModel->insert($inserts);
 
             $fans = $userService->lists($openId);
-
         }
 
         $this->call('sync:fan_details', array('account_id' => $account->id));

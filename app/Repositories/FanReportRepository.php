@@ -12,7 +12,7 @@ class FanReportRepository
     use BaseRepository;
 
     /**
-     * FanReport
+     * FanReport.
      *
      * @var FanReports
      */
@@ -25,6 +25,7 @@ class FanReportRepository
 
     /**
      * store.
+     *
      * @param array $input
      */
     public function store($input)
@@ -35,7 +36,7 @@ class FanReportRepository
          */
         $_saveInfo['account_id'] = $input['account_id'];
         $_saveInfo['openid'] = $input['openid'];
-		$_saveInfo['type'] = $input['type'];
+        $_saveInfo['type'] = $input['type'];
 
         /*
          * 保存
@@ -52,7 +53,7 @@ class FanReportRepository
      * save.
      *
      * @param object $fanReport
-     * @param array  $input Request
+     * @param array  $input     Request
      */
     private function _savePost($fanReport, $input)
     {

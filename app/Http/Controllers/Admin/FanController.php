@@ -41,8 +41,8 @@ class FanController extends Controller
 
     public function getTest()
     {
-		$fanReport = new FanReport;
-		$fanReport->setLiveness(1, 'oNlnUjpv99nmXBcX-sOTaFzShPpA', 'test');
+        $fanReport = new FanReport();
+        $fanReport->setLiveness(1, 'oNlnUjpv99nmXBcX-sOTaFzShPpA', 'test');
         //return $this->fan->updateRemark(['id'=>2192, 'remark'=>'宋艳辉']);
     }
 

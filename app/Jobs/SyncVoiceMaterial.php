@@ -18,10 +18,18 @@ class SyncVoiceMaterial extends Job implements SelfHandling, ShouldQueue
     use InteractsWithQueue, SerializesModels;
 
     /**
+     * 公众号.
+     *
+     * @var account
+     */
+    private $account;
+
+    /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct($account)
     {
+        $this->account = $account;
     }
 
     /**
@@ -29,7 +37,7 @@ class SyncVoiceMaterial extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MaterialService $materialService)
     {
-        $materialService->syncRemoteMaterial('voice');
+        $materialService->syncRemoteMaterial($this->account, 'voice');
 
         $this->delete();
     }

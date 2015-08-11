@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Overtrue\Wechat\Media as MediaService;
 use App\Repositories\MaterialRepository;
-use App\Models\Material as MaterialModel;
+
 ini_set('max_execute_time', 0);
 /**
  * 素材服务.
@@ -31,13 +31,6 @@ class Material
     private $materialRepository;
 
     /**
-     * accountService.
-     *
-     * @var App\Services\AccountService
-     */
-    private $account;
-
-    /**
      * media.
      *
      * @var Overtrue\Wechat\Media
@@ -47,13 +40,6 @@ class Material
     public function __construct(MaterialRepository $materialRepository)
     {
         $this->materialRepository = $materialRepository;
-
-        $this->account = account()->getCurrent();
-
-        $this->mediaService = new MediaService(
-            $this->account->app_id,
-            $this->account->app_secret
-        );
     }
 
     /**
@@ -82,8 +68,8 @@ class Material
     /**
      * 存储一个文字回复消息.
      *
-     * @param int $accountId 公众号ID
-     * @param string $text  文字内容
+     * @param int    $accountId 公众号ID
+     * @param string $text      文字内容
      *
      * @return Response
      */
@@ -152,7 +138,12 @@ class Material
     {
         $filePath = $this->mediaUrlToPath($video->source_url);
 
-        return $this->mediaService->forever()->video($filePath, $video->title, $video->description);
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->forever()->video($filePath, $video->title, $video->description);
     }
 
     /**
@@ -166,7 +157,12 @@ class Material
     {
         $filePath = $this->mediaUrlToPath($voice->source_url);
 
-        return $this->mediaService->forever()->voice($filePath);
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->forever()->voice($filePath);
     }
 
     /**
@@ -180,7 +176,12 @@ class Material
     {
         $filePath = $this->mediaUrlToPath($image->source_url);
 
-        return $this->mediaService->forever()->image($filePath);
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->forever()->image($filePath);
     }
 
     /**
@@ -192,17 +193,23 @@ class Material
      */
     public function postRemoteArticles($articles)
     {
-        return $this->mediaService->news($articles);
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->news($articles);
     }
 
     /**
      * 同步远程素材到本地.
      *
-     * @param string $type 素材类型
+     * @param Account $account 当前公众号
+     * @param string  $type    素材类型
      *
      * @return Response
      */
-    public function syncRemoteMaterial($type)
+    public function syncRemoteMaterial($account, $type)
     {
         $countNumber = $this->getRemoteMaterialCount($type);
 
@@ -212,45 +219,47 @@ class Material
             ) {
             $lists = $this->getRemoteMaterialLists($type, $offset, self::MATERIAL_MAX_COUNT);
 
-            $this->localizeRemoteMaterialLists($lists, $type);
+            $this->localizeRemoteMaterialLists($account, $lists, $type);
         }
     }
 
     /**
      * 远程素材存储本地.
      *
-     * @param array  $lists 素材列表
-     * @param string $type
+     * @param Account $account 公众号
+     * @param array   $lists   素材列表
+     * @param string  $type
      *
      * @return Response
      */
-    private function localizeRemoteMaterialLists($lists, $type)
+    private function localizeRemoteMaterialLists($account, $lists, $type)
     {
-        return array_map(function ($list) use ($type) {
+        return array_map(function ($list) use ($type, $account) {
             $callFunc = 'storeRemote'.ucfirst($type);
 
-            return $this->$callFunc($list);
+            return $this->$callFunc($account, $list);
         }, $lists);
     }
 
     /**
      * 存储远程图片素材.
      *
-     * @param array $image 素材信息
+     * @param Account $account 公众号
+     * @param array   $image   素材信息
      *
      * @return Response
      */
-    private function storeRemoteImage($image)
+    private function storeRemoteImage($account, $image)
     {
         $mediaId = $image['media_id'];
 
-        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+        if ($this->getLocalMediaId($account->id, $mediaId)) {
             return;
         }
 
-        $image['local_url'] = config('app.url').$this->downloadMaterial('image', $mediaId);
+        $image['local_url'] = config('app.url').$this->downloadMaterial($account, 'image', $mediaId);
 
-        return $this->materialRepository->storeWechatImage($this->account->id, $image);
+        return $this->materialRepository->storeWechatImage($account->id, $image);
     }
 
     /**
@@ -260,17 +269,17 @@ class Material
      *
      * @return Response
      */
-    private function storeRemoteVoice($voice)
+    private function storeRemoteVoice($account, $voice)
     {
         $mediaId = $voice['media_id'];
 
-        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+        if ($this->getLocalMediaId($account->id, $mediaId)) {
             return;
         }
 
-        $voice['local_url'] =  config('app.url').$this->downloadMaterial('voice', $mediaId);
+        $voice['local_url'] = config('app.url').$this->downloadMaterial($account, 'voice', $mediaId);
 
-        return $this->materialRepository->storeWechatVoice($this->account->id, $voice);
+        return $this->materialRepository->storeWechatVoice($account->id, $voice);
     }
 
     /**
@@ -280,17 +289,17 @@ class Material
      *
      * @return Response
      */
-    private function storeRemoteVideo($video)
+    private function storeRemoteVideo($account, $video)
     {
         $mediaId = $video['media_id'];
 
-        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+        if ($this->getLocalMediaId($account->id, $mediaId)) {
             return;
         }
 
-        $videoInfo = $this->downloadMaterial('video', $mediaId);
+        $videoInfo = $this->downloadMaterial($account, 'video', $mediaId);
 
-        return $this->materialRepository->storeWechatVideo($this->account->id, $videoInfo);
+        return $this->materialRepository->storeWechatVideo($account->id, $videoInfo);
     }
 
     /**
@@ -300,17 +309,17 @@ class Material
      *
      * @return Response
      */
-    private function storeRemoteNews($news)
+    private function storeRemoteNews($account, $news)
     {
         $mediaId = $news['media_id'];
 
-        if ($this->getLocalMediaId($this->account->id, $mediaId)) {
+        if ($this->getLocalMediaId($account->id, $mediaId)) {
             return;
         }
-        $news['content']['news_item'] = $this->localizeNewsCoverMaterialId($news['content']['news_item']);
+        $news['content']['news_item'] = $this->localizeNewsCoverMaterialId($account, $news['content']['news_item']);
 
         return $this->materialRepository->storeArticle(
-            $this->account->id,
+            $account->id,
             $news['content']['news_item'],
             $news['media_id']
         );
@@ -319,15 +328,19 @@ class Material
     /**
      * 将图文消息中的素材转换为本地.
      *
+     * @param Account $account   公众号
+     * @param array   $newsItems newItem
+     *
      * @return array
      */
-    private function localizeNewsCoverMaterialId($newsItems)
+    private function localizeNewsCoverMaterialId($account, $newsItems)
     {
         $newsItems = array_map(function ($item) {
 
             $item['cover_url'] = $this->mediaIdToSourceUrl($item['thumb_media_id']);
 
             return $item;
+
         }, $newsItems);
 
         return $newsItems;
@@ -348,24 +361,29 @@ class Material
     /**
      * 下载素材到本地.
      *
-     * @param string $type    素材类型
-     * @param string $mediaId 素材
+     * @param Account $account 公众号
+     * @param string  $type    素材类型
+     * @param string  $mediaId 素材
      *
      * @return mixed
      */
-    private function downloadMaterial($type, $mediaId)
+    private function downloadMaterial($account, $type, $mediaId)
     {
         $dateDir = date('Ym').'/';
 
         $dir = config('material.'.$type.'.storage_path').$dateDir;
+
+        $mediaService = new MediaService(
+            $account->app_id,
+            $account->app_secret
+        );
 
         $name = md5($mediaId);
 
         is_dir($dir) || mkdir($dir, 0755, true);
         //如果属于视频类型
         if ($type == 'video') {
-
-            $videoInfo = $this->mediaService->forever()->download($mediaId);
+            $videoInfo = $mediaService->forever()->download($mediaId);
 
             ob_start();
 
@@ -375,7 +393,7 @@ class Material
 
             ob_end_clean();
 
-            file_put_contents($dir.$name.'.mp4',$contents);
+            file_put_contents($dir.$name.'.mp4', $contents);
 
             return [
                 'title' => $videoInfo['title'],
@@ -384,10 +402,9 @@ class Material
                 'media_id' => $mediaId,
             ];
         } else {
+            $dirFilename = $mediaService->forever()->download($mediaId, $dir.$name);
 
-            $dirFilename = $this->mediaService->forever()->download($mediaId, $dir.$name);
-
-            $fileName = explode('/',$dirFilename);
+            $fileName = explode('/', $dirFilename);
 
             $fileName = array_pop($fileName);
 
@@ -405,7 +422,12 @@ class Material
      */
     private function getRemoteMaterialLists($type, $offset, $count)
     {
-        return $this->mediaService->lists($type, $offset, $count)['item'];
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->lists($type, $offset, $count)['item'];
     }
 
     /**
@@ -417,7 +439,12 @@ class Material
      */
     private function getRemoteMaterialCount($type)
     {
-        return $this->mediaService->stats($type);
+        $mediaService = new MediaService(
+            account()->getCurrent()->app_id,
+            account()->getCurrent()->app_secret
+        );
+
+        return $mediaService->stats($type);
     }
 
     /**

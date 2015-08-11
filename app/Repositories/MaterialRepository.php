@@ -54,9 +54,9 @@ class MaterialRepository
     }
 
     /**
-     * 通过mediaId获取素材
+     * 通过mediaId获取素材.
      *
-     * @param  string $mediaId 素材标识
+     * @param string $mediaId 素材标识
      *
      * @return App\Models\Material|NULL
      */
@@ -141,8 +141,8 @@ class MaterialRepository
     /**
      * 存储一个文字素材.
      *
-     * @param  int $accountId 公众号id
-     * @param  string $text      文字内容
+     * @param int    $accountId 公众号id
+     * @param string $text      文字内容
      *
      * @return string mediaId
      */
@@ -158,7 +158,7 @@ class MaterialRepository
 
         $model->save();
 
-        return $model->media_id;    
+        return $model->media_id;
     }
 
     /**
@@ -189,8 +189,8 @@ class MaterialRepository
     /**
      * 存储图片素材.
      *
-     * @param  int     $accountId     公众号ID
-     * @param  string  $resourceUrl   图片访问地址
+     * @param int    $accountId   公众号ID
+     * @param string $resourceUrl 图片访问地址
      *
      * @return Response
      */
@@ -348,7 +348,7 @@ class MaterialRepository
         $createdFrom = Material::CREATED_FROM_WECHAT,
         $canEdited = Material::CAN_EDITED
         ) {
-        
+
         //判断多个与单个
         if (count($articles) >= 2) {
             return $this->storeMultiArticle(

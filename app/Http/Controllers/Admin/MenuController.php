@@ -87,7 +87,7 @@ class MenuController extends Controller
         $menus = $this->menuService->analyseMenu($request->get('menus'));
 
         $this->menuRepository->storeMulti($accountId, $menus);
-        
+
         $this->menuService->saveToRemote($menus);
     }
 }
