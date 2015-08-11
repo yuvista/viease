@@ -11,7 +11,9 @@
         "overtrue/wechat": "2.*",
         "overtrue/laravel-lang": "1.0.*",
         "php": ">=5.5.9",
-        "predis/predis": "~1.1@dev"
+        "predis/predis": "~1.1@dev",
+        "php": ">=5.5.9",
+        "pda/pheanstalk": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
