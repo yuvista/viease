@@ -40,7 +40,7 @@ class SyncImageMaterial extends Job implements SelfHandling, ShouldQueue
         if(!$this->account) {
             $this->delete();
         }
-var_dump($this->account);
+
         $materialService->syncRemoteMaterial($this->account, 'image');
 
         $this->delete();

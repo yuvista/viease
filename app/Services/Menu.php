@@ -82,7 +82,7 @@ class Menu
 
         $menus = $this->localize($remoteMenus);
 
-        return $this->saveToLocal($menus);
+        return $this->saveToLocal($account, $menus);
     }
 
     /**
@@ -173,9 +173,9 @@ class Menu
      *
      * @return array
      */
-    private function saveToLocal($menus)
+    private function saveToLocal($account, $menus)
     {
-        $accountId = account()->getCurrent()->id;
+        $accountId = $account->id;
 
         return $this->menuRepository->storeMulti($accountId, $menus);
     }
@@ -187,14 +187,11 @@ class Menu
      *
      * @return array
      */
-    private function resolveTextMenu($menu)
+    private function resolveTextMenu($account, $menu)
     {
         $menu['type'] = 'click';
 
-        $mediaId = $this->materialService->saveText(
-            account()->getCurrent()->id,
-            $menu['value']
-        );
+        $mediaId = $this->materialService->saveText($account->id, $menu['value']);
 
         $menu['key'] = $this->eventService->makeMediaId($mediaId);
 

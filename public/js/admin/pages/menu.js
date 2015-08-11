@@ -112,9 +112,19 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         // 删除菜单
         $(document).on('click', '.actions .trash', function(event){
             event.stopPropagation();
-            $(this).closest('.menu-item').slideUp(300, function(){
+            var $item = $(this).closest('.menu-item');
+
+            $item.slideUp(300, function(){
                 Menu.delete($(this).attr('id'));
                 $(this).remove();
+
+                // 父级下面如果没有了更新父级属性
+                if ($item.data('parentId')) {
+                    var $parent = $('[id='+$item.data('parentId')+']');
+                    if (!$parent.find('.sub-buttons .menu-item').length) {
+                        Menu.update($item.data('parentId'), {hasChild:false});
+                    };
+                };
             })
         });
 
