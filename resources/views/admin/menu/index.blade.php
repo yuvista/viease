@@ -118,8 +118,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success image-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传图片</a>
+                            <a href="javascript:;" class="btn btn-success image-picker"><i class="ion-plus"></i> 从媒体库选择</a>
                         </div>
                     </div>
                 </div>
@@ -135,8 +134,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success video-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传视频</a>
+                            <a href="javascript:;" class="btn btn-success video-picker"><i class="ion-plus"></i> 从媒体库选择</a>
                         </div>
                     </div>
                 </div>
@@ -152,8 +150,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success voice-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 上传声音</a>
+                            <a href="javascript:;" class="btn btn-success voice-picker"><i class="ion-plus"></i> 从媒体库选择</a>
                         </div>
                     </div>
                 </div>
@@ -169,8 +166,7 @@
                     <div class="text-center response-content-picker">
                         <div class="preview-content"></div>
                         <div class="btns">
-                            <a href="javascript:;" class="btn btn-success article-picker"><i class="ion-plus"></i> 从媒体库选择</a> 或者
-                            <a href="javascript:;" class="btn btn-success"><i class="ion-plus"></i> 新建图文</a>
+                            <a href="javascript:;" class="btn btn-success article-picker"><i class="ion-plus"></i> 从媒体库选择</a>
                         </div>
                     </div>
                 </div>
