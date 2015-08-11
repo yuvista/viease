@@ -44,10 +44,10 @@ return [
                             'label' => '实时消息',
                             'uri'   => 'message/timeline',
                         ],
-                        [
-                            'label' => '消息群发',
-                            'uri'   => 'message/broadcasting',
-                        ],
+                        // [
+                        //     'label' => '消息群发',
+                        //     'uri'   => 'message/broadcasting',
+                        // ],
                         [
                             'label' => '消息资源库',
                             'uri'   => 'message/resource',
