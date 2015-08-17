@@ -23,7 +23,7 @@
         </div>
         <div class="buttons col-md-12 text-center">
             <hr>
-            <button class="btn btn-success">提交</button>
+            <button class="btn btn-success submit-menu">提交</button>
             <button class="btn btn-default">重置</button>
         </div>
     </div>
@@ -116,9 +116,12 @@
                 </div>
                 <div class="form-area">
                     <div class="text-center response-content-picker">
-                        <div class="preview-content"></div>
+                        <div class="preview-content">
+
+                        </div>
                         <div class="btns">
                             <a href="javascript:;" class="btn btn-success image-picker"><i class="ion-plus"></i> 从媒体库选择</a>
+                            <input type="hidden" name="image_media_id" value="" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -132,9 +135,12 @@
                 </div>
                 <div class="form-area">
                     <div class="text-center response-content-picker">
-                        <div class="preview-content"></div>
+                        <div class="preview-content">
+
+                        </div>
                         <div class="btns">
                             <a href="javascript:;" class="btn btn-success video-picker"><i class="ion-plus"></i> 从媒体库选择</a>
+                            <input type="hidden" name="video_media_id" value="" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -151,6 +157,7 @@
                         <div class="preview-content"></div>
                         <div class="btns">
                             <a href="javascript:;" class="btn btn-success voice-picker"><i class="ion-plus"></i> 从媒体库选择</a>
+                            <input type="hidden" name="voice_media_id" value="" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -167,6 +174,7 @@
                         <div class="preview-content"></div>
                         <div class="btns">
                             <a href="javascript:;" class="btn btn-success article-picker"><i class="ion-plus"></i> 从媒体库选择</a>
+                            <input type="hidden" name="article_media_id" value="" class="form-control">
                         </div>
                     </div>
                 </div>

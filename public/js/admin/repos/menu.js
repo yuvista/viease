@@ -46,12 +46,25 @@ define(['jquery', 'util'], function($, Util){
         /**
          * 删除菜单
          *
-         * @param {[type]}   $menuId
+         * @param {Int}     $menuId
          * @param {Function} $callback
          */
         deleteMenu: function ($menuId, $callback) {
             Util.request('DELETE', 'menu/delete/' + $menuId, $callback);
         },
+
+        /**
+         * 提交菜单到微信服务器
+         *
+         * @param {Object}   $menus
+         * @param {Function} $callback
+         */
+        submitMenu: function ($menus, $callback) {
+            var $request = {
+                menus: $menus
+            };
+            Util.request('POST', 'menu/store', $request, $callback);
+        }
     };
 
     return $menu;

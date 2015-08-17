@@ -77,6 +77,8 @@ class MenuController extends Controller
 
         $this->menuRepository->storeMulti($accountId, $menus);
 
-        $this->menuService->saveToRemote($menus);
+        $this->menuService->saveToRemote(account()->getCurrent(), $menus);
+
+        return response()->json(['status' => true]);
     }
 }

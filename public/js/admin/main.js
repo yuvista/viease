@@ -55,21 +55,7 @@ requirejs.config({
         selectpickerLang: ['selectpicker'],
         pager: ['jquery'],
         uploader: ['jquery'],
-    },
-
-    // 包导入
-    packages: [
-        {
-            name: 'echarts',
-            location: 'plugins/echarts/src',
-            main: 'echarts'
-        },
-        {
-            name: 'zrender',
-            location: 'plugins/zrender/src',
-            main: 'zrender'
-        }
-    ]
+    }
 });
 
 define('jquery-private', ['jquery'], function (jq) {

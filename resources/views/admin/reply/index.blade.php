@@ -5,6 +5,56 @@
         <h2 id="nav">自动回复</h2>
     </div>
     <div class="well">
+        <div class="form-create">
+            <div class="panel panel-default">
+                <div class="panel-heading">添加规则</div>
+                <div class="panel-body">
+                <form class="form-horizontal">
+                      <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">规则名称</label>
+                        <div class="col-lg-6">
+                          <input type="text" name="name" class="form-control" id="inputEmail" placeholder="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-lg-2 control-label">类型</label>
+                        <div class="col-lg-6">
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                              包含
+                            </label>
+                            <label>
+                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                              等于
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">关键词</label>
+                        <div class="col-lg-6">
+                          <input type="text" name="keywords" class="form-control" id="inputEmail" placeholder="">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <div class="response-media-picker">
+
+                            </div>
+                        </div>
+                       </div>
+                        <hr>
+                      <div class="form-group">
+                        <div class="col-lg-6 col-lg-offset-2">
+                          <button class="btn btn-default">取消</button>
+                          <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                      </div>
+                  </form>
+                  </div>
+            </div>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading">规则1</div>
             <div class="panel-body">
@@ -118,4 +168,10 @@
     <!--End 样例使用完删除-->
     </div>
 </div>
+@stop
+
+@section('js')
+<script>
+    require(['pages/reply'])
+</script>
 @stop

@@ -8,6 +8,16 @@
     }
 }
 
+.media-preview {
+    overflow:hidden;
+    text-align: center;
+    img {
+        width: auto;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+}
+
 .media-item {
     span.selected-item {
         display: none;

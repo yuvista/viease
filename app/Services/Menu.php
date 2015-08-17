@@ -7,6 +7,7 @@ use Overtrue\Wechat\Menu as WechatMenu;
 use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
 use Overtrue\Wechat\MenuItem;
+use App\Models\Account as AccountModel;
 use App\Models\Material;
 
 /**
@@ -462,11 +463,12 @@ class Menu
     /**
      * 提交菜单到微信
      *
-     * @param array $menus 菜单
+     * @param AccountModel $account
+     * @param array        $menus 菜单
      */
-    public function saveToRemote($menus)
+    public function saveToRemote(AccountModel $account, $menus)
     {
-        $wechatMenu = new WechatMenu($this->account->app_id, $this->account->app_secret);
+        $wechatMenu = new WechatMenu($account->app_id, $account->app_secret);
 
         $menus = $this->formatToWechat($menus);
 

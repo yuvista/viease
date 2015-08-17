@@ -1,10 +1,11 @@
 define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common'], function ($, _, Material, Pager, Util) {
     var $defaults = {
         type: 'image',
-        callback: function($item){
+        onSelected: function($item){
             console.log('picked', $item);
         },
     };
+
     function MediaPicker ($element, $options) {
         if (!(this instanceof MediaPicker)) return new MediaPicker($element, $options);
 
@@ -52,12 +53,12 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
                                     + '<div class="pagination-bar"></div>'
                                     + '<div class="modal-footer">'
                                       + '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>'
-                                      + '<button type="button" class="btn btn-primary">确认</button>'
+                                      + '<button type="button" class="btn btn-primary pick-media-confirm-btn">确认</button>'
                                     + '</div>'
                                 + '</div>'
                             + '</div>'
                         + '</div>');
-        $(this.pickerId).modal('hide');
+        $('#'+this.pickerId).modal('hide');
     }
 
 
@@ -68,16 +69,30 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
         var picker = this;
 
         $(document).on('click', this.element, function(){
+            event.preventDefault();
             picker.load(picker.options.type, 1, function(){
                 $('#'+picker.pickerId).modal('show');
             });
         });
 
-        $(document).on('click', '.media-item', function(){
+        $(document).on('click', '#' + picker.pickerId + ' .media-item', function(){
+            event.preventDefault();
             $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        $(document).on('click', '#' + picker.pickerId + ' .pick-media-confirm-btn', function(){
+            event.preventDefault();
+            var $selected = $('.media-item.selected').data();
+
+            picker.options.onSelected($selected);
+
+            $('#'+picker.pickerId).modal('hide');
         });
     }
 
+    /**
+     * 创建分页器
+     */
     MediaPicker.prototype.createPager = function () {
         var picker = this;
         this.pager = new Pager('#'+this.pickerId + ' .pagination-bar', {

@@ -11,32 +11,42 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         var $menuItemFormTemplate   = _.template($('#menu-item-form-template').html());
         var $menuItemTemplate       = _.template($('#menu-item-template').html());
         var $responsePickerTemplate = _.template($('#response-content-picker').html());
+        var $responseContainer = $('.response-content');
 
         // 监听变化
         $menusListContainer.ifEmpty(function(el){
-            el.html($emptyMenusTemplate()).addClass('no-menus');;
+            el.html($emptyMenusTemplate()).addClass('no-menus');
         });
-
+        $responseContainer.ifEmpty(function(el){
+            el.html('<div class="blankslate spacious">你可以从左边创建一个菜单并设置响应内容。</div>');
+        });
+// listsMenuFromDB();
         // 显示菜单列表
         function listsMenuFromDB () {
             MenuRepo.getMenus(function($menus){
+                console.log($menus);
                 // clean
                 $menusListContainer.html('').removeClass('no-menus');
 
-                _.each($menus, function($menu){
-                    $menusListContainer.append($menuItemTemplate({ menu: $menu }));
-                });
+                $res = {};
+
+                //TODO:
+                // _.each($menus, function($menu){
+                //     var $id = (new Date).getTime();
+
+                //     $res[$id] = {
+                //         id: $id,
+                //         name: $menu['name'],
+                //         type: $menu['type'],
+                //     };
+                // });
+                return $res;
             });
         }
 
-        // 本地存储的
-        var $cachedMenus = Menu.all();
-
-
-        if (!$cachedMenus.length) {
-
-            for ($id in $cachedMenus) {
-                var $button = $cachedMenus[$id];
+        function listMenus ($menus) {
+            for ($id in $menus) {
+                var $button = $menus[$id];
                 var $target = $menusListContainer;
 
                 if (!isNaN($button.parent) && $button.parent > 0) {
@@ -47,14 +57,17 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
 
                 $target.append($($menuItemTemplate({ menu: $button })).data($button));
             }
-        } else {
-            listsMenuFromDB();
         }
 
-        new MediaPicker('.image-picker', {type: 'image'});
-        new MediaPicker('.video-picker', {type: 'video'});
-        new MediaPicker('.voice-picker', {type: 'voice'});
-        new MediaPicker('.article-picker', {type: 'article'});
+        // 本地存储的
+        var $cachedMenus = Menu.all();
+
+        if ($cachedMenus) {
+            listMenus($cachedMenus);
+        } else {
+            $menus = listsMenuFromDB();
+            console.log($menus);
+        }
 
         /**
          * 创建表单
@@ -125,6 +138,8 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
                         Menu.update($item.data('parentId'), {hasChild:false});
                     };
                 };
+
+                $responseContainer.html('');
             })
         });
 
@@ -153,7 +168,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             $item.after($menuItemFormTemplate($item.data()));
         });
 
-        // 表单提交
+        // 创建菜单按钮表单提交
         $(document).on('submit', '.menus form.menu-item-form:first', function(event){
             event.preventDefault();
             event.stopPropagation();
@@ -205,6 +220,11 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             $(this).closest('form').parent().remove();
         });
 
+        // 提交菜单
+        $(document).on('click', '.submit-menu', function(){
+            submitMenu();
+        });
+
         // 显示一个按钮的内容
         function showResponseContent ($menu) {
             $('.response-content').html($responsePickerTemplate());
@@ -247,13 +267,30 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         function dataToForm ($data, $type) {
             var $form = $('#response-content-form');
             var $resultContainer = getCurrentResultContainer();
+            var $currentTab = getCurrentTab();
 
             switch($type){
                 case 'text':
-                    $form.find('.wechat-editor-content').html($data.previewContent);
+                    $currentTab.find('.wechat-editor-content').html($data.previewContent);
                     break;
                 case 'url':
-                    $form.find('[name=url]').val($data.url);
+                    $currentTab.find('[name=url]').val($data.url);
+                    break;
+                case 'image':
+                    $currentTab.find('.preview-content').html($data.previewContent);
+                    $currentTab.find('[name=image_media_id]').val($data.media_id);
+                    break;
+                case 'video':
+                    $currentTab.find('.preview-content').html($data.previewContent);
+                    $currentTab.find('[name=video_media_id]').val($data.media_id);
+                    break;
+                case 'voice':
+                    $currentTab.find('.preview-content').html($data.previewContent);
+                    $currentTab.find('[name=voice_media_id]').val($data.media_id);
+                    break;
+                case 'article':
+                    $currentTab.find('.preview-content').html($data.previewContent);
+                    $currentTab.find('[name=article_media_id]').val($data.media_id);
                     break;
                 default:
                     break;
@@ -263,6 +300,11 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
         // 当前面板的结果容器
         function getCurrentResultContainer () {
             return $('.tab-pane.active .result-container-wrapper');
+        }
+
+        // 当前激活的面板
+        function getCurrentTab () {
+            return $('.tab-pane.active');
         }
 
         // 当前点击的类型
@@ -286,6 +328,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             toggleResultAndForm('form');
         }
 
+        // 结果与表单切换
         function toggleResultAndForm ($type) {
             var $resultContainer = getCurrentResultContainer();
 
@@ -300,6 +343,7 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
             }
         }
 
+        // 添加事件监听到表单
         function addFormListener ($form) {
             var $resultContainer = getCurrentResultContainer();
             var $contentArea = $resultContainer.find('.result-container');
@@ -332,12 +376,75 @@ define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'adm
                         $content = $params.url;
                         $data = {url: $params.url, previewContent: $content};
                         break;
+                    case 'image':
+                        if (!$params.image_media_id.length) {
+                            return error('请选择图片！');
+                        };
+                        $content = $('.tab-pane.active .preview-content').html();
+                        $data = {image: $params.image_media_id, previewContent: $content};
+                        break;
+                    case 'video':
+                        if (!$params.video_media_id.length) {
+                            return error('请选择视频！');
+                        };
+                        $content = $('.tab-pane.active .preview-content').html();
+                        $data = {video: $params.video_media_id, previewContent: $content};
+                        break;
+                    case 'voice':
+                        if (!$params.voice_media_id.length) {
+                            return error('请选择声音！');
+                        };
+                        $content = $('.tab-pane.active .preview-content').html();
+                        $data = {voice: $params.voice_media_id, previewContent: $content};
+                        break;
+                    case 'article':
+                        if (!$params.article_media_id.length) {
+                            return error('请选择图文！');
+                        };
+                        $content = $('.tab-pane.active .preview-content').html();
+                        $data = {article: $params.article_media_id, previewContent: $content};
+                        break;
                     default:
+                        return;
                         break;
                 }
 
                 saveMenu($content, {content:$data, type: $params.type});
                 toggleResultAndForm('result');
+            });
+        }
+
+        // 提交设置好的菜单到后端
+        function submitMenu () {
+            var $menus = Menu.all();
+            var $data = {};
+
+            for($id in $menus){
+                var $item = {
+                    name: $menus[$id].name,
+                    type: $menus[$id]['type'] ? ($menus[$id]['type'] == 'url' ? 'view' : $menus[$id]['type']) : null,
+                };
+                $item['value'] = $menus[$id]['content'][$menus[$id]['type']];
+
+                if (!$menus[$id].hasChild && !$item['value']) {
+                    return error('请设置菜单 "'+$item.name+'" 的响应内容！');
+                };
+
+                if ($menus[$id].parent) {
+
+                    $data[$menus[$id].parent]['sub_button'] = $data[$menus[$id].parent]['sub_button'] || [];
+                    $data[$menus[$id].parent]['sub_button'].push($item);
+                } else {
+                    $data[$id] = $item;
+                }
+            }
+
+            MenuRepo.submitMenu($data, function(){
+                Menu.clean();
+                success('保存成功！');
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1500);
             });
         }
     });
