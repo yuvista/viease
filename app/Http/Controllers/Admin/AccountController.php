@@ -59,9 +59,9 @@ class AccountController extends Controller
      */
     public function getManage()
     {
-        $current = account()->getCurrent();
+        $account = $this->account();
 
-        return admin_view('account.manage', compact('current'));
+        return admin_view('account.manage', compact('account'));
     }
 
     /**
@@ -84,7 +84,7 @@ class AccountController extends Controller
     public function postCreate(CreateRequest $request)
     {
         $this->accountRepository->store($request);
-        
+
         return redirect(admin_url('account'))->withMessage('修改成功！');
     }
 

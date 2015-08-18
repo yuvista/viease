@@ -37,7 +37,7 @@ class SyncVoiceMaterial extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MaterialService $materialService)
     {
-        if(!$this->account){
+        if (!$this->account) {
             $this->delete();
         }
 

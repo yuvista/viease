@@ -419,18 +419,19 @@ class Menu
     /**
      * 生成菜单中的事件.
      *
+     * @param int $accountId 公众号Id
      * @param array $menu menu
      *
      * @return array
      */
-    private function makeMenuEvent($menu)
+    private function makeMenuEvent($accountId, $menu)
     {
         if ($menu['type'] == 'text') {
             $menu['type'] = 'click';
-            $menu['key'] = $this->eventService->makeText($menu['value']);
+            $menu['key'] = $this->eventService->makeText($accountId, $menu['value']);
         } elseif ($menu['type'] == 'media') {
             $menu['type'] = 'click';
-            $menu['key'] = $this->eventService->makeMediaId($menu['value']);
+            $menu['key'] = $this->eventService->makeMediaId($accountId, $menu['value']);
         } elseif ($menu['type'] == 'view') {
             $menu['key'] = $menu['value'];
         } else {
@@ -467,9 +468,9 @@ class Menu
      *
      * @param array $menus 菜单
      */
-    public function saveToRemote($menus)
+    public function saveToRemote($account, $menus)
     {
-        $wechatMenu = new WechatMenu($this->account->app_id, $this->account->app_secret);
+        $wechatMenu = new WechatMenu($account->app_id, $account->app_secret);
 
         $menus = $this->formatToWechat($menus);
 

@@ -43,29 +43,26 @@ class Event
     /**
      * 创建一个文字类型的事件.
      *
-     * @param string $text 返回值
+     * @param int    $accountId 公众号Id
+     * @param string $text      返回值
      *
      * @return string 事件key
      */
-    public function makeText($text)
+    public function makeText($accountId, $text)
     {
-        $accountId = account()->getCurrent()->id;
-
         return $this->eventRepository->storeText($text, $accountId);
     }
 
     /**
      * 创建一个mediaId类型的事件.
      *
-     * @param string $mediaId     本地素材Id
-     * @param bool   $isTemporary 是否是临时素材id
+     * @param int    $accountId 公众号Id
+     * @param string $mediaId   本地素材Id
      *
      * @return string 事件key
      */
-    public function makeMediaId($mediaId)
+    public function makeMediaId($accountId, $mediaId)
     {
-        $accountId = account()->getCurrent()->id;
-
         return $this->eventRepository->storeMaterial($mediaId, $accountId);
     }
 

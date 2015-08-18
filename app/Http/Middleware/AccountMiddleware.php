@@ -39,7 +39,7 @@ class AccountMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!account()->isChosed()) {
+        if (!account()->chosedId()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {

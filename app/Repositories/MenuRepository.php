@@ -81,6 +81,10 @@ class MenuRepository
         }
     }
 
+    public function resolveMenuList($menu)
+    {
+    }
+
     /**
      * 保存菜单.
      *
