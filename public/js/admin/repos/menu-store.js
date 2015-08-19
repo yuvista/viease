@@ -8,6 +8,7 @@ define(['jquery', 'util', 'store'], function($, Util, Store){
         name:'',
         parent:'',
         id: '',
+        hasChild: false,
         content: {
 
         }

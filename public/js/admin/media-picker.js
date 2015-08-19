@@ -1,10 +1,11 @@
 define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common'], function ($, _, Material, Pager, Util) {
     var $defaults = {
         type: 'image',
-        callback: function($item){
+        onSelected: function($item){
             console.log('picked', $item);
         },
     };
+
     function MediaPicker ($element, $options) {
         if (!(this instanceof MediaPicker)) return new MediaPicker($element, $options);
 
@@ -52,12 +53,12 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
                                     + '<div class="pagination-bar"></div>'
                                     + '<div class="modal-footer">'
                                       + '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>'
-                                      + '<button type="button" class="btn btn-primary">确认</button>'
+                                      + '<button type="button" class="btn btn-primary pick-media-confirm-btn">确认</button>'
                                     + '</div>'
                                 + '</div>'
                             + '</div>'
                         + '</div>');
-        $(this.pickerId).modal('hide');
+        $('#'+this.pickerId).modal('hide');
     }
 
 
@@ -66,13 +67,32 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
      */
     MediaPicker.prototype.addListener = function () {
         var picker = this;
+
         $(document).on('click', this.element, function(){
+            event.preventDefault();
             picker.load(picker.options.type, 1, function(){
                 $('#'+picker.pickerId).modal('show');
             });
         });
+
+        $(document).on('click', '#' + picker.pickerId + ' .media-item', function(){
+            event.preventDefault();
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+
+        $(document).on('click', '#' + picker.pickerId + ' .pick-media-confirm-btn', function(){
+            event.preventDefault();
+            var $selected = $('.media-item.selected').data();
+
+            picker.options.onSelected($selected);
+
+            $('#'+picker.pickerId).modal('hide');
+        });
     }
 
+    /**
+     * 创建分页器
+     */
     MediaPicker.prototype.createPager = function () {
         var picker = this;
         this.pager = new Pager('#'+this.pickerId + ' .pagination-bar', {
@@ -130,10 +150,11 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
         switch($type){
             case 'image':
                 $template = '<div class="col-xs-6 col-sm-3 media-card media-item">'
-                            + '<a href="<%= source_url %>" target="_blank" class="popup">'
-                              + '<img src="<%= source_url %>" alt="" class="img-responsive">'
-                            + '</a>'
-                        + '</div>';
+                                + '<a href="javascript:;" target="_blank" class="picker">'
+                                  + '<img src="<%= source_url %>" alt="" class="img-responsive">'
+                                + '<span class="selected-item"><i class="ion-ios-checkmark"></i></span>'
+                                + '</a>'
+                            + '</div>';
                 break;
             case 'video':
                 $template = '<div class="col-xs-6 col-sm-3 media-card media-item">'
@@ -142,18 +163,23 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
                                     + '<h2><%= title %></h2>'
                                     + '<span class="icon ion-ios-play video-play"></span>'
                                     + '<!-- <span class="duration">03:15</span>-->'
+                                + '<span class="selected-item"><i class="ion-ios-checkmark"></i></span>'
                                 + '</a>'
                             + '</div>';
 
                 break;
             case 'voice':
                 $template = '<div class="list-group-item media-item">'
-                                + '<span class="title"><%= title %></span>'
-                                + '<a href="javascript:;" class="pull-right"><span class="icon ion-android-volume-up icon-md music-play"></span></a>'
+                                    + '<span class="title"><%= title %></span>'
+                                    + '<a href="javascript:;" class="pull-right"><span class="icon ion-android-volume-up icon-md music-play"></span></a>'
+                                    + '<span class="selected-item"></span>'
                             + '</div>';
                 break;
             case 'article':
-                $template = '<div class="list-group-item media-item"><span class="title"><%= title %></span></div>';
+                $template = '<div class="list-group-item media-item">'
+                                + '<span class="title"><%= title %></span>'
+                                + '<span class="selected-item"></span>'
+                            +'</div>';
                 break;
         }
 

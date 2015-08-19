@@ -7,6 +7,7 @@ use Overtrue\Wechat\Menu as WechatMenu;
 use App\Services\Event as EventService;
 use App\Repositories\MenuRepository;
 use Overtrue\Wechat\MenuItem;
+use App\Models\Account as AccountModel;
 use App\Models\Material;
 
 /**
@@ -82,7 +83,7 @@ class Menu
 
         $menus = $this->localize($remoteMenus);
 
-        return $this->saveToLocal($menus);
+        return $this->saveToLocal($account, $menus);
     }
 
     /**
@@ -173,9 +174,9 @@ class Menu
      *
      * @return array
      */
-    private function saveToLocal($menus)
+    private function saveToLocal($account, $menus)
     {
-        $accountId = account()->getCurrent()->id;
+        $accountId = $account->id;
 
         return $this->menuRepository->storeMulti($accountId, $menus);
     }
@@ -187,14 +188,11 @@ class Menu
      *
      * @return array
      */
-    private function resolveTextMenu($menu)
+    private function resolveTextMenu($account, $menu)
     {
         $menu['type'] = 'click';
 
-        $mediaId = $this->materialService->saveText(
-            account()->getCurrent()->id,
-            $menu['value']
-        );
+        $mediaId = $this->materialService->saveText($account->id, $menu['value']);
 
         $menu['key'] = $this->eventService->makeMediaId($mediaId);
 
@@ -466,9 +464,14 @@ class Menu
     /**
      * 提交菜单到微信
      *
-     * @param array $menus 菜单
+     * @param AccountModel $account
+     * @param array        $menus 菜单
      */
+<<<<<<< HEAD
     public function saveToRemote($account, $menus)
+=======
+    public function saveToRemote(AccountModel $account, $menus)
+>>>>>>> 55ccd1d7cd78fd772281633fac41545c1c14ac1f
     {
         $wechatMenu = new WechatMenu($account->app_id, $account->app_secret);
 

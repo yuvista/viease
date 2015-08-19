@@ -13,8 +13,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/api', 'ServerController@server');
-Route::post('/api', 'ServerController@server');
+
+Route::any('/api', 'ServerController@server');
 
 /*
     * Admin

@@ -60,8 +60,9 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
                     total: window.last_response.last_page,
                     current: window.last_response.current_page,
                 });
-
-                $('.media-card img').relocate('.media-card');
+                if ($type == 'image') {
+                    $('.media-card img').relocate('.media-card');
+                };
             });
         }
 
@@ -89,7 +90,7 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
         });
 
         $pagers['image'] = getPager('image');
-        load('image');
+        load('image', 1);
 
         var $loaded = {
             image: true
@@ -100,7 +101,7 @@ define(['jquery', 'repos/material', 'uploader', 'pager', 'admin/common'], functi
 
             if(typeof $loaded[$type] == 'undefined'){
                 $pagers[$type] = getPager($type);
-                load($type);
+                load($type, 1);
                 $loaded[$type] = true;
             }
         });
