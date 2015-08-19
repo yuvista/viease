@@ -176,7 +176,7 @@ function ($, _, Util, WeChatEditor, MediaPicker, Material) {
 
         $data.type = $('.nav-tabs .active .tab-link').data('type');
 
-        $tab.data($data);
+        $tab.data('form', $data);
 
         $data.media_id && $form.find('[name=media_id]').val($data.media_id);
         this.getPreviewItem($data, function($html){
@@ -257,7 +257,7 @@ function ($, _, Util, WeChatEditor, MediaPicker, Material) {
 
     ResponsePicker.prototype.saveForm = function () {
         var $tab = this.getCurrentTab();
-        var $data = $tab.data();
+        var $data = $tab.data('form');
         var $resultContainer = $tab.find('.result-container');
 
         switch($data.type){
@@ -283,6 +283,8 @@ function ($, _, Util, WeChatEditor, MediaPicker, Material) {
             default:
                 break;
         }
+
+        $tab.data($data);
 
         this.current = $data;
 
