@@ -2,12 +2,8 @@
 
 namespace App\Services;
 
-use App\Services\Material as MaterialService;
-use Overtrue\Wechat\Menu as WechatMenu;
-use App\Services\Event as EventService;
-use App\Repositories\MenuRepository;
 use Overtrue\Wechat\MenuItem;
-use App\Models\Account as AccountModel;
+use App\Models\Account;
 use App\Models\Material;
 
 /**
@@ -18,52 +14,13 @@ use App\Models\Material;
 class Menu
 {
     /**
-     * menuRepository.
-     *
-     * @var App\Repositories\MenuRepository
-     */
-    private $menuRepository;
-
-    /**
-     * event服务
-     *
-     * @var App\Services\Event
-     */
-    private $eventService;
-
-    /**
-     * 素材服务
-     *
-     * @var App\Services\Material
-     */
-    private $materialService;
-
-    /**
-     * construct.
-     *
-     * @param App\Repositories\MenuRepository $menuRepository menuRepository
-     * @param App\Services\Event              $eventService   eventService
-     */
-    public function __construct(
-        MenuRepository $menuRepository,
-        EventService $eventService,
-        MaterialService $materialService
-    ) {
-        $this->menuRepository = $menuRepository;
-
-        $this->eventService = $eventService;
-
-        $this->materialService = $materialService;
-    }
-
-    /**
      * 取得远程公众号的菜单.
      *
      * @param App\Models\Account $account
      *
      * @return array 菜单信息
      */
-    private function getFromRemote($account)
+    private function getFromRemote(Account $account)
     {
         return with(new WechatMenu($account->app_id, $account->app_secret))->current();
     }
@@ -75,10 +32,8 @@ class Menu
      *
      * @return Response
      */
-    public function syncToLocal($account)
+    public function syncToLocal(Account $account)
     {
-        $this->destroyOldMenu($account->id);
-
         $remoteMenus = $this->getFromRemote($account);
 
         $menus = $this->localize($remoteMenus);
