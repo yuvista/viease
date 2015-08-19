@@ -55,6 +55,18 @@ class MaterialRepository
     }
 
     /**
+     * 通过 id 获取素材.
+     *
+     * @param int $id 素材ID
+     *
+     * @return App\Models\Material|NULL
+     */
+    public function getMediaById($id)
+    {
+        return $this->model->where('id', $mediaId)->with('childrens')->first();
+    }
+
+    /**
      * 通过mediaId获取素材.
      *
      * @param string $mediaId 素材标识

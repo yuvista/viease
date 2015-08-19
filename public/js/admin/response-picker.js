@@ -1,5 +1,7 @@
-define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function ($, _, WeChatEditor, MediaPicker) {
+define(['jquery', 'underscore', 'util', 'WeChatEditor', 'admin/media-picker', 'repos/material'],
+function ($, _, Util, WeChatEditor, MediaPicker, Material) {
     var $defaults = {
+        current: null,
         onChanged: function($item){
             console.log('picked', $item);
         },
@@ -23,36 +25,34 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
     function ResponsePicker ($container, $options) {
         if (!(this instanceof ResponsePicker)) return new ResponsePicker($element, $options);
 
-        this.options = $options || {};
-
-        for (var i in $defaults) {
-          if (this.options[i] == null) {
-            this.options[i] = $defaults[i];
-          }
-        }
-
+        this.options = $.extend(true, $defaults, $options);
         this.container = $($container);
         this.tabs = $tabs;
+        this.current = this.options.current;
 
         this.init();
+
+        if (this.current) {
+            this.container.find('.tab-link[data-type='+ this.current.type +']').trigger('click');
+            this.getCurrentTab().data(this.current);
+            this.saveForm(this.current);
+        };
     }
 
     ResponsePicker.prototype.init = function () {
         this.createPicker();
         this.addListeners();
+
+        this.container.find('.tab-link:first').trigger('click');
     }
 
     /**
      * 创建选择器控件
      */
     ResponsePicker.prototype.createPicker = function () {
-
-
         this.container.html('');
         this.container.append(this.getTabLinks());
         this.container.append(this.getTabContents());
-
-        this.container.find('.tab-link:first').trigger('click');
     }
 
     ResponsePicker.prototype.getTabLinks = function(){
@@ -72,7 +72,7 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
     };
 
     ResponsePicker.prototype.getTabContents = function () {
-        var $form = $('<form action="" method="post" accept-charset="utf-8" class="form-horizontal" id="response-content-form"></form>');
+        var $form = $('<div class="response-media-picker-content"></div>');
 
         var $tabContent = $form.append('<div class="tab-content"></div>').find('.tab-content');
         var $template = _.template('<div role="tabpanel" class="tab-pane" id="<%= tab.type %>-tab-content"><%= content %></div>');
@@ -85,7 +85,7 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
 
         $tabContent.append($items);
 
-        return $tabContent;
+        return $form;
     }
 
     ResponsePicker.prototype.getTypeTabContent = function ($type) {
@@ -97,8 +97,7 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
                                             + '<div class="form-container"><%= form %></div>'
                                         + '</div>'
                                     + '</div>'
-                                    + '<input type="hidden" name="type" value="" />'
-                                    + '<button type="button" class="btn btn-success edit-btn">保存</button>');
+                                    + '<button type="button" class="btn btn-success response-picker-form-btn">保存</button>');
 
         switch($type){
             case 'text':
@@ -119,7 +118,6 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
             default:
                 $form = '<div class="btns">'
                             + '<a href="javascript:;" class="btn btn-success '+ $type +'-picker"><i class="ion-plus"></i> 从媒体库选择</a>'
-                            + '<input type="hidden" name="' + $type + '_media_id" value="" class="media-id form-control">'
                         + '</div>';
                 break;
         }
@@ -129,78 +127,117 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
 
     ResponsePicker.prototype.addListeners = function () {
         var $picker = this;
+        var $form = this.container.find('.tab-content');
+
         new WeChatEditor(this.container.find('.message-editor'), {textarea: 'text'});
 
         new MediaPicker('.image-picker', {type: 'image', onSelected: function($item){
-            $picker.preview('image', $item);
+            $picker.preview($item);
         }});
         new MediaPicker('.video-picker', {type: 'video', onSelected: function($item){
-            $picker.preview('video', $item);
+            $picker.preview($item);
         }});
         new MediaPicker('.voice-picker', {type: 'voice', onSelected: function($item){
-            $picker.preview('voice', $item);
+            $picker.preview($item);
         }});
         new MediaPicker('.article-picker', {type: 'article', onSelected: function($item){
-            $picker.preview('article', $item);
+            $picker.preview($item);
         }});
+
+        $form.find('[name=text]').on('change', function(){
+            $picker.preview({text: $(this).val()});
+        });
+
+        $form.find('[name=url]').on('change', function(){
+            $picker.preview({url: $(this).val()});
+        });
+
+        // 编辑/保存
+        $(document).on('click', '.tab-pane.active .response-picker-form-btn', function(){
+            if ($(this).hasClass('btn-success')) {
+                $picker.saveForm();
+            } else {
+                $picker.showForm($picker.current);
+            }
+        });
+
+        $($picker.container).on('show.bs.tab', 'ul.nav-tabs a', function(){
+            $picker.container.find('form').find('[name=type]').val($(this).data('type'));
+        });
     }
 
     ResponsePicker.prototype.getCurrentTab = function () {
         return this.container.find('.tab-pane.active');
     }
 
-    ResponsePicker.prototype.preview = function ($type, $data) {
+    ResponsePicker.prototype.preview = function ($data) {
         var $tab = this.getCurrentTab();
+        var $form = this.container.find('.tab-content');
 
-        $tab.find('.media-id').val($data.media_id);
-        $tab.find('.preview-container').html(this.getPreviewItem($type, $data)).slideDown();
+        $data.type = $('.nav-tabs .active .tab-link').data('type');
+
+        $tab.data($data);
+
+        $data.media_id && $form.find('[name=media_id]').val($data.media_id);
+        this.getPreviewItem($data, function($html){
+            $tab.find('.preview-container').html($html).slideDown();
+        });
     }
 
-    ResponsePicker.prototype.getPreviewItem = function ($type, $data) {
+    ResponsePicker.prototype.getPreviewItem = function ($data, $callback) {
         var $mediaPreviewItem = _.template('<div class="media-preview"><%= item %></div>');
 
-        switch($type){
-            case 'text':
-                $html = $data.text;
-                break;
-            case 'url':
-                $html = $data.url;
-                break;
-            case 'image':
-                $html = '<img src="'+$data.source_url+'">';
-                break;
-            case 'video':
-                $html = '<a href="">'+$data.title+'</a>';
-                break;
-            case 'voice':
-                $html = '<a href="">'+$data.source_url+'</a>';
-                break;
-            case 'article':
-                $html = '<a href="'+$data.source_url+'" >' + $data.title + '</a>';
-                break;
+        function dataToPreview ($item) {
+            switch($data.type){
+                case 'text':
+                    $html = $item.text;
+                    break;
+                case 'url':
+                    $html = $item.url;
+                    break;
+                case 'image':
+                    $html = '<img src="'+$item.source_url+'">';
+                    break;
+                case 'video':
+                    $html = '<a href="">'+$item.title+'</a>';
+                    break;
+                case 'voice':
+                    $html = '<a href="">'+$item.source_url+'</a>';
+                    break;
+                case 'article':
+                    $html = '<a href="'+$item.source_url+'" >' + $item.title + '</a>';
+                    break;
+            }
+
+            return $mediaPreviewItem({item:$html});
         }
 
-        return $mediaPreviewItem({item:$html});
+        if ($data.type != 'text' && $data.type != 'url' && typeof $data.source_url == undefined) {
+            Material.getByMediaId($data.media_id, function($item) {
+                return $callback(dataToPreview($item));
+            });
+        } else {
+            return $callback(dataToPreview($data));
+        }
     }
 
     ResponsePicker.prototype.showForm = function ($data) {
-        var $tab = this.getCurrentTab();
+        var $tab = $('.tab-pane#'+$data.type+'-tab-content');
+        var $previewContainer = $tab.find('.preview-container');
 
-        $tab.find('form-container').slideDown();
+        $tab.find('.result-container').slideUp();
+        $tab.find('.form-container').slideDown();
 
         if (!$data) {
             return;
         };
 
-        var $previewContainer = $tab.find('.preview-container');
-        var $previewItem = this.getPreviewItem($data.type, $data);
-
-        switch($type){
+        switch($data.type){
             case 'text':
-                $currentTab.find('.wechat-editor-content').html($data.text);
+                $tab.find('.wechat-editor-content').html($data.text);
                 break;
             case 'url':
-                $currentTab.find('[name=url]').val($data.url);
+                $tab.find('[name=url]').val($data.url);
                 break;
             case 'image':
             case 'video':
@@ -211,15 +248,61 @@ define(['jquery', 'underscore', 'WeChatEditor', 'admin/media-picker'], function 
                 break;
         }
 
-        $previewContainer.html($previewItem);
+        this.getPreviewItem($data, function($html) {
+            $previewContainer.html($html).slideDown();
+        });
+
+        $('.tab-pane.active .response-picker-form-btn').addClass('btn-success').removeClass('btn-default').text('保存');
     }
 
-    ResponsePicker.prototype.save = function () {
-        // body...
+    ResponsePicker.prototype.saveForm = function () {
+        var $tab = this.getCurrentTab();
+        var $data = $tab.data();
+        var $resultContainer = $tab.find('.result-container');
+
+        switch($data.type){
+            case 'text':
+                if (!$data.text.length) {
+                    return error('请填写文字内容！');
+                };
+                $content = $tab.find('.wechat-editor-content').html();
+                break;
+            case 'url':
+                if (!$data.url.length || $data.url.indexOf('http://') !== 0) {
+                    return error('请正确填写网址！');
+                };
+                break;
+            case 'image':
+            case 'video':
+            case 'voice':
+            case 'article':
+                if (!$data.media_id.length) {
+                    return error('请选择内容！');
+                };
+                break;
+            default:
+                break;
+        }
+
+        this.current = $data;
+
+        this.onChange($data);
+
+        this.getPreviewItem($data, function($html){
+            $resultContainer.html($html).slideDown();
+        });
+
+        $tab.find('.form-container, .preview-container').slideUp();
+
+        $('.tab-pane:not(.active) input').val('');
+        $('.tab-pane:not(.active) .preview-container, .tab-pane:not(.active) .result-container').html('').hide();
+        $('.tab-pane:not(.active) .wechat-editor-content').html('');
+
+        $('.tab-pane.active .response-picker-form-btn').removeClass('btn-success').addClass('btn-default').text('编辑');
     }
 
-    ResponsePicker.prototype.onChange = function () {
-        // body...
+    ResponsePicker.prototype.onChange = function ($result) {
+        this.options.onChanged($result);
     }
 
     return ResponsePicker;

@@ -90,6 +90,20 @@ define(['jquery', 'util'], function($, Util){
         },
 
         /**
+         * 获取素材
+         *
+         * @param {Int}      $mediaId
+         * @param {Function} $callback
+         */
+        getByMediaId: function($mediaId, $callback){
+            var $request = {
+                media_id: $mediaId
+            };
+
+            Util.request('GET', 'material/show', $request, $callback);
+        },
+
+        /**
          * 删除素材
          *
          * @param {Int}      $id

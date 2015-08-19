@@ -109,22 +109,31 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
         });
     }
 
+    WeChatEditor.prototype.textToEmotion = function ($text) {
+        // for ($i in Emotions) {
+        //     $text = $text.replace(new RegExp('/'+Emotions[$i].title, 'g'), '<img src="'+Emotions[$i].src+'" data-title="'+Emotions[$i].title+'" />');
+        // }
+
+        return $text;
+    }
+
     WeChatEditor.prototype.addEmotionListener = function(){
+        var $editor = $(this).closest('.wechat-editor-tool-bar').siblings('.wechat-editor-content');
+
         $(document).on('click', '.emotions ul li a', function(){
             var $img = $($(this).html());
 
-            $(this).closest('.wechat-editor-tool-bar').siblings('.wechat-editor-content').focus();
+            $editor.focus();
 
             if (window.getSelection) {
                 var $sel = window.getSelection();
 
                 if ($sel.rangeCount) {
-                    range = $sel.getRangeAt(0);
+                    var range = $sel.getRangeAt(0);
                     var selectedText = range.toString();
                     range.deleteContents();
                     var newNode = $img.get(0);
                     range.insertNode(newNode);
-
                     //move the cursor
                     range.setStartAfter(newNode);
                     range.setEndAfter(newNode);
@@ -168,7 +177,7 @@ define(['jquery', 'underscore', 'emotions'], function ($, _, Emotions) {
 
         $content.find('br').replaceWith("\n");
 
-        $textarea.text($content.text());
+        $textarea.text($content.text()).trigger('change');
     }
 
     return WeChatEditor;

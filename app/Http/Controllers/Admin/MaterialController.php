@@ -69,6 +69,22 @@ class MaterialController extends Controller
     }
 
     /**
+     * 获取素材
+     *
+     * @param Request $request request
+     *
+     * @return Response
+     */
+    public function getShow(Request $request)
+    {
+        if ($request->has('media_id')) {
+            return $this->materialRepository->getMediaByMediaId($request->media_id);
+        } else {
+            return $this->materialRepository->getMediaById($request->id);
+        }
+    }
+
+    /**
      * 统计素材数量.
      *
      * @return array
