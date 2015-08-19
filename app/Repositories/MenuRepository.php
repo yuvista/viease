@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Repositories\EventRepository;
 use App\Models\Menu;
 
 /**
@@ -18,9 +19,13 @@ class MenuRepository
      */
     protected $model;
 
-    public function __construct(Menu $menu)
+    protected $eventRepository;
+
+    public function __construct(Menu $menu, EventRepository $eventRepository)
     {
         $this->model = $menu;
+
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -41,16 +46,6 @@ class MenuRepository
     public function all($accountId)
     {
         return $this->model->where('account_id', $accountId)->get()->toArray();
-    }
-
-    /**
-     * 根据公众号Id删除菜单.
-     *
-     * @param int $accountId accountId
-     */
-    public function distoryMenuByAccountId($accountId)
-    {
-        return $this->model->where('account_id', $accountId)->delete();
     }
 
     /**
@@ -81,8 +76,46 @@ class MenuRepository
         }
     }
 
-    public function resolveMenuList($menu)
+    /**
+     * 处理需要返回的菜单
+     *
+     * @param  array $menus 菜单
+     *
+     * @return array
+     */
+    public function resolveMenuList($menus)
     {
+        var_dump($menus->toArray());die();
+    }
+
+    /**
+     * 删除旧菜单.
+     *
+     * @param int $accountId 公众号id
+     */
+    public function destroyOldMenu($accountId)
+    {
+        $menus = $this->all($accountId);
+
+        array_map(function ($menu) {
+
+            if ($menu['type'] == 'click') {
+                $this->eventRepository->distoryByEventKey($menu['key']);
+            }
+
+        }, $menus);
+
+        $this->distoryMenuByAccountId($accountId);
+    }
+
+    /**
+     * 根据公众号Id删除菜单.
+     *
+     * @param int $accountId accountId
+     */
+    public function distoryMenuByAccountId($accountId)
+    {
+        return $this->model->where('account_id', $accountId)->delete();
     }
 
     /**

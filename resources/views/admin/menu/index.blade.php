@@ -33,6 +33,7 @@
 <br>
     <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <a href="javascript:;" id="save">菜单保存样例</a>
+<a href="javascript:;" id="get">菜单获取</a>
 <!--End-->
 <script type="text/template" id="no-menus-content-template">
     <div class="blankslate spacious">
@@ -207,7 +208,12 @@
                 },
             });
         });
+         $('#get').click(function(){
+             $.get("/admin/menu/lists",function(data,status){
+            });
+        });
     });
+
 require(['pages/menu']);
 </script>
 @stop

@@ -78,6 +78,7 @@
         </div>
 
     <!--样例使用完后删除-->
+    <a href="javascript:;" id="list">获取列表</a>
     <a href="javascript:;" id="tester">保存测试</a>
     <a href="javascript:;" id="save">修改测试</a>
     <a href="javascript:;" id="add">增加一个自动回复</a>
@@ -94,6 +95,16 @@
                     reply_content:"MEDIA_XXXXXXXXXXXXX",
                     reply_type:'material'
                 },
+            });
+        });
+    });
+    </script>
+    <script type="text/javascript">
+    $(function(){
+        $('#list').click(function(){
+            $.ajax({
+              type: 'GET',
+              url: '/admin/reply/lists'
             });
         });
     });

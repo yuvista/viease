@@ -58,7 +58,7 @@ class MenuController extends Controller
     {
         $menuList = $this->menuRepository->lists($this->account()->id);
 
-        return $this->menuService->resolveMenuList($menuList);
+        return $this->menuRepository->resolveMenuList($menuList);
     }
 
     /**
@@ -68,13 +68,15 @@ class MenuController extends Controller
      */
     public function postStore(CreateRequest $request)
     {
-        $this->menuService->destroyOldMenu($this->account()->id);
+        $accountId = $this->account()->id;
 
-        $menus = $this->menuService->analyseMenu($request->get('menus'));
+        $this->menuRepository->destroyOldMenu($accountId);
 
-        $this->menuRepository->storeMulti($this->account()->id, $menus);
+        $menus = $this->menuService->parseMenus($accountId, $request->get('menus'));
 
-        $this->menuService->saveToRemote(account()->getCurrent(), $menus);
+        $this->menuRepository->storeMulti($accountId, $menus);
+
+        //$this->menuService->saveToRemote($accountId, $menus);
 
         return response()->json(['status' => true]);
     }

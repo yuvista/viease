@@ -25,7 +25,7 @@ class ReplyObserver
     }
 
     public function saved(Reply $reply)
-    {
-        $this->replyService->rebuildReplyCache();
+    {   
+        $this->replyService->rebuildReplyCache($reply->account_id);
     }
 }

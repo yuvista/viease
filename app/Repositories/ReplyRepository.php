@@ -191,18 +191,18 @@ class ReplyRepository
     /**
      * 更新一个自动回复中的事件.
      *
-     * @param string $eventId   eventId
+     * @param string $eventKey   eventKey
      * @param string $replyType 回复类型
      * @param string $content   回复内容
      */
-    private function updateEvent($eventId, $replyType, $content)
+    private function updateEvent($eventKey, $replyType, $content)
     {
-        $event = $this->eventRepository->findByEventId($eventId);
+        $event = $this->eventRepository->getEventByKey($eventKey);
 
         if ($replyType == 'text') {
-            $this->eventRepository->updateToText($eventId, $content);
+            $this->eventRepository->updateToText($eventKey, $content);
         } else {
-            $this->eventRepository->updateToMaterial($eventId, $content);
+            $this->eventRepository->updateToMaterial($eventKey, $content);
         }
     }
 

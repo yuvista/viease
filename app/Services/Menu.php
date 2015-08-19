@@ -147,17 +147,18 @@ class Menu
     /**
      * 分析菜单数据.
      *
-     * @param array $menus menus
+     * @param int   $accountId 公众号ID
+     * @param array $menus     menus
      *
      * @return array
      */
-    public function analyseMenu($menus)
+    public function parseMenus($accountId, $menus)
     {
-        $menus = array_map(function ($menu) {
+        $menus = array_map(function ($menu) use($accountId) {
             if (isset($menu['sub_button'])) {
-                $menu['sub_button'] = $this->analyseMenu($menu['sub_button']);
+                $menu['sub_button'] = $this->analyseMenu($accountId, $menu['sub_button']);
             } else {
-                $menu = $this->makeMenuEvent($menu);
+                $menu = $this->makeMenuEvent($accountId, $menu);
             }
 
             return $menu;
@@ -174,10 +175,8 @@ class Menu
      *
      * @return array
      */
-    private function saveToLocal($account, $menus)
+    private function saveToLocal($accountId, $menus)
     {
-        $accountId = $account->id;
-
         return $this->menuRepository->storeMulti($accountId, $menus);
     }
 
@@ -441,25 +440,6 @@ class Menu
         return $menu;
     }
 
-    /**
-     * 删除旧菜单.
-     *
-     * @param int $accountId 公众号id
-     */
-    public function destroyOldMenu($accountId)
-    {
-        $menus = $this->menuRepository->all($accountId);
-
-        array_map(function ($menu) {
-
-            if ($menu['type'] == 'click') {
-                $this->eventService->distoryByEventKey($menu['key']);
-            }
-
-        }, $menus);
-
-        $this->menuRepository->distoryMenuByAccountId($accountId);
-    }
 
     /**
      * 提交菜单到微信
@@ -467,11 +447,8 @@ class Menu
      * @param AccountModel $account
      * @param array        $menus 菜单
      */
-<<<<<<< HEAD
+
     public function saveToRemote($account, $menus)
-=======
-    public function saveToRemote(AccountModel $account, $menus)
->>>>>>> 55ccd1d7cd78fd772281633fac41545c1c14ac1f
     {
         $wechatMenu = new WechatMenu($account->app_id, $account->app_secret);
 

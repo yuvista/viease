@@ -97,7 +97,7 @@ class Event
      */
     public function eventToMaterial($eventId)
     {
-        $event = $this->eventRepository->findByEventId($eventId);
+        $event = $this->eventRepository->getEventByKey($eventId);
 
         return $event;
     }

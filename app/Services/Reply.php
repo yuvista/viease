@@ -71,11 +71,11 @@ class Reply
 
     /**
      * 重建回复缓存.
+     *
+     * @param int $accountId 公众号ID
      */
-    public function rebuildReplyCache()
+    public function rebuildReplyCache($accountId)
     {
-        $accountId = account()->getCurrent()->id;
-
         $replies = $this->replyRepository->all($accountId);
 
         if (empty($replies)) {

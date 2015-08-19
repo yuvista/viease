@@ -84,7 +84,7 @@ class EventRepository
      */
     public function updateToText($eventId, $text)
     {
-        $model = $this->findByEventId($eventId);
+        $model = $this->getEventByKey($eventId);
 
         $model->type = 'material';
 
@@ -102,7 +102,7 @@ class EventRepository
      */
     public function updateToMaterial($eventId, $mediaId)
     {
-        $model = $this->findByEventId($eventId);
+        $model = $this->getEventByKey($eventId);
 
         $model->type = 'material';
 
