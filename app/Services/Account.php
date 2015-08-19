@@ -2,39 +2,28 @@
 
 namespace app\Services;
 
-use App\Repositories\AccountRepository;
 use Session;
 
 /**
- * 公众号服务提供类.
+ * 公众号服务提.
  *
  * @author rongyouyuan <rongyouyuan@163.com>
  */
 class Account
 {
     /**
-     * repository.
-     *
-     * @var App\Repositories\AccountRepository
+     * constructer.
      */
-    private $accountRepository;
-
-    /**
-     * construct.
-     *
-     * @param App\Repositories\AccountRepository $repository repository
-     */
-    public function __construct(AccountRepository $accountRepository)
+    public function __construct()
     {
-        $this->accountRepository = $accountRepository;
     }
 
     /**
      * 当前是否有选择公众号.
      *
-     * @return bool
+     * @return bool|int
      */
-    public function isChosed()
+    public function chosedId()
     {
         return Session::get('account_id');
     }
@@ -47,50 +36,6 @@ class Account
     public function chose($accountId)
     {
         return Session::put('account_id', $accountId);
-    }
-
-    /**
-     * 取得当前使用中的公众号.
-     *
-     * @return App\Models\Account|null
-     */
-    public function getCurrent()
-    {
-        return $this->isChosed() ? $this->accountRepository->getById($this->isChosed()) : null;
-    }
-
-    /**
-     * 根据tag 获取公众后.
-     *
-     * @param string $tag tag
-     *
-     * @return App\Models\Account|null
-     */
-    public function getAccountByTag($tag)
-    {
-        return $this->accountRepository->getByTag($tag);
-    }
-
-    /**
-     * id获取公众号.
-     *
-     * @param int $accountId 公众号id
-     *
-     * @return App\Models\Account|null
-     */
-    public function getAccountById($accountId)
-    {
-        return $this->accountRepository->getById($accountId);
-    }
-
-    /**
-     * 取得已有公众号列表.
-     *
-     * @return mixed
-     */
-    public function getLists()
-    {
-        return $this->accountRepository->lists(99);
     }
 
     /**

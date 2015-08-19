@@ -58,9 +58,7 @@ class UploadController extends Controller
 
         $filename = md5_file($file->getRealpath()).'.'.$ext;
 
-        $datedir = date('Ym').'/';
-
-        $dir = config('material.'.$type.'.storage_path').$datedir;
+        $dir = config('material.'.$type.'.storage_path');
 
         is_dir($dir) || mkdir($dir, 0755, true);
 
@@ -69,7 +67,11 @@ class UploadController extends Controller
         }
 
         if ('image' == $type) {
-            return $this->saveImageMaterial($datedir.$filename);
+            return $this->saveImageMaterial($filename);
+        }
+
+        if ('voice' == $type) {
+            return $this->saveVoiceMaterial($filename);
         }
 
         $response = [
@@ -77,8 +79,8 @@ class UploadController extends Controller
             'name' => $originalName,
             'size' => $filesize,
             'type' => ".{$ext}",
-            'path' => $datedir.$filename,
-            'url' => config('material.'.$type.'.prefix').'/'.$datedir.$filename,
+            'path' => $filename,
+            'url' => config('material.'.$type.'.prefix').'/'.$filename,
             'state' => 'SUCCESS',
         ];
 
@@ -130,6 +132,6 @@ class UploadController extends Controller
     {
         $resourceUrl = config('app.url').config('material.image.prefix').'/'.$imagePath;
 
-        return $this->materialRepository->storeImage(account()->getCurrent()->id, $resourceUrl);
+        return $this->materialRepository->storeImage($this->account()->id, $resourceUrl);
     }
 }

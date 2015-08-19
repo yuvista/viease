@@ -199,34 +199,9 @@
               data: {
                     menus:[
                         {
-                            name:"百度链接",
-                            type:"view",
-                            value:"http://www.baidu.com"
-                        },
-                        {
-                            name:"带有下级",
-                            sub_button:[
-                                {
-                                    name:"新浪连接",
-                                    type:"view",
-                                    value:"http://www.sina.com"
-                                },
-                                {
-                                    name:"给你个图",
-                                    type:"media",
-                                    value:"MEDIA_XXXXXXX11"
-                                },
-                                {
-                                    name:"看点文字",
-                                    type:"pic_sysphoto",
-                                    value:"xxxx"
-                                }
-                            ]
-                        },
-                        {
-                            name:"一个图文",
+                            name:"一个图片",
                             type:"media",
-                            value:"MEDIA_XXXXXXX",
+                            value:"MEDIA_55D0560EA44C1",
                         }
                     ]
                 },

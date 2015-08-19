@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Services\Server;
-use Input;
+
 //测试
 
 /**
@@ -33,16 +34,14 @@ class ServerController extends Controller
      *
      * @return Response
      */
-    public function server()
+    public function server(Request $request)
     {
-        $tag = Input::get('t');
-
-        $account = account()->getAccountByTag($tag);
+        $account = account()->getAccountByTag($request->t);
 
         if (!$account) {
             return;
         }
 
-        return $this->server->build($account);
+        return $this->server->make($account);
     }
 }

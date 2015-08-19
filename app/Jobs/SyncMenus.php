@@ -37,7 +37,7 @@ class SyncMenus extends Job implements SelfHandling, ShouldQueue
      */
     public function handle(MenuService $menuService)
     {
-        if(!$this->account) {
+        if (!$this->account) {
             $this->delete();
         }
 

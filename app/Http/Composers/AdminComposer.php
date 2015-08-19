@@ -2,6 +2,7 @@
 
 namespace App\Http\Composers;
 
+use App\Repositories\AccountRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
@@ -27,15 +28,15 @@ class AdminComposer
      *
      * @var App\Services\Account;
      */
-    private $accountService;
+    private $accountRepository;
 
     public function __construct(
         Request $request,
-        Account $accountService
+        AccountRepository $accountRepository
     ) {
         $this->request = $request;
 
-        $this->accountService = $accountService;
+        $this->accountRepository = $accountRepository;
     }
 
     /**
@@ -53,9 +54,9 @@ class AdminComposer
 
         $global->menus = $menus;
 
-        $global->current_account = account()->getCurrent();
+        $global->current_account = app('Viease\Account');
 
-        $global->accounts = $this->accountService->getLists();
+        $global->accounts = $this->accountRepository->lists(99);
 
         $view->with('global', $global);
     }

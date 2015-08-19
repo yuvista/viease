@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\BaseRepository;
 use App\Models\Material;
 
 class MaterialRepository

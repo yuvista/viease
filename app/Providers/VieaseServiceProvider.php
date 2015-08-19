@@ -14,7 +14,6 @@ class VieaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 
     /**
@@ -22,11 +21,14 @@ class VieaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Viease\Account', function () {
-            $model = new AccountModel();
-            $repositorie = new AccountRepository($model);
+        $this->app->singleton('Viease\AccountService', function () {
+            return new Account();
+        });
 
-            return new Account($repositorie);
+        $this->app->singleton('Viease\Account', function () {
+            $repositorie = new AccountRepository(new AccountModel());
+
+            return $repositorie->getById(app('Viease\AccountService')->chosedId());
         });
     }
 }

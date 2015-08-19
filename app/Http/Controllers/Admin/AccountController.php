@@ -59,9 +59,9 @@ class AccountController extends Controller
      */
     public function getManage()
     {
-        $current = account()->getCurrent();
+        $account = $this->account();
 
-        return admin_view('account.manage', compact('current'));
+        return admin_view('account.manage', compact('account'));
     }
 
     /**

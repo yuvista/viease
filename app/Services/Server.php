@@ -47,7 +47,7 @@ class Server
      *
      * @return Response
      */
-    public function build($account)
+    public function make($account)
     {
         $appId = $account->app_id;
 

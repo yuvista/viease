@@ -32,20 +32,11 @@ class MaterialController extends Controller
     private $materialRepository;
 
     /**
-     * accountId.
-     *
-     * @var int
-     */
-    private $accountId;
-
-    /**
      * construct.
      */
     public function __construct(MaterialRepository $materialRepository)
     {
         $this->materialRepository = $materialRepository;
-
-        $this->accountId = account()->getCurrent()->id;
     }
 
     /**
@@ -65,7 +56,7 @@ class MaterialController extends Controller
     {
         $pageSize = $request->get('page_size', $this->pageSize);
 
-        return $this->materialRepository->getList($this->accountId, $request->get('type'), $pageSize);
+        return $this->materialRepository->getList($this->account()->id, $request->get('type'), $pageSize);
     }
 
     /**
@@ -92,10 +83,10 @@ class MaterialController extends Controller
     public function getSummary()
     {
         return [
-            'image' => $this->materialRepository->countImage($this->accountId),
-            'video' => $this->materialRepository->countVoide($this->accountId),
-            'voice' => $this->materialRepository->countVoice($this->accountId),
-            'article' => $this->materialRepository->countArticle($this->accountId),
+            'image' => $this->materialRepository->countImage($this->account()->id),
+            'video' => $this->materialRepository->countVoide($this->account()->id),
+            'voice' => $this->materialRepository->countVoice($this->account()->id),
+            'article' => $this->materialRepository->countArticle($this->account()->id),
         ];
     }
 
@@ -126,7 +117,7 @@ class MaterialController extends Controller
      */
     public function postVoice(voiceRequest $request)
     {
-        return $this->materialRepository->storeVoice($this->accountId, $request);
+        return $this->materialRepository->storeVoice($this->account()->id, $request);
     }
 
     /**
@@ -136,6 +127,6 @@ class MaterialController extends Controller
      */
     public function postVideo(VideoRequest $request)
     {
-        return $this->materialRepository->storeVideo($this->accountId, $request);
+        return $this->materialRepository->storeVideo($this->account()->id, $request);
     }
 }
