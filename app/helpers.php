@@ -27,7 +27,7 @@ function admin_view($name)
  */
 function account()
 {
-    return app('Viease\AccountService');
+    return app('viease.account_service');
 }
 
 function make_api_url($tag)

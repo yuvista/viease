@@ -54,7 +54,7 @@ class AdminComposer
 
         $global->menus = $menus;
 
-        $global->current_account = app('Viease\Account');
+        $global->current_account = app('viease.current_account');
 
         $global->accounts = $this->accountRepository->lists(99);
 

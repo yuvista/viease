@@ -38,7 +38,7 @@ class VieaseServiceProvider extends ServiceProvider
      *
      * @return AccountService
      */
-    protected function redisterAccountService()
+    protected function registerAccountService()
     {
         $this->app->singleton('viease.account_service', function () {
             return new AccountService();
@@ -52,7 +52,7 @@ class VieaseServiceProvider extends ServiceProvider
      */
     protected function registerCurrentAccount()
     {
-        $this->app->singleton('viease.account', function () {
+        $this->app->singleton('viease.current_account', function () {
             $repositorie = new AccountRepository(new AccountModel());
 
             return $repositorie->getById(app('viease.account_service')->chosedId());

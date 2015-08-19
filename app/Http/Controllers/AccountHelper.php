@@ -11,6 +11,6 @@ trait AccountHelper
      */
     public function account()
     {
-        return app('Viease\Account');
+        return app('viease.current_account');
     }
 }
