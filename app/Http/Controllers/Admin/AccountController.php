@@ -85,11 +85,7 @@ class AccountController extends Controller
     {
         $this->accountRepository->store($request);
 
-<<<<<<< HEAD
-        return redirect(admin_url('account'))->withMessage('修改成功！');
-=======
         return redirect(admin_url('account'))->withMessage('创建成功！');
->>>>>>> 55ccd1d7cd78fd772281633fac41545c1c14ac1f
     }
 
     /**

@@ -47,10 +47,6 @@ class AccountObserver
         //同步图文
         Queue::push(new SyncNewsMaterial($account));
         //同步菜单
-<<<<<<< HEAD
         //Queue::push(new SyncMenus($account));
-=======
-        Queue::push(new SyncMenus($account));
->>>>>>> 55ccd1d7cd78fd772281633fac41545c1c14ac1f
     }
 }
