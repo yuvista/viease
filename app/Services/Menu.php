@@ -467,11 +467,7 @@ class Menu
      * @param AccountModel $account
      * @param array        $menus 菜单
      */
-<<<<<<< HEAD
-    public function saveToRemote($account, $menus)
-=======
     public function saveToRemote(AccountModel $account, $menus)
->>>>>>> 55ccd1d7cd78fd772281633fac41545c1c14ac1f
     {
         $wechatMenu = new WechatMenu($account->app_id, $account->app_secret);
 
