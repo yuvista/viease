@@ -31,6 +31,13 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
                 $form.find('[name='+$attribute+']').val($attributes[$attribute]);
             }
 
+            if ($attributes['content']) {
+                $ue.addListener("ready", function () {
+                    // editor准备好之后才可以使用
+                    $ue.setContent($attributes['content']);
+                });
+            };
+
             previewItem($attributes);
         }
 
@@ -46,12 +53,14 @@ define(['jquery', 'uploader', 'util', 'repos/article-store', 'admin/common'], fu
             var $id = $('.article-preview-item.active').prop('id');
             var $attributes = Util.parseForm($($form));
 
+            $attributes.content = $ue.getContent();
             Article.put($id, $attributes);
 
             previewItem($attributes);
         }
 
         $form.on('keyup', saveForm);
+        $ue.addListener('keyup', saveForm);
 
         // 添加项目
         $('.articles-preview-container').on('click', '.add-new-item', function(){

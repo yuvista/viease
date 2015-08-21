@@ -13,9 +13,50 @@ define(['jquery', 'util'], function($, Util){
      * @type {Object}
      */
     var $autoReply = {
-        getRules: function(){
-            //TODO
-        }
+        /**
+         * 列出规则列表
+         *
+         * @param {Function} $callback
+         * @param {Int}      $page
+         */
+        getRules: function($callback, $page){
+            var $request = {
+                page: $page || window.__page + 1 || 1
+            };
+
+            Util.request('GET', 'reply/lists', $request, $callback);
+        },
+
+        /**
+         * 创建规则
+         *
+         * @param {Object}   $request
+         * @param {Function} $callback
+         */
+        create: function ($request, $callback) {
+            Util.request('POST', 'reply/store', $request, $callback);
+        },
+
+        /**
+         * 更新规则
+         *
+         * @param {Int}      $id
+         * @param {Object}   $request
+         * @param {Function} $callback
+         */
+        update: function ($id, $request, $callback) {
+            Util.request('POST', 'reply/update/'+$id, $request, $callback);
+        },
+
+        /**
+         * 删除规则
+         *
+         * @param {Int}      $id
+         * @param {Function} $callback
+         */
+        delete: function ($id, $callback) {
+            Util.request('DELETE', 'reply/delete/'+$id, $request, $callback);
+        },
     };
 
     return $autoReply;
