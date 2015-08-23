@@ -49,9 +49,7 @@ class MenuController extends Controller
     {
         $menus = $this->menuRepository->lists($this->account()->id)->toArray();
 
-        var_dump($menus);die();
-
-        return $this->menuRepository->withMaterial($menus);
+        return $this->menuRepository->withMaterials($menus);
     }
 
     /**
@@ -63,10 +61,7 @@ class MenuController extends Controller
     {
         $accountId = $this->account()->id;
 
-        $this->menuRepository->init($accountId);
-
-        //清空原来菜单
-        $this->menuRepository->destroyOldMenu($accountId);
+        $this->menuRepository->destroyMenu($accountId);
 
         $menus = $this->menuRepository->parseMenus($accountId, $request->get('menus'));
 

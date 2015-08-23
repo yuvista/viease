@@ -18,13 +18,36 @@ class MenuRepository
      */
     protected $model;
 
+    /**
+     * eventRepository
+     *
+     * @var EventRepository
+     */
     protected $eventRepository;
 
-    public function __construct(Menu $menu, EventRepository $eventRepository)
+    /**
+     * materialRepository
+     *
+     * @var MaterialRepository
+     */
+    protected $materialRepository;
+
+    /**
+     * construct
+     *
+     * @param Menu               $menu               模型
+     * @param EventRepository    $eventRepository    事件Repository
+     * @param MaterialRepository $materialRepository 素材Repository
+     */
+    public function __construct(Menu $menu, 
+        EventRepository $eventRepository, 
+        MaterialRepository $materialRepository)
     {
         $this->model = $menu;
 
         $this->eventRepository = $eventRepository;
+
+        $this->materialRepository = $materialRepository;
     }
 
     /**
@@ -127,15 +150,22 @@ class MenuRepository
     }
 
     /**
-     * 处理需要返回的菜单.
+     * 获取菜单中的素材具体信息.
      *
      * @param array $menus 菜单列表
      *
      * @return array
      */
-    public function withMaterial($menus)
+    public function withMaterials($menus)
     {
-        
+        return array_map(function ($menu) {
+
+            $mediaId = $this->eventRepository->getEventByKey($menu['key'])->value;
+
+            $menu['material'] = $this->materialRepository->getMaterialByMediaId($mediaId);
+
+            return $menu;
+        }, $menus);
     }
 
     /**
@@ -143,7 +173,7 @@ class MenuRepository
      *
      * @param int $accountId 公众号id
      */
-    public function destroyOldMenu($accountId)
+    public function destroyMenu($accountId)
     {
         $menus = $this->all($accountId);
 
@@ -155,18 +185,9 @@ class MenuRepository
 
         }, $menus);
 
-        $this->distoryMenuByAccountId($accountId);
+        $this->model->where('account_id', $accountId)->delete();
     }
 
-    /**
-     * 根据公众号Id删除菜单.
-     *
-     * @param int $accountId accountId
-     */
-    public function distoryMenuByAccountId($accountId)
-    {
-        return $this->model->where('account_id', $accountId)->delete();
-    }
 
     /**
      * 保存菜单.
@@ -192,10 +213,5 @@ class MenuRepository
         $menu->save();
 
         return $menu;
-    }
-
-    public function init($accountId)
-    {
-
     }
 }
