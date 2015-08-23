@@ -29,11 +29,13 @@ function ($, _, Util, WeChatEditor, MediaPicker, Material) {
         this.container = $($container);
         this.tabs = $tabs;
         this.current = this.options.current;
-
         this.init();
 
+        var $type = (this.options.current && typeof this.options.current['type'] != undefined) ? this.options.current['type'] : 'text';
+
+        this.container.find('.tab-link[data-type='+ $type +']').trigger('click');
+
         if (this.current) {
-            this.container.find('.tab-link[data-type='+ this.current.type +']').trigger('click');
             this.getCurrentTab().data(this.current);
             this.saveForm(this.current);
         };
@@ -255,10 +257,13 @@ function ($, _, Util, WeChatEditor, MediaPicker, Material) {
         $('.tab-pane.active .response-picker-form-btn').addClass('btn-success').removeClass('btn-default').text('保存');
     }
 
-    ResponsePicker.prototype.saveForm = function () {
+    ResponsePicker.prototype.saveForm = function ($temp) {
         var $tab = this.getCurrentTab();
-        var $data = $tab.data('form');
+        var $data = $temp || $tab.data('form');
+
         var $resultContainer = $tab.find('.result-container');
+
+        if (!$data || typeof $data.type == undefined) { return error('请选择内容'); };
 
         switch($data.type){
             case 'text':

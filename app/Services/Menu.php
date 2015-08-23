@@ -14,11 +14,11 @@ class Menu
     /**
      * 取得远程公众号的菜单.
      *
-     * @param App\Models\Account $account
+     * @param App\Models\AccountModel $account
      *
      * @return array 菜单信息
      */
-    private function getFromRemote(Account $account)
+    private function getFromRemote(AccountModel $account)
     {
         return with(new WechatMenu($account->app_id, $account->app_secret))->current();
     }
@@ -26,11 +26,11 @@ class Menu
     /**
      * 同步远程菜单到本地数据库.
      *
-     * @param App\Models\Account $account 公众号
+     * @param App\Models\AccountModel $account 公众号
      *
      * @return Response
      */
-    public function syncToLocal(Account $account)
+    public function syncToLocal(AccountModel $account)
     {
         $remoteMenus = $this->getFromRemote($account);
 
@@ -112,11 +112,12 @@ class Menu
     /**
      * 解析文字类型的菜单 [转换为事件].
      *
-     * @param array $menu 菜单
+     * @param App\Models\AccountModel $account
+     * @param array                   $menu
      *
      * @return array
      */
-    private function resolveTextMenu($account, $menu)
+    private function resolveTextMenu(AccountModel $account, $menu)
     {
         $menu['type'] = 'click';
 
