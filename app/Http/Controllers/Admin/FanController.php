@@ -94,6 +94,6 @@ class FanController extends Controller
      */
     private function getAccount()
     {
-        return account()->getCurrent();
+        return $this->account();
     }
 }

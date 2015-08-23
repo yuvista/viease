@@ -60,7 +60,7 @@ class MaterialController extends Controller
     }
 
     /**
-     * 获取素材
+     * 获取素材.
      *
      * @param Request $request request
      *

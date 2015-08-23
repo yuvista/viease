@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+    protected $hidden = ['created_at', 'deleted_at' , 'updated_at'];
+
     /**
      * 字段白名单.
      *

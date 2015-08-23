@@ -23,22 +23,13 @@ class MenuController extends Controller
     private $menuRepository;
 
     /**
-     * menu 服务
-     *
-     * @var App\Services\Menu
-     */
-    private $menuService;
-
-    /**
      * construct.
      *
      * @param MenuRepository $menu
      */
-    public function __construct(MenuRepository $menuRepository, MenuService $menuService)
+    public function __construct(MenuRepository $menuRepository)
     {
         $this->menuRepository = $menuRepository;
-
-        $this->menuService = $menuService;
     }
 
     /**
@@ -56,9 +47,11 @@ class MenuController extends Controller
      */
     public function getLists()
     {
-        $menuList = $this->menuRepository->lists($this->account()->id);
+        $menus = $this->menuRepository->lists($this->account()->id)->toArray();
 
-        return $this->menuRepository->resolveMenuList($menuList);
+        var_dump($menus);die();
+
+        return $this->menuRepository->withMaterial($menus);
     }
 
     /**
@@ -70,13 +63,14 @@ class MenuController extends Controller
     {
         $accountId = $this->account()->id;
 
+        $this->menuRepository->init($accountId);
+
+        //清空原来菜单
         $this->menuRepository->destroyOldMenu($accountId);
 
-        $menus = $this->menuService->parseMenus($accountId, $request->get('menus'));
+        $menus = $this->menuRepository->parseMenus($accountId, $request->get('menus'));
 
         $this->menuRepository->storeMulti($accountId, $menus);
-
-        //$this->menuService->saveToRemote($accountId, $menus);
 
         return response()->json(['status' => true]);
     }

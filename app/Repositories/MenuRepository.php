@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\EventRepository;
 use App\Models\Menu;
 
 /**
@@ -77,15 +76,66 @@ class MenuRepository
     }
 
     /**
-     * 处理需要返回的菜单
+     * 解析菜单数据.
      *
-     * @param  array $menus 菜单
+     * @param int   $accountId 公众号ID
+     * @param array $menus     menus
      *
      * @return array
      */
-    public function resolveMenuList($menus)
+    public function parseMenus($accountId, $menus)
     {
-        var_dump($menus->toArray());die();
+        $menus = array_map(function ($menu) use ($accountId) {
+            if (isset($menu['sub_button'])) {
+                $menu['sub_button'] = $this->parseMenus($accountId, $menu['sub_button']);
+            } else {
+                $menu = $this->makeMenuEvent($accountId, $menu);
+            }
+
+            return $menu;
+
+        }, $menus);
+
+        return $menus;
+    }
+
+    /**
+     * 生成菜单中的事件.
+     *
+     * @param int   $accountId 公众号Id
+     * @param array $menu      menu
+     *
+     * @return array
+     */
+    private function makeMenuEvent($accountId, $menu)
+    {
+        if ($menu['type'] == 'text') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventRepository->storeTextEvent($accountId, $menu['value']);
+        } elseif ($menu['type'] == 'media') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventRepository->storeMaterialEvent($accountId, $menu['value']);
+        } elseif ($menu['type'] == 'view') {
+            $menu['key'] = $menu['value'];
+        } else {
+            $menu['key'] = $menu['value'];
+        }
+
+        unset($menu['value']);
+
+        return $menu;
+    }
+
+    /**
+     * 处理需要返回的菜单.
+     *
+     * @param array $menus 菜单列表
+     *
+     * @return array
+     */
+    public function withMaterial($menus)
+    {
+        
     }
 
     /**
@@ -142,5 +192,10 @@ class MenuRepository
         $menu->save();
 
         return $menu;
+    }
+
+    public function init($accountId)
+    {
+
     }
 }

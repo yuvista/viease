@@ -48,7 +48,6 @@ class ReplyController extends Controller
         $this->replyService = $replyService;
 
         $this->replyRepository = $replyRepository;
-
     }
 
     /**

@@ -54,13 +54,13 @@ class EventRepository
 
     /**
      * 存储一个文字回复类型事件.
-     *
+     * 
+     * @param int    $accountId 公众号id
      * @param string $text      回复内容
-     * @param int    $accountId
      *
      * @return string key
      */
-    public function storeText($text, $accountId)
+    public function storeTextEvent($accountId, $text)
     {
         $model = new $this->model();
 
@@ -82,7 +82,7 @@ class EventRepository
      * @param string $text      文字回复内容
      * @param int    $accountId accountID
      */
-    public function updateToText($eventId, $text)
+    public function updateTextEvent($eventId, $text)
     {
         $model = $this->getEventByKey($eventId);
 
@@ -100,7 +100,7 @@ class EventRepository
      * @param string $mediaId   mediaId
      * @param int    $accountId accountId
      */
-    public function updateToMaterial($eventId, $mediaId)
+    public function updateMaterialEvent($eventId, $mediaId)
     {
         $model = $this->getEventByKey($eventId);
 
@@ -114,12 +114,12 @@ class EventRepository
     /**
      * 存储一个素材回复类型的事件.
      *
-     * @param string $mediaId   素材id
      * @param int    $accountId accountId
+     * @param string $mediaId   素材id
      *
      * @return string mediaId
      */
-    public function storeMaterial($mediaId, $accountId)
+    public function storeMaterialEvent($accountId, $mediaId)
     {
         $model = new $this->model();
 
@@ -132,5 +132,27 @@ class EventRepository
         $model->save();
 
         return $model->key;
+    }
+
+    /**
+     * 是否属于自己的事件.
+     *
+     * @param string $name name
+     *
+     * @return bool
+     */
+    public function isOwnEvent($name)
+    {
+        return starts_with($name, 'V_EVENT_');
+    }
+
+    /**
+     * 创建key名称.
+     *
+     * @return string
+     */
+    public function makeEventKey()
+    {
+        return 'V_EVENT_'.strtoupper(uniqid());
     }
 }
