@@ -6,6 +6,9 @@ define(['jquery', 'underscore', 'util', 'admin/response-picker', 'repos/auto-rep
         console.log($resp);
     });
 
+    new ResponsePicker('.subscribe-response-container');
+    new ResponsePicker('.default-response-container');
+
     $(document).on('click', '.btn.add-new', function(){
         if ($('.rule-container .form-create').length) {return;};
         $('.rule-container').prepend($form);

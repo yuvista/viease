@@ -4,29 +4,47 @@
     <div class="page-header">
         <h2 id="nav">自动回复 <button class="btn btn-success btn-sm add-new">添加规则</button></h2>
     </div>
-    <div class="well rule-container">
-        <div class="panel panel-default rule-item" data-id="2" data-name="abd" data-trigger-type="contain" data-trigger-keywords="sss" data-text="ssss" data-url="">
-            <div class="panel-heading">规则1 <div class="pull-right"><a href="javascript:;" class="edit-rule"><i class="ion-ios-compose-outline icon-md"></i></a> <a href="javascript:;" class="delete-rule"><i class="ion-ios-trash-outline icon-md"></i></a></div></div>
-            <div class="panel-body">
-                <div class="keywords">关键词：股票</div>
-                <div class="replys">回复：xxxx</div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">规则1</div>
-            <div class="panel-body">
-                <div class="keywords">关键词：股票</div>
-                <div class="replys">回复：xxxx</div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">规则1</div>
-            <div class="panel-body">
-                <div class="keywords">关键词：股票</div>
-                <div class="replys">回复：xxxx</div>
-            </div>
-        </div>
 
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#keyword-reply" aria-controls="keyword-reply" role="tab" data-toggle="tab">关键词自动回复</a></li>
+      <li role="presentation"><a href="#subscribe-reply" aria-controls="subscribe-reply" role="tab" data-toggle="tab">被关注时回复</a></li>
+      <li role="presentation"><a href="#default-reply" aria-controls="default-reply" role="tab" data-toggle="tab">无匹配时回复</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content well">
+      <div role="tabpanel" class="tab-pane active" id="keyword-reply">
+        <div class="rule-container">
+          <div class="panel panel-default rule-item" data-id="2" data-name="abd" data-trigger-type="contain" data-trigger-keywords="sss" data-text="ssss" data-url="">
+              <div class="panel-heading">规则1 <div class="pull-right"><a href="javascript:;" class="edit-rule"><i class="ion-ios-compose-outline icon-md"></i></a> <a href="javascript:;" class="delete-rule"><i class="ion-ios-trash-outline icon-md"></i></a></div></div>
+              <div class="panel-body">
+                  <div class="keywords">关键词：股票</div>
+                  <div class="replys">回复：xxxx</div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">规则1</div>
+              <div class="panel-body">
+                  <div class="keywords">关键词：股票</div>
+                  <div class="replys">回复：xxxx</div>
+              </div>
+          </div>
+          <div class="panel panel-default">
+              <div class="panel-heading">规则1</div>
+              <div class="panel-body">
+                  <div class="keywords">关键词：股票</div>
+                  <div class="replys">回复：xxxx</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="subscribe-reply">
+        <div class="subscribe-response-container"></div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="default-reply">
+        <div class="default-response-container"></div>
+      </div>
+    </div>
     <!--样例使用完后删除-->
     <a href="javascript:;" id="list">获取列表</a>
     <a href="javascript:;" id="tester">保存测试</a>

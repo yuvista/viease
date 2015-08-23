@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'admin/media-picker', 'admin/response-picker', 'admin/common'], function ($, Menu, MenuRepo, WeChatEditor, Util, MediaPicker, ResponsePicker) {
+define(['jquery', 'repos/menu-store', 'repos/menu', 'WeChatEditor', 'util', 'admin/response-picker', 'admin/common'], function ($, Menu, MenuRepo, WeChatEditor, Util, ResponsePicker) {
     $(function(){
         // 菜单列表
         var $menusListContainer     = $('.menus');

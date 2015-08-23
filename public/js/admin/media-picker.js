@@ -7,6 +7,8 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
     };
 
     function MediaPicker ($element, $options) {
+        if (!($element instanceof $)) {return console.log('element mustbe instanceof jQuery.');};
+
         if (!(this instanceof MediaPicker)) return new MediaPicker($element, $options);
 
         this.options = $options || {};
@@ -18,7 +20,8 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
         }
 
         this.element = $element;
-        this.pickerId = 'meida-'+this.options.type+'-picker';
+        this.pickerId = 'media-'+this.options.type+'-picker-'+(new Date).getTime();
+        this.selector = '#' + this.pickerId;
 
         this.init();
     }
@@ -37,9 +40,13 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
      */
     MediaPicker.prototype.createModal = function () {
         var $size = '';
+
         if (this.options.type == 'image' || this.options.type == 'video') {
             $size = 'modal-lg';
         }
+
+        console.log($(this.selector).lentgh);
+        if ($(this.selector).lentgh) {return;};
 
         $('body').append('<div class="modal" id="'+this.pickerId+'">'
                             + '<div class="modal-dialog '+$size+'">'
@@ -58,7 +65,7 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
                                 + '</div>'
                             + '</div>'
                         + '</div>');
-        $('#'+this.pickerId).modal('hide');
+        $(this.selector).modal('hide');
     }
 
 
@@ -68,25 +75,25 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
     MediaPicker.prototype.addListener = function () {
         var picker = this;
 
-        $(document).on('click', this.element, function(){
+        $(this.element).on('click', function(){
             event.preventDefault();
             picker.load(picker.options.type, 1, function(){
-                $('#'+picker.pickerId).modal('show');
+                $(picker.selector).modal('show');
             });
         });
 
-        $(document).on('click', '#' + picker.pickerId + ' .media-item', function(){
+        $(this.selector).on('click', '.media-item', function(){
             event.preventDefault();
             $(this).addClass('selected').siblings().removeClass('selected');
         });
 
-        $(document).on('click', '#' + picker.pickerId + ' .pick-media-confirm-btn', function(){
+        $(this.selector).on('click', '.pick-media-confirm-btn', function(){
             event.preventDefault();
-            var $selected = $('.media-item.selected').data();
+            var $selected = $(picker.selector).find('.media-item.selected').data();
 
             picker.options.onSelected($selected);
 
-            $('#'+picker.pickerId).modal('hide');
+            $(picker.selector).modal('hide');
         });
     }
 
@@ -95,7 +102,7 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
      */
     MediaPicker.prototype.createPager = function () {
         var picker = this;
-        this.pager = new Pager('#'+this.pickerId + ' .pagination-bar', {
+        this.pager = new Pager(this.selector + ' .pagination-bar', {
                                 classes: 'border-top',
                                 onChange: function($page){
                                     picker.load(picker.options.type, $page);
@@ -118,7 +125,7 @@ define(['jquery', 'underscore', 'repos/material', 'pager', 'util', 'admin/common
 
         Material.lists($request, function($items){
             var $template = picker.getTemplate($type);
-            var $rootContainer = $('#'+picker.pickerId).find('.modal-body');
+            var $rootContainer = $(picker.selector).find('.modal-body');
             var $container = $(picker.getContainer($type));
 
             $rootContainer.html($container);
