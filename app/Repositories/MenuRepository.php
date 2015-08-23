@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Repositories\EventRepository;
 use App\Models\Menu;
 
 /**
@@ -19,13 +18,36 @@ class MenuRepository
      */
     protected $model;
 
+    /**
+     * eventRepository
+     *
+     * @var EventRepository
+     */
     protected $eventRepository;
 
-    public function __construct(Menu $menu, EventRepository $eventRepository)
+    /**
+     * materialRepository
+     *
+     * @var MaterialRepository
+     */
+    protected $materialRepository;
+
+    /**
+     * construct
+     *
+     * @param Menu               $menu               模型
+     * @param EventRepository    $eventRepository    事件Repository
+     * @param MaterialRepository $materialRepository 素材Repository
+     */
+    public function __construct(Menu $menu, 
+        EventRepository $eventRepository, 
+        MaterialRepository $materialRepository)
     {
         $this->model = $menu;
 
         $this->eventRepository = $eventRepository;
+
+        $this->materialRepository = $materialRepository;
     }
 
     /**
@@ -77,15 +99,73 @@ class MenuRepository
     }
 
     /**
-     * 处理需要返回的菜单
+     * 解析菜单数据.
      *
-     * @param  array $menus 菜单
+     * @param int   $accountId 公众号ID
+     * @param array $menus     menus
      *
      * @return array
      */
-    public function resolveMenuList($menus)
+    public function parseMenus($accountId, $menus)
     {
-        var_dump($menus->toArray());die();
+        $menus = array_map(function ($menu) use ($accountId) {
+            if (isset($menu['sub_button'])) {
+                $menu['sub_button'] = $this->parseMenus($accountId, $menu['sub_button']);
+            } else {
+                $menu = $this->makeMenuEvent($accountId, $menu);
+            }
+
+            return $menu;
+
+        }, $menus);
+
+        return $menus;
+    }
+
+    /**
+     * 生成菜单中的事件.
+     *
+     * @param int   $accountId 公众号Id
+     * @param array $menu      menu
+     *
+     * @return array
+     */
+    private function makeMenuEvent($accountId, $menu)
+    {
+        if ($menu['type'] == 'text') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventRepository->storeTextEvent($accountId, $menu['value']);
+        } elseif ($menu['type'] == 'media') {
+            $menu['type'] = 'click';
+            $menu['key'] = $this->eventRepository->storeMaterialEvent($accountId, $menu['value']);
+        } elseif ($menu['type'] == 'view') {
+            $menu['key'] = $menu['value'];
+        } else {
+            $menu['key'] = $menu['value'];
+        }
+
+        unset($menu['value']);
+
+        return $menu;
+    }
+
+    /**
+     * 获取菜单中的素材具体信息.
+     *
+     * @param array $menus 菜单列表
+     *
+     * @return array
+     */
+    public function withMaterials($menus)
+    {
+        return array_map(function ($menu) {
+
+            $mediaId = $this->eventRepository->getEventByKey($menu['key'])->value;
+
+            $menu['material'] = $this->materialRepository->getMaterialByMediaId($mediaId);
+
+            return $menu;
+        }, $menus);
     }
 
     /**
@@ -93,7 +173,7 @@ class MenuRepository
      *
      * @param int $accountId 公众号id
      */
-    public function destroyOldMenu($accountId)
+    public function destroyMenu($accountId)
     {
         $menus = $this->all($accountId);
 
@@ -105,18 +185,9 @@ class MenuRepository
 
         }, $menus);
 
-        $this->distoryMenuByAccountId($accountId);
+        $this->model->where('account_id', $accountId)->delete();
     }
 
-    /**
-     * 根据公众号Id删除菜单.
-     *
-     * @param int $accountId accountId
-     */
-    public function distoryMenuByAccountId($accountId)
-    {
-        return $this->model->where('account_id', $accountId)->delete();
-    }
 
     /**
      * 保存菜单.

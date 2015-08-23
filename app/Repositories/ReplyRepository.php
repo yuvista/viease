@@ -191,7 +191,7 @@ class ReplyRepository
     /**
      * 更新一个自动回复中的事件.
      *
-     * @param string $eventKey   eventKey
+     * @param string $eventKey  eventKey
      * @param string $replyType 回复类型
      * @param string $content   回复内容
      */

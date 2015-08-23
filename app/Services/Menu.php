@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use Overtrue\Wechat\MenuItem;
-use App\Models\Account as AccountModel;
-use App\Models\Material;
 
 /**
  * 菜单服务提供类.
@@ -36,9 +34,9 @@ class Menu
     {
         $remoteMenus = $this->getFromRemote($account);
 
-        $menus = $this->localize($remoteMenus);
+        $menus = $this->makeLocalize($remoteMenus);
 
-        return $this->saveToLocal($account, $menus);
+        return $this->saveToLocal($account->id, $menus);
     }
 
     /**
@@ -48,7 +46,7 @@ class Menu
      *
      * @return array 处理后的菜单
      */
-    private function localize($menus)
+    private function makeLocalize($menus)
     {
         $menus = $menus['selfmenu_info']['button'];
 
@@ -97,30 +95,6 @@ class Menu
         }
 
         return $menu;
-    }
-
-    /**
-     * 分析菜单数据.
-     *
-     * @param int   $accountId 公众号ID
-     * @param array $menus     menus
-     *
-     * @return array
-     */
-    public function parseMenus($accountId, $menus)
-    {
-        $menus = array_map(function ($menu) use($accountId) {
-            if (isset($menu['sub_button'])) {
-                $menu['sub_button'] = $this->analyseMenu($accountId, $menu['sub_button']);
-            } else {
-                $menu = $this->makeMenuEvent($accountId, $menu);
-            }
-
-            return $menu;
-
-        }, $menus);
-
-        return $menus;
     }
 
     /**
@@ -352,7 +326,7 @@ class Menu
      */
     private function resolveViewLimitedMenu($menu)
     {
-        return false; //暂时关闭这个功能 todo
+        return false; //暂时关闭这个功能 
 
         $menu['type'] = 'view';
 
@@ -370,38 +344,10 @@ class Menu
     }
 
     /**
-     * 生成菜单中的事件.
-     *
-     * @param int $accountId 公众号Id
-     * @param array $menu menu
-     *
-     * @return array
-     */
-    private function makeMenuEvent($accountId, $menu)
-    {
-        if ($menu['type'] == 'text') {
-            $menu['type'] = 'click';
-            $menu['key'] = $this->eventService->makeText($accountId, $menu['value']);
-        } elseif ($menu['type'] == 'media') {
-            $menu['type'] = 'click';
-            $menu['key'] = $this->eventService->makeMediaId($accountId, $menu['value']);
-        } elseif ($menu['type'] == 'view') {
-            $menu['key'] = $menu['value'];
-        } else {
-            $menu['key'] = $menu['value'];
-        }
-
-        unset($menu['value']);
-
-        return $menu;
-    }
-
-
-    /**
      * 提交菜单到微信
      *
      * @param AccountModel $account
-     * @param array        $menus 菜单
+     * @param array        $menus   菜单
      */
     public function saveToRemote($account, $menus)
     {

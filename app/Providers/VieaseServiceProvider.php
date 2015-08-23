@@ -9,7 +9,6 @@ use App\Models\Account as AccountModel;
 use App\Services\Reply as ReplyService;
 use App\Services\Menu as MenuService;
 
-
 class VieaseServiceProvider extends ServiceProvider
 {
     /**
@@ -34,7 +33,7 @@ class VieaseServiceProvider extends ServiceProvider
     }
 
     /**
-     * 注册公众号服务单例
+     * 注册公众号服务单例.
      *
      * @return AccountService
      */
@@ -46,9 +45,9 @@ class VieaseServiceProvider extends ServiceProvider
     }
 
     /**
-     * 注册当前公众号单例
+     * 注册当前公众号单例.
      *
-     * @return  Account
+     * @return Account
      */
     protected function registerCurrentAccount()
     {
@@ -60,14 +59,14 @@ class VieaseServiceProvider extends ServiceProvider
     }
 
     /**
-     * 注册菜单服务单例
+     * 注册菜单服务单例.
      *
      * @return MenuService
      */
     protected function registerMenuService()
     {
-        $this->app->singleton('viease.menu_service', function() {
-            return new MenuService;
+        $this->app->singleton('viease.menu_service', function () {
+            return new MenuService();
         });
     }
 
@@ -78,8 +77,8 @@ class VieaseServiceProvider extends ServiceProvider
      */
     protected function registerReplyService()
     {
-        $this->app->singleton('viease.reply_service', function() {
-            return new ReplyService;
+        $this->app->singleton('viease.reply_service', function () {
+            return new ReplyService();
         });
     }
 }
