@@ -4,7 +4,6 @@ storage/logs/laravel.log
 composer.lock
 .env
 .DS_Store
-public/.htaccess
 */node_modules
 /node_modules
 Homestead.yaml
