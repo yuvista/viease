@@ -11,3 +11,4 @@ Homestead.yaml
 */.sass-cache
 sftp-config.json
 .idea
+/vendor/
