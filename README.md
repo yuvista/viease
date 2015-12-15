@@ -22,7 +22,7 @@ Viease platform
  $ php artisan key:generate
  ```
 
-以及修改 `.env` 内对应的项目
+ 以及修改 `.env` 内对应的项目
 
 3. 配置 nginx 虚拟主机
 
