@@ -78,7 +78,7 @@
 5. 访问后台： `yourdomain.com/admin`
 
  ```
- email: admin@viease.com
+ email: admin
  password: viease
  ```
 
