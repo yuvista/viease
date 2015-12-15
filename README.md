@@ -1,6 +1,6 @@
 # [Viease](http://viease.cn/)
 
-微易，一款微信公众平台管理系统。http://viease.cn/
+微易，一款基于 [overtrue/wechat](https://github.com/overtrue/wechat) 开发的微信公众平台管理系统框架。http://viease.cn/
 
 # 安装
 
