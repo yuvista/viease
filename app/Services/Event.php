@@ -36,7 +36,7 @@ class Event
         MaterialService $materialService
     ) {
         $this->eventRepository = $eventRepository;
-        
+
         $this->materialService = $materialService;
     }
 
@@ -88,8 +88,6 @@ class Event
     public function makeMediaId($materialId)
     {
         $mediaId = $this->materialService->localizeInterimMaterialId($materialId);
-        //获取存储得到自己的id
-        $mediaId = 'EVENT_XXXXXXXX_TEST';
 
         return $this->eventRepository->storeMaterial($mediaId);
     }
