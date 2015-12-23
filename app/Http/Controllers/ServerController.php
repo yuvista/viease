@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\Server;
+use App\Repositories\AccountRepository;
 
-//测试
 
 /**
  * 微信服务通讯.
@@ -34,9 +34,9 @@ class ServerController extends Controller
      *
      * @return Response
      */
-    public function server(Request $request)
+    public function server(Request $request, AccountRepository $repository)
     {
-        $account = account()->getAccountByTag($request->t);
+        $account = $repository->getByTag($request->t);
 
         if (!$account) {
             return;
