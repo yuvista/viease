@@ -20,7 +20,7 @@ requirejs.config({
         underscore: 'underscore-min',
         fastclick: 'fastclick.min',
         relocator: 'relocator-1.0.1.min',
-        store: 'store+json2.min',
+        store: 'store-json2.min',
         validator: 'plugins/validator.js/index',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',
         selectpicker: 'plugins/bootstrap-select/dist/js/bootstrap-select.min',
