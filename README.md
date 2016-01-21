@@ -1,6 +1,6 @@
 # [Viease](http://viease.cn/)
 
-微易，一款基于 [overtrue/wechat](https://github.com/overtrue/wechat) 开发的微信公众平台管理系统框架。http://viease.cn/
+微易，一款基于 [Laravel](http://laravel.com) 开发的，使用 [overtrue/wechat](https://github.com/overtrue/wechat) SDK 做为微信接入的微信公众平台管理系统框架。http://viease.cn/
 
 # 安装
 
@@ -94,7 +94,10 @@
 完事。
 
 # 说明
-本项目后台部分功能未完成，我们期望有时间的朋友可以补充完成后提交，谢谢！QQ群：319502940
+
+1. 你完全有必要会用 [Laravel](http://laravel.com)，否则提一些关于基本框架使用的问题很有可能没有人回答。
+1. 不要太过自信，上面的步骤你完全有必要照着做，除非你完全能掌控它。
+1. 本项目后台部分功能未完成，只有后台，前台就一个首页，所以不会有 OAuth 之类的演示功能，我们期望有时间的朋友可以补充完善它，谢谢！QQ群：319502940
 
 # License
 
