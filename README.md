@@ -93,6 +93,29 @@
 
 完事。
 
+# Docker
+
+1. 运行下面命令启动容器（镜像下载过程可能会很漫长，请尝试国内Docker服务商提供的加速服务）
+	
+ ```shell
+ sudo docker run -d -p 8080:80 -p 2222:22 lee2011/viease
+ ```
+ 
+2. ssh 到你的容器中 （密码：secret）
+
+ ```shell
+ ssh -p 2222 homestead@localhost
+ ```
+ 
+3. 修改 `/var/www/html/.env` 文件，配置数据库(容器中不包含数据库，请根据需要自己安装或者连接其他主机上的数据库服务器)，然后运行 artisan 命令创建数据库
+ ```shell
+ $ php artisan migrate
+ $ php artisan db:seed
+ ```
+ 
+4. 访问后台： `your-server-ip:8080/admin` 
+
+
 # 说明
 
 1. 公众号没认证玩不了。
