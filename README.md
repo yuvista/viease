@@ -93,6 +93,14 @@
 
 完事。
 
+# 友情提示
+
+1. 如果你使用 Homestead，环境可能缺少 mcrypt 拓展，那么使用以下命令来更新系统：
+    
+    ```shell
+    sudo apt-get update && sudo apt-get install mcrypt php7.0-mcrypt && sudo apt-get upgrade
+    ```
+
 # 说明
 
 1. 公众号没认证玩不了。
