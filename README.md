@@ -2,6 +2,11 @@
 
 微易，一款基于 [Laravel](http://laravel.com) 开发的，使用 [overtrue/wechat](https://github.com/overtrue/wechat) SDK 做为微信接入的微信公众平台管理系统框架。http://viease.cn/
 
+> 此项目为一个半成品，未完全开发完成，只是开源出来大家拿去做参考。所以，它不是一个完整的产品。
+> 那么，请不要在群里 @ 我提一些细节问题，我没有时间来帮忙你解决。你要是解决不了，就不要用了。
+> 你在玩这个东西之前有必要阅读完这一整篇 README，否则加群问问题也没有人理你。
+> 最后，谢谢配合！:pray:
+
 # 安装
 
 1. Git clone 并安装
