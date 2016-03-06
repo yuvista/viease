@@ -98,6 +98,26 @@
 
 完事。
 
+
+# 开发步骤
+
+1. gulp安装：
+
+   首先安装npm,然后执行:
+
+    ```shell
+    $ npm install gulp
+    ```
+2. ruby,sass安装:
+
+   [http://www.w3cplus.com/sassguide/install.html](http://www.w3cplus.com/sassguide/install.html)
+
+3. 修改scss文件,执行gulp
+    ```shell
+    $ cd /your-project-directory/public
+    $ gulp
+    ```
+
 # 友情提示
 
 1. 如果你使用 Homestead，环境可能缺少 mcrypt 拓展，那么使用以下命令来更新系统：
