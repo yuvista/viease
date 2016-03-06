@@ -3,7 +3,7 @@
  *
  * @author overtrue <anzhengchao@gmail.com>
  */
-define(['jquery', 'underscore', 'pager', 'util', 'repos/fan', 'admin/common'], function ($, _, Pager, Util, $fan) {
+define(['jquery', 'underscore', 'pager', 'util','validator', 'repos/fan', 'admin/common'], function ($, _, Pager, Util, Validator,$fan) {
     $(function(){
         var $emptyContentTemplate = _.template($('#no-content-template').html());
         var $fanTemplate    = _.template($('#fan-template').html());

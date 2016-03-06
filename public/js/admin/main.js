@@ -21,7 +21,7 @@ requirejs.config({
         fastclick: 'fastclick.min',
         relocator: 'relocator-1.0.1.min',
         store: 'store-json2.min',
-        validator: 'plugins/validator.js/index',
+        validator: 'plugins/validator.js/lib/validator',
         sweetalert: 'plugins/sweetalert/lib/sweet-alert.min',
         selectpicker: 'plugins/bootstrap-select/dist/js/bootstrap-select.min',
         selectpickerLang: 'plugins/bootstrap-select/dist/js/i18n/defaults-zh_CN',
@@ -48,7 +48,7 @@ requirejs.config({
         },
         validator: {
             exports: 'Validator',
-            deps: ['plugins.validator.js/i18n/zh_CN']
+            deps: ['plugins/validator.js/i18n/zh_CN']
         },
         bootstrap: ['jquery'],
         sweetalertUtil: ['sweetalert'],
